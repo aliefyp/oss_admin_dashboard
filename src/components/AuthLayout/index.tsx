@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Outlet } from 'react-router-dom';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import LanguageSelector from 'components/LanguageSelector';
 import Footer from './Footer';
 
 const AuthLayout = () => {
@@ -25,9 +26,12 @@ const AuthLayout = () => {
             className="!bg-gray-800"
           >
             <Toolbar>
-              <a href="/">
-                <img src="/logo_main.png" alt="Balkaun Uniku" />
-              </a>
+              <div className="grow">
+                <a href="/" className="block">
+                  <img src="/logo_main.png" alt="Balkaun Uniku" />
+                </a>
+              </div>
+              <LanguageSelector />
             </Toolbar>
           </AppBar>
           {showBackButton && (
