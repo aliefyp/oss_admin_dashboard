@@ -13,6 +13,7 @@ import AuthLayout from "components/AuthLayout";
 
 import Login from "pages/Login";
 import ForgotPassword from "pages/ForgotPassword";
+import ResetPassword from "pages/ResetPassword";
 
 import dictionary from "dictionary";
 
@@ -32,8 +33,8 @@ function App() {
                 <Route path="/products" element={<div>Products</div>} />
               </Route>
               <Route element={<AuthLayout />}>
-                <Route path="/register" element={<div>Register</div>} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/login" element={<Login />} />
               </Route>
             </Routes>

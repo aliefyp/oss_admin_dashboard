@@ -17,7 +17,20 @@ const resource = {
     label_email: "Email",
     cta_submit: "Request Reset Password ",
     resend_code: "You can request resend code in {{time}}s",
-  }
+  },
+  reset_password: {
+    title: "Reset Your Password",
+    label_password: "Password",
+    label_confirm_password: "Confirm Password",
+    cta_submit: "Submit",
+    validation: {
+      title: "Make sure your password contains it",
+      uppercase: "Uppercase",
+      lowercase: "Lowercase",
+      number: "Number",
+      special_character: "Special Character",
+    },
+  },
 };
 
 export default resource;
