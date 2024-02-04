@@ -11,6 +11,13 @@ const resource = {
     cta_submit: "Login",
     cta_forgot: "Forgot Password?"
   },
+  forgot_password: {
+    title: "Forgot Password?",
+    subtitle: "Please input your email, and get the link for reset your password",
+    label_email: "Email",
+    cta_submit: "Request Reset Password ",
+    resend_code: "You can request resend code in {{time}}s",
+  }
 };
 
 export default resource;

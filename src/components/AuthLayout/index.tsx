@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -10,6 +10,7 @@ import Footer from './Footer';
 const AuthLayout = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const showBackButton = pathname !== '/login';
 
@@ -30,14 +31,14 @@ const AuthLayout = () => {
             </Toolbar>
           </AppBar>
           {showBackButton && (
-            <div className='p-4 flex gap-2 items-center hover:underline'>
-              <ArrowBackOutlinedIcon />
-              <Typography variant="h6" noWrap component="div">
+            <div className='px-4 pt-6 pb-0 flex gap-2 items-center hover:underline cursor-pointer' onClick={() => navigate(-1)}>
+              <ArrowBackOutlinedIcon fontSize="medium" />
+              <Typography variant="body1" noWrap component="div" className="!font-bold">
                 {t('auth.back')}
               </Typography>
             </div>
           )}
-          <div className='grow flex justify-center items-center h-full p-3'>
+          <div className='grow flex justify-center items-center h-full p-3 max-w-[400px] mx-auto'>
             <Outlet />
           </div>
         </div>

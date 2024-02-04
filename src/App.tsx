@@ -12,6 +12,7 @@ import MainLayout from "components/MainLayout";
 import AuthLayout from "components/AuthLayout";
 
 import Login from "pages/Login";
+import ForgotPassword from "pages/ForgotPassword";
 
 import dictionary from "dictionary";
 
@@ -32,7 +33,7 @@ function App() {
               </Route>
               <Route element={<AuthLayout />}>
                 <Route path="/register" element={<div>Register</div>} />
-                <Route path="/forgot-password" element={<div>Forgot Password</div>} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/login" element={<Login />} />
               </Route>
             </Routes>
