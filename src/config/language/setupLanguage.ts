@@ -1,4 +1,5 @@
 import i18n from "i18next";
+import dayjs from "dayjs";
 import { initReactI18next } from "react-i18next";
 
 const setupLanguage = (dictionary) => {
@@ -9,6 +10,8 @@ const setupLanguage = (dictionary) => {
       lng: "en",
       fallbackLng: "en",
     });
+
+  dayjs.locale(i18n.language);
 };
 
 export default setupLanguage;
