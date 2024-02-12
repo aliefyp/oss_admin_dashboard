@@ -10,6 +10,20 @@ const setupTheme = () => createTheme({
     }
   },
   components: {
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          minWidth: '32px',
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
+        },
+      },
+    },
     MuiInputLabel: {
       styleOverrides: {
         root: {
