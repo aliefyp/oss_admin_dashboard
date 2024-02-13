@@ -2,6 +2,7 @@ import RegisteredCitizens from "./components/RegisteredCitizens";
 import TypeRegistered from "./components/TypeRegistered";
 import ByGender from "./components/ByGender";
 import ByAge from "./components/ByAge";
+import ServiceDistributed from "./components/ServiceDistributed";
 
 const Overview: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Overview: React.FC = () => {
       </div>
       <div className="col-span-4 space-y-4">
         <TypeRegistered />
+        <ServiceDistributed />
       </div>
     </div>
   );
