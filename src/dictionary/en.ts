@@ -4,12 +4,12 @@ const resource = {
     back: 'Back',
   },
   login: {
-    title: "Welcome Back!",
+    title: "Welcome Back",
     subtitle: "Please login to your account.",
     label_email: "Email",
     label_password: "Password",
     cta_submit: "Login",
-    cta_forgot: "Forgot Password?"
+    cta_forgot: "Forget Password?"
   },
   forgot_password: {
     title: "Forgot Password?",

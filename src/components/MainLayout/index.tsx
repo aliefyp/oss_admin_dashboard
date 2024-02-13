@@ -14,6 +14,7 @@ import MailIcon from '@mui/icons-material/Mail';
 // import AuthOutlet from '@auth-kit/react-router/AuthOutlet';
 import LanguageSelector from 'components/LanguageSelector';
 import { Avatar, IconButton } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -88,6 +89,7 @@ export default function ClippedDrawer() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
+        <Outlet />
         {/* <AuthOutlet fallbackPath='/login' /> */}
       </Box>
     </Box>

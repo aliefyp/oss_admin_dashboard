@@ -16,21 +16,21 @@ const AuthLayout = () => {
   const showBackButton = pathname !== '/login';
 
   return (
-    <div className="h-screen w-screen flex flex-col">
-      <div className="grid grid-cols-1 lg:grid-cols-2 grow">
+    <div className="h-screen w-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
         <img className='w-full h-full object-cover hidden lg:block' src='http://placehold.it/1000x1000' alt='Login' />
         <div className='flex flex-col'>
           <AppBar
             position="static"
             color="primary"
-            className="!bg-gray-800"
+            sx={{
+              backgroundColor: "#2E2D2D",
+            }}
           >
-            <Toolbar>
-              <div className="grow">
-                <a href="/" className="block">
-                  <img src="/logo_main.png" alt="Balkaun Uniku" />
-                </a>
-              </div>
+            <Toolbar sx={{ justifyContent: 'space-between' }}>
+              <a href="/" className="block">
+                <img src="/logo_main.png" alt="Balkaun Uniku" />
+              </a>
               <LanguageSelector />
             </Toolbar>
           </AppBar>
@@ -47,9 +47,7 @@ const AuthLayout = () => {
           </div>
         </div>
       </div>
-      <div className='col-span-12'>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   )
 }
