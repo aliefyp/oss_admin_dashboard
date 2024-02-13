@@ -10,6 +10,15 @@ const setupTheme = () => createTheme({
     }
   },
   components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontWeight: 700,
+          borderBottom: '2px solid #e0e0e0',
+        },
+      },
+    },
     MuiListItemIcon: {
       styleOverrides: {
         root: {
