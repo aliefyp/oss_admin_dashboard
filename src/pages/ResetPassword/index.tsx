@@ -50,7 +50,7 @@ const ResetPassword = () => {
 
   return (
     <div className='space-y-4'>
-      <Typography variant="h4" noWrap component="div" className='text-center'>
+      <Typography variant="h2" noWrap component="div" className='text-center'>
         {t('reset_password.title')}
       </Typography>
       <form autoComplete='off' noValidate onSubmit={handleSubmit}>

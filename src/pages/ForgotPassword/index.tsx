@@ -41,7 +41,7 @@ const ForgotPassword = () => {
 
   return (
     <div className='space-y-4'>
-      <Typography variant="h4" noWrap component="div" className='text-center'>
+      <Typography variant="h2" noWrap component="div" className='text-center'>
         {t('forgot_password.title')}
       </Typography>
       <Typography paragraph className='text-center text-gray-500'>
