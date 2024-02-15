@@ -11,6 +11,7 @@ import setupTheme from "config/theme/setupTheme";
 import MainLayout from "components/MainLayout";
 import AuthLayout from "components/AuthLayout";
 
+import Applicants from "pages/Applicants";
 import Overview from "pages/Overview";
 import Login from "pages/Login";
 import ForgotPassword from "pages/ForgotPassword";
@@ -31,6 +32,7 @@ function App() {
             <Routes>
               <Route element={<MainLayout />}>
                 <Route path="/" element={<Overview />} />
+                <Route path="/applicants" element={<Applicants />} />
                 <Route path="/products" element={<div>Products</div>} />
               </Route>
               <Route element={<AuthLayout />}>
