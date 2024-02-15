@@ -10,7 +10,7 @@ import PageHeading from "components/PageHeading";
 const Overview: React.FC = () => {
   return (
     <>
-      <PageHeading withBackButton title="Overview">
+      <PageHeading title="Overview">
         <Typography variant="caption" className="text-gray-600">Latest Update: <span className="text-gray-800">Monday, 15 April 2024 - 11:23</span></Typography>
       </PageHeading>
       <div className="grid grid-cols-12 gap-4">
