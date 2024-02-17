@@ -10,6 +10,15 @@ const setupTheme = () => createTheme({
     }
   },
   components: {
+    MuiModal: {
+      styleOverrides: {
+        root: {
+          '& .MuiPaper-root': {
+            borderRadius: '8px',
+          },
+        },
+      },
+    },
     MuiTab: {
       styleOverrides: {
         root: {
@@ -36,7 +45,7 @@ const setupTheme = () => createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          paddingLeft: 0,
+          transform: 'translate(0, -9px) scale(0.75)',
         },
       },
     },

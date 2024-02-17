@@ -12,6 +12,7 @@ import MainLayout from "components/MainLayout";
 import AuthLayout from "components/AuthLayout";
 
 import Applicants from "pages/Applicants";
+import ApplicantDetail from "pages/ApplicantDetail";
 import Overview from "pages/Overview";
 import Login from "pages/Login";
 import ForgotPassword from "pages/ForgotPassword";
@@ -34,6 +35,7 @@ function App() {
               <Route element={<MainLayout />}>
                 <Route path="/" element={<Overview />} />
                 <Route path="/applicants" element={<Applicants />} />
+                <Route path="/applicant-detail" element={<ApplicantDetail />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
               <Route element={<AuthLayout />}>
