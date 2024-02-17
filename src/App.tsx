@@ -16,6 +16,7 @@ import Overview from "pages/Overview";
 import Login from "pages/Login";
 import ForgotPassword from "pages/ForgotPassword";
 import ResetPassword from "pages/ResetPassword";
+import NotFound from "pages/NotFound";
 
 import dictionary from "dictionary";
 
@@ -33,7 +34,7 @@ function App() {
               <Route element={<MainLayout />}>
                 <Route path="/" element={<Overview />} />
                 <Route path="/applicants" element={<Applicants />} />
-                <Route path="/products" element={<div>Products</div>} />
+                <Route path="*" element={<NotFound />} />
               </Route>
               <Route element={<AuthLayout />}>
                 <Route path="/forgot-password" element={<ForgotPassword />} />

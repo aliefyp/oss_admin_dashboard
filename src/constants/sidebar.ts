@@ -1,28 +1,21 @@
 import {
-  TbBox,
-  TbLayoutDashboard,
+  TbCards,
+  TbFile,
+  TbHome,
   TbSettings,
 } from "react-icons/tb";
 
 export const MAIN_MENU = {
-  title: "MENU",
+  title: "Main Function",
   items: [
-    { text: "Overview", icon: TbLayoutDashboard, url: "/" },
-    {
-      text: "Stok",
-      icon: TbBox,
-      child: [
-        { text: "Data Stok", url: "/stock" },
-        { text: "Data Pembelian", url: "/stock/purchase" },
-        { text: "Data Stok Opname", url: "/stock/opname" },
-        { text: "Data Supplier", url: "/stock/supplier" },
-      ],
-    },
+    { text: "Overview", icon: TbHome, url: "/" },
+    { text: "Applicants", icon: TbFile, url: "/applicants" },
+    { text: "Issued Cards", icon: TbCards, url: "/issued-cards" },
   ],
 };
 
 export const EXTRAS_MENU = {
-  title: "LAINNYA",
+  title: "Other",
   items: [
     { text: 'Settings', icon: TbSettings, url: "/settings" },
   ],

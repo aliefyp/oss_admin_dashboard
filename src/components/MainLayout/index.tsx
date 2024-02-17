@@ -4,23 +4,36 @@ import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 // import AuthOutlet from '@auth-kit/react-router/AuthOutlet';
 import LanguageSelector from 'components/LanguageSelector';
-import { Avatar, IconButton } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { Avatar, IconButton, Typography } from '@mui/material';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { EXTRAS_MENU, MAIN_MENU } from 'constants/sidebar';
+import React from 'react';
 
 const drawerWidth = 240;
 
-export default function ClippedDrawer() {
+export default function MainLayout() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const handleMenuClick = (url: string) => {
+    if (pathname !== url) {
+      navigate(url);
+    }
+  }
+
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{
+      display: 'flex', minHeight: '100vh',
+      [`& .MuiPaper-root`]: {
+        borderBottom: "none"
+      },
+    }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -53,42 +66,60 @@ export default function ClippedDrawer() {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            backgroundColor: "#2E2D2D",
+            color: "#FFFFFF"
+          },
         }}
       >
         <Toolbar />
         <Box
-          sx={{ overflow: 'auto' }}
+          sx={{
+            overflow: 'auto',
+            paddingTop: '32px',
+          }}
         >
-          <List dense>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem key={text}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List dense>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem key={text}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+          {[MAIN_MENU, EXTRAS_MENU].map((menu, index) => (
+            <React.Fragment key={index}>
+              <Typography variant="h6" component="div" sx={{ px: 2, pt: 1 }}>
+                {menu.title}
+              </Typography>
+              <List dense sx={{ [`& .MuiTypography-root`]: { fontSize: '16px' } }}>
+                {menu.items.map((item, index) => (
+                  <ListItem
+                    key={item.text}
+                    sx={{
+                      [`& .Mui-selected`]: {
+                        backgroundColor: '#646464',
+                      },
+                      [`& .MuiButtonBase-root:hover,
+                      & .MuiButtonBase-root:focus,
+                      & .MuiButtonBase-root:active`]: {
+                        backgroundColor: '#424242',
+                      }
+                    }}
+                  >
+                    <ListItemButton
+                      selected={pathname === item.url}
+                      onClick={() => handleMenuClick(item.url)}
+                    >
+                      <ListItemIcon>
+                        <item.icon className="text-white text-lg" />
+                      </ListItemIcon>
+                      <ListItemText primary={item.text} />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+            </React.Fragment>
+          ))}
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
+        {/* TODO: change Outlet with AuthOutlet */}
         <Outlet />
         {/* <AuthOutlet fallbackPath='/login' /> */}
       </Box>
