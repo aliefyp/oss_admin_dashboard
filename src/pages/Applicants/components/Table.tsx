@@ -60,7 +60,7 @@ const Table = () => {
       width: 40,
       renderCell: (params: GridValueGetterParams) => (
         <div id="preview-button" className='hidden'>
-          <IconButton onClick={() => navigate(`/applicant-detail`)}>
+          <IconButton onClick={() => navigate(`/applicant`)}>
             <HiOutlineDocumentSearch className='text-sm font-bold' />
           </IconButton>
         </div>

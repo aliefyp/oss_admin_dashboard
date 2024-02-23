@@ -91,10 +91,14 @@ export default function MainLayout() {
                   <ListItem
                     key={item.text}
                     sx={{
-                      [`& .Mui-selected,
-                      & .Mui-selected:hover,
-                      & .Mui-selected:focus,
-                      & .Mui-selected:active`]: {
+                      [`.Mui-selected,
+                      .Mui-selected:hover,
+                      .Mui-selected:focus,
+                      .Mui-selected:active`]: {
+                        backgroundColor: '#646464',
+                      },
+                      [`& .MuiButtonBase-root:active,
+                      & .MuiButtonBase-root:focus`]: {
                         backgroundColor: '#646464',
                       },
                       [`& .MuiButtonBase-root:hover`]: {

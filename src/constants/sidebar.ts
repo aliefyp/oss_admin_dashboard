@@ -4,8 +4,8 @@ export const MAIN_MENU = {
   title: "Main Function",
   items: [
     { text: "Overview", icon: HiOutlineHome, url: "/" },
-    { text: "Applicants", icon: HiOutlineClipboard, url: "/applicants" },
-    { text: "Issued Cards", icon: HiOutlineCreditCard, url: "/issued-cards" },
+    { text: "Applicants", icon: HiOutlineClipboard, url: "/applicant" },
+    { text: "Issued Cards", icon: HiOutlineCreditCard, url: "/issued" },
   ],
 };
 
