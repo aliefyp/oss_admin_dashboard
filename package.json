@@ -29,6 +29,7 @@
     "react-error-boundary": "^4.0.12",
     "react-i18next": "^14.0.1",
     "react-icons": "^5.0.1",
+    "react-loadable": "^5.5.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",

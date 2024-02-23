@@ -5,7 +5,7 @@ export const MAIN_MENU = {
   items: [
     { text: "Overview", icon: HiOutlineHome, url: "/" },
     { text: "Applicants", icon: HiOutlineClipboard, url: "/applicant" },
-    { text: "Issued Cards", icon: HiOutlineCreditCard, url: "/issued" },
+    { text: "Issued Cards", icon: HiOutlineCreditCard, url: "/issued-card" },
   ],
 };
 
