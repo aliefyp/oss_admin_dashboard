@@ -1,4 +1,4 @@
-export default [
+const services = [
   {
     id: 'passport-card',
     name: 'Passport Card',
@@ -40,3 +40,5 @@ export default [
     icon: '/icon_service_birth_of_certificate.svg'
   },
 ]
+
+export default services;

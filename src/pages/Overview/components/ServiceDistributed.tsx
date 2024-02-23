@@ -1,18 +1,6 @@
 import { Typography } from "@mui/material";
 import services from "constants/services";
 
-const DUMMY_DATA = [
-  { id: 1, name: 'Pending', count: 15 },
-  { id: 2, name: 'In Progress', count: 15 },
-  { id: 3, name: 'Approved', count: 45 },
-  { id: 5, name: 'Rejected', count: 25 },
-  { id: 6, name: 'Pending', count: 15 },
-  { id: 7, name: 'In Progress', count: 15 },
-  { id: 8, name: 'Approved', count: 45 },
-  { id: 9, name: 'Rejected', count: 25 },
-  { id: 10, name: 'Approved', count: 45 },
-]
-
 const ServiceDistributed = () => {
   const serviceData = services.map((service) => ({ ...service, count: 5 }));
 

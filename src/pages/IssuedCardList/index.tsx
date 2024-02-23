@@ -16,7 +16,7 @@ const IssuedCardList: React.FC = () => {
     if (!serviceData) {
       navigate(-1);
     }
-  }, [serviceData])
+  }, [navigate, serviceData])
 
   return (
     <>
