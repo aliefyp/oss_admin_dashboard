@@ -1,9 +1,10 @@
 import { Chip, IconButton } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import CustomTablePagination from 'components/CustomTablePagination';
 import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 
-const Table = () => {
+const ApplicantTable = () => {
   const navigate = useNavigate();
 
   const columns: GridColDef[] = [
@@ -110,16 +111,22 @@ const Table = () => {
         density="standard"
         rows={rows}
         columns={columns}
+        showColumnVerticalBorder={false}
+        hideFooterSelectedRowCount
+        pagination
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
           },
         }}
-        pageSizeOptions={[10, 20]}
-        showColumnVerticalBorder={false}
+        slots={{
+          pagination: CustomTablePagination,
+        }}
         sx={{
+          border: 'none',
           [`& .MuiDataGrid-columnHeaders`]: {
             backgroundColor: '#dcdcdc',
+            borderRadius: '8px',
           },
           [`& .MuiDataGrid-columnHeaderTitle`]: {
             fontWeight: '700',
@@ -127,10 +134,13 @@ const Table = () => {
           [`& .MuiDataGrid-row:hover #download-button, & .MuiDataGrid-row:hover #preview-button`]: {
             display: 'block !important',
           },
+          [`& .MuiDataGrid-footerContainer`]: {
+            border: 'none',
+          },
         }}
       />
     </div>
   );
 }
 
-export default Table;
+export default ApplicantTable;

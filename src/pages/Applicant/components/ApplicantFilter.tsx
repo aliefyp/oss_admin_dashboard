@@ -26,7 +26,7 @@ const DUMMY_YEAR = [
   { id: '2', name: '2023' },
 ]
 
-const Filter = () => {
+const ApplicantFilter = () => {
   const [filter, setFilter] = useState({
     service: '0',
     region: '0',
@@ -117,4 +117,4 @@ const Filter = () => {
   );
 }
 
-export default Filter;
+export default ApplicantFilter;

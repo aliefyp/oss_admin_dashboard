@@ -16,9 +16,9 @@ const PageHeading = ({ children, title, withBackButton = false, onBack }: Props)
   }
 
   return (
-    <div className="flex items-center gap-3 justify-between mb-6">
+    <div className="flex items-center gap-3 justify-between mb-6 min-h-[40px]">
       {withBackButton && (
-        <IconButton onClick={handleBack}>
+        <IconButton onClick={handleBack} className="hover:-translate-x-1 duration-100 ease-out">
           <FaArrowLeft className='text-lg text-black' />
         </IconButton>
       )}
