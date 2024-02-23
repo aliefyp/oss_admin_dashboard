@@ -9,13 +9,6 @@ const DUMMY_SERVICES = [
   { id: '4', name: 'Service 4' },
 ]
 
-const DUMMY_REGION = [
-  { id: '1', name: 'Municipality' },
-  { id: '2', name: 'Dili' },
-  { id: '3', name: 'Maliana' },
-  { id: '4', name: 'Lospalos' },
-]
-
 const DUMMY_DELIVERY = [
   { id: '1', name: 'Normal' },
   { id: '2', name: 'Urgent' },
