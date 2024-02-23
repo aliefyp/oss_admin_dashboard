@@ -2,11 +2,25 @@ import { Chip, Typography } from "@mui/material";
 import PageHeading from "components/PageHeading";
 import IssuedCardListFilter from "./components/IssuedCardListFilter";
 import IssuedCardListTable from "./components/IssuedCardListTable";
+import { useNavigate, useParams } from "react-router-dom";
+import services from "constants/services";
+import { useEffect } from "react";
 
 const IssuedCardList: React.FC = () => {
+  const { issued_card_id } = useParams();
+  const navigate = useNavigate();
+
+  const serviceData = services.find((service) => service.id === issued_card_id);
+  
+  useEffect(() => {
+    if (!serviceData) {
+      navigate(-1);
+    }
+  }, [serviceData])
+
   return (
     <>
-      <PageHeading withBackButton title="Issued Cards: Passport Card" />
+      <PageHeading withBackButton title={`Issued Cards: ${serviceData.name}`} />
       <div className="space-y-4">
         <div className="mb-6 space-y-3">
           <IssuedCardListFilter />

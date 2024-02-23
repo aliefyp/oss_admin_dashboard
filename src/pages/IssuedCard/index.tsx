@@ -1,19 +1,15 @@
 import PageHeading from "components/PageHeading";
-import CategoryCard from "./components/CategoryCard";
+import ServiceCard from "./components/ServiceCard";
+import services from "constants/services";
 
 const IssuedCard = () => {
   return (
     <div>
       <PageHeading title="Issued Cards" />
       <div className="grid grid-cols-4 gap-4">
-        <CategoryCard category="Birth Certificate" count={5} />
-        <CategoryCard category="Marriage Certificate" count={5} />
-        <CategoryCard category="Death Certificate" count={5} />
-        <CategoryCard category="Birth Certificate" count={5} />
-        <CategoryCard category="Marriage Certificate" count={5} />
-        <CategoryCard category="Death Certificate" count={5} />
-        <CategoryCard category="Marriage Certificate" count={5} />
-        <CategoryCard category="Death Certificate" count={5} />
+        {services.map((service) => (
+          <ServiceCard key={service.id} {...service} count={5} />
+        ))}
       </div>
     </div>
   );

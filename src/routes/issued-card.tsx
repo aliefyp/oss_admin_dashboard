@@ -16,7 +16,7 @@ function IssuedCardRoute() {
   return (
     <Routes>
       <Route path="/" element={<LazyIssuedCard />} />
-      <Route path="/:card_id" element={<LazyIssuedCardList />} />
+      <Route path="/:issued_card_id" element={<LazyIssuedCardList />} />
     </Routes>
   );
 }
