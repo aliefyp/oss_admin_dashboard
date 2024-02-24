@@ -61,7 +61,7 @@ const ApplicantTable = () => {
       width: 40,
       renderCell: (params: GridValueGetterParams) => (
         <div id="preview-button" className='hidden'>
-          <IconButton onClick={() => navigate(`/applicant`)}>
+          <IconButton onClick={() => navigate(`/applicant/123`)}>
             <HiOutlineDocumentSearch className='text-sm font-bold' />
           </IconButton>
         </div>
