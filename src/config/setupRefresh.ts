@@ -8,7 +8,7 @@ interface RefreshTokenCallbackResponse {
 }
 
 const setupRefresh = createRefresh({
-  interval: 10, // The time in sec to refresh the Access token,
+  interval: 86400, // The time in sec to refresh the Access token,
   refreshApiCallback: async (param): Promise<RefreshTokenCallbackResponse> => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}`, {
