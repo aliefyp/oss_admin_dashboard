@@ -30,12 +30,12 @@ const Login = () => {
     const password = formData.get('password') as string;
 
     login.mutateAsync({ email, password })
-    .then((data) => {
-      console.log(data)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+      .then((data) => {
+        console.log('data', data)
+      })
+      .catch((error) => {
+        console.log('error', error)
+      })
   }
 
   return (
