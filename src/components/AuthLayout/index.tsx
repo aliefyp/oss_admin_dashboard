@@ -16,9 +16,14 @@ const AuthLayout = () => {
   const showBackButton = pathname !== '/login';
 
   return (
-    <div className="h-screen w-screen">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <img className='w-full h-full object-cover hidden lg:block' src='http://placehold.it/1000x1000' alt='Login' />
+    <div className="h-screen w-screen flex flex-col">
+      <div className="grow items-stretch grid grid-cols-1 lg:grid-cols-2">
+        <img
+          src='/hero_login.jpeg'
+          alt='Login'
+          className='object-cover hidden lg:block w-full'
+          style={{ height: 'calc(100vh - 52px)' }}
+        />
         <div className='flex flex-col'>
           <AppBar
             position="static"
