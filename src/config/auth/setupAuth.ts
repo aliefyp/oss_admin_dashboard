@@ -1,3 +1,4 @@
+import setupRefresh from 'config/setupRefresh';
 import createStore from 'react-auth-kit/createStore';
 
 const setupAuth = () => {
@@ -6,6 +7,7 @@ const setupAuth = () => {
     authName: process.env.REACT_APP_SESSION_PREFIX || "",
     cookieDomain: window.location.hostname,
     cookieSecure: process.env.NODE_ENV === "production",
+    refresh: setupRefresh,
   })
 }
 

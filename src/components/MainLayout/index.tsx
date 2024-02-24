@@ -8,10 +8,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-// import AuthOutlet from '@auth-kit/react-router/AuthOutlet';
+import AuthOutlet from '@auth-kit/react-router/AuthOutlet';
 import LanguageSelector from 'components/LanguageSelector';
 import { Avatar, IconButton, Typography } from '@mui/material';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { EXTRAS_MENU, MAIN_MENU } from 'constants/sidebar';
 import React from 'react';
 
@@ -124,9 +124,7 @@ export default function MainLayout() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        {/* TODO: change Outlet with AuthOutlet */}
-        <Outlet />
-        {/* <AuthOutlet fallbackPath='/login' /> */}
+        <AuthOutlet fallbackPath='/login' />
       </Box>
     </Box>
   );

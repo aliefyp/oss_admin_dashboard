@@ -1,22 +1,35 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from "react-i18next";
-import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
-import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import {
+  Button,
+  Input,
+  FormControl,
+  IconButton,
+  InputLabel,
+  InputAdornment,
+  Link,
+  Typography,
+  Snackbar,
+  Alert
+} from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useLogin } from 'api/auth/login';
+import { useNavigate } from 'react-router';
+import PageLoader from 'components/PageLoader';
 
 const Login = () => {
   const { t } = useTranslation();
   const login = useLogin();
+  const navigate = useNavigate();
+  const signIn = useSignIn()
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -24,35 +37,71 @@ const Login = () => {
     event.preventDefault();
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-
+  const handleSubmit = useCallback(() => {
     login.mutateAsync({ email, password })
-      .then((data) => {
-        console.log('data', data)
+      .then((res) => {
+        if (res.errorMessage) {
+          throw new Error(res.errorMessage)
+        }
+
+        if (signIn({
+          auth: {
+            token: res.data.accessToken,
+            type: 'Bearer',
+          },
+          refresh: res.data.refreshToken,
+          userState: {
+            email: res.data.email,
+            userId: res.data.userId,
+            roleId: res.data.roleId,
+          }
+        })) {
+          navigate('/')
+        } else {
+          throw new Error(res.errorMessage)
+        }
       })
       .catch((error) => {
-        console.log('error', error)
+        setShowAlert(true);
+        setAlertMessage(error.message);
       })
-  }
+  }, [email, password, login, navigate, signIn]);
 
   return (
-    <div className='space-y-4'>
-      <Typography variant="h2" noWrap component="div" className='text-center'>
-        {t('login.title')}
-      </Typography>
-      <Typography paragraph className='text-center text-gray-500'>
-        {t('login.subtitle')}
-      </Typography>
-      <form autoComplete='off' noValidate onSubmit={handleSubmit}>
+    <>
+      {login.isLoading && (
+        <PageLoader />
+      )}
+      <Snackbar
+        open={showAlert}
+        autoHideDuration={5000}
+        onClose={() => setShowAlert(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          severity="error"
+          variant='filled'
+          onClose={() => setShowAlert(false)}
+          sx={{ width: '100%' }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
+      <div className='space-y-4'>
+        <Typography variant="h2" noWrap component="div" className='text-center'>
+          {t('login.title')}
+        </Typography>
+        <Typography paragraph className='text-center text-gray-500'>
+          {t('login.subtitle')}
+        </Typography>
         <FormControl sx={{ my: 2, width: '100%' }} variant="outlined" required>
           <InputLabel htmlFor="email" variant='outlined'>{t('login.label_email')}</InputLabel>
           <Input
             id="email"
             name="email"
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
         <FormControl sx={{ my: 2, width: '100%' }} variant="outlined" required>
@@ -61,6 +110,8 @@ const Login = () => {
             id="password"
             name="password"
             type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -76,7 +127,7 @@ const Login = () => {
           />
         </FormControl>
         <div className="space-y-4 mt-4">
-          <Button type="submit" size="large" variant="contained" className="w-full">
+          <Button type="button" size="large" variant="contained" className="w-full" onClick={handleSubmit}>
             <span className="py-2">
               {t('login.cta_submit')}
             </span>
@@ -86,9 +137,9 @@ const Login = () => {
           </Link>
 
         </div>
-      </form>
 
-    </div>
+      </div>
+    </>
   )
 }
 

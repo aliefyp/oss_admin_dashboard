@@ -1,11 +1,12 @@
 import { useMutation } from 'react-query';
+import { LoginResponse } from 'types/login';
 
 export type LoginData = {
   email: string;
   password: string;
 }
 
-const login = async (params: LoginData) => {
+const login = async (params: LoginData): Promise<LoginResponse> => {
   const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/auth/login`, {
     method: 'POST',
     body: JSON.stringify(params),
@@ -18,5 +19,5 @@ const login = async (params: LoginData) => {
 };
 
 export const useLogin = () => {
-  return useMutation<LoginData, Error, LoginData>(login);
+  return useMutation<LoginResponse, Error, LoginData>(login);
 };
