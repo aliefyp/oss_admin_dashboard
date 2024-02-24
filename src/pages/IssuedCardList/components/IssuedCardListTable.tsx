@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import {
   DataGrid,
   GridColDef,
@@ -23,9 +23,11 @@ const IssuedCardListTable = () => {
       width: 40,
       renderCell: (params: GridValueGetterParams) => (
         <div id="download-button" className='hidden'>
-          <IconButton>
-            <HiDownload className='text-sm font-bold' />
-          </IconButton>
+          <Tooltip title="Download">
+            <IconButton>
+              <HiDownload className='text-sm font-bold' />
+            </IconButton>
+          </Tooltip>
         </div>
       ),
     },
@@ -130,6 +132,7 @@ const IssuedCardListTable = () => {
         columns={columns}
         showColumnVerticalBorder={false}
         hideFooterSelectedRowCount
+        disableColumnMenu
         pagination
         initialState={{
           pagination: {

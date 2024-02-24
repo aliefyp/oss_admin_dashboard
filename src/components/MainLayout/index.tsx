@@ -95,7 +95,7 @@ export default function MainLayout() {
                       .Mui-selected:hover,
                       .Mui-selected:focus,
                       .Mui-selected:active`]: {
-                        backgroundColor: '#646464',
+                        backgroundColor: '#646464 !important',
                       },
                       [`& .MuiButtonBase-root:active,
                       & .MuiButtonBase-root:focus`]: {

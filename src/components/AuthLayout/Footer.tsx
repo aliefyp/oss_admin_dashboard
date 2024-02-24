@@ -6,7 +6,7 @@ const Footer = () => {
   // TODO: Change the content of the footer
 
   return (
-    <div className="bg-gray-800 p-4 text-white min-h-[52px]">
+    <div className="bg-[#2E2D2D] p-4 text-white min-h-[52px]">
       <div className='w-full max-w-screen-lg mx-auto flex flex-wrap gap-2 justify-between'>
 
         <Typography component="div" fontSize="small">

@@ -10,9 +10,11 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useLogin } from 'api/auth/login';
 
 const Login = () => {
   const { t } = useTranslation();
+  const login = useLogin();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -23,11 +25,17 @@ const Login = () => {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    console.log({ email, password });
+
+    login.mutateAsync({ email, password })
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   }
 
   return (

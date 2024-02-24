@@ -1,4 +1,4 @@
-import { Chip, IconButton } from '@mui/material';
+import { Chip, IconButton, Tooltip } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
 import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
@@ -46,9 +46,11 @@ const ApplicantTable = () => {
       width: 40,
       renderCell: (params: GridValueGetterParams) => (
         <div id="download-button" className='hidden'>
-          <IconButton>
-            <HiDownload className='text-sm font-bold' />
-          </IconButton>
+          <Tooltip title="Download">
+            <IconButton>
+              <HiDownload className='text-sm font-bold' />
+            </IconButton>
+          </Tooltip>
         </div>
       ),
     },
@@ -61,9 +63,11 @@ const ApplicantTable = () => {
       width: 40,
       renderCell: (params: GridValueGetterParams) => (
         <div id="preview-button" className='hidden'>
-          <IconButton onClick={() => navigate(`/applicant/123`)}>
-            <HiOutlineDocumentSearch className='text-sm font-bold' />
-          </IconButton>
+          <Tooltip title="Preview">
+            <IconButton onClick={() => navigate(`/applicant/123`)}>
+              <HiOutlineDocumentSearch className='text-sm font-bold' />
+            </IconButton>
+          </Tooltip>
         </div>
       ),
     },
@@ -113,6 +117,7 @@ const ApplicantTable = () => {
         columns={columns}
         showColumnVerticalBorder={false}
         hideFooterSelectedRowCount
+        disableColumnMenu
         pagination
         initialState={{
           pagination: {
