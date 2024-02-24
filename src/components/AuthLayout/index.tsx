@@ -1,19 +1,38 @@
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutlet } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Outlet } from 'react-router-dom';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import LanguageSelector from 'components/LanguageSelector';
 import Footer from './Footer';
+import { useEffect, useState } from "react";
+import { CSSTransition } from "react-transition-group";
+import './style.css';
+
+const TRANSITION_DURATION_MS = 200;
 
 const AuthLayout = () => {
   const { t } = useTranslation();
-  const { pathname } = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
+  const outlet = useOutlet();
 
-  const showBackButton = pathname !== '/login';
+  const [currentOutlet, setCurrentOutlet] = useState(outlet)
+  const [isRouting, setIsRouting] = useState(false)
+
+  const showBackButton = location.pathname !== '/login';
+
+  useEffect(() => {
+    setIsRouting(false)
+    let timeout = setTimeout(() => {
+      setCurrentOutlet(outlet)
+      setIsRouting(true)
+      clearTimeout(timeout)
+    }, TRANSITION_DURATION_MS)
+    return () => clearTimeout(timeout)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
 
   return (
     <div className="h-screen w-screen flex flex-col">
@@ -47,9 +66,17 @@ const AuthLayout = () => {
               </Typography>
             </div>
           )}
-          <div className='grow flex justify-center items-center h-full p-3 max-w-[400px] mx-auto'>
-            <Outlet />
-          </div>
+          <CSSTransition
+            key={location.key}
+            in={isRouting}
+            timeout={TRANSITION_DURATION_MS}
+            classNames="route"
+            unmountOnExit
+          >
+            <div className='grow flex justify-center items-center h-full p-3 max-w-[400px] mx-auto'>
+              {currentOutlet}
+            </div>
+          </CSSTransition>
         </div>
       </div>
       <Footer />
