@@ -22,6 +22,9 @@ const drawerWidth = 240;
 export default function MainLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const from = pathname !== '/'
+    ? `?${new URLSearchParams({ from: `${pathname}` }).toString()}`
+    : '';
 
   const handleMenuClick = (url: string) => {
     if (pathname !== url) {
@@ -116,7 +119,7 @@ export default function MainLayout() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        <AuthOutlet fallbackPath='/login' />
+        <AuthOutlet fallbackPath={`/login${from}`} />
       </Box>
     </Box>
   );

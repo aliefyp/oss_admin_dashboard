@@ -16,14 +16,16 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useLogin } from 'api/auth/login';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import PageLoader from 'components/PageLoader';
 
 const Login = () => {
   const { t } = useTranslation();
   const login = useLogin();
   const navigate = useNavigate();
-  const signIn = useSignIn()
+  const signIn = useSignIn();
+  const location = useLocation();
+  const from = new URLSearchParams(location.search).get('from') || '/';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,7 +58,7 @@ const Login = () => {
             roleId: res.data.roleId,
           }
         })) {
-          navigate('/')
+          navigate(from, { replace: true });
         } else {
           throw new Error(res.errorMessage)
         }
@@ -65,7 +67,7 @@ const Login = () => {
         setShowAlert(true);
         setAlertMessage(error.message);
       })
-  }, [email, password, login, navigate, signIn]);
+  }, [email, from, password, login, navigate, signIn]);
 
   return (
     <>
