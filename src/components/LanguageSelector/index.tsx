@@ -24,6 +24,11 @@ const LaguageSelector = () => {
     handleClose();
   }
 
+  const locales = [
+    { code: 'en', name: 'English' },
+    { code: 'pt', name: 'Portugese' },
+  ]
+
   return (
     <div>
       <Button
@@ -36,7 +41,7 @@ const LaguageSelector = () => {
         className="!text-white"
         endIcon={<KeyboardArrowDownIcon />}
       >
-        {i18n.language.toUpperCase()}
+        {i18n.resolvedLanguage?.toUpperCase()}
       </Button>
       <Menu
         id="demo-positioned-menu"
@@ -53,8 +58,8 @@ const LaguageSelector = () => {
           horizontal: 'left',
         }}
       >
-        {i18n.languages.map((lng) => (
-          <MenuItem key={lng} onClick={() => handleChangeLanguage(lng)}>{lng.toUpperCase()}</MenuItem>
+        {locales.map((loc) => (
+          <MenuItem key={loc.code} onClick={() => handleChangeLanguage(loc.code)}>{loc.name}</MenuItem>
         ))}
       </Menu>
     </div>

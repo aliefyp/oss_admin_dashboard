@@ -2,11 +2,11 @@ import en from './en';
 import pt from './pt';
 
 const dictionary = {
-  en: {
-    translation: en,
-  },
   pt: {
     translation: pt,
+  },
+  en: {
+    translation: en,
   },
 };
 

@@ -21,6 +21,8 @@
     "@types/react-dom": "^18.2.18",
     "dayjs": "^1.11.10",
     "i18next": "^23.8.2",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "i18next-http-backend": "^2.5.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.3",
     "react": "^18.2.0",
