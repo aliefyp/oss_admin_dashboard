@@ -10,10 +10,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AuthOutlet from '@auth-kit/react-router/AuthOutlet';
 import LanguageSelector from 'components/LanguageSelector';
-import { Avatar, IconButton, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { EXTRAS_MENU, MAIN_MENU } from 'constants/sidebar';
 import React from 'react';
+import Notification from 'components/Notification';
+import UserNav from 'components/UserNav';
 
 const drawerWidth = 240;
 
@@ -46,18 +48,8 @@ export default function MainLayout() {
           <img src="/logo_main.png" alt="Balkaun Uniku" />
           <div className="flex items-center gap-2">
             <LanguageSelector />
-            <IconButton>
-              <img src="/icon_notification.svg" alt="Notification" />
-            </IconButton>
-            <IconButton>
-              <Avatar
-                alt="Username"
-                variant="rounded"
-                sx={{ width: 32, height: 32 }}
-              >
-                U
-              </Avatar>
-            </IconButton>
+            <Notification />
+            <UserNav />
           </div>
         </Toolbar>
       </AppBar>

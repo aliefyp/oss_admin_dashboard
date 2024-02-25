@@ -14,6 +14,7 @@ import MainLayout from "components/MainLayout";
 import AuthLayout from "components/AuthLayout";
 
 import Login from "pages/Login";
+import Logout from "pages/Logout";
 import ForgotPassword from "pages/ForgotPassword";
 import ResetPassword from "pages/ResetPassword";
 import NotFound from "pages/NotFound";
@@ -47,6 +48,7 @@ function App() {
                   <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/login" element={<Login />} />
                 </Route>
+                <Route path="/logout" element={<Logout />} />
               </Routes>
             </BrowserRouter>
           </ThemeProvider>

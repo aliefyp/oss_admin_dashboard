@@ -1,17 +1,16 @@
 import * as React from 'react';
-import { useTranslation } from "react-i18next";
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { ListItemIcon, Typography } from '@mui/material';
-import { HiCheck } from 'react-icons/hi';
+import { IconButton, Typography } from '@mui/material';
 
-const LaguageSelector = () => {
+const DUMMY_NOTIFICATIONS = [
+  'Test Notif A',
+  'Test Notif B',
+]
+
+const Notification = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  const { i18n } = useTranslation();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -21,30 +20,18 @@ const LaguageSelector = () => {
     setAnchorEl(null);
   };
 
-  const handleChangeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    handleClose();
-  }
-
-  const locales = [
-    { code: 'en', name: 'English' },
-    { code: 'pt', name: 'Portugese' },
-  ]
-
   return (
     <div>
-      <Button
+      <IconButton
         id="language-selector"
-        variant="text"
         aria-controls={open ? 'language-selector' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         className="!text-white"
-        endIcon={<KeyboardArrowDownIcon />}
       >
-        {i18n.resolvedLanguage?.toUpperCase()}
-      </Button>
+        <img src="/icon_notification.svg" alt="Notification" />
+      </IconButton>
       <Menu
         id="language-selector"
         aria-labelledby="language-selector"
@@ -60,12 +47,9 @@ const LaguageSelector = () => {
           horizontal: 'left',
         }}
       >
-        {locales.map((loc) => (
-          <MenuItem key={loc.code} onClick={() => handleChangeLanguage(loc.code)}>
-            <ListItemIcon>
-              {i18n.resolvedLanguage === loc.code && <HiCheck className='text-green-500 font-bold' />}
-            </ListItemIcon>
-            <Typography>{loc.name}</Typography>
+        {DUMMY_NOTIFICATIONS.map((notif) => (
+          <MenuItem key={notif} onClick={() => {}}>
+            <Typography>{notif}</Typography>
           </MenuItem>
         ))}
       </Menu>
@@ -73,4 +57,4 @@ const LaguageSelector = () => {
   );
 }
 
-export default LaguageSelector;
+export default Notification;

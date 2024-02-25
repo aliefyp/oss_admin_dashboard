@@ -1,17 +1,14 @@
 import * as React from 'react';
-import { useTranslation } from "react-i18next";
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { ListItemIcon, Typography } from '@mui/material';
-import { HiCheck } from 'react-icons/hi';
+import { Avatar, IconButton, ListItemIcon, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { HiLogout } from 'react-icons/hi';
 
-const LaguageSelector = () => {
+const UserNav = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  const { i18n } = useTranslation();
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -21,30 +18,29 @@ const LaguageSelector = () => {
     setAnchorEl(null);
   };
 
-  const handleChangeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    handleClose();
-  }
 
-  const locales = [
-    { code: 'en', name: 'English' },
-    { code: 'pt', name: 'Portugese' },
+  const actions = [
+    { label: 'Logout', onClick: () => navigate('/logout') },
   ]
 
   return (
     <div>
-      <Button
+      <IconButton
         id="language-selector"
-        variant="text"
         aria-controls={open ? 'language-selector' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         className="!text-white"
-        endIcon={<KeyboardArrowDownIcon />}
       >
-        {i18n.resolvedLanguage?.toUpperCase()}
-      </Button>
+        <Avatar
+          alt="Username"
+          variant="rounded"
+          sx={{ width: 32, height: 32 }}
+        >
+          U
+        </Avatar>
+      </IconButton>
       <Menu
         id="language-selector"
         aria-labelledby="language-selector"
@@ -60,12 +56,12 @@ const LaguageSelector = () => {
           horizontal: 'left',
         }}
       >
-        {locales.map((loc) => (
-          <MenuItem key={loc.code} onClick={() => handleChangeLanguage(loc.code)}>
+        {actions.map((action) => (
+          <MenuItem key={action.label} onClick={action.onClick}>
             <ListItemIcon>
-              {i18n.resolvedLanguage === loc.code && <HiCheck className='text-green-500 font-bold' />}
+              <HiLogout />
             </ListItemIcon>
-            <Typography>{loc.name}</Typography>
+            <Typography>{action.label}</Typography>
           </MenuItem>
         ))}
       </Menu>
@@ -73,4 +69,4 @@ const LaguageSelector = () => {
   );
 }
 
-export default LaguageSelector;
+export default UserNav;
