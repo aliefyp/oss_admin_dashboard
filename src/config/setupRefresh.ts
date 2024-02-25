@@ -23,8 +23,8 @@ const setupRefresh = createRefresh({
       return {
         isSuccess: true,
         newAuthToken: data.data.accessToken,
-        newAuthTokenExpireIn: 10,
-        newRefreshTokenExpiresIn: 60
+        newAuthTokenExpireIn: 86400,
+        newRefreshTokenExpiresIn: 86400
       }
     }
     catch(error){

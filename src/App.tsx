@@ -13,7 +13,6 @@ import setupTheme from "config/theme/setupTheme";
 import MainLayout from "components/MainLayout";
 import AuthLayout from "components/AuthLayout";
 
-import Overview from "pages/Overview";
 import Login from "pages/Login";
 import ForgotPassword from "pages/ForgotPassword";
 import ResetPassword from "pages/ResetPassword";
@@ -21,6 +20,7 @@ import NotFound from "pages/NotFound";
 
 import ApplicantRoute from "routes/applicant";
 import IssuedCardRoute from "routes/issued-card";
+import OverviewRoute from "routes/overview";
 
 import './App.css';
 import { Suspense } from "react";
@@ -37,9 +37,9 @@ function App() {
             <BrowserRouter>
               <Routes>
                 <Route element={<MainLayout />}>
-                  <Route path="/" element={<Overview />} />
                   <Route path="/applicant/*" element={<ApplicantRoute />} />
                   <Route path="/issued-card/*" element={<IssuedCardRoute />} />
+                  <Route path="/" element={<OverviewRoute />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
                 <Route element={<AuthLayout />}>
