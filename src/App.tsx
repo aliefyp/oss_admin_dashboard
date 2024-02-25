@@ -22,6 +22,7 @@ import NotFound from "pages/NotFound";
 import ApplicantRoute from "routes/applicant";
 import IssuedCardRoute from "routes/issued-card";
 import OverviewRoute from "routes/overview";
+import NotificationRoute from "routes/notification";
 
 import './App.css';
 import { Suspense } from "react";
@@ -40,6 +41,7 @@ function App() {
                 <Route element={<MainLayout />}>
                   <Route path="/applicant/*" element={<ApplicantRoute />} />
                   <Route path="/issued-card/*" element={<IssuedCardRoute />} />
+                  <Route path="/notification" element={<NotificationRoute />} />
                   <Route path="/" element={<OverviewRoute />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
