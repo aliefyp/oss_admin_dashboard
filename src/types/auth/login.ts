@@ -1,4 +1,4 @@
-export interface LoginResponse {
+export interface Response {
   success: boolean
   errorMessage: string
   data: Data

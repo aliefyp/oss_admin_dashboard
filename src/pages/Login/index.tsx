@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { useLogin } from 'api/auth/login';
+import { useLogin } from 'api/auth';
 import { useNavigate, useLocation } from 'react-router';
 import PageLoader from 'components/PageLoader';
 
