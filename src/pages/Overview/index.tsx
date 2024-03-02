@@ -8,7 +8,6 @@ import Filter from "./components/Filter";
 import PageHeading from "components/PageHeading";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
-import i18next from "i18next";
 
 const Overview: React.FC = () => {
   const { t } = useTranslation();
