@@ -7,6 +7,8 @@ import ServiceDistributed from "./components/ServiceDistributed";
 import Filter from "./components/Filter";
 import PageHeading from "components/PageHeading";
 import { useTranslation } from "react-i18next";
+import dayjs from "dayjs";
+import i18next from "i18next";
 
 const Overview: React.FC = () => {
   const { t } = useTranslation();
@@ -15,7 +17,7 @@ const Overview: React.FC = () => {
     <>
       <PageHeading title={t("page_overview.title")}>
         <Typography variant="caption" className="text-gray-600">
-          {t('page_overview.latest_update')} <span className="text-gray-800">Monday, 15 April 2024 - 11:23</span>
+          {t('page_overview.latest_update')} <span className="text-gray-800">{dayjs().format("dddd, DD MMMM YYYY - HH:mm")}</span>
         </Typography>
       </PageHeading>
       <div className="grid grid-cols-12 gap-4">

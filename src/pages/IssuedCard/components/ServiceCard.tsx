@@ -2,6 +2,7 @@ import { Typography } from "@mui/material"
 import { HiArrowRight } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { Service } from "../types";
+import { useTranslation } from "react-i18next";
 
 interface ServiceCardProps extends Service {
   count: number;
@@ -9,6 +10,7 @@ interface ServiceCardProps extends Service {
 
 const ServiceCard = ({ id, icon, name, count }: ServiceCardProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div
@@ -22,7 +24,9 @@ const ServiceCard = ({ id, icon, name, count }: ServiceCardProps) => {
         <HiArrowRight className="text-2xl mr-2 group-hover:translate-x-3 ease-out duration-100" />
       </div>
       <Typography variant="h6">{name}</Typography>
-      <Typography className="text-red-500">{`${count} issued cards`}</Typography>
+      <Typography className="text-red-500">
+        {t('page_issued_card.card_count', { count })}
+      </Typography>
     </div>
   );
 }

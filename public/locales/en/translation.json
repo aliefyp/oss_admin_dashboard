@@ -3,6 +3,12 @@
   "auth": {
     "back": "Back"
   },
+  "sidebar": {
+    "overview": "Overview",
+    "applicant": "Applicants",
+    "issued_card": "Issued Cards",
+    "settings": "Settings"
+  },
   "login": {
     "title": "Welcome Back",
     "subtitle": "Please login to your account.",
@@ -142,6 +148,28 @@
       "placeholder_message": "Type your message here...",
       "cta_reject": "Reject",
       "cta_recheck": "Recheck"
+    }
+  },
+  "page_issued_card": {
+    "title": "Issued Cards",
+    "card_count": "{{count}} issued cards"
+  },
+  "page_issued_card_list": {
+    "title": "Issued Card",
+    "total_issued": "Total <b>{{count}}</b> Issued Cards",
+    "reset_filter": "Reset Filter",
+    "filter": {
+      "all_service": "All Service",
+      "all_deliver": "All Deliver",
+      "all_year": "All Year",
+      "search_placeholder":  "Search ID or citizens name here"
+    },
+    "table": {
+      "row_id": "ID",
+      "row_citizens": "Citizens",
+      "row_municipality": "Municipality",
+      "row_deliver": "Deliver",
+      "row_submission_date": "Submission Date"
     }
   }
 }

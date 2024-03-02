@@ -1,5 +1,6 @@
 import { FormControl, InputAdornment, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaSearch } from "react-icons/fa";
 
 const DUMMY_SERVICES = [
@@ -20,6 +21,7 @@ const DUMMY_YEAR = [
 ]
 
 const IssuedCardListFilter = () => {
+  const { t }  = useTranslation();
   const [filter, setFilter] = useState({
     service: '0',
     delivery: '0',
@@ -38,7 +40,7 @@ const IssuedCardListFilter = () => {
       <div className="col-span-4">
         <TextField
           size="small"
-          placeholder="Search ID or citizens name here"
+          placeholder={t('page_issued_card_list.filter.search_placeholder')}
           id="search-citizen"
           sx={{ width: '100%' }}
           InputProps={{
@@ -55,7 +57,7 @@ const IssuedCardListFilter = () => {
               value={filter.service}
               onChange={e => handleFilterChange(e, 'service')}
             >
-              <MenuItem value="0">All Service</MenuItem>
+              <MenuItem value="0">{t('page_issued_card_list.filter.all_service')}</MenuItem>
               {DUMMY_SERVICES.map((svc) => (
                 <MenuItem key={svc.id} value={svc.id}>{svc.name}</MenuItem>
               ))}
@@ -69,7 +71,7 @@ const IssuedCardListFilter = () => {
               value={filter.delivery}
               onChange={e => handleFilterChange(e, 'delivery')}
             >
-              <MenuItem value="0">All Delivery</MenuItem>
+              <MenuItem value="0">{t('page_issued_card_list.filter.all_deliver')}</MenuItem>
               {DUMMY_DELIVERY.map((gd) => (
                 <MenuItem key={gd.id} value={gd.id}>{gd.name}</MenuItem>
               ))}
@@ -83,7 +85,7 @@ const IssuedCardListFilter = () => {
               value={filter.year}
               onChange={e => handleFilterChange(e, 'year')}
             >
-              <MenuItem value="0">Sort Year</MenuItem>
+              <MenuItem value="0">{t('page_issued_card_list.filter.all_year')}</MenuItem>
               {DUMMY_YEAR.map((yr) => (
                 <MenuItem key={yr.id} value={yr.id}>{yr.name}</MenuItem>
               ))}

@@ -28,6 +28,9 @@ import './App.css';
 import { Suspense } from "react";
 import PageLoader from "components/PageLoader";
 
+import 'dayjs/locale/en';
+import 'dayjs/locale/pt';
+
 dayjs.locale(i18next.resolvedLanguage);
 
 function App() {

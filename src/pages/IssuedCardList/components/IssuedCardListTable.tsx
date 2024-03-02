@@ -5,15 +5,18 @@ import {
   GridValueGetterParams,
 } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
+import { useTranslation } from 'react-i18next';
 import { HiDownload } from 'react-icons/hi';
 
 const IssuedCardListTable = () => {
+  const { t } = useTranslation();
+
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'citizens', headerName: 'Citizens', flex: 2 },
-    { field: 'municipality', headerName: 'Municipality', flex: 1 },
-    { field: 'deliver', headerName: 'Deliver', flex: 1 },
-    { field: 'issued_date', headerName: 'Submission Date', flex: 1 },
+    { field: 'id', headerName: t('page_issued_card_list.table.row_id'), flex: 1},
+    { field: 'citizens', headerName: t('page_issued_card_list.table.row_citizens'), flex: 2 },
+    { field: 'municipality', headerName: t('page_issued_card_list.table.row_municipality'), flex: 1 },
+    { field: 'deliver', headerName: t('page_issued_card_list.table.row_deliver'), flex: 1 },
+    { field: 'issued_date', headerName: t('page_issued_card_list.table.row_submission_date'), flex: 1 },
     {
       field: 'download',
       headerName: '',

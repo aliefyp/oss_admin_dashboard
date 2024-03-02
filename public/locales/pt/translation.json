@@ -1,7 +1,13 @@
 {
-  "title": "Bem-vindo ao React e ao react-i18next",
+  "pagination": "Página {{page}} de {{total}}",
   "auth": {
     "back": "Voltar"
+  },
+  "sidebar": {
+    "overview": "Visão geral",
+    "applicant": "Candidatos",
+    "issued_card": "Cartões emitidos",
+    "settings": "Configurações"
   },
   "login": {
     "title": "Bem vindo de volta",
@@ -29,6 +35,141 @@
       "lowercase": "Minúsculas",
       "number": "Número",
       "special_character": "Caractere especial"
+    }
+  },
+  "page_overview": {
+    "title": "Visão geral",
+    "latest_update": "Última atualização",
+    "total_registered": "Total <b>{{count}}</b> Registrado",
+    "section_filter": {
+      "all_service": "Todos os serviços",
+      "all_region": "Todas as regiões",
+      "all_gender": "Todos os gêneros",
+      "all_year": "Todo o ano"
+    },
+    "section_registered_citizen": {
+      "title": "Cidadão Registrado",
+      "tab_daily": "Diário",
+      "tab_weekly": "Semanalmente",
+      "tab_monthly": "Por mês"
+    },
+    "section_type_registered": {
+      "title": "Tipo Registrado",
+      "status_pending": "Pendente",
+      "status_approved": "Aprovado",
+      "status_rejected": "Rejeitado",
+      "status_in_progress": "Em andamento",
+      "issued_card_count": "Cartão emitido {{count}}",
+      "issued_card_description": "Incluir como aprovado, mas com lista de espera"
+    },
+    "section_by_gender": {
+      "title": "Por gênero"
+    },
+    "section_by_age": {
+      "title": "Por idade"
+    },
+    "section_service_distributed": {
+      "title": "Serviço distribuído"
+    }
+  },
+  "page_applicant": {
+    "title": "Candidatos",
+    "total_registered": "Total <b>{{count}}</b> Registrado",
+    "filter": {
+      "all_service": "Todos os serviços",
+      "all_region": "Todas as regiões",
+      "all_gender": "Todos os gêneros",
+      "all_year": "Todo o ano",
+      "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
+    },
+    "table": {
+      "row_id": "EU IA",
+      "row_citizens": "Cidadãos",
+      "row_service": "Serviço",
+      "row_municipality": "Município",
+      "row_submission_date": "Data de submissão",
+      "row_review": "Análise",
+      "row_status": "Status"
+    }
+  },
+  "page_applicant_detail": {
+    "title": "Detalhes do requerente",
+    "applying_for": "Solicitando",
+    "deliver": "Entregar",
+    "download": "Baixe todos os dados",
+    "section_identity": {
+      "title": "Identidade Cidadã",
+      "subtitle_personal": "Detalhes pessoais",
+      "subtitle_birth": "Detalhes de nascimento",
+      "subtitle_local": "Residência Lodal",
+      "label_id": "ID do requerente",
+      "label_first_name": "Primeiro nome",
+      "label_last_name": "Sobrenome",
+      "label_identity_type": "Tipo de Identidade",
+      "label_identity_number": "Número de identificação",
+      "label_email": "E-mail",
+      "label_phone": "Número de telefone",
+      "label_gender": "Gênero",
+      "label_birth_date": "Data de nascimento",
+      "label_country": "País",
+      "label_state": "Município/Estado",
+      "label_city": "Posto Administrativo/Cidade"
+    },
+    "section_document": {
+      "title": "Verificando os documentos necessários",
+      "row_document": "Documento requerido",
+      "row_verified": "Verificado",
+      "row_unverified": "Não verificado",
+      "scanned_cninc": "Cópia digitalizada do CNINC",
+      "scanned_card": "Cópia digitalizada do cartão",
+      "scanned_document": "Cópia digitalizada do documento",
+      "cta_download": "Download",
+      "cta_preview": "Visualização",
+      "cta_approve": "Aprovar",
+      "cta_reject": "Rejeitar",
+      "reject_title": "Você tem certeza de rejeitar?",
+      "reject_text": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendam aos critérios para ajudar nosso oficial",
+      "reject_reason_label": "Razão",
+      "reject_message_label": "Mensagem",
+      "reject_confirm": "Rejeitar",
+      "reject_recheck": "Verifique novamente"
+    },
+    "modal_approve": {
+      "title": "Você tem certeza de aprovar?",
+      "description": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendam aos critérios para ajudar nosso oficial",
+      "cta_approve": "Aprovar",
+      "cta_recheck": "Verifique novamente"
+    },
+    "modal_reject": {
+      "title": "Você tem certeza de rejeitar?",
+      "description": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendam aos critérios para ajudar nosso oficial",
+      "label_reason": "Razão",
+      "label_message": "Mensagem",
+      "placeholder_message": "Digite sua mensagem aqui...",
+      "cta_reject": "Rejeitar",
+      "cta_recheck": "Verifique novamente"
+    }
+  },
+  "page_issued_card": {
+    "title": "Cartões emitidos",
+    "card_count": "{{count}} cartões emitidos"
+  },
+  "page_issued_card_list": {
+    "title": "Cartão emitido",
+    "total_issued": "Total <b>{{count}}</b> Cartões emitidos",
+    "reset_filter": "Redefinir filtro",
+    "filter": {
+      "all_service": "Todos os serviços",
+      "all_deliver": "Todos entregam",
+      "all_year": "Todo o ano",
+      "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
+    },
+    "table": {
+      "row_id": "EU IA",
+      "row_citizens": "Cidadãos",
+      "row_municipality": "Município",
+      "row_deliver": "Entregar",
+      "row_submission_date": "Data de submissão"
     }
   }
 }
