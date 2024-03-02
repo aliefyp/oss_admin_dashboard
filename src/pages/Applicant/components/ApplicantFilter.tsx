@@ -1,5 +1,6 @@
 import { FormControl, InputAdornment, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaSearch } from "react-icons/fa";
 
 const DUMMY_SERVICES = [
@@ -27,6 +28,7 @@ const DUMMY_YEAR = [
 ]
 
 const ApplicantFilter = () => {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState({
     service: '0',
     region: '0',
@@ -46,7 +48,7 @@ const ApplicantFilter = () => {
       <div className="col-span-4">
         <TextField
           size="small"
-          placeholder="Search ID or citizens name here"
+          placeholder={t('page_applicant.filter.search_placeholder')}
           id="search-citizen"
           sx={{ width: '100%' }}
           InputProps={{
@@ -63,7 +65,7 @@ const ApplicantFilter = () => {
               value={filter.service}
               onChange={e => handleFilterChange(e, 'service')}
             >
-              <MenuItem value="0">All Service</MenuItem>
+              <MenuItem value="0">{t('page_applicant.filter.all_service')}</MenuItem>
               {DUMMY_SERVICES.map((svc) => (
                 <MenuItem key={svc.id} value={svc.id}>{svc.name}</MenuItem>
               ))}
@@ -77,7 +79,7 @@ const ApplicantFilter = () => {
               value={filter.region}
               onChange={e => handleFilterChange(e, 'region')}
             >
-              <MenuItem value="0">All Region</MenuItem>
+              <MenuItem value="0">{t('page_applicant.filter.all_region')}</MenuItem>
               {DUMMY_REGION.map((reg) => (
                 <MenuItem key={reg.id} value={reg.id}>{reg.name}</MenuItem>
               ))}
@@ -91,7 +93,7 @@ const ApplicantFilter = () => {
               value={filter.gender}
               onChange={e => handleFilterChange(e, 'gender')}
             >
-              <MenuItem value="0">All Gender</MenuItem>
+              <MenuItem value="0">{t('page_applicant.filter.all_gender')}</MenuItem>
               {DUMMY_GENDER.map((gd) => (
                 <MenuItem key={gd.id} value={gd.id}>{gd.name}</MenuItem>
               ))}
@@ -105,7 +107,7 @@ const ApplicantFilter = () => {
               value={filter.year}
               onChange={e => handleFilterChange(e, 'year')}
             >
-              <MenuItem value="0">All Year</MenuItem>
+              <MenuItem value="0">{t('page_applicant.filter.all_year')}</MenuItem>
               {DUMMY_YEAR.map((yr) => (
                 <MenuItem key={yr.id} value={yr.id}>{yr.name}</MenuItem>
               ))}

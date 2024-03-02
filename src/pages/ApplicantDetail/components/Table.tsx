@@ -1,9 +1,11 @@
 import { Button, Checkbox, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
 
 const Table = () => {
+  const { t } = useTranslation();
   const [status, setStatus] = useState({
     cninc: undefined,
     card: undefined,
@@ -13,26 +15,14 @@ const Table = () => {
   const columns: GridColDef[] = [
     {
       field: 'required_document',
-      headerName: 'Required Document',
+      headerName: t('page_applicant_detail.section_document.row_document'),
       sortable: false,
       flex: 1,
       renderCell: (params: GridValueGetterParams) => {
-        let text = null;
-        switch (params.row.required_document) {
-          case 'cninc':
-            text = 'CNINC';
-            break;
-          case 'card':
-            text = 'Card';
-            break;
-          case 'document':
-            text = 'Document';
-            break;
-          default:
-            break;
-        }
         return (
-          <Typography variant="body2" className="w-[200px]">{`Scanned Copy of ${text}`}</Typography>
+          <Typography variant="body2" className="w-[200px]">
+            {t(`page_applicant_detail.section_document.scanned_${params.row.required_document}`)}
+          </Typography>
         )
       },
     },
@@ -54,7 +44,7 @@ const Table = () => {
         <div id="download-button" className='hidden'>
           <Button size="small" variant="text" className='space-x-2 hidden'>
             <HiDownload />
-            Download
+            {t('page_applicant_detail.section_document.cta_download')}
           </Button>
         </div>
       ),
@@ -68,14 +58,14 @@ const Table = () => {
         <div id="preview-button" className='hidden'>
           <Button size="small" variant="text" className='space-x-2'>
             <HiOutlineDocumentSearch />
-            Preview
+            {t('page_applicant_detail.section_document.cta_preview')}
           </Button>
         </div>
       ),
     },
     {
       field: 'verified',
-      headerName: 'Verified',
+      headerName: t('page_applicant_detail.section_document.row_verified'),
       sortable: false,
       renderCell: (params: GridValueGetterParams) => (
         <Checkbox
@@ -90,7 +80,7 @@ const Table = () => {
     },
     {
       field: 'unverified',
-      headerName: 'Unverified',
+      headerName: t('page_applicant_detail.section_document.row_unverified'),
       sortable: false,
       renderCell: (params: GridValueGetterParams) => (
         <Checkbox

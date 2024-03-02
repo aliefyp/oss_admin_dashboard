@@ -1,8 +1,10 @@
 import { Pagination, PaginationItem, Typography } from "@mui/material";
 import { gridPageCountSelector, gridPageSelector, useGridApiContext, useGridSelector } from "@mui/x-data-grid";
+import { useTranslation } from "react-i18next";
 import { FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 
 function CustomTablePagination() {
+  const { t } = useTranslation();
   const apiRef = useGridApiContext();
   const page = useGridSelector(apiRef, gridPageSelector);
   const pageCount = useGridSelector(apiRef, gridPageCountSelector);
@@ -29,7 +31,9 @@ function CustomTablePagination() {
           />
         )}
       />
-      <Typography variant="body2" className="text-gray-600 block text-center">{`Page ${page + 1} of ${pageCount}`}</Typography>
+      <Typography variant="body2" className="text-gray-600 block text-center">
+        {t('pagination', { page: page + 1, total: pageCount })}
+      </Typography>
     </div>
   );
 }

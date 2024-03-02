@@ -1,22 +1,24 @@
 import { Chip, IconButton, Tooltip } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
+import { useTranslation } from 'react-i18next';
 import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 
 const ApplicantTable = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'citizens', headerName: 'Citizens', flex: 2 },
-    { field: 'services', headerName: 'Services', flex: 1 },
-    { field: 'municipality', headerName: 'Municipality', flex: 1 },
-    { field: 'submission_date', headerName: 'Submission Date', flex: 1 },
-    { field: 'review', headerName: 'Review', flex: 1 },
+    { field: 'id', headerName: t('page_applicant.table.row_id') },
+    { field: 'citizens', headerName: t('page_applicant.table.row_citizens'), flex: 2 },
+    { field: 'services', headerName: t('page_applicant.table.row_service'), flex: 1 },
+    { field: 'municipality', headerName: t('page_applicant.table.row_municipality'), flex: 1 },
+    { field: 'submission_date', headerName: t('page_applicant.table.row_submission_date'), flex: 1 },
+    { field: 'review', headerName: t('page_applicant.table.row_review'), flex: 1 },
     {
       field: 'status',
-      headerName: 'Status',
+      headerName: t('page_applicant.table.row_status'),
       flex: 1,
       renderCell: (params: GridValueGetterParams) => {
         let result = null;

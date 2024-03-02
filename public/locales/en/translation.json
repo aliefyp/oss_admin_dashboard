@@ -1,5 +1,5 @@
 {
-  "title": "Welcome to React and react-i18next",
+  "pagination": "Page {{page}} of {{total}}",
   "auth": {
     "back": "Back"
   },
@@ -64,6 +64,84 @@
     },
     "section_service_distributed": {
       "title": "Service Distributed"
+    }
+  },
+  "page_applicant": {
+    "title": "Applicants",
+    "total_registered": "Total <b>{{count}}</b> Registered",
+    "filter": {
+      "all_service": "All Service",
+      "all_region": "All Region",
+      "all_gender": "All Gender",
+      "all_year": "All Year",
+      "search_placeholder": "Search ID or citizens name here"
+    },
+    "table": {
+      "row_id": "ID",
+      "row_citizens": "Citizens",
+      "row_service": "Service",
+      "row_municipality": "Municipality",
+      "row_submission_date": "Submission Date",
+      "row_review": "Review",
+      "row_status": "Status"
+    }
+  },
+  "page_applicant_detail": {
+    "title": "Applicant Detail",
+    "applying_for": "Applying for",
+    "deliver": "Deliver",
+    "download": "Download All Data",
+    "section_identity": {
+      "title": "Citizen Identity",
+      "subtitle_personal": "Personal Details",
+      "subtitle_birth": "Birth Details",
+      "subtitle_local": "Lodal Residence",
+      "label_id": "Applicant's ID",
+      "label_first_name": "First Name",
+      "label_last_name": "Last Name",
+      "label_identity_type": "Identity Type",
+      "label_identity_number": "Identity Number",
+      "label_email": "Email",
+      "label_phone": "Phone Number",
+      "label_gender": "Gender",
+      "label_birth_date": "Birth Date",
+      "label_country": "Country",
+      "label_state": "Municipality/State",
+      "label_city": "Post Administrative/City"
+    },
+    "section_document": {
+      "title": "Checking Required Documents",
+      "row_document": "Required Document",
+      "row_verified": "Verified",
+      "row_unverified": "Unverified",
+      "scanned_cninc": "Scanned Copy of CNINC",
+      "scanned_card": "Scanned Copy of Card",
+      "scanned_document": "Scanned Copy of Document",
+      "cta_download": "Download",
+      "cta_preview": "Preview",
+      "cta_approve": "Approve",
+      "cta_reject": "Reject",
+      "reject_title": "Are Your Sure to Reject?",
+      "reject_text": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
+      "reject_reason_label": "Reason",
+      "reject_message_label": "Message",
+      "reject_confirm": "Reject",
+      "reject_recheck": "Recheck"
+    },
+    "modal_approve": {
+      "title": "Are Your Sure to Approve?",
+      "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
+      "cta_approve": "Approve",
+      "cta_recheck": "Recheck"
+    },
+    "modal_reject": {
+      "title": "Are Your Sure to Reject?",
+      "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
+      "label_reason": "Reason",
+      "label_message": "Message",
+      "placeholder_message": "Type your message here...",
+      "cta_reject": "Reject",
+      "cta_recheck": "Recheck"
     }
   }
 }

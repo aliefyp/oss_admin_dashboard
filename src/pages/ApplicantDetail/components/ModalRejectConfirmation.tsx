@@ -1,6 +1,7 @@
 import { Button, FormControl, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, TextField } from "@mui/material";
 import ModalSheet from "components/ModalSheet";
 import { ChangeEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const DUMMY_REASON = [
   { id: '1', name: 'Reason 1' },
@@ -16,6 +17,8 @@ interface ModalRejectConfirmationProps {
 }
 
 const ModalRejectConfirmation = ({ open, onClose, onConfirm }: ModalRejectConfirmationProps) => {
+  const { t } = useTranslation();
+
   const [reasonType, setReasonType] = useState('1');
   const [reason, setReason] = useState('');
 
@@ -35,8 +38,8 @@ const ModalRejectConfirmation = ({ open, onClose, onConfirm }: ModalRejectConfir
       aria-describedby="modal-modal-description"
     >
       <ModalSheet
-        title="Are Your Sure to Reject?"
-        description="Please check your data before submitting, make sure all data meet the criteria to help our officer"
+        title={t('page_applicant_detail.modal_reject.title')}
+        description={t('page_applicant_detail.modal_reject.description')}
         onClose={onClose}
         sx={{
           width: 600,
@@ -44,9 +47,11 @@ const ModalRejectConfirmation = ({ open, onClose, onConfirm }: ModalRejectConfir
       >
         <div className="space-y-8 mt-4">
           <FormControl className="w-full">
-            <InputLabel id="reason">Reason</InputLabel>
+            <InputLabel id="reason">
+              {t('page_applicant_detail.modal_reject.label_reason')}
+            </InputLabel>
             <Select
-              label="Reason"
+              label={t('page_applicant_detail.modal_reject.label_reason')}
               variant="standard"
               labelId="reason"
               id="inut-reason-type"
@@ -65,8 +70,8 @@ const ModalRejectConfirmation = ({ open, onClose, onConfirm }: ModalRejectConfir
             className="w-full"
             variant="standard"
             id="input-reason"
-            label="Message"
-            placeholder="Type your message here..."
+            label={t('page_applicant_detail.modal_reject.label_message')}
+            placeholder={t('page_applicant_detail.modal_reject.placeholder_message')}
             multiline
             minRows={2}
             value={reason}
@@ -74,8 +79,12 @@ const ModalRejectConfirmation = ({ open, onClose, onConfirm }: ModalRejectConfir
           />
         </div>
         <div className="flex gap-4 justify-center mt-6">
-          <Button variant="outlined" className="w-full" onClick={onClose}>Recheck</Button>
-          <Button variant="contained" className="w-full" onClick={onConfirm}>Reject</Button>
+          <Button variant="outlined" className="w-full" onClick={onClose}>
+            {t('page_applicant_detail.modal_reject.cta_recheck')}
+          </Button>
+          <Button variant="contained" className="w-full" onClick={onConfirm}>
+            {t('page_applicant_detail.modal_reject.cta_reject')}
+          </Button>
         </div>
       </ModalSheet>
     </Modal>
