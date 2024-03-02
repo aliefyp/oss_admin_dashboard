@@ -1,17 +1,21 @@
 import { Divider, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
-const DUMMY_DATA = [
-  { id: 1, name: 'Pending', percentage: 15, color: '#DCEBF5' },
-  { id: 2, name: 'In Progress', percentage: 15, color: '#9DD7F3' },
-  { id: 3, name: 'Approved', percentage: 45, color: '#54BEF2' },
-  { id: 4, name: 'Rejected', percentage: 25, color: '#292D30' },
-]
 
 const TypeRegistered = () => {
+  const { t } = useTranslation();
+
+  const DUMMY_DATA = [
+    { id: 1, name: t('page_overview.section_type_registered.status_pending'), percentage: 15, color: '#DCEBF5' },
+    { id: 2, name: t('page_overview.section_type_registered.status_in_progress'), percentage: 15, color: '#9DD7F3' },
+    { id: 3, name: t('page_overview.section_type_registered.status_approved'), percentage: 45, color: '#54BEF2' },
+    { id: 4, name: t('page_overview.section_type_registered.status_rejected'), percentage: 25, color: '#292D30' },
+  ]
+
   return (
     <div className="border rounded-lg py-4 px-3">
       <Typography variant="h6" className="font-sm">
-        Type Registered
+        {t('page_overview.section_type_registered.title')}
       </Typography>
       <div className="flex my-4 mb-6">
         {DUMMY_DATA.map(data => (
@@ -41,10 +45,10 @@ const TypeRegistered = () => {
       <Divider />
       <div className="pt-4">
         <Typography variant="caption" className="block">
-          Issued Card: 124
+          {t('page_overview.section_type_registered.issued_card_count', { count: 124 })}
         </Typography>
         <Typography variant="caption" className="block text-gray-600">
-          Include as approved but have waiting first
+          {t('page_overview.section_type_registered.issued_card_description')}
         </Typography>
       </div>
     </div>

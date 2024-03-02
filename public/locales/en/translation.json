@@ -30,5 +30,40 @@
       "number": "Number",
       "special_character": "Special Character"
     }
+  },
+  "page_overview": {
+    "title": "Overview",
+    "latest_update": "Latest Update",
+    "total_registered": "Total <b>{{count}}</b> Registered",
+    "section_filter": {
+      "all_service": "All Service",
+      "all_region": "All Region",
+      "all_gender": "All Gender",
+      "all_year": "All Year"
+    },
+    "section_registered_citizen": {
+      "title": "Registered Citizen",
+      "tab_daily": "Daily",
+      "tab_weekly": "Weekly",
+      "tab_monthly": "Monthly"
+    },
+    "section_type_registered": {
+      "title": "Type Registered",
+      "status_pending": "Pending",
+      "status_approved": "Approved",
+      "status_rejected": "Rejected",
+      "status_in_progress": "In Progress",
+      "issued_card_count": "Issued Card {{count}}",
+      "issued_card_description": "Include as approved but have waiting list"
+    },
+    "section_by_gender": {
+      "title": "By Gender"
+    },
+    "section_by_age": {
+      "title": "By Age"
+    },
+    "section_service_distributed": {
+      "title": "Service Distributed"
+    }
   }
 }

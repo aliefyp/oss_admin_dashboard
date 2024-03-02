@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Typography } from "@mui/material";
 import { PieChart } from '@mui/x-charts/PieChart';
+import { useTranslation } from "react-i18next";
 
 const ByGender = () => {
+  const { t } = useTranslation();
+
   const chartWrapperRef = useRef<HTMLDivElement>(null);
   const [chartWidth, setChartWidth] = useState(0);
 
@@ -15,7 +18,7 @@ const ByGender = () => {
   return (
     <div className="border rounded-lg py-4 px-3">
       <Typography variant="h6" className="font-sm">
-        By Gender
+        {t('page_overview.section_by_gender.title')}
       </Typography>
       <div className="overflow-x-auto" ref={chartWrapperRef}>
         <PieChart

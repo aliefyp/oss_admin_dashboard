@@ -1,13 +1,16 @@
 import { Typography } from "@mui/material";
 import services from "constants/services";
+import { useTranslation } from "react-i18next";
 
 const ServiceDistributed = () => {
+  const { t } = useTranslation();
+
   const serviceData = services.map((service) => ({ ...service, count: 5 }));
 
   return (
     <div className="border rounded-lg py-4 px-3">
       <Typography variant="h6" className="font-sm">
-        Service Distributed
+        {t('page_overview.section_service_distributed.title')}
       </Typography>
       <div className="flex flex-col mt-4">
         {serviceData.map(service => (

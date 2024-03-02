@@ -6,17 +6,24 @@ import ByAge from "./components/ByAge";
 import ServiceDistributed from "./components/ServiceDistributed";
 import Filter from "./components/Filter";
 import PageHeading from "components/PageHeading";
+import { useTranslation } from "react-i18next";
 
 const Overview: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <PageHeading title="Overview">
-        <Typography variant="caption" className="text-gray-600">Latest Update: <span className="text-gray-800">Monday, 15 April 2024 - 11:23</span></Typography>
+      <PageHeading title={t("page_overview.title")}>
+        <Typography variant="caption" className="text-gray-600">
+          {t('page_overview.latest_update')} <span className="text-gray-800">Monday, 15 April 2024 - 11:23</span>
+        </Typography>
       </PageHeading>
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-12 mb-4 space-y-3">
           <Filter />
-          <Typography variant="caption" className="text-gray-600 block">Total <b>2000</b> Registered</Typography>
+          <Typography variant="caption" className="text-gray-600 block">
+            <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 })}} />
+          </Typography>
         </div>
         <div className="col-span-8 space-y-4">
           <RegisteredCitizens />
