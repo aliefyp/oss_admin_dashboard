@@ -6,7 +6,13 @@ const setupRefresh = createRefresh({
   refreshApiCallback: async param => {
     try {
       console.log("Refreshing")
-      const data = await refreshToken(param as unknown as Params);
+
+      const params: Params = {
+        accessToken: param.authToken,
+        refreshToken: param.refreshToken,
+      }
+
+      const data = await refreshToken(params);
       return {
         isSuccess: true,
         newAuthToken: data.data?.accessToken,
