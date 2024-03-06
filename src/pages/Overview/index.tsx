@@ -14,18 +14,23 @@ import { DUMMY_SERVICES, DUMMY_REGION, DUMMY_GENDER, DUMMY_YEAR } from "./consta
 const Overview: React.FC = () => {
   const { t } = useTranslation();
 
-  const { filter, filterOptions, handleFilterChange, handleFilterClear, handleFilterRemove } = useGroupFilter({
+  const {
+    filter,
+    filterKeys,
+    filterOptions,
+    hasFilter,
+    handleFilterChange,
+    handleFilterClear,
+    handleFilterRemove
+  } = useGroupFilter({
+    defaultValue: "0",
     groups: [
       { groupId: 'service', groupLabel: 'Service', items: DUMMY_SERVICES },
       { groupId: 'region', groupLabel: 'Region', items: DUMMY_REGION },
       { groupId: 'gender', groupLabel: 'Gender', items: DUMMY_GENDER },
       { groupId: 'year', groupLabel: 'Year', items: DUMMY_YEAR },
     ],
-    defaultValue: "0",
-  })
-
-  const filterKeys = Object.keys(filter).filter(key => filter[key] !== "0");
-  const hasFilter = filterKeys.length > 0;
+  });
 
   return (
     <>

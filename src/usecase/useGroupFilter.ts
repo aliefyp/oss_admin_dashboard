@@ -31,7 +31,9 @@ interface Deps {
 
 export interface UseGroupFilterInterface {
   filter: FilterState;
+  filterKeys: string[];
   filterOptions: FilterOption[];
+  hasFilter: boolean;
   handleFilterChange: (group: Group['groupId'], val: Item['itemId']) => void;
   handleFilterRemove: (group: Group['groupId']) => void;
   handleFilterClear: () => void;
@@ -79,9 +81,17 @@ function useGroupFilter({ groups, defaultValue = "0" }: Deps): UseGroupFilterInt
     })
   }, [groups, filter]);
 
+  const filterKeys = useMemo(() => {
+    return Object.keys(filter).filter(key => filter[key] !== "0");
+  }, [filter]);
+
+  const hasFilter = filterKeys.length > 0;
+
   return {
     filter,
+    filterKeys,
     filterOptions,
+    hasFilter,
     handleFilterChange,
     handleFilterClear,
     handleFilterRemove,
