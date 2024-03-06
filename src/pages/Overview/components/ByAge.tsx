@@ -28,7 +28,7 @@ const ByGender = () => {
         {t('page_overview.section_by_age.title')}
       </Typography>
       <div className="grid grid-cols-4 gap-4 items-center">
-        <div className="2xl:col-span-3 col-span-4" ref={chartWrapperRef}>
+        <div className="lg:col-span-3 col-span-4" ref={chartWrapperRef}>
           <div className="relative flex items-center justify-center bg-gray-100 rounded-full">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <Typography variant="body2" className="text-gray-600">
@@ -39,10 +39,10 @@ const ByGender = () => {
               </Typography>
             </div>
             <PieChart
-              margin={{ top: 16, right: 16, bottom: 16, left: 16 }}
+              margin={{ top: 12, right: 12, bottom: 12, left: 12 }}
               series={[{
                 data: DUMMY_DATA,
-                innerRadius: chartWidth / 4,
+                innerRadius: chartWidth / 3,
               }]}
               width={chartWidth}
               height={chartWidth}
@@ -54,7 +54,7 @@ const ByGender = () => {
             />
           </div>
         </div>
-        <div className="2xl:col-span-1 col-span-4">
+        <div className="lg:col-span-1 col-span-4">
           <ChartLegend data={DUMMY_DATA} />
         </div>
       </div>
