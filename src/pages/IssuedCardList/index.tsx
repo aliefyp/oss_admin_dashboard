@@ -1,11 +1,14 @@
-import { Chip, Typography } from "@mui/material";
+import { Button, Chip, InputAdornment, TextField, Typography } from "@mui/material";
 import PageHeading from "components/PageHeading";
-import IssuedCardListFilter from "./components/IssuedCardListFilter";
 import IssuedCardListTable from "./components/IssuedCardListTable";
 import { useNavigate, useParams } from "react-router-dom";
 import services from "constants/services";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import useGroupFilter from "usecase/useGroupFilter";
+import { DUMMY_DELIVER, DUMMY_SERVICES, DUMMY_YEAR } from "./constants";
+import GroupFilter from "components/GroupFilter";
+import { FaSearch } from "react-icons/fa";
 
 const IssuedCardList: React.FC = () => {
   const { issued_card_id } = useParams();
@@ -13,6 +16,23 @@ const IssuedCardList: React.FC = () => {
   const { t } = useTranslation();
 
   const serviceData = services.find((service) => service.id === issued_card_id);
+
+  const {
+    filter,
+    filterKeys,
+    filterOptions,
+    hasFilter,
+    handleFilterChange,
+    handleFilterClear,
+    handleFilterRemove
+  } = useGroupFilter({
+    defaultValue: "0",
+    groups: [
+      { groupId: 'service', groupLabel: 'Service', items: DUMMY_SERVICES },
+      { groupId: 'deliver', groupLabel: 'Deliver', items: DUMMY_DELIVER},
+      { groupId: 'year', groupLabel: 'Year', items: DUMMY_YEAR },
+    ],
+  });
   
   useEffect(() => {
     if (!serviceData) {
@@ -28,17 +48,48 @@ const IssuedCardList: React.FC = () => {
       />
       <div className="space-y-4">
         <div className="mb-6 space-y-3">
-          <IssuedCardListFilter />
-          <div className="flex items-center gap-3">
-            <Typography variant="caption" className="text-gray-600 block">
-              <span dangerouslySetInnerHTML={{ __html: t('page_issued_card_list.total_issued', { count: 2000 })}} />
-            </Typography>
-            <div className="flex items-center gap-2">
-              <Typography variant="body2" className="!font-bold text-red-500">
-                {t('page_issued_card_list.reset_filter')}
-              </Typography>
-              <Chip label="Service" size="small" variant="outlined" onDelete={() => {}} />
+          <div className="grid grid-cols-12 gap-8">
+            <div className="col-span-4">
+              <TextField
+                size="small"
+                placeholder={t('page_issued_card_list.filter.search_placeholder')}
+                id="search-citizen"
+                sx={{ width: '100%' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><FaSearch /></InputAdornment>
+                }}
+              />
             </div>
+            <div className="col-span-8 justify-self-end">
+              <GroupFilter
+                filter={filter}
+                filterOptions={filterOptions}
+                handleFilterChange={handleFilterChange}
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Typography variant="caption" className="text-gray-600 block">
+              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 })}} />
+            </Typography>
+            {hasFilter && (
+              <div className="flex items-center gap-2">
+                <Button variant="text" size="small" color="error" onClick={handleFilterClear}>
+                  {t('page_overview.reset_filter')}
+                </Button>
+                {filterKeys.map((key) => {
+                  const filterObj = filterOptions.find((option) => option.groupId === key);
+                  return (
+                    <Chip
+                      size="small"
+                      variant="outlined"
+                      label={filterObj.groupLabel}
+                      onDelete={() => handleFilterRemove(filterObj.groupId)}
+                    />
+                  )
+                })}
+              </div>
+            )}
           </div>
         </div>
         <div>
