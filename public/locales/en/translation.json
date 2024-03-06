@@ -41,6 +41,7 @@
     "title": "Overview",
     "latest_update": "Latest Update",
     "total_registered": "Total <b>{{count}}</b> Registered",
+    "reset_filter": "Reset Filter",
     "section_filter": {
       "all_service": "All Service",
       "all_region": "All Region",
