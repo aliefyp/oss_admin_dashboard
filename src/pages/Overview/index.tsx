@@ -16,10 +16,10 @@ const Overview: React.FC = () => {
 
   const { filter, filterOptions, handleFilterChange, handleFilterClear, handleFilterRemove } = useGroupFilter({
     groups: [
-      { group_id: 'service', group_label: 'Service', items: DUMMY_SERVICES },
-      { group_id: 'region', group_label: 'Region', items: DUMMY_REGION },
-      { group_id: 'gender', group_label: 'Gender', items: DUMMY_GENDER },
-      { group_id: 'year', group_label: 'Year', items: DUMMY_YEAR },
+      { groupId: 'service', groupLabel: 'Service', items: DUMMY_SERVICES },
+      { groupId: 'region', groupLabel: 'Region', items: DUMMY_REGION },
+      { groupId: 'gender', groupLabel: 'Gender', items: DUMMY_GENDER },
+      { groupId: 'year', groupLabel: 'Year', items: DUMMY_YEAR },
     ],
     defaultValue: "0",
   })
@@ -51,13 +51,13 @@ const Overview: React.FC = () => {
                   {t('page_overview.reset_filter')}
                 </Button>
                 {filterKeys.map((key) => {
-                  const filterObj = filterOptions.find((option) => option.group_id === key);
+                  const filterObj = filterOptions.find((option) => option.groupId === key);
                   return (
                     <Chip
                       size="small"
                       variant="outlined"
-                      label={filterObj.group_label}
-                      onDelete={() => handleFilterRemove(filterObj.group_id)}
+                      label={filterObj.groupLabel}
+                      onDelete={() => handleFilterRemove(filterObj.groupId)}
                     />
                   )
                 })}

@@ -1,18 +1,19 @@
 import { useMemo, useState } from "react";
 
 interface Item {
-  item_id: string | number;
-  item_label: string;
+  itemId: string | number;
+  itemLabel: string;
 }
 
 interface Group {
-  group_id: string;
-  group_label: string;
+  groupId: string;
+  groupLabel: string;
+  defaultValue?: Item['itemId'];
   items: Item[];
 }
 
 interface FilterState {
-  [key: Group['group_id']]: Item['item_id'] | undefined;
+  [key: Group['groupId']]: Item['itemId'] | undefined;
 }
 
 interface FilterItem extends Item {
@@ -25,43 +26,43 @@ interface FilterOption extends Group {
 
 interface Deps {
   groups: Group[];
-  defaultValue?: Item['item_id'];
+  defaultValue?: Item['itemId'];
 }
 
 export interface UseGroupFilterInterface {
   filter: FilterState;
   filterOptions: FilterOption[];
-  handleFilterChange: (group: Group['group_id'], val: Item['item_id']) => void;
-  handleFilterRemove: (group: Group['group_id']) => void;
+  handleFilterChange: (group: Group['groupId'], val: Item['itemId']) => void;
+  handleFilterRemove: (group: Group['groupId']) => void;
   handleFilterClear: () => void;
 }
 
 function useGroupFilter({ groups, defaultValue = "0" }: Deps): UseGroupFilterInterface {
-  const keys = groups.map(dt => dt.group_id);
+  const keys = groups.map(dt => dt.groupId);
   const [filter, setFilter] = useState<FilterState>(() => {
     const f = {};
-    keys.forEach(key => { f[key] = defaultValue });
+    keys.forEach(key => { f[key] = groups[key]?.defaultValue || defaultValue });
     return f;
   });
 
-  const handleFilterChange = (group: Group['group_id'], val: Item['item_id']) => {
+  const handleFilterChange = (group: Group['groupId'], val: Item['itemId']) => {
     setFilter(prev => ({
       ...prev,
       [group]: val,
     }));
   }
 
-  const handleFilterRemove = (group: Group['group_id']) => {
+  const handleFilterRemove = (group: Group['groupId']) => {
     setFilter(prev => ({
       ...prev,
-      [group]: defaultValue
+      [group]: groups[group]?.defaultValue || defaultValue
     }))
   }
 
   const handleFilterClear = () => {
     setFilter(() => {
       const f = {};
-      keys.forEach(key => { f[key] = defaultValue });
+      keys.forEach(key => { f[key] = groups[key]?.defaultValue || defaultValue });
       return f;
     })
   }
@@ -72,7 +73,7 @@ function useGroupFilter({ groups, defaultValue = "0" }: Deps): UseGroupFilterInt
         ...dt,
         items: dt.items.map(item => ({
           ...item,
-          checked: filter[dt.group_id] === item.item_id,
+          checked: filter[dt.groupId] === item.itemId,
         }))
       }
     })

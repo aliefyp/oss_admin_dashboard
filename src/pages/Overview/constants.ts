@@ -1,23 +1,23 @@
 export const DUMMY_SERVICES = [
-  { item_id: '1', item_label: 'Service 1' },
-  { item_id: '2', item_label: 'Service 2' },
-  { item_id: '3', item_label: 'Service 3' },
-  { item_id: '4', item_label: 'Service 4' },
+  { itemId: '1', itemLabel: 'Service 1' },
+  { itemId: '2', itemLabel: 'Service 2' },
+  { itemId: '3', itemLabel: 'Service 3' },
+  { itemId: '4', itemLabel: 'Service 4' },
 ]
 
 export const DUMMY_REGION = [
-  { item_id: '1', item_label: 'Municipality' },
-  { item_id: '2', item_label: 'Dili' },
-  { item_id: '3', item_label: 'Maliana' },
-  { item_id: '4', item_label: 'Lospalos' },
+  { itemId: '1', itemLabel: 'Municipality' },
+  { itemId: '2', itemLabel: 'Dili' },
+  { itemId: '3', itemLabel: 'Maliana' },
+  { itemId: '4', itemLabel: 'Lospalos' },
 ]
 
 export const DUMMY_GENDER = [
-  { item_id: '1', item_label: 'Male' },
-  { item_id: '2', item_label: 'Female' },
+  { itemId: '1', itemLabel: 'Male' },
+  { itemId: '2', itemLabel: 'Female' },
 ]
 
 export const DUMMY_YEAR = [
-  { item_id: '1', item_label: '2024' },
-  { item_id: '2', item_label: '2023' },
+  { itemId: '1', itemLabel: '2024' },
+  { itemId: '2', itemLabel: '2023' },
 ]
