@@ -1,9 +1,9 @@
 import { FormControl, MenuItem, Select } from "@mui/material";
-import { UseGroupFilterInterface } from "../../../usecase/useGroupFilter";
+import { UseGroupFilterInterface } from "usecase/useGroupFilter";
 
 type Props = Pick<UseGroupFilterInterface, 'filter' | 'filterOptions' | 'handleFilterChange'>;
 
-const Filter = ({ filter, filterOptions, handleFilterChange }: Props) => {
+const GroupFilter = ({ filter, filterOptions, handleFilterChange }: Props) => {
   return (
     <div className="flex items-center flex-wrap justify-start gap-2">
       {filterOptions.map((opt) => (
@@ -25,4 +25,4 @@ const Filter = ({ filter, filterOptions, handleFilterChange }: Props) => {
   );
 }
 
-export default Filter;
+export default GroupFilter;

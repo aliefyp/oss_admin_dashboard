@@ -1,11 +1,11 @@
 import { Button, Chip, Typography } from "@mui/material";
 import useGroupFilter from "usecase/useGroupFilter";
+import GroupFilter from "components/GroupFilter";
 import RegisteredCitizens from "./components/RegisteredCitizens";
 import TypeRegistered from "./components/TypeRegistered";
 import ByGender from "./components/ByGender";
 import ByAge from "./components/ByAge";
 import ServiceDistributed from "./components/ServiceDistributed";
-import Filter from "./components/Filter";
 import PageHeading from "components/PageHeading";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
@@ -41,7 +41,7 @@ const Overview: React.FC = () => {
       </PageHeading>
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-12 mb-4 space-y-3">
-          <Filter
+          <GroupFilter
             filter={filter}
             filterOptions={filterOptions}
             handleFilterChange={handleFilterChange}
