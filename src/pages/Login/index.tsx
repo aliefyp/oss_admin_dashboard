@@ -148,6 +148,7 @@ const Login = () => {
               type={showPassword ? 'text' : 'password'}
               autoComplete='false'
               aria-describedby='password-helper-text'
+              error={!!errors.password}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -160,7 +161,6 @@ const Login = () => {
                   </IconButton>
                 </InputAdornment>
               }
-              error={!!errors.password}
               {...register('password', {
                 required: {
                   value: true,
