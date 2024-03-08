@@ -26,7 +26,9 @@
     "subtitle": "Please input your email, and get the link for reset your password",
     "label_email": "Email",
     "cta_submit": "Request Reset Password ",
-    "resend_code": "You can request resend code in {{time}}s"
+    "resend_code": "You can request resend code in {{time}}s",
+    "error_email_required": "Email is required",
+    "error_email_invalid": "Email is invalid"
   },
   "reset_password": {
     "title": "Reset Your Password",

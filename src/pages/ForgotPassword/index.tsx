@@ -5,6 +5,12 @@ import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
+import { useForm } from 'react-hook-form';
+import { FormHelperText } from '@mui/material';
+
+interface ForgotPasswordForm {
+  email: string;
+}
 
 const ForgotPassword = () => {
   const { t } = useTranslation();
@@ -13,11 +19,14 @@ const ForgotPassword = () => {
   const [codeSent, setCodeSent] = useState(false);
   const [countdown, setCountdown] = useState(30);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get('email') as string;
-    console.log({ email });
+  const { register, formState: { errors }, handleSubmit } = useForm<ForgotPasswordForm>({
+    defaultValues: {
+      email: '',
+    }
+  })
+
+  const submitForm = (val: ForgotPasswordForm) => {
+    console.log(val.email);
 
     setCodeSent(true);
     interval.current = setInterval(() => {
@@ -47,14 +56,32 @@ const ForgotPassword = () => {
       <Typography paragraph className='text-center text-gray-500'>
         {t('forgot_password.subtitle')}
       </Typography>
-      <form autoComplete='off' noValidate onSubmit={handleSubmit}>
+      <form autoComplete='off' noValidate onSubmit={handleSubmit(submitForm)}>
         <FormControl sx={{ my: 2, width: '100%' }} variant="outlined" required>
           <InputLabel htmlFor="email" variant='outlined'>{t('forgot_password.label_email')}</InputLabel>
           <Input
             id="email"
             name="email"
             type="email"
+            autoComplete='false'
+            aria-describedby='email-helper-text'
+            error={!!errors.email}
+            {...register('email', {
+              required: {
+                value: true,
+                message: t('forgot_password.error_email_required'),
+              },
+              pattern: {
+                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: t('forgot_password.error_email_invalid')
+              }
+            })}
           />
+          {errors.email && (
+            <FormHelperText error={Boolean(errors.email)} id="email-helper-text">
+              {errors.email.message || ''}
+            </FormHelperText>
+          )}
         </FormControl>
         {codeSent ? (
           <Typography className='text-center text-gray-500 mt-6'>
