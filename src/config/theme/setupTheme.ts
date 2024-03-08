@@ -49,6 +49,13 @@ const setupTheme = () => createTheme({
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          marginLeft: 0,
+        },
+      },
+    },
     MuiLink: {
       styleOverrides: {
         root: {
