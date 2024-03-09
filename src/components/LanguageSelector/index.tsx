@@ -24,6 +24,7 @@ const LaguageSelector = () => {
   const handleChangeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     handleClose();
+    window.location.reload();
   }
 
   const locales = [
