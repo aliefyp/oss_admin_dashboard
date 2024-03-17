@@ -9,10 +9,36 @@ import ServiceDistributed from "./components/ServiceDistributed";
 import PageHeading from "components/PageHeading";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
-import { DUMMY_SERVICES, DUMMY_REGION, DUMMY_GENDER, DUMMY_YEAR } from "./constants";
+import { useServicesType } from "api/service";
+import { useMunicipality } from "api/region";
+import useLastNYearList from "usecase/useLastNYearList";
+import { GENDER_LIST } from "constants/index";
 
 const Overview: React.FC = () => {
   const { t } = useTranslation();
+  const { data: dataServicesType } = useServicesType();
+  const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
+  const years = useLastNYearList(10);
+
+  const listService = dataServicesType?.data?.map((item) => ({
+    itemId: item.code,
+    itemLabel: t(`services.${item.name}`),
+  })) || [];
+
+  const listMunicipality = dataMunicipality?.data?.map((item) => ({
+    itemId: item.code,
+    itemLabel: item.name,
+  })) || [];
+
+  const listGender = GENDER_LIST.map((item) => ({
+    itemId: item.code,
+    itemLabel: t(`gender.${item.name}`),
+  }));
+
+  const listYear = years.map((item) => ({
+    itemId: item,
+    itemLabel: item,
+  }));
 
   const {
     filter,
@@ -25,10 +51,10 @@ const Overview: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'service', groupLabel: 'Service', items: DUMMY_SERVICES },
-      { groupId: 'region', groupLabel: 'Region', items: DUMMY_REGION },
-      { groupId: 'gender', groupLabel: 'Gender', items: DUMMY_GENDER },
-      { groupId: 'year', groupLabel: 'Year', items: DUMMY_YEAR },
+      { groupId: 'service', groupLabel: 'Service', items: listService },
+      { groupId: 'municipality', groupLabel: 'Municipality', items: listMunicipality },
+      { groupId: 'gender', groupLabel: 'Gender', items: listGender },
+      { groupId: 'year', groupLabel: 'Year', items: listYear },
     ],
   });
 

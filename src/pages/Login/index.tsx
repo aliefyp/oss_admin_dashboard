@@ -167,8 +167,12 @@ const Login = () => {
                   message: t('login.error_password_required'),
                 },
                 minLength: {
-                  value: 6,
-                  message: t('login.error_password_min')
+                  value: 8,
+                  message: t('login.error_password_min', { count: 8 })
+                },
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+                  message: t('login.error_password_invalid')
                 }
               })}
             />
