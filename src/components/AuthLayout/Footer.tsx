@@ -1,10 +1,9 @@
 import Typography from '@mui/material/Typography';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
+import { PHONE, EMAIL, ADDRESS } from 'constants/contacts';
 
 const Footer = () => {
-  // TODO: Change the content of the footer
-
   return (
     <div className="bg-[#2E2D2D] p-4 text-white min-h-[52px]">
       <div className='w-full max-w-screen-lg mx-auto flex flex-wrap gap-2 justify-between'>
@@ -14,16 +13,16 @@ const Footer = () => {
         </Typography>
 
         <div className='flex space-x-4'>
-          <a href="/" className="flex items-center space-x-2">
+          <a href={`tel:${PHONE}`} className="flex items-center space-x-2">
             <PhoneOutlinedIcon fontSize="small" />
             <Typography component="div" fontSize="small">
-              +670-333-4343
+              {PHONE}
             </Typography>
           </a>
-          <a href="/" className="flex items-center space-x-2">
+          <a href={`mailto:${EMAIL}`} className="flex items-center space-x-2">
             <MailOutlineIcon fontSize="small" />
             <Typography component="div" fontSize="small">
-              info@yoursite.com
+              {EMAIL}
             </Typography>
           </a>
           <a href="/" className="flex items-center space-x-2">
