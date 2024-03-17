@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
-import { PHONE, EMAIL, ADDRESS } from 'constants/contacts';
+import { PHONE, EMAIL } from 'constants/contacts';
 
 const Footer = () => {
   return (
