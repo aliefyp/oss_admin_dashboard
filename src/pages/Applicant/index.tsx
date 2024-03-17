@@ -4,11 +4,32 @@ import { FaSearch } from "react-icons/fa";
 import useGroupFilter from "usecase/useGroupFilter";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
+import { useServicesType } from "api/service";
+import { useMunicipality } from "api/region";
+import useLastNYearList from "usecase/useLastNYearList";
 import ApplicantTable from "./components/ApplicantTable";
-import { DUMMY_MUNICIPALITY, DUMMY_SERVICES, DUMMY_YEAR, DUMMY_STATUS } from "./constants";
+import { DUMMY_STATUS } from "./constants";
 
 const Applicants: React.FC = () => {
   const { t } = useTranslation();
+  const { data: dataServicesType } = useServicesType();
+  const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
+  const years = useLastNYearList(10);
+
+  const listService = dataServicesType?.data?.map((item) => ({
+    itemId: item.code,
+    itemLabel: t(`services.${item.name}`),
+  })) || [];
+
+  const listMunicipality = dataMunicipality?.data?.map((item) => ({
+    itemId: item.code,
+    itemLabel: item.name,
+  })) || [];
+
+  const listYear = years.map((item) => ({
+    itemId: item,
+    itemLabel: item,
+  }));
 
   const {
     filter,
@@ -21,9 +42,9 @@ const Applicants: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'service', groupLabel: 'Service', items: DUMMY_SERVICES },
-      { groupId: 'municipality', groupLabel: 'Municipality', items: DUMMY_MUNICIPALITY },
-      { groupId: 'year', groupLabel: 'Year', items: DUMMY_YEAR },
+      { groupId: 'service', groupLabel: 'Service', items: listService },
+      { groupId: 'municipality', groupLabel: 'Municipality', items: listMunicipality },
+      { groupId: 'year', groupLabel: 'Year', items: listYear },
       { groupId: 'status', groupLabel: 'Status', items: DUMMY_STATUS },
     ],
   });

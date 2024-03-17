@@ -6,16 +6,25 @@ import services from "constants/services";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import useGroupFilter from "usecase/useGroupFilter";
-import { DUMMY_DELIVER, DUMMY_SERVICES, DUMMY_YEAR } from "./constants";
 import GroupFilter from "components/GroupFilter";
 import { FaSearch } from "react-icons/fa";
+import { useServicesType } from "api/service";
+import useLastNYearList from "usecase/useLastNYearList";
+import { DUMMY_DELIVER } from "./constants";
 
 const IssuedCardList: React.FC = () => {
   const { issued_card_id } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { data: dataServicesType } = useServicesType();
+  const years = useLastNYearList(10);
 
   const serviceData = services.find((service) => service.id === issued_card_id);
+
+  const listService = dataServicesType?.data?.map((item) => ({
+    itemId: item.code,
+    itemLabel: t(`services.${item.name}`),
+  })) || [];
 
   const {
     filter,
@@ -28,9 +37,9 @@ const IssuedCardList: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'service', groupLabel: 'Service', items: DUMMY_SERVICES },
+      { groupId: 'service', groupLabel: 'Service', items: listService },
       { groupId: 'deliver', groupLabel: 'Deliver', items: DUMMY_DELIVER},
-      { groupId: 'year', groupLabel: 'Year', items: DUMMY_YEAR },
+      { groupId: 'year', groupLabel: 'Year', items: years },
     ],
   });
   
