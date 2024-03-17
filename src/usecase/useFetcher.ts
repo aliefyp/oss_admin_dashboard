@@ -13,12 +13,13 @@ const useFetcher = (method: string, url: string, options?: RequestInit) => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': auth,
-          ...options.headers,
+          ...options?.headers,
         }
       });
       const data = await response.json();
       return data;
     } catch (err) {
+      console.error(err);
       if (err.status === 401) signOut();
     }
   };

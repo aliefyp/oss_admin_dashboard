@@ -9,3 +9,6 @@ export const EP_SERVICES_TYPE = `${BASE_URL}/services/type`;
 // Regions
 export const EP_REGIONS_COUNTRY = `${BASE_URL}/regions/country`;
 export const EP_REGIONS_MUNICIPALITY = `${BASE_URL}/regions/municipality`;
+
+// Applications
+export const EP_APPLICATIONS = `${BASE_URL}/applications`;

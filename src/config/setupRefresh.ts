@@ -5,7 +5,7 @@ const setupRefresh = createRefresh({
   interval: 2,
   refreshApiCallback: async param => {
     try {
-      console.log("Refreshing")
+      console.log("Refreshing Token...")
 
       const params: Params = {
         accessToken: param.authToken,

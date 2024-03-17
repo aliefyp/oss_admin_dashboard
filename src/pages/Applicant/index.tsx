@@ -9,12 +9,20 @@ import { useMunicipality } from "api/region";
 import useLastNYearList from "usecase/useLastNYearList";
 import ApplicantTable from "./components/ApplicantTable";
 import { DUMMY_STATUS } from "./constants";
+import { useApplications } from "api/application";
 
 const Applicants: React.FC = () => {
   const { t } = useTranslation();
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
   const years = useLastNYearList(10);
+
+  const { data: dataApplications } = useApplications({
+    pageNumber: 1,
+    pageSize: 10,
+  });
+
+  console.log('dataApplications', dataApplications)
 
   const listService = dataServicesType?.data?.map((item) => ({
     itemId: item.code,
