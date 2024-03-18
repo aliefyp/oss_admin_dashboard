@@ -17,12 +17,14 @@ const Applicants: React.FC = () => {
   const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
   const years = useLastNYearList(10);
 
-  const { data: dataApplications } = useApplications({
+  const {
+    data: dataApplications,
+    isFetching: loadingApplications,
+    error: errorApplications,
+  } = useApplications({
     pageNumber: 1,
     pageSize: 10,
   });
-
-  console.log('dataApplications', dataApplications)
 
   const listService = dataServicesType?.data?.map((item) => ({
     itemId: item.code,
@@ -109,7 +111,11 @@ const Applicants: React.FC = () => {
           </div>
         </div>
         <div>
-          <ApplicantTable />
+          <ApplicantTable
+            data={dataApplications}
+            loading={loadingApplications}
+            error={errorApplications}
+          />
         </div>
       </div>
     </>

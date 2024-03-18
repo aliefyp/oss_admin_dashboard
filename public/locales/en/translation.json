@@ -23,6 +23,11 @@
     "male": "Male",
     "female": "Female"
   },
+  "role": {
+    "front-office": "Front Office",
+    "back-office": "Back Office",
+    "admin": "Admin"
+  },
   "login": {
     "title": "Welcome Back",
     "subtitle": "Please login to your account.",

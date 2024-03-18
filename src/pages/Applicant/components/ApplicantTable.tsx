@@ -1,11 +1,20 @@
 import { Chip, IconButton, Tooltip } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
+import EmptyState from 'components/EmptyState';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import { Response as ApplicationResponse } from 'types/application/applications';
 
-const ApplicantTable = () => {
+interface Props {
+  data: ApplicationResponse;
+  loading: boolean;
+  error: Error;
+}
+
+const ApplicantTable = ({ data, loading, error }: Props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -22,14 +31,14 @@ const ApplicantTable = () => {
       flex: 1,
       renderCell: (params: GridValueGetterParams) => {
         let result = null;
-        switch (params.row.status) {
-          case 1:
+        switch (params.row.status?.toLowerCase()) {
+          case 'approved':
             result = <Chip label="Approved" size="small" className="!text-purple-600 !bg-purple-200" />;
             break;
-          case 2:
+          case 'pending':
             result = <Chip label="Pending" size="small" className="!text-yellow-600 !bg-yellow-200" />;
             break;
-          case 3:
+          case 'rejected':
             result = <Chip label="Rejected" size="small" className="!text-red-600 !bg-red-200" />;
             break;
           default:
@@ -75,41 +84,37 @@ const ApplicantTable = () => {
     },
   ];
 
-  const rows = [
-    {
-      id: 1,
-      citizens: 'Jon Snow',
-      services: 'Birth of Certificate',
-      municipality: 'Bauncae',
-      submission_date: '14-Apr-2024',
-      review: 'Front-Desk Officer',
-      status: 1,
-      download: '',
-      preview: '',
-    },
-    {
-      id: 2,
-      citizens: 'Jon Snow',
-      services: 'Birth of Certificate',
-      municipality: 'Bauncae',
-      submission_date: '14-Apr-2024',
-      review: 'Front-Desk Officer',
-      status: 2,
-      download: '',
-      preview: '',
-    },
-    {
-      id: 3,
-      citizens: 'Jon Snow',
-      services: 'Birth of Certificate',
-      municipality: 'Bauncae',
-      submission_date: '14-Apr-2024',
-      review: 'Front-Desk Officer',
-      status: 3,
-      download: '',
-      preview: '',
-    },
-  ];
+  const rows = data?.data?.map((item) => ({
+    id: item.id,
+    citizens: item.fullName,
+    services: t(`services.${item.serviceType}`),
+    municipality: item.municipality,
+    submission_date: dayjs(item.submissionAt).format('DD-MMM-YYYY HH:mm'),
+    review: t(`role.${item.reviewStep}`),
+    status: item.status,
+    download: '',
+    preview: '',
+  })) || [];
+
+  if (error) {
+    return (
+      <EmptyState
+        title="Ooops..."
+        actionText="Return to home"
+        onClick={() => navigate('/')}
+      >
+        {error?.message || 'Something went wrong'}
+      </EmptyState>
+    )
+  }
+
+  if (!loading && !rows.length) {
+    return (
+      <EmptyState title="Ooops...">
+        You have no data
+      </EmptyState>
+    )
+  }
 
   return (
     <div style={{ width: '100%' }}>
