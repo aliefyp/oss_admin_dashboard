@@ -12,9 +12,17 @@ interface Props {
   data: ApplicationResponse;
   loading: boolean;
   error: Error;
+  onDownload: (id: number) => void;
+  onPreview: (id: number) => void;
 }
 
-const ApplicantTable = ({ data, loading, error }: Props) => {
+const ApplicantTable = ({
+  data,
+  loading,
+  error,
+  onDownload,
+  onPreview
+}: Props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -58,7 +66,7 @@ const ApplicantTable = ({ data, loading, error }: Props) => {
       renderCell: (params: GridValueGetterParams) => (
         <div id="download-button" className='hidden'>
           <Tooltip title="Download">
-            <IconButton>
+            <IconButton onClick={() => onDownload(params.row.id)}>
               <HiDownload className='text-sm font-bold' />
             </IconButton>
           </Tooltip>
@@ -75,7 +83,7 @@ const ApplicantTable = ({ data, loading, error }: Props) => {
       renderCell: (params: GridValueGetterParams) => (
         <div id="preview-button" className='hidden'>
           <Tooltip title="Preview">
-            <IconButton onClick={() => navigate(`/applicant/123`)}>
+            <IconButton onClick={() => onPreview(params.row.id)}>
               <HiOutlineDocumentSearch className='text-sm font-bold' />
             </IconButton>
           </Tooltip>

@@ -1,21 +1,29 @@
 import { Typography, InputAdornment, TextField, Button, Chip } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { FaSearch } from "react-icons/fa";
-import useGroupFilter from "usecase/useGroupFilter";
-import PageHeading from "components/PageHeading";
-import GroupFilter from "components/GroupFilter";
+import { useNavigate } from "react-router-dom";
 import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
+import { useApplications } from "api/application";
+import { useMutateApplicationDetail } from "api/application";
+import PageHeading from "components/PageHeading";
+import GroupFilter from "components/GroupFilter";
+import useGroupFilter from "usecase/useGroupFilter";
 import useLastNYearList from "usecase/useLastNYearList";
 import ApplicantTable from "./components/ApplicantTable";
 import { DUMMY_STATUS } from "./constants";
-import { useApplications } from "api/application";
+import { useEffect, useState } from "react";
 
 const Applicants: React.FC = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
+  const years = useLastNYearList(10);
+
+  const [idToDownload, setIdToDownload] = useState<number | null>(null);
+
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
-  const years = useLastNYearList(10);
+  const getApplicationDetail = useMutateApplicationDetail(idToDownload);
 
   const {
     data: dataApplications,
@@ -58,6 +66,23 @@ const Applicants: React.FC = () => {
       { groupId: 'status', groupLabel: 'Status', items: DUMMY_STATUS },
     ],
   });
+
+  const handleDownload = async (id: number) => {
+    setIdToDownload(id);
+  }
+
+  const handlePreview = (id: number) => {
+    navigate(`/applicant/${id}`)
+  }
+
+  const getFiles = async () => {
+    const res = await getApplicationDetail.mutate();
+    console.log(res)
+  }
+
+  useEffect(() => {
+    if (idToDownload) getFiles();
+  }, [idToDownload])
 
   return (
     <>
@@ -115,6 +140,8 @@ const Applicants: React.FC = () => {
             data={dataApplications}
             loading={loadingApplications}
             error={errorApplications}
+            onDownload={handleDownload}
+            onPreview={handlePreview}
           />
         </div>
       </div>
