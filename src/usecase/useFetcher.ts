@@ -1,11 +1,11 @@
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 
-const useFetcher = (method: string, url: string, options?: RequestInit) => {
+const useFetcher = () => {
   const auth = useAuthHeader();
   const signOut = useSignOut();
 
-  const fetcher = async () => {
+  const fetcher = async (method: string, url: string, options?: RequestInit, isBlob: boolean = false) => {
     try {
       const response = await fetch(url, {
         method: method || 'GET',
@@ -16,7 +16,15 @@ const useFetcher = (method: string, url: string, options?: RequestInit) => {
           ...options?.headers,
         }
       });
-      const data = await response.json();
+
+      console.log();
+      
+      const data = isBlob ? await response.blob() : await response.json();
+
+      if (data?.errorMessage) {
+        throw new Error(data.errorMessage);
+      }
+
       return data;
     } catch (err) {
       console.error(err);

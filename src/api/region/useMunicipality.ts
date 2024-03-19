@@ -8,11 +8,12 @@ interface Params {
 }
 
 const useMunicipality = (params: Params) => {
+  const fetcher = useFetcher();
+  
   const queryParams = new URLSearchParams(params as unknown as Record<string, string>);
   const url = `${EP_REGIONS_MUNICIPALITY}?${queryParams}`;
-  const fetcher = useFetcher('GET', url);
 
-  return useQuery<Response, Error>('regions-municipality', fetcher);
+  return useQuery<Response, Error>('regions-municipality', () => fetcher('GET', url));
 };
 
 export default useMunicipality;

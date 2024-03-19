@@ -4,8 +4,8 @@ import { EP_SERVICES_TYPE } from 'constants/endpoints';
 import useFetcher from 'usecase/useFetcher';
 
 const useServicesType = () => {
-  const fetcher = useFetcher('GET', EP_SERVICES_TYPE);
-  return useQuery<Response, Error>('service-type', fetcher);
+  const fetcher = useFetcher();
+  return useQuery<Response, Error>('service-type', () => fetcher('GET', EP_SERVICES_TYPE));
 };
 
 export default useServicesType;

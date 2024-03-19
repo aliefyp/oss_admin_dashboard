@@ -5,25 +5,24 @@ import { useNavigate } from "react-router-dom";
 import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
 import { useApplications } from "api/application";
-import { useMutateApplicationDetail } from "api/application";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
 import useGroupFilter from "usecase/useGroupFilter";
 import useLastNYearList from "usecase/useLastNYearList";
 import ApplicantTable from "./components/ApplicantTable";
 import { DUMMY_STATUS } from "./constants";
-import { useEffect, useState } from "react";
+import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
+import PageLoader from "components/PageLoader";
 
 const Applicants: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const years = useLastNYearList(10);
 
-  const [idToDownload, setIdToDownload] = useState<number | null>(null);
-
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
-  const getApplicationDetail = useMutateApplicationDetail(idToDownload);
+
+  const { downloadFile, downloading } = useApplicationFileDownload();
 
   const {
     data: dataApplications,
@@ -68,24 +67,18 @@ const Applicants: React.FC = () => {
   });
 
   const handleDownload = async (id: number) => {
-    setIdToDownload(id);
+    downloadFile(id);
   }
 
   const handlePreview = (id: number) => {
     navigate(`/applicant/${id}`)
   }
 
-  const getFiles = async () => {
-    const res = await getApplicationDetail.mutate();
-    console.log(res)
-  }
-
-  useEffect(() => {
-    if (idToDownload) getFiles();
-  }, [idToDownload])
-
   return (
     <>
+      {downloading && (
+        <PageLoader />
+      )}
       <PageHeading title={t('page_applicant.title')}>
         {/* <Button variant="text">+ Apply for Services</Button> */}
       </PageHeading>
@@ -135,7 +128,7 @@ const Applicants: React.FC = () => {
             )}
           </div>
         </div>
-        <div>
+        <div style={{ width: '100%' }}>
           <ApplicantTable
             data={dataApplications}
             loading={loadingApplications}

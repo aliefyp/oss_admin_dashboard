@@ -2,10 +2,85 @@ import { Button, Typography } from "@mui/material";
 import PageHeading from "components/PageHeading";
 import { HiOutlineDownload } from "react-icons/hi";
 import Table from "./components/Table";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import ModalApproveConfirmation from "./components/ModalApproveConfirmation";
 import ModalRejectConfirmation from "./components/ModalRejectConfirmation";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import dayjs from "dayjs";
+
+const DUMMY_DATA = {
+  "success": true,
+  "errorMessage": "string",
+  "data": {
+    "id": 0,
+    "personalDetail": {
+      "firstName": "string",
+      "lastName": "string",
+      "identityType": "CitizenCard",
+      "identityNumber": "string",
+      "email": "string",
+      "phoneNumber": "string",
+      "gender": "Female",
+      "photo": {
+        "id": 0,
+        "fileName": "string"
+      },
+      "identity": {
+        "id": 0,
+        "fileName": "string"
+      }
+    },
+    "birthDetail": {
+      "dateOfBirth": "2024-03-18T14:47:42.900Z",
+      "countryCode": "string",
+      "country": "string",
+      "municipalityCode": "string",
+      "municipality": "string",
+      "postAdministrativeCode": "string",
+      "postAdministrative": "string",
+      "sucosCode": "string",
+      "sucos": "string"
+    },
+    "residenceDetail": {
+      "address": "string",
+      "countryCode": "string",
+      "country": "string",
+      "municipalityCode": "string",
+      "municipality": "string",
+      "postAdministrativeCode": "string",
+      "postAdministrative": "string",
+      "sucosCode": "string",
+      "sucos": "string"
+    },
+    "familyDetail": {
+      "familyType": "Self",
+      "firstName": "string",
+      "lastName": "string",
+      "gender": "Female",
+      "dateOfBirth": "2024-03-18T14:47:42.901Z"
+    },
+    "files": [
+      {
+        "id": 0,
+        "fileName": "string",
+        "status": "Pending"
+      }
+    ],
+    "serviceType": "string",
+    "service": "string",
+    "submissionAt": "string",
+    "reviewStep": "string",
+    "status": "string",
+    "deliveryTime": "Normal"
+  },
+  "metadata": {
+    "currentPage": 0,
+    "totalPages": 0,
+    "pageSize": 0,
+    "totalCount": 0
+  }
+}
 
 const ApplicantDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -13,94 +88,110 @@ const ApplicantDetail: React.FC = () => {
   const [openApproveConfirmation, setOpenApproveConfirmation] = useState(false);
   const [openRejectConfirmation, setOpenRejectConfirmation] = useState(false);
 
+  const data = DUMMY_DATA;
+
+  const personalDetails = useMemo(() => {
+    if (data?.data === undefined) return [];
+    const { personalDetail } = data.data;
+
+    return [
+      {
+        label: t('page_applicant_detail.section_identity.label_id'),
+        value: data?.data.id,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_identity_number'),
+        value: personalDetail.identityNumber,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_first_name'),
+        value: personalDetail.firstName,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_email'),
+        value: personalDetail.email,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_last_name'),
+        value: personalDetail.lastName,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_phone'),
+        value: personalDetail.phoneNumber,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_identity_type'),
+        value: personalDetail.identityType,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_gender'),
+        value: personalDetail.gender,
+      },
+    ];
+  }, [data]);
 
 
-const PERSONAL_DETAILS = [
-  {
-    label: t('page_applicant_detail.section_identity.label_id'),
-    value: "099-864-351-uu",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_identity_number'),
-    value: "12345678901234",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_first_name'),
-    value: "Manuel",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_email'),
-    value: "Manuel.Belo@gmail.com",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_last_name'),
-    value: "Manuel Moniz Belo",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_phone'),
-    value: "+92 234 434 222",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_identity_type'),
-    value: "Citizen Card",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_gender'),
-    value: "Male",
-  },
-];
+  const birthDetails = useMemo(() => {
+    if (data?.data === undefined) return [];
+    const { birthDetail } = data.data;
 
-const BIRTH_DETAILS = [
-  {
-    label: t('page_applicant_detail.section_identity.label_birth_date'),
-    value: "12-09-1993",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_country'),
-    value: "Timor-Leste",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_state'),
-    value: "Aileu",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_city'),
-    value: "Laulara",
-  },
-];
+    return [
+      {
+        label: t('page_applicant_detail.section_identity.label_birth_date'),
+        value: dayjs(birthDetail.dateOfBirth).format('DD-MM-YYYY'),
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_country'),
+        value: birthDetail.country,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_state'),
+        value: birthDetail.municipality,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_city'),
+        value: birthDetail.postAdministrative,
+      },
+    ];
+  }, [data])
 
-const LOCAL_RESIDENCE = [
-  {
-    label: t('page_applicant_detail.section_identity.label_country'),
-    value: "Timor-Leste",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_state'),
-    value: "Aileu",
-  },
-  {
-    label: t('page_applicant_detail.section_identity.label_city'),
-    value: "Laulara",
-  },
-];
+  const residenceDetails = useMemo(() => {
+    if (data?.data === undefined) return [];
+    const { residenceDetail } = data.data;
 
-const DETAILS_DATA = [
-  {
-    span: 2,
-    title: t('page_applicant_detail.section_identity.subtitle_personal'),
-    data: PERSONAL_DETAILS,
-  },
-  {
-    span: 1,
-    title: t('page_applicant_detail.section_identity.subtitle_birth'),
-    data: BIRTH_DETAILS,
-  },
-  {
-    span: 1,
-    title: t('page_applicant_detail.section_identity.subtitle_local'),
-    data: LOCAL_RESIDENCE,
-  },
-];
+    return [
+      {
+        label: t('page_applicant_detail.section_identity.label_country'),
+        value: residenceDetail.country,
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_state'),
+        value: residenceDetail.municipality
+      },
+      {
+        label: t('page_applicant_detail.section_identity.label_city'),
+        value: residenceDetail.postAdministrative
+      },
+    ];
+  }, [])
+
+  const DETAILS_DATA = [
+    {
+      span: 2,
+      title: t('page_applicant_detail.section_identity.subtitle_personal'),
+      data: personalDetails,
+    },
+    {
+      span: 1,
+      title: t('page_applicant_detail.section_identity.subtitle_birth'),
+      data: birthDetails,
+    },
+    {
+      span: 1,
+      title: t('page_applicant_detail.section_identity.subtitle_local'),
+      data: residenceDetails,
+    },
+  ];
 
   return (
     <>
@@ -144,7 +235,7 @@ const DETAILS_DATA = [
                   {item.data.map(i => (
                     <div key={i.label} className="col-span-1">
                       <Typography variant="body2" className="!text-gray-500">{i.label}</Typography>
-                      <Typography variant="body2" className="!font-bold">{i.value}</Typography>
+                      <Typography variant="body2" className="!font-bold">{i.value || ''}</Typography>
                     </div>
                   ))}
                 </div>

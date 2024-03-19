@@ -9,9 +9,9 @@ interface Params {
 }
 
 const useApplications = (params: Params) => {
+  const fetcher = useFetcher();
   const queryParams = new URLSearchParams(params as unknown as Record<string, string>);
-  const fetcher = useFetcher('GET', `${EP_APPLICATIONS}?${queryParams}`);
-  return useQuery<Response, Error>('applications', fetcher);
+  return useQuery<Response, Error>('applications', () => fetcher('GET', `${EP_APPLICATIONS}?${queryParams}`));
 };
 
 export default useApplications;

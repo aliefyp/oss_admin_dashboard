@@ -2,6 +2,7 @@ import { Chip, IconButton, Tooltip } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
 import EmptyState from 'components/EmptyState';
+import PageLoader from 'components/PageLoader';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
@@ -104,9 +105,14 @@ const ApplicantTable = ({
     preview: '',
   })) || [];
 
-  if (error) {
+  if (loading || !rows.length) {
+    <PageLoader />
+  }
+
+  if (!loading && error) {
     return (
       <EmptyState
+        type="error"
         title="Ooops..."
         actionText="Return to home"
         onClick={() => navigate('/')}
@@ -118,48 +124,46 @@ const ApplicantTable = ({
 
   if (!loading && !rows.length) {
     return (
-      <EmptyState title="Ooops...">
+      <EmptyState type="empty" title="No Data">
         You have no data
       </EmptyState>
     )
   }
 
   return (
-    <div style={{ width: '100%' }}>
-      <DataGrid
-        density="standard"
-        rows={rows}
-        columns={columns}
-        showColumnVerticalBorder={false}
-        hideFooterSelectedRowCount
-        disableColumnMenu
-        pagination
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
-          },
-        }}
-        slots={{
-          pagination: CustomTablePagination,
-        }}
-        sx={{
+    <DataGrid
+      density="standard"
+      rows={rows}
+      columns={columns}
+      showColumnVerticalBorder={false}
+      hideFooterSelectedRowCount
+      disableColumnMenu
+      pagination
+      initialState={{
+        pagination: {
+          paginationModel: { page: 0, pageSize: 10 },
+        },
+      }}
+      slots={{
+        pagination: CustomTablePagination,
+      }}
+      sx={{
+        border: 'none',
+        [`& .MuiDataGrid-columnHeaders`]: {
+          backgroundColor: '#dcdcdc',
+          borderRadius: '8px',
+        },
+        [`& .MuiDataGrid-columnHeaderTitle`]: {
+          fontWeight: '700',
+        },
+        [`& .MuiDataGrid-row:hover #download-button, & .MuiDataGrid-row:hover #preview-button`]: {
+          display: 'block !important',
+        },
+        [`& .MuiDataGrid-footerContainer`]: {
           border: 'none',
-          [`& .MuiDataGrid-columnHeaders`]: {
-            backgroundColor: '#dcdcdc',
-            borderRadius: '8px',
-          },
-          [`& .MuiDataGrid-columnHeaderTitle`]: {
-            fontWeight: '700',
-          },
-          [`& .MuiDataGrid-row:hover #download-button, & .MuiDataGrid-row:hover #preview-button`]: {
-            display: 'block !important',
-          },
-          [`& .MuiDataGrid-footerContainer`]: {
-            border: 'none',
-          },
-        }}
-      />
-    </div>
+        },
+      }}
+    />
   );
 }
 
