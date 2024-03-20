@@ -9,20 +9,46 @@
     "issued_card": "Cartões emitidos",
     "settings": "Configurações"
   },
+  "services": {
+    "passport": "Passaporte",
+    "driving-license": "Carteira de motorista",
+    "nic": "Placa de rede",
+    "family-card": "Cartão Família",
+    "business-card": "Cartão de visitas",
+    "ficha-familia": "Ficha Família",
+    "citizen-card": "Cartão de Cidadão",
+    "birth-of-certificate": "Certidão de Nascimento"
+  },
+  "gender": {
+    "male": "Macho",
+    "female": "Fêmea"
+  },
+  "role": {
+    "front-office": "Recepção",
+    "back-office": "Backoffice",
+    "admin": "Administrador"
+  },
   "login": {
     "title": "Bem vindo de volta",
     "subtitle": "Por favor faça login na sua conta.",
     "label_email": "E-mail",
     "label_password": "Senha",
     "cta_submit": "Conecte-se",
-    "cta_forgot": "Esqueceu a senha?"
+    "cta_forgot": "Esqueceu a senha?",
+    "error_email_required": "O e-mail é obrigatório",
+    "error_email_invalid": "Email inválido",
+    "error_password_required": "Senha requerida",
+    "error_password_min": "A senha deve ser pelo menos {{count}} personagens",
+    "error_password_invalid": "A senha deve conter pelo menos uma letra maiúscula, uma minúscula e um número"
   },
   "forgot_password": {
     "title": "Esqueceu sua senha?",
     "subtitle": "Por favor, insira seu e-mail e obtenha o link para redefinir sua senha",
     "label_email": "E-mail",
     "cta_submit": "Solicitar redefinição de senha ",
-    "resend_code": "Você pode solicitar o reenvio do código em {{time}}é"
+    "resend_code": "Você pode solicitar o reenvio do código em {{time}}é",
+    "error_email_required": "O e-mail é obrigatório",
+    "error_email_invalid": "Email inválido"
   },
   "reset_password": {
     "title": "Redefinir sua senha",
@@ -35,12 +61,17 @@
       "lowercase": "Minúsculas",
       "number": "Número",
       "special_character": "Caractere especial"
-    }
+    },
+    "error_password_required": "Senha requerida",
+    "error_password_min": "A senha deve ser pelo menos {{count}} personagens",
+    "error_confirm_password_required": "Confirmar senha é obrigatório",
+    "error_confirm_password_min": "A confirmação da senha deve ser pelo menos {{count}} personagens"
   },
   "page_overview": {
     "title": "Visão geral",
     "latest_update": "Última atualização",
     "total_registered": "Total <b>{{count}}</b> Registrado",
+    "reset_filter": "Redefinir filtro",
     "section_filter": {
       "all_service": "Todos os serviços",
       "all_region": "Todas as regiões",
@@ -101,7 +132,7 @@
       "title": "Identidade Cidadã",
       "subtitle_personal": "Detalhes pessoais",
       "subtitle_birth": "Detalhes de nascimento",
-      "subtitle_local": "Residência Lodal",
+      "subtitle_local": "Residência Local",
       "label_id": "ID do requerente",
       "label_first_name": "Primeiro nome",
       "label_last_name": "Sobrenome",
@@ -113,7 +144,8 @@
       "label_birth_date": "Data de nascimento",
       "label_country": "País",
       "label_state": "Município/Estado",
-      "label_city": "Posto Administrativo/Cidade"
+      "label_city": "Posto Administrativo/Cidade",
+      "label_sucos": "Sucos"
     },
     "section_document": {
       "title": "Verificando os documentos necessários",
@@ -134,6 +166,14 @@
       "reject_confirm": "Rejeitar",
       "reject_recheck": "Verifique novamente"
     },
+    "section_others": {
+      "title": "Solicitação de outro",
+      "label_request_for": "Pedido para",
+      "label_first_name": "Primeiro nome",
+      "label_last_name": "Sobrenome",
+      "label_birth_date": "Data de nascimento",
+      "label_gender": "Gênero"
+    },
     "modal_approve": {
       "title": "Você tem certeza de aprovar?",
       "description": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendam aos critérios para ajudar nosso oficial",
@@ -148,6 +188,9 @@
       "placeholder_message": "Digite sua mensagem aqui...",
       "cta_reject": "Rejeitar",
       "cta_recheck": "Verifique novamente"
+    },
+    "modal_preview": {
+      "title": "Visualização do documento"
     }
   },
   "page_issued_card": {
