@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { Response } from 'types/application/application-detail';
 
-const useNormalizedData = (data: Response) => {
+const useCitizenIdentityData = (data: Response) => {
   const { t } = useTranslation();
 
   const personalDetails = useMemo(() => {
@@ -118,4 +118,4 @@ const useNormalizedData = (data: Response) => {
   ]
 }
 
-export default useNormalizedData;
+export default useCitizenIdentityData;

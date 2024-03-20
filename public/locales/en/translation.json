@@ -166,6 +166,14 @@
       "reject_confirm": "Reject",
       "reject_recheck": "Recheck"
     },
+    "section_others": {
+      "title": "Request For Other",
+      "label_request_for": "Request For",
+      "label_first_name": "First Name",
+      "label_last_name": "Last Name",
+      "label_birth_date": "Birth Date",
+      "label_gender": "Gender"
+    },
     "modal_approve": {
       "title": "Are Your Sure to Approve?",
       "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",

@@ -11,9 +11,10 @@ import PageLoader from "components/PageLoader";
 import Table from "./components/Table";
 import ModalApproveConfirmation from "./components/ModalApproveConfirmation";
 import ModalRejectConfirmation from "./components/ModalRejectConfirmation";
-import useNormalizedData from "./usecase/useNormalizedData";
+import useCitizenIdentityData from "./usecase/useCitizenIdentityData";
 import useLazyApplicationReject from "api/application/useLazyApplicationReject";
 import useLazyApplicationApprove from "api/application/useLazyApplicationApprove";
+import useRequestForOtherData from "./usecase/useRequestForOtherData";
 
 const ApplicantDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -35,7 +36,8 @@ const ApplicantDetail: React.FC = () => {
   const submitRejectApplication = useLazyApplicationReject();
 
   const { data, isFetching } = useApplicationDetail(Number(applicant_id));
-  const normalizedData = useNormalizedData(data);
+  const citizenIdentityData = useCitizenIdentityData(data);
+  const requestForOtherData = useRequestForOtherData(data);
 
   const getProfilePicture = useCallback(async () => {
     try {
@@ -198,7 +200,7 @@ const ApplicantDetail: React.FC = () => {
                 alt="citizen identity"
               />
             </div>
-            {normalizedData?.map(item => (
+            {citizenIdentityData?.map(item => (
               <div key={item.title} className={`col-span-${item.span} border-r last:border-r-0 pl-4 pr-2`}>
                 <Typography variant="h6" className="!mb-7">
                   {item.title}
@@ -216,6 +218,22 @@ const ApplicantDetail: React.FC = () => {
           </div>
         </div>
 
+        {/* request for other */}
+        {data?.data?.familyDetail?.familyType?.toLocaleLowerCase() !== 'self' && (
+          <div className="border rounded-lg pt-4 pb-6 px-3">
+            <Typography variant="h4" className="!mb-6">
+              {t('page_applicant_detail.section_others.title')}
+            </Typography>
+            <div className="grid grid-cols-5 gap-2">
+              {requestForOtherData.map(i => (
+                <div key={i.label} className="col-span-1">
+                  <Typography variant="body2" className="!text-gray-500">{i.label}</Typography>
+                  <Typography variant="body2" className="!font-bold">{i.value || ''}</Typography>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="py-4 space-y-4">
           <Typography variant="h4">
