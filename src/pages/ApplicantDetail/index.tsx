@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import FileSaver from "file-saver";
 import { HiOutlineDownload } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Alert, Button, Snackbar, Typography } from "@mui/material";
 import { useApplicationDetail, useLazyApplicationFiles, useLazyApplicationFileApprove, useLazyApplicationFileReject } from "api/application";
 import { useLazyFiles } from "api/files";
@@ -12,16 +12,18 @@ import Table from "./components/Table";
 import ModalApproveConfirmation from "./components/ModalApproveConfirmation";
 import ModalRejectConfirmation from "./components/ModalRejectConfirmation";
 import useNormalizedData from "./usecase/useNormalizedData";
+import useLazyApplicationReject from "api/application/useLazyApplicationReject";
+import useLazyApplicationApprove from "api/application/useLazyApplicationApprove";
 
 const ApplicantDetail: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { applicant_id } = useParams();
+
   const [profilePicture, setProfilePicture] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-
-  const { applicant_id } = useParams();
-
   const [openApproveConfirmation, setOpenApproveConfirmation] = useState(false);
   const [openRejectConfirmation, setOpenRejectConfirmation] = useState(false);
 
@@ -29,6 +31,8 @@ const ApplicantDetail: React.FC = () => {
   const getApplicationFiles = useLazyApplicationFiles();
   const submitApproveFile = useLazyApplicationFileApprove();
   const submitRejectFile = useLazyApplicationFileReject();
+  const submitApproveApplication = useLazyApplicationApprove();
+  const submitRejectApplication = useLazyApplicationReject();
 
   const { data, isFetching } = useApplicationDetail(Number(applicant_id));
   const normalizedData = useNormalizedData(data);
@@ -92,6 +96,40 @@ const ApplicantDetail: React.FC = () => {
       if (!res) throw new Error('Failed to reject file');
       
       cb();
+    } catch (error) {
+      console.error(error);
+      setShowAlert(true);
+      setAlertMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleApproveApplication = async () => {
+    try {
+      setLoading(true);
+      setOpenApproveConfirmation(false);
+      const res = await submitApproveApplication(data?.data?.id)
+      if (!res) throw new Error('Failed to approve application');
+      
+      navigate('/applicant');
+    } catch (error) {
+      console.error(error);
+      setShowAlert(true);
+      setAlertMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleRejectApplication = async () => {
+    try {
+      setLoading(true);
+      setOpenRejectConfirmation(false);
+      const res = await submitRejectApplication(data?.data?.id)
+      if (!res) throw new Error('Failed to reject application');
+      
+      navigate('/applicant');
     } catch (error) {
       console.error(error);
       setShowAlert(true);
@@ -212,13 +250,13 @@ const ApplicantDetail: React.FC = () => {
       <ModalApproveConfirmation
         open={openApproveConfirmation}
         onClose={() => setOpenApproveConfirmation(false)}
-        onConfirm={() => { }}
+        onConfirm={handleApproveApplication}
       />
 
       <ModalRejectConfirmation
         open={openRejectConfirmation}
         onClose={() => setOpenRejectConfirmation(false)}
-        onConfirm={() => { }}
+        onConfirm={handleRejectApplication}
       />
     </>
   );
