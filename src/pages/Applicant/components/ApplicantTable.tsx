@@ -9,10 +9,16 @@ import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { Response as ApplicationResponse } from 'types/application/applications';
 
+interface PaginationModel {
+  page: number;
+  pageSize: number;
+}
 interface Props {
   data: ApplicationResponse;
   loading: boolean;
   error: Error;
+  paginationModel: PaginationModel;
+  setPaginationModel: (paginationModel: PaginationModel) => void;
   onDownload: (id: number) => void;
   onPreview: (id: number) => void;
 }
@@ -21,6 +27,8 @@ const ApplicantTable = ({
   data,
   loading,
   error,
+  paginationModel,
+  setPaginationModel,
   onDownload,
   onPreview
 }: Props) => {
@@ -139,11 +147,13 @@ const ApplicantTable = ({
       hideFooterSelectedRowCount
       disableColumnMenu
       pagination
-      initialState={{
-        pagination: {
-          paginationModel: { page: 0, pageSize: 10 },
-        },
-      }}
+      // initialState={{
+      //   pagination: {
+      //     paginationModel,
+      //   },
+      // }}
+      paginationModel={paginationModel}
+      onPaginationModelChange={setPaginationModel}
       slots={{
         pagination: CustomTablePagination,
       }}

@@ -13,6 +13,7 @@ import ApplicantTable from "./components/ApplicantTable";
 import { DUMMY_STATUS } from "./constants";
 import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
 import PageLoader from "components/PageLoader";
+import { useState } from "react";
 
 const Applicants: React.FC = () => {
   const navigate = useNavigate();
@@ -24,13 +25,18 @@ const Applicants: React.FC = () => {
 
   const { downloadFile, downloading } = useApplicationFileDownload();
 
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  });
+
   const {
     data: dataApplications,
     isFetching: loadingApplications,
     error: errorApplications,
   } = useApplications({
-    pageNumber: 1,
-    pageSize: 10,
+    pageNumber: paginationModel.page,
+    pageSize: paginationModel.pageSize,
   });
 
   const listService = dataServicesType?.data?.map((item) => ({
@@ -130,6 +136,8 @@ const Applicants: React.FC = () => {
         </div>
         <div style={{ width: '100%' }}>
           <ApplicantTable
+            paginationModel={paginationModel}
+            setPaginationModel={setPaginationModel}
             data={dataApplications}
             loading={loadingApplications}
             error={errorApplications}
