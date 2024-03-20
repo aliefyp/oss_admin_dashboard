@@ -1,38 +1,68 @@
 import { Button, Checkbox, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
+import { HiDownload } from 'react-icons/hi';
+import { Response } from 'types/application/application-detail';
 
-const Table = () => {
+interface Props {
+  files: Response['data']['files'];
+  onDownloadFile: (file: any) => void;
+  onApproveFile: (id: number, callback: () => void) => void;
+  onRejectFile: (id: number, callback: () => void) => void;
+}
+
+const Table = ({ files, onDownloadFile, onApproveFile, onRejectFile }: Props) => {
   const { t } = useTranslation();
-  const [status, setStatus] = useState({
-    cninc: undefined,
-    card: undefined,
-    document: undefined,
-  })
+  const [status, setStatus] = useState({});
+
+  useEffect(() => {
+    const st = {}
+    files?.forEach((file) => {
+      st[file.id] = file.status
+    })
+    setStatus(st);
+  }, [files])
+
+  const handleVerify = (id) => {
+    onApproveFile(id, () => {
+      setStatus({
+        ...status,
+        [id]: status[id] === 'Approved' ? undefined : 'Approved'
+      })
+    })
+  }
+
+  const handleUnVerify = (id) => {
+    onRejectFile(id, () => {
+      setStatus({
+        ...status,
+        [id]: status[id] === 'Rejected' ? undefined : 'Rejected'
+      })
+    })
+  }
 
   const columns: GridColDef[] = [
-    {
-      field: 'required_document',
-      headerName: t('page_applicant_detail.section_document.row_document'),
-      sortable: false,
-      flex: 1,
-      renderCell: (params: GridValueGetterParams) => {
-        return (
-          <Typography variant="body2" className="w-[200px]">
-            {t(`page_applicant_detail.section_document.scanned_${params.row.required_document}`)}
-          </Typography>
-        )
-      },
-    },
+    // {
+    //   field: 'required_document',
+    //   headerName: t('page_applicant_detail.section_document.row_document'),
+    //   sortable: false,
+    //   flex: 1,
+    //   renderCell: (params: GridValueGetterParams) => {
+    //     return (
+    //       <Typography variant="body2" className="w-[200px]">
+    //         {t(`page_applicant_detail.section_document.scanned_${params.row.required_document}`)}
+    //       </Typography>
+    //     )
+    //   },
+    // },
     {
       field: 'document',
       headerName: '',
       flex: 2,
       sortable: false,
-      renderCell: (_: GridValueGetterParams) => (
-        <Typography variant="caption" className="!text-gray-500">Example.png</Typography>
+      renderCell: (params: GridValueGetterParams) => (
+        <Typography variant="caption" className="!text-gray-500">{params.row.file.fileName}</Typography>
       )
     },
     {
@@ -42,27 +72,27 @@ const Table = () => {
       flex: 1,
       renderCell: (params: GridValueGetterParams) => (
         <div id="download-button" className='hidden'>
-          <Button size="small" variant="text" className='space-x-2 hidden'>
+          <Button size="small" variant="text" className='space-x-2 hidden' onClick={() => onDownloadFile(params.row.file)}>
             <HiDownload />
             {t('page_applicant_detail.section_document.cta_download')}
           </Button>
         </div>
       ),
     },
-    {
-      field: 'preview',
-      headerName: '',
-      sortable: false,
-      flex: 1,
-      renderCell: (params: GridValueGetterParams) => (
-        <div id="preview-button" className='hidden'>
-          <Button size="small" variant="text" className='space-x-2'>
-            <HiOutlineDocumentSearch />
-            {t('page_applicant_detail.section_document.cta_preview')}
-          </Button>
-        </div>
-      ),
-    },
+    // {
+    //   field: 'preview',
+    //   headerName: '',
+    //   sortable: false,
+    //   flex: 1,
+    //   renderCell: (params: GridValueGetterParams) => (
+    //     <div id="preview-button" className='hidden'>
+    //       <Button size="small" variant="text" className='space-x-2'>
+    //         <HiOutlineDocumentSearch />
+    //         {t('page_applicant_detail.section_document.cta_preview')}
+    //       </Button>
+    //     </div>
+    //   ),
+    // },
     {
       field: 'verified',
       headerName: t('page_applicant_detail.section_document.row_verified'),
@@ -70,11 +100,7 @@ const Table = () => {
       renderCell: (params: GridValueGetterParams) => (
         <Checkbox
           checked={params.row.verified}
-          onClick={() => setStatus({
-            ...status,
-            [params.row.required_document]: status[params.row.required_document] === 'verified' ? undefined : 'verified'
-          })
-          }
+          onClick={() => handleVerify(params.row.id)}
         />
       )
     },
@@ -85,41 +111,21 @@ const Table = () => {
       renderCell: (params: GridValueGetterParams) => (
         <Checkbox
           checked={params.row.unverified}
-          onClick={() => setStatus({
-            ...status,
-            [params.row.required_document]: status[params.row.required_document] === 'unverified' ? undefined : 'unverified'
-          })
-          }
+          onClick={() => handleUnVerify(params.row.id)}
         />
       )
     },
   ];
-  const rows = [
-    {
-      id: 1,
-      required_document: 'cninc',
-      download: '',
-      preview: '',
-      verified: status.cninc === 'verified',
-      unverified: status.cninc === 'unverified',
-    },
-    {
-      id: 2,
-      required_document: 'card',
-      download: '',
-      preview: '',
-      verified: status.card === 'verified',
-      unverified: status.card === 'unverified',
-    },
-    {
-      id: 3,
-      required_document: 'document',
-      download: '',
-      preview: '',
-      verified: status.document === 'verified',
-      unverified: status.document === 'unverified',
-    },
-  ];
+
+  const rows = files?.map((file, index) => ({
+    id: file.id,
+    file,
+    // required_document: 'cninc',
+    download: '',
+    preview: '',
+    verified: status[file.id] === 'Approved',
+    unverified: status[file.id] === 'Rejected',
+  }));
 
   return (
     <div style={{ width: '100%' }}>

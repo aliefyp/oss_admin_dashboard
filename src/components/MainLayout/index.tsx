@@ -117,7 +117,7 @@ export default function MainLayout() {
           ))}
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }} className=" max-w-screen-2xl">
         <Toolbar />
         <AuthOutlet fallbackPath={`/login${from}`} />
       </Box>

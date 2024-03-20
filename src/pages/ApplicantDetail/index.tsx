@@ -3,8 +3,8 @@ import FileSaver from "file-saver";
 import { HiOutlineDownload } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
-import { useApplicationDetail, useLazyApplicationFiles } from "api/application";
+import { Alert, Button, Snackbar, Typography } from "@mui/material";
+import { useApplicationDetail, useLazyApplicationFiles, useLazyApplicationFileApprove, useLazyApplicationFileReject } from "api/application";
 import { useLazyFiles } from "api/files";
 import PageHeading from "components/PageHeading";
 import PageLoader from "components/PageLoader";
@@ -16,7 +16,9 @@ import useNormalizedData from "./usecase/useNormalizedData";
 const ApplicantDetail: React.FC = () => {
   const { t } = useTranslation();
   const [profilePicture, setProfilePicture] = useState<string | undefined>(undefined);
-  const [downloading, setDownloading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const { applicant_id } = useParams();
 
@@ -25,6 +27,9 @@ const ApplicantDetail: React.FC = () => {
 
   const getFiles = useLazyFiles();
   const getApplicationFiles = useLazyApplicationFiles();
+  const submitApproveFile = useLazyApplicationFileApprove();
+  const submitRejectFile = useLazyApplicationFileReject();
+
   const { data, isFetching } = useApplicationDetail(Number(applicant_id));
   const normalizedData = useNormalizedData(data);
 
@@ -40,18 +45,59 @@ const ApplicantDetail: React.FC = () => {
     }
   }, [data?.data?.personalDetail?.photo?.id, getFiles])
   
-  const handleDownloadFiles = async () => {
+  const downloadFiles = async (files) => {
     try {
-      setDownloading(true);
-      const files = data?.data?.files;
+      setLoading(true);
       const results = await getApplicationFiles(Number(applicant_id), files.map((file) => file.id));
 
       results.forEach((result, index) => {
         FileSaver.saveAs(result, files[index].fileName);
       });
-      setDownloading(false);
+      setLoading(false);
     } catch (error) {
-      console.error(error)
+      console.error(error);
+      setShowAlert(true);
+      setAlertMessage(error.message);
+    }
+  }
+
+  const handleDownloadAllFiles = () => {
+    downloadFiles(data?.data?.files)
+  }
+
+  const handleDownloadSingleFile = file => {
+    downloadFiles([file])
+  }
+
+  const handleApproveFile = async (fileId, cb) => {
+    try {
+      setLoading(true);
+      const res = await submitApproveFile(data?.data?.id, fileId)
+      if (!res) throw new Error('Failed to approve file');
+      
+      cb();
+    } catch (error) {
+      console.error(error);
+      setShowAlert(true);
+      setAlertMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleRejectFile = async (fileId, cb) => {
+    try {
+      setLoading(true);
+      const res = await submitRejectFile(data?.data?.id, fileId)
+      if (!res) throw new Error('Failed to reject file');
+      
+      cb();
+    } catch (error) {
+      console.error(error);
+      setShowAlert(true);
+      setAlertMessage(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -63,9 +109,25 @@ const ApplicantDetail: React.FC = () => {
 
   return (
     <>
-      {(isFetching || downloading) && (
+      {(isFetching || loading) && (
         <PageLoader />
       )}
+
+      <Snackbar
+        open={showAlert}
+        autoHideDuration={5000}
+        onClose={() => setShowAlert(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          severity="error"
+          variant='filled'
+          onClose={() => setShowAlert(false)}
+          sx={{ width: '100%' }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
 
       <PageHeading title={t('page_applicant_detail.title')} withBackButton />
 
@@ -80,7 +142,7 @@ const ApplicantDetail: React.FC = () => {
             <Typography variant="body2" className="m-0">
               {t('page_applicant_detail.deliver')}: <b>{data?.data?.deliveryTime}</b>
             </Typography>
-            <Button variant="text" className="flex items-center gap-1 !py-1" onClick={handleDownloadFiles}>
+            <Button variant="text" className="flex items-center gap-1 !py-1" onClick={handleDownloadAllFiles}>
               <HiOutlineDownload /> {t('page_applicant_detail.download')}
             </Button>
           </div>
@@ -121,7 +183,12 @@ const ApplicantDetail: React.FC = () => {
           <Typography variant="h4">
             {t('page_applicant_detail.section_document.title')}
           </Typography>
-          <Table />
+          <Table
+            files={data?.data?.files || []}
+            onDownloadFile={handleDownloadSingleFile}
+            onApproveFile={handleApproveFile}
+            onRejectFile={handleRejectFile}
+          />
           <div className="flex justify-end gap-4">
             <Button
               variant="contained"
