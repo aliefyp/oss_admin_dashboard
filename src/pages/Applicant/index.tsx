@@ -96,7 +96,7 @@ const Applicants: React.FC = () => {
                 }}
               />
             </div>
-            <div className="col-span-8">
+            <div className="col-span-8 justify-self-end">
               <GroupFilter
                 filter={filter}
                 filterOptions={filterOptions}
