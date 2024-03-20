@@ -11,6 +11,7 @@ import PageLoader from "components/PageLoader";
 import Table from "./components/Table";
 import ModalApproveConfirmation from "./components/ModalApproveConfirmation";
 import ModalRejectConfirmation from "./components/ModalRejectConfirmation";
+import ModalImagePreview from "./components/ModalImagePreview";
 import useCitizenIdentityData from "./usecase/useCitizenIdentityData";
 import useLazyApplicationReject from "api/application/useLazyApplicationReject";
 import useLazyApplicationApprove from "api/application/useLazyApplicationApprove";
@@ -22,6 +23,7 @@ const ApplicantDetail: React.FC = () => {
   const { applicant_id } = useParams();
 
   const [profilePicture, setProfilePicture] = useState<string | undefined>(undefined);
+  const [previewPicture, setPreviewPicture] = useState<string[] | undefined>([]);
   const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -60,6 +62,22 @@ const ApplicantDetail: React.FC = () => {
       console.error(error);
     }
   }, [data?.data?.personalDetail?.photo?.id, getFiles])
+
+  const getFilePreview = useCallback(async (fileIds: number[]) => {
+    try {
+      const blobs = await getApplicationFiles(data?.data?.id, fileIds);
+      
+      const urls = blobs.map((blob) => {
+        const urlCreator = window.URL || window.webkitURL;
+        const imageUrl = urlCreator.createObjectURL(blob);
+        return imageUrl;
+      });
+
+      setPreviewPicture(urls);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [data?.data?.id, getApplicationFiles])
   
   const downloadFiles = async (files) => {
     try {
@@ -83,6 +101,10 @@ const ApplicantDetail: React.FC = () => {
 
   const handleDownloadSingleFile = file => {
     downloadFiles([file])
+  }
+
+  const handlePreviewSingleFile = file => {
+    getFilePreview([file.id]);
   }
 
   const handleApproveFile = async (fileId, cb) => {
@@ -271,6 +293,7 @@ const ApplicantDetail: React.FC = () => {
           <Table
             files={data?.data?.files || []}
             filesStatus={filesStatus}
+            onPreviewFile={handlePreviewSingleFile}
             onDownloadFile={handleDownloadSingleFile}
             onFileStatusChange={handleStatusChange}
           />
@@ -304,6 +327,12 @@ const ApplicantDetail: React.FC = () => {
         open={openRejectConfirmation}
         onClose={() => setOpenRejectConfirmation(false)}
         onConfirm={handleRejectApplication}
+      />
+
+      <ModalImagePreview
+        images={previewPicture || []}
+        open={previewPicture?.length > 0}
+        onClose={() => setPreviewPicture([])}
       />
     </>
   );

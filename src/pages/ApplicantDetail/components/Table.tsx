@@ -1,17 +1,18 @@
 import { Button, Checkbox, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useTranslation } from 'react-i18next';
-import { HiDownload } from 'react-icons/hi';
+import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
 import { Response } from 'types/application/application-detail';
 
 interface Props {
   files: Response['data']['files'];
   filesStatus: Record<number, string | undefined>;
   onDownloadFile: (file: any) => void;
+  onPreviewFile: (file: any) => void;
   onFileStatusChange: (id: number, status: string) => void;
 }
 
-const Table = ({ files, filesStatus, onDownloadFile, onFileStatusChange }: Props) => {
+const Table = ({ files, filesStatus, onPreviewFile, onDownloadFile, onFileStatusChange }: Props) => {
   const { t } = useTranslation();
 
   const handleVerify = (id) => {
@@ -59,20 +60,20 @@ const Table = ({ files, filesStatus, onDownloadFile, onFileStatusChange }: Props
         </div>
       ),
     },
-    // {
-    //   field: 'preview',
-    //   headerName: '',
-    //   sortable: false,
-    //   flex: 1,
-    //   renderCell: (params: GridValueGetterParams) => (
-    //     <div id="preview-button" className='hidden'>
-    //       <Button size="small" variant="text" className='space-x-2'>
-    //         <HiOutlineDocumentSearch />
-    //         {t('page_applicant_detail.section_document.cta_preview')}
-    //       </Button>
-    //     </div>
-    //   ),
-    // },
+    {
+      field: 'preview',
+      headerName: '',
+      sortable: false,
+      flex: 1,
+      renderCell: (params: GridValueGetterParams) => (
+        <div id="preview-button" className='hidden'>
+          <Button size="small" variant="text" className='space-x-2' onClick={() => onPreviewFile(params.row.file)}>
+            <HiOutlineDocumentSearch />
+            {t('page_applicant_detail.section_document.cta_preview')}
+          </Button>
+        </div>
+      ),
+    },
     {
       field: 'verified',
       headerName: t('page_applicant_detail.section_document.row_verified'),

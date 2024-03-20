@@ -188,6 +188,9 @@
       "placeholder_message": "Type your message here...",
       "cta_reject": "Reject",
       "cta_recheck": "Recheck"
+    },
+    "modal_preview": {
+      "title": "Document Preview"
     }
   },
   "page_issued_card": {
