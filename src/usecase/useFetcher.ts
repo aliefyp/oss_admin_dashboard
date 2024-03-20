@@ -17,7 +17,7 @@ const useFetcher = () => {
         }
       });
 
-      console.log();
+      console.log('response', response);
       
       const data = isBlob ? await response.blob() : await response.json();
 

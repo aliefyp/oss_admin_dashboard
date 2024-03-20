@@ -132,7 +132,7 @@
       "title": "Citizen Identity",
       "subtitle_personal": "Personal Details",
       "subtitle_birth": "Birth Details",
-      "subtitle_local": "Lodal Residence",
+      "subtitle_local": "Local Residence",
       "label_id": "Applicant's ID",
       "label_first_name": "First Name",
       "label_last_name": "Last Name",
@@ -144,7 +144,8 @@
       "label_birth_date": "Birth Date",
       "label_country": "Country",
       "label_state": "Municipality/State",
-      "label_city": "Post Administrative/City"
+      "label_city": "Post Administrative/City",
+      "label_sucos": "Sucos"
     },
     "section_document": {
       "title": "Checking Required Documents",

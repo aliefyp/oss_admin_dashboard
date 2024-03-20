@@ -1,32 +1,27 @@
 import FileSaver from 'file-saver';
-import { EP_APPLICATIONS } from "constants/endpoints";
-import useFetcher from "usecase/useFetcher";
 import { useState } from 'react';
+import { useLazyApplicationDetail, useLazyApplicationFiles } from 'api/application';
+
 
 const useApplicationFileDownload = () => {
-  const fetcher = useFetcher();
   const [downloading, setDownloading] = useState(false);
+
+  const getApplicationDetail = useLazyApplicationDetail();
+  const getApplicationFiles = useLazyApplicationFiles();
 
   const downloadFile = async (applicationId: number) => {
     setDownloading(true);
 
     try {
-      const detail = await fetcher('GET', `${EP_APPLICATIONS}/${applicationId}`);
+      const detail = await getApplicationDetail(applicationId);
+      const files = detail?.data?.files;
 
-      if (detail.errorMessage) {
-        throw new Error(detail.errorMessage);
-      }
+      if (!files?.length) {
+        throw new Error('No files found for this application.');
+      };
 
-      const files = detail.data?.files
-      const filePromises = files.map((file) => {
-        return fetcher('GET', `${EP_APPLICATIONS}/${applicationId}/files/${file.id}`, {
-          headers: {
-            'Content-Type': 'application/octet-stream'
-          }
-        }, true)
-      });
+      const results = await getApplicationFiles(applicationId, files);
 
-      const results = await Promise.all(filePromises);
       results.forEach((result, index) => {
         FileSaver.saveAs(result, files[index].fileName);
       });
