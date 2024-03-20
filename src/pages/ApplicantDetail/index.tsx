@@ -27,6 +27,7 @@ const ApplicantDetail: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState('');
   const [openApproveConfirmation, setOpenApproveConfirmation] = useState(false);
   const [openRejectConfirmation, setOpenRejectConfirmation] = useState(false);
+  const [filesStatus, setFilesStatus] = useState({});
 
   const getFiles = useLazyFiles();
   const getApplicationFiles = useLazyApplicationFiles();
@@ -38,6 +39,15 @@ const ApplicantDetail: React.FC = () => {
   const { data, isFetching } = useApplicationDetail(Number(applicant_id));
   const citizenIdentityData = useCitizenIdentityData(data);
   const requestForOtherData = useRequestForOtherData(data);
+
+  useEffect(() => {
+    const st = {}
+    const files = data?.data?.files;
+    files?.forEach((file) => {
+      st[file.id] = file.status
+    })
+    setFilesStatus(st);
+  }, [data?.data?.files]);
 
   const getProfilePicture = useCallback(async () => {
     try {
@@ -141,11 +151,30 @@ const ApplicantDetail: React.FC = () => {
     }
   }
 
+  const handleStatusChange = (fileId: number, status: 'Approved' | 'Rejected') => {
+    const cb = () => {
+      setFilesStatus({
+        ...filesStatus,
+        [fileId]: filesStatus[fileId] === status ? undefined : status
+      })
+    }
+
+    if (status === 'Approved') {
+      handleApproveFile(fileId, cb);
+    }
+
+    if (status === 'Rejected') {
+      handleRejectFile(fileId, cb);
+    }
+  }
+
   useEffect(() => {
     if (data?.data?.personalDetail?.photo && !profilePicture) {
       getProfilePicture()
     }
   }, [data?.data?.personalDetail?.photo, profilePicture, getProfilePicture])
+
+  // const allowedToApprove = filesStatus && Object.values(filesStatus).some((status) => status === 'Approved' || status === 'Rejected');
 
   return (
     <>
@@ -241,9 +270,9 @@ const ApplicantDetail: React.FC = () => {
           </Typography>
           <Table
             files={data?.data?.files || []}
+            filesStatus={filesStatus}
             onDownloadFile={handleDownloadSingleFile}
-            onApproveFile={handleApproveFile}
-            onRejectFile={handleRejectFile}
+            onFileStatusChange={handleStatusChange}
           />
           <div className="flex justify-end gap-4">
             <Button

@@ -1,45 +1,25 @@
 import { Button, Checkbox, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HiDownload } from 'react-icons/hi';
 import { Response } from 'types/application/application-detail';
 
 interface Props {
   files: Response['data']['files'];
+  filesStatus: Record<number, string | undefined>;
   onDownloadFile: (file: any) => void;
-  onApproveFile: (id: number, callback: () => void) => void;
-  onRejectFile: (id: number, callback: () => void) => void;
+  onFileStatusChange: (id: number, status: string) => void;
 }
 
-const Table = ({ files, onDownloadFile, onApproveFile, onRejectFile }: Props) => {
+const Table = ({ files, filesStatus, onDownloadFile, onFileStatusChange }: Props) => {
   const { t } = useTranslation();
-  const [status, setStatus] = useState({});
-
-  useEffect(() => {
-    const st = {}
-    files?.forEach((file) => {
-      st[file.id] = file.status
-    })
-    setStatus(st);
-  }, [files])
 
   const handleVerify = (id) => {
-    onApproveFile(id, () => {
-      setStatus({
-        ...status,
-        [id]: status[id] === 'Approved' ? undefined : 'Approved'
-      })
-    })
+    onFileStatusChange(id, 'Approved');
   }
 
   const handleUnVerify = (id) => {
-    onRejectFile(id, () => {
-      setStatus({
-        ...status,
-        [id]: status[id] === 'Rejected' ? undefined : 'Rejected'
-      })
-    })
+    onFileStatusChange(id, 'Rejected');
   }
 
   const columns: GridColDef[] = [
@@ -123,8 +103,8 @@ const Table = ({ files, onDownloadFile, onApproveFile, onRejectFile }: Props) =>
     // required_document: 'cninc',
     download: '',
     preview: '',
-    verified: status[file.id] === 'Approved',
-    unverified: status[file.id] === 'Rejected',
+    verified: filesStatus[file.id] === 'Approved',
+    unverified: filesStatus[file.id] === 'Rejected',
   }));
 
   return (

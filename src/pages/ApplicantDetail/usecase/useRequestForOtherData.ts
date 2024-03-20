@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { Response } from 'types/application/application-detail';
 
@@ -23,7 +24,7 @@ const useRequestForOtherData = (data: Response) => {
     },
     {
       label: t('page_applicant_detail.section_others.label_birth_date'),
-      value: familyDetail.dateOfBirth,
+      value: dayjs(familyDetail.dateOfBirth).format('DD-MM-YYYY'),
     },
     {
       label: t('page_applicant_detail.section_others.label_gender'),
