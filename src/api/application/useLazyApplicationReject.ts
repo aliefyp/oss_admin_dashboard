@@ -5,7 +5,9 @@ const useLazyApplicationReject = () => {
   const fetcher = useFetcher();
 
   const mutate = (applicationId: number) => {
-    return fetcher('POST', `${EP_APPLICATIONS}/${applicationId}/reject`);
+    return fetcher('POST', `${EP_APPLICATIONS}/${applicationId}/reject`, {
+      body: JSON.stringify({ notes: '-' })
+    });
   }
 
   return mutate;
