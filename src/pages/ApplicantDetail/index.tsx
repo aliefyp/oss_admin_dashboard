@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import FileSaver from "file-saver";
 import { HiOutlineDownload } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
-import { useApplicationDetail } from "api/application";
+import { useApplicationDetail, useLazyApplicationFiles } from "api/application";
+import { useLazyFiles } from "api/files";
 import PageHeading from "components/PageHeading";
 import PageLoader from "components/PageLoader";
 import Table from "./components/Table";
@@ -13,18 +15,55 @@ import useNormalizedData from "./usecase/useNormalizedData";
 
 const ApplicantDetail: React.FC = () => {
   const { t } = useTranslation();
+  const [profilePicture, setProfilePicture] = useState<string | undefined>(undefined);
+  const [downloading, setDownloading] = useState(false);
 
   const { applicant_id } = useParams();
 
   const [openApproveConfirmation, setOpenApproveConfirmation] = useState(false);
   const [openRejectConfirmation, setOpenRejectConfirmation] = useState(false);
 
+  const getFiles = useLazyFiles();
+  const getApplicationFiles = useLazyApplicationFiles();
   const { data, isFetching } = useApplicationDetail(Number(applicant_id));
   const normalizedData = useNormalizedData(data);
 
+  const getProfilePicture = useCallback(async () => {
+    try {
+      const blob = await getFiles([data?.data?.personalDetail?.photo?.id])
+      
+      const urlCreator = window.URL || window.webkitURL;
+      const imageUrl = urlCreator.createObjectURL(blob[0]);
+      setProfilePicture(imageUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [data?.data?.personalDetail?.photo?.id, getFiles])
+  
+  const handleDownloadFiles = async () => {
+    try {
+      setDownloading(true);
+      const files = data?.data?.files;
+      const results = await getApplicationFiles(Number(applicant_id), files.map((file) => file.id));
+
+      results.forEach((result, index) => {
+        FileSaver.saveAs(result, files[index].fileName);
+      });
+      setDownloading(false);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (data?.data?.personalDetail?.photo && !profilePicture) {
+      getProfilePicture()
+    }
+  }, [data?.data?.personalDetail?.photo, profilePicture, getProfilePicture])
+
   return (
     <>
-      {isFetching && (
+      {(isFetching || downloading) && (
         <PageLoader />
       )}
 
@@ -41,7 +80,7 @@ const ApplicantDetail: React.FC = () => {
             <Typography variant="body2" className="m-0">
               {t('page_applicant_detail.deliver')}: <b>{data?.data?.deliveryTime}</b>
             </Typography>
-            <Button variant="text" className="flex items-center gap-1 !py-1">
+            <Button variant="text" className="flex items-center gap-1 !py-1" onClick={handleDownloadFiles}>
               <HiOutlineDownload /> {t('page_applicant_detail.download')}
             </Button>
           </div>
@@ -53,9 +92,9 @@ const ApplicantDetail: React.FC = () => {
             {t('page_applicant_detail.section_identity.title')}
           </Typography>
           <div className="grid grid-cols-5 gap-2">
-            <div className="col-span-1">
+            <div className="col-span-1 pr-4">
               <img
-                src="https://via.placeholder.com/150"
+                src={profilePicture || '/image_photo_placeholder.jpeg'}
                 alt="citizen identity"
               />
             </div>

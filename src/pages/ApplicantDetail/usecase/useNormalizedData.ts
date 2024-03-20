@@ -44,7 +44,7 @@ const useNormalizedData = (data: Response) => {
         value: personalDetail.gender,
       },
     ];
-  }, [data]);
+  }, [data, t]);
 
 
   const birthDetails = useMemo(() => {
@@ -73,7 +73,7 @@ const useNormalizedData = (data: Response) => {
         value: birthDetail.sucos,
       },
     ];
-  }, [data])
+  }, [data, t])
 
   const residenceDetails = useMemo(() => {
     if (data?.data === undefined) return [];
@@ -97,7 +97,7 @@ const useNormalizedData = (data: Response) => {
         value: residenceDetail.sucos
       },
     ];
-  }, [data])
+  }, [data, t])
 
   return [
     {

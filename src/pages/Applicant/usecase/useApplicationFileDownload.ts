@@ -20,7 +20,7 @@ const useApplicationFileDownload = () => {
         throw new Error('No files found for this application.');
       };
 
-      const results = await getApplicationFiles(applicationId, files);
+      const results = await getApplicationFiles(applicationId, files.map((file) => file.id));
 
       results.forEach((result, index) => {
         FileSaver.saveAs(result, files[index].fileName);
