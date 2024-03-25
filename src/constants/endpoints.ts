@@ -13,5 +13,9 @@ export const EP_REGIONS_MUNICIPALITY = `${BASE_URL}/regions/municipality`;
 // Applications
 export const EP_APPLICATIONS = `${BASE_URL}/applications`;
 
+// Appointments
+export const EP_APPOINMENTS = `${BASE_URL}/appoinments`;
+
 // Files
 export const EP_FILES = `${BASE_URL}/files`;
+
