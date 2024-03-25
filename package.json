@@ -1,5 +1,9 @@
 {
   "name": "oss_admin_dashboard",
+  "author": {
+    "name": "Balkaun Úniku",
+    "email": "info@bu.gov.tl"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {

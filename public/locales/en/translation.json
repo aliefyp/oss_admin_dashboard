@@ -214,5 +214,25 @@
       "row_deliver": "Deliver",
       "row_submission_date": "Submission Date"
     }
+  },
+  "page_appoinment": {
+    "title": "Appoinments",
+    "total_appoinments": "Total <b>{{count}}</b> Appoinments",
+    "reset_filter": "Reset Filter",
+    "filter": {
+      "all_service": "All Service",
+      "all_office": "All Office",
+      "all_date": "All Date",
+      "search_placeholder":  "Search ID or citizens name here"
+    },
+    "table": {
+      "row_id": "ID",
+      "row_citizens": "Citizens",
+      "row_user_type": "Type",
+      "row_service": "Services",
+      "row_office": "Office",
+      "row_appoinment_date": "Appoinment Date",
+      "row_status": "Status"
+    }
   }
 }

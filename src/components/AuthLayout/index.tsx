@@ -36,7 +36,7 @@ const AuthLayout = () => {
 
   return (
     <div className="h-screen w-screen flex flex-col">
-      <div className="grow items-stretch grid grid-cols-1 lg:grid-cols-2">
+      <div className="grow items-stretch grid grid-cols-1 lg:grid-cols-2 overflow-auto">
         <img
           src='/hero_login.jpeg'
           alt='Login'

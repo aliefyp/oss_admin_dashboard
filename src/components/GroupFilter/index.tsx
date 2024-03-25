@@ -1,11 +1,13 @@
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { UseGroupFilterInterface } from "usecase/useGroupFilter";
 
-type Props = Pick<UseGroupFilterInterface, 'filter' | 'filterOptions' | 'handleFilterChange'>;
+interface Props extends Pick<UseGroupFilterInterface, 'filter' | 'filterOptions' | 'handleFilterChange'>, React.HTMLAttributes<HTMLDivElement> { }
 
-const GroupFilter = ({ filter, filterOptions, handleFilterChange }: Props) => {
+const GroupFilter = ({ filter, filterOptions, handleFilterChange, ...otherProps }: Props) => {
+  const { className, ...rest } = otherProps;
+
   return (
-    <div className="flex items-center flex-wrap justify-start gap-2">
+    <div className={`flex items-center flex-wrap justify-start gap-2 ${className}`} {...rest}>
       {filterOptions.map((opt) => (
         <FormControl key={opt.groupId} sx={{ minWidth: 180 }} size="small">
           <Select

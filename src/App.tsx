@@ -21,6 +21,7 @@ import NotFound from "pages/NotFound";
 
 import ApplicantRoute from "routes/applicant";
 import IssuedCardRoute from "routes/issued-card";
+import AppoinmentRoute from "routes/appoinment";
 import OverviewRoute from "routes/overview";
 import NotificationRoute from "routes/notification";
 
@@ -44,6 +45,7 @@ function App() {
                 <Route element={<MainLayout />}>
                   <Route path="/applicant/*" element={<ApplicantRoute />} />
                   <Route path="/issued-card/*" element={<IssuedCardRoute />} />
+                  <Route path="/appoinment/*" element={<AppoinmentRoute />} />
                   <Route path="/notification" element={<NotificationRoute />} />
                   <Route path="/" element={<OverviewRoute />} />
                   <Route path="*" element={<NotFound />} />

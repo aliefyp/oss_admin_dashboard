@@ -1,25 +1,33 @@
 import { Button, Chip, InputAdornment, TextField, Typography } from "@mui/material";
-import PageHeading from "components/PageHeading";
-import IssuedCardListTable from "./components/IssuedCardListTable";
-import { useNavigate, useParams } from "react-router-dom";
-import services from "constants/services";
-import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import useGroupFilter from "usecase/useGroupFilter";
-import GroupFilter from "components/GroupFilter";
-import { FaSearch } from "react-icons/fa";
 import { useServicesType } from "api/service";
-import useLastNYearList from "usecase/useLastNYearList";
-import { DUMMY_DELIVER } from "./constants";
+import GroupFilter from "components/GroupFilter";
+import PageHeading from "components/PageHeading";
+import { useTranslation } from "react-i18next";
+import { FaSearch } from "react-icons/fa";
+import useGroupFilter from "usecase/useGroupFilter";
+import AppoinmentTable from "./components/AppoinmentTable";
+import { useState } from "react";
+import { useApplications } from "api/application";
 
-const IssuedCardList: React.FC = () => {
-  const { issued_card_id } = useParams();
-  const navigate = useNavigate();
+const Appoinment = () => {
   const { t } = useTranslation();
-  const { data: dataServicesType } = useServicesType();
-  const years = useLastNYearList(10);
 
-  const serviceData = services.find((service) => service.id === issued_card_id);
+  const { data: dataServicesType } = useServicesType();
+
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  });
+
+  // TODO: change with appoinment api
+  const {
+    data: dataApplications,
+    isFetching: loadingApplications,
+    error: errorApplications,
+  } = useApplications({
+    pageNumber: paginationModel.page,
+    pageSize: paginationModel.pageSize,
+  });
 
   const listService = dataServicesType?.data?.map((item) => ({
     itemId: item.code,
@@ -38,30 +46,21 @@ const IssuedCardList: React.FC = () => {
     defaultValue: "0",
     groups: [
       { groupId: 'service', groupLabel: 'Service', items: listService },
-      { groupId: 'deliver', groupLabel: 'Deliver', items: DUMMY_DELIVER },
-      { groupId: 'year', groupLabel: 'Year', items: years },
+      { groupId: 'office', groupLabel: 'Office', items: [] },
+      { groupId: 'date', groupLabel: 'Date', items: [] },
     ],
   });
 
-  useEffect(() => {
-    if (!serviceData) {
-      navigate(-1);
-    }
-  }, [navigate, serviceData])
-
   return (
     <>
-      <PageHeading
-        withBackButton
-        title={`${t('page_issued_card_list.title')}: ${serviceData.name}`}
-      />
+      <PageHeading title={t('page_appoinment.title')} />
       <div className="space-y-4">
         <div className="mb-6 space-y-3">
           <div className="grid grid-cols-12 gap-8">
             <div className="col-span-4">
               <TextField
                 size="small"
-                placeholder={t('page_issued_card_list.filter.search_placeholder')}
+                placeholder={t('page_appoinment.filter.search_placeholder')}
                 id="search-citizen"
                 sx={{ width: '100%' }}
                 InputProps={{
@@ -80,12 +79,12 @@ const IssuedCardList: React.FC = () => {
           </div>
           <div className="flex items-center gap-2">
             <Typography variant="caption" className="text-gray-600 block">
-              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 }) }} />
+              <span dangerouslySetInnerHTML={{ __html: t('page_appoinment.total_appoinments', { count: 2000 }) }} />
             </Typography>
             {hasFilter && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleFilterClear}>
-                  {t('page_overview.reset_filter')}
+                  {t('page_appoinment.reset_filter')}
                 </Button>
                 {filterKeys.map((key) => {
                   const filterObj = filterOptions.find((option) => option.groupId === key);
@@ -102,12 +101,18 @@ const IssuedCardList: React.FC = () => {
             )}
           </div>
         </div>
-        <div>
-          <IssuedCardListTable />
+        <div style={{ width: '100%' }}>
+          <AppoinmentTable
+            paginationModel={paginationModel}
+            setPaginationModel={setPaginationModel}
+            data={dataApplications}
+            loading={loadingApplications}
+            error={errorApplications}
+          />
         </div>
       </div>
     </>
   );
 }
 
-export default IssuedCardList;
+export default Appoinment;

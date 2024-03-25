@@ -104,6 +104,7 @@ const Applicants: React.FC = () => {
             </div>
             <div className="col-span-8 justify-self-end">
               <GroupFilter
+                className="justify-end"
                 filter={filter}
                 filterOptions={filterOptions}
                 handleFilterChange={handleFilterChange}
@@ -112,7 +113,7 @@ const Applicants: React.FC = () => {
           </div>
           <div className="flex items-center gap-2">
             <Typography variant="caption" className="text-gray-600 block">
-              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 })}} />
+              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 }) }} />
             </Typography>
             {hasFilter && (
               <div className="flex items-center gap-2">
