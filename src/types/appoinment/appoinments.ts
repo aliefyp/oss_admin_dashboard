@@ -1,15 +1,19 @@
 export interface Response {
   success: boolean
   errorMessage: string
-  data: Data
+  data: Daum[]
   metadata: Metadata
 }
 
-export interface Data {
-  bookingCode: string
-  officeLocation: string
-  queueNumber: number
+export interface Daum {
+  id: number
+  fullName: string
+  identityNumber: string
+  service: string
+  office: string
   scheduledAt: string
+  status: string
+  isRegistered: boolean
 }
 
 export interface Metadata {

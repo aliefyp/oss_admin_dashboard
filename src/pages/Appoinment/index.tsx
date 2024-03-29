@@ -7,7 +7,7 @@ import { FaSearch } from "react-icons/fa";
 import useGroupFilter from "usecase/useGroupFilter";
 import AppoinmentTable from "./components/AppoinmentTable";
 import { useState } from "react";
-import { useApplications } from "api/application";
+import { useAppoinments } from "api/appointment";
 
 const Appoinment = () => {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ const Appoinment = () => {
     data: dataApplications,
     isFetching: loadingApplications,
     error: errorApplications,
-  } = useApplications({
+  } = useAppoinments({
     pageNumber: paginationModel.page,
     pageSize: paginationModel.pageSize,
   });

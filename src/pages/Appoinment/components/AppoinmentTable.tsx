@@ -6,14 +6,14 @@ import PageLoader from 'components/PageLoader';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Response as ApplicationResponse } from 'types/application/applications';
+import { Response as AppoinmentResponse } from 'types/appoinment/appoinments';
 
 interface PaginationModel {
   page: number;
   pageSize: number;
 }
 interface Props {
-  data: ApplicationResponse;
+  data: AppoinmentResponse;
   loading: boolean;
   error: Error;
   paginationModel: PaginationModel;
@@ -66,9 +66,9 @@ const AppoinmentTable = ({
     id: item.id,
     citizens: item.fullName,
     user_type: 'Registered',
-    services: t(`services.${item.serviceType}`),
-    appoinment_date: dayjs(item.submissionAt).format('DD-MMM-YYYY HH:mm'),
-    office: "Bauncae",
+    services: t(`services.${item.service}`),
+    appoinment_date: dayjs(item.scheduledAt).format('DD-MMM-YYYY HH:mm'),
+    office: item.office,
     status: item.status,
   })) || [];
 
