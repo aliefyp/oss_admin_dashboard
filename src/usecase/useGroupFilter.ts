@@ -44,8 +44,6 @@ function useGroupFilter({ groups, defaultValue = "0" }: Deps): UseGroupFilterInt
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  console.log(searchParams.get('ServiceId'))
-
   const keys = groups.map(dt => dt.groupId);
   const [filter, setFilter] = useState<FilterState>(() => {
     const f = {};

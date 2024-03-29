@@ -1,43 +1,56 @@
+import { useEffect, useState } from "react";
 import { Typography, InputAdornment, TextField, Button, Chip } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDebounce } from "use-debounce";
 import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
 import { useApplications } from "api/application";
+import { AVAILABLE_STATUS } from "constants/applications";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
+import PageLoader from "components/PageLoader";
 import useGroupFilter from "usecase/useGroupFilter";
 import useLastNYearList from "usecase/useLastNYearList";
+import usePascalToParamCase from "usecase/usePascalToParamCase";
 import ApplicantTable from "./components/ApplicantTable";
-import { DUMMY_STATUS } from "./constants";
 import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
-import PageLoader from "components/PageLoader";
-import { useState } from "react";
 
 const Applicants: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
-  const years = useLastNYearList(10);
+  const years = useLastNYearList(5);
+  const pascalToParam = usePascalToParamCase();
 
-  const { data: dataServicesType } = useServicesType();
-  const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
+  const statusList = AVAILABLE_STATUS.map((item) => ({
+    itemId: item,
+    itemLabel: t(`application_status.${pascalToParam(item)}`),
+  }));
 
-  const { downloadFile, downloading } = useApplicationFileDownload();
+  const searchParams = new URLSearchParams(location.search);
+  const defaultSearch = searchParams.get('SearchValue') || '';
 
+  const [search, setSearch] = useState<string>(defaultSearch);
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10,
     page: 0,
+  });
+
+  const [debouncedSearch] = useDebounce(search, 500);
+
+  const { downloadFile, downloading } = useApplicationFileDownload();
+  const { data: dataServicesType } = useServicesType();
+  const { data: dataMunicipality } = useMunicipality({
+    countryCode: 'TL'
   });
 
   const {
     data: dataApplications,
     isFetching: loadingApplications,
     error: errorApplications,
-  } = useApplications({
-    pageNumber: paginationModel.page,
-    pageSize: paginationModel.pageSize,
-  });
+  } = useApplications();
 
   const listService = dataServicesType?.data?.map((item) => ({
     itemId: item.code,
@@ -65,10 +78,10 @@ const Applicants: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'service', groupLabel: 'Service', items: listService },
-      { groupId: 'municipality', groupLabel: 'Municipality', items: listMunicipality },
-      { groupId: 'year', groupLabel: 'Year', items: listYear },
-      { groupId: 'status', groupLabel: 'Status', items: DUMMY_STATUS },
+      { groupId: 'ServiceId', groupLabel: 'Service', items: listService },
+      { groupId: 'MunicipalityCode', groupLabel: 'Municipality', items: listMunicipality },
+      { groupId: 'SortYearBy', groupLabel: 'Year', items: listYear },
+      { groupId: 'Status', groupLabel: 'Status', items: statusList },
     ],
   });
 
@@ -79,6 +92,22 @@ const Applicants: React.FC = () => {
   const handlePreview = (id: number) => {
     navigate(`/applicant/${id}`)
   }
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams({
+      PageNumber: String(paginationModel.page + 1),
+      PageSize: String(paginationModel.pageSize),
+      ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
+      ...(filter.ServiceId !== '0' ? { ServiceId: String(filter.ServiceId) } : {}),
+      ...(filter.MunicipalityCode !== '0' ? { MunicipalityCode: String(filter.MunicipalityCode) } : {}),
+      ...(filter.SortYearBy !== '0' ? { SortYearBy: String(filter.SortYearBy) } : {}),
+      ...(filter.Status !== '0' ? { Status: String(filter.Status) } : {}),
+    });
+
+    navigate('/applicant?' + urlParams.toString(), { replace: true });
+  }, [paginationModel, debouncedSearch, filter, navigate])
+
+  const hasSearch = debouncedSearch.length > 0;
 
   return (
     <>
@@ -97,6 +126,8 @@ const Applicants: React.FC = () => {
                 placeholder={t('page_applicant.filter.search_placeholder')}
                 id="search-citizen"
                 sx={{ width: '100%' }}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 InputProps={{
                   startAdornment: <InputAdornment position="start"><FaSearch /></InputAdornment>
                 }}
@@ -115,11 +146,19 @@ const Applicants: React.FC = () => {
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 }) }} />
             </Typography>
-            {hasFilter && (
+            {(hasFilter || hasSearch) && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleFilterClear}>
                   {t('page_overview.reset_filter')}
                 </Button>
+                {hasSearch && (
+                  <Chip
+                    size="small"
+                    variant="outlined"
+                    label="Search"
+                    onDelete={() => setSearch('')}
+                  />
+                )}
                 {filterKeys.map((key) => {
                   const filterObj = filterOptions.find((option) => option.groupId === key);
                   return (
