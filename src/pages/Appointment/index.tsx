@@ -58,8 +58,8 @@ const Appointment = () => {
 
   const {
     data: dataAppointments,
-    isFetching: loadingApplications,
-    error: errorApplications,
+    isFetching: loadingAppointments,
+    error: errorAppointments,
   } = useAppointments({
     PageNumber: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
@@ -159,8 +159,8 @@ const Appointment = () => {
             paginationModel={paginationModel}
             setPaginationModel={setPaginationModel}
             data={dataAppointments}
-            loading={loadingApplications}
-            error={errorApplications}
+            loading={loadingAppointments}
+            error={errorAppointments}
           />
         </div>
       </div>

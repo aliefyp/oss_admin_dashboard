@@ -267,6 +267,11 @@
       "row_office": "Office",
       "row_appointment_date": "Appointment Date",
       "row_status": "Status"
+    },
+    "status": {
+      "unstarted": "Unstarted",
+      "completed": "Completed",
+      "absent": "Absent"
     }
   }
 }

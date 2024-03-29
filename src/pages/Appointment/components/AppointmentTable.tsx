@@ -1,12 +1,11 @@
-import { Chip } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
 import EmptyState from 'components/EmptyState';
-import PageLoader from 'components/PageLoader';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Response as AppointmentResponse } from 'types/appointment/appointments';
+import AppointmentStatus from './AppointmentStatus';
 
 interface PaginationModel {
   page: number;
@@ -41,24 +40,9 @@ const AppointmentTable = ({
       field: 'status',
       headerName: t('page_appointment.table.row_status'),
       flex: 1,
-      renderCell: (params: GridValueGetterParams) => {
-        let result = null;
-        switch (params.row.status?.toLowerCase()) {
-          case 'completed':
-            result = <Chip label="Completed" size="small" className="!text-purple-600 !bg-purple-200 !rounded-md" />;
-            break;
-          case 'unstarted':
-            result = <Chip label="Unstarted" size="small" className="!text-yellow-600 !bg-yellow-200 !rounded-md" />;
-            break;
-          case 'absent':
-            result = <Chip label="Absent" size="small" className="!text-red-600 !bg-red-200 !rounded-md" />;
-            break;
-          default:
-            break;
-        }
-
-        return result;
-      }
+      renderCell: (params: GridValueGetterParams) => (
+        <AppointmentStatus status={params.row.status} appointmentId={params.row.id} />
+      ),
     },
   ];
 
@@ -71,10 +55,6 @@ const AppointmentTable = ({
     office: item.office,
     status: item.status,
   })) || [];
-
-  if (loading || !rows.length) {
-    <PageLoader />
-  }
 
   if (!loading && error) {
     return (
@@ -89,16 +69,9 @@ const AppointmentTable = ({
     )
   }
 
-  // if (!loading && !rows.length) {
-  //   return (
-  //     <EmptyState type="empty" title="No Data">
-  //       You have no data
-  //     </EmptyState>
-  //   )
-  // }
-
   return (
     <DataGrid
+      loading={loading}
       density="standard"
       rows={rows}
       columns={columns}
@@ -110,6 +83,11 @@ const AppointmentTable = ({
       onPaginationModelChange={setPaginationModel}
       slots={{
         pagination: CustomTablePagination,
+        noRowsOverlay: () => (
+          <EmptyState type="empty" title="Oops...">
+            No results found
+          </EmptyState>
+        ),
       }}
       sx={{
         border: 'none',
@@ -126,6 +104,9 @@ const AppointmentTable = ({
         [`& .MuiDataGrid-footerContainer`]: {
           border: 'none',
         },
+        [`& .MuiDataGrid-virtualScroller`]: {
+          minHeight: '200px',
+        }
       }}
     />
   );
