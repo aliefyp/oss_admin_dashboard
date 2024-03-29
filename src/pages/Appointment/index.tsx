@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Chip, InputAdornment, TextField, Typography } from "@mui/material";
+import { useDebounce } from "use-debounce";
 import { useTranslation } from "react-i18next";
 import { FaSearch } from "react-icons/fa";
 import { useServices } from "api/service";
@@ -11,7 +12,6 @@ import GroupFilter from "components/GroupFilter";
 import PageHeading from "components/PageHeading";
 import useGroupFilter from "usecase/useGroupFilter";
 import AppointmentTable from "./components/AppointmentTable";
-import { useDebounce } from "use-debounce";
 import RangePicker from "./components/RangePicker";
 
 const Appointment = () => {
@@ -92,7 +92,7 @@ const Appointment = () => {
     });
 
     navigate('/appointment?' + urlParams.toString(), { replace: true });
-  }, [paginationModel, debouncedSearch, filter, date])
+  }, [paginationModel, debouncedSearch, filter, date, navigate])
 
   const hasSearch = debouncedSearch.length > 0;
   const hasDate = date[0] !== null || date[1] !== null;

@@ -4,7 +4,7 @@ import { EP_APPOINTMENTS } from 'constants/endpoints';
 import useFetcher from 'usecase/useFetcher';
 import { useLocation } from 'react-router-dom';
 
-interface UseAppointmentParams {
+export interface UseAppointmentParams {
   PageNumber: string;
   PageSize: string;
   SearchValue?: string;
