@@ -33,38 +33,41 @@ import PageLoader from "components/PageLoader";
 
 import 'dayjs/locale/en';
 import 'dayjs/locale/pt';
+import { ToasterProvider } from "contexts/ToasterContext";
 
 dayjs.locale(i18next.resolvedLanguage);
 
 function App() {
   return (
     <Suspense fallback={<PageLoader />}>
-      <QueryClientProvider client={setupQueryClient()}>
-        <AuthProvider store={setupAuth()}>
-          <ThemeProvider theme={setupTheme()}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <BrowserRouter>
-                <Routes>
-                  <Route element={<MainLayout />}>
-                    <Route path="/applicant/*" element={<ApplicantRoute />} />
-                    <Route path="/issued-card/*" element={<IssuedCardRoute />} />
-                    <Route path="/appointment/*" element={<AppointmentRoute />} />
-                    <Route path="/notification" element={<NotificationRoute />} />
-                    <Route path="/" element={<OverviewRoute />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Route>
-                  <Route element={<AuthLayout />}>
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/reset-password" element={<ResetPassword />} />
-                    <Route path="/login" element={<Login />} />
-                  </Route>
-                  <Route path="/logout" element={<Logout />} />
-                </Routes>
-              </BrowserRouter>
-            </LocalizationProvider>
-          </ThemeProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+      <ToasterProvider>
+        <QueryClientProvider client={setupQueryClient()}>
+          <AuthProvider store={setupAuth()}>
+            <ThemeProvider theme={setupTheme()}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <BrowserRouter>
+                  <Routes>
+                    <Route element={<MainLayout />}>
+                      <Route path="/applicant/*" element={<ApplicantRoute />} />
+                      <Route path="/issued-card/*" element={<IssuedCardRoute />} />
+                      <Route path="/appointment/*" element={<AppointmentRoute />} />
+                      <Route path="/notification" element={<NotificationRoute />} />
+                      <Route path="/" element={<OverviewRoute />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Route>
+                    <Route element={<AuthLayout />}>
+                      <Route path="/forgot-password" element={<ForgotPassword />} />
+                      <Route path="/reset-password" element={<ResetPassword />} />
+                      <Route path="/login" element={<Login />} />
+                    </Route>
+                    <Route path="/logout" element={<Logout />} />
+                  </Routes>
+                </BrowserRouter>
+              </LocalizationProvider>
+            </ThemeProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </ToasterProvider>
     </Suspense>
   );
 }

@@ -3,7 +3,7 @@ import FileSaver from "file-saver";
 import { HiOutlineDownload } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { Alert, Button, Snackbar, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useApplicationDetail, useLazyApplicationFiles, useLazyApplicationFileApprove, useLazyApplicationFileReject } from "api/application";
 import { useLazyFiles } from "api/files";
 import PageHeading from "components/PageHeading";
@@ -16,17 +16,17 @@ import useCitizenIdentityData from "./usecase/useCitizenIdentityData";
 import useLazyApplicationReject from "api/application/useLazyApplicationReject";
 import useLazyApplicationApprove from "api/application/useLazyApplicationApprove";
 import useRequestForOtherData from "./usecase/useRequestForOtherData";
+import useToaster from "usecase/useToaster";
 
 const ApplicantDetail: React.FC = () => {
   const { t } = useTranslation();
+  const toaster = useToaster();
   const navigate = useNavigate();
   const { applicant_id } = useParams();
 
   const [profilePicture, setProfilePicture] = useState<string | undefined>(undefined);
   const [previewPicture, setPreviewPicture] = useState<string[] | undefined>([]);
   const [loading, setLoading] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
   const [openApproveConfirmation, setOpenApproveConfirmation] = useState(false);
   const [openRejectConfirmation, setOpenRejectConfirmation] = useState(false);
   const [filesStatus, setFilesStatus] = useState({});
@@ -54,7 +54,7 @@ const ApplicantDetail: React.FC = () => {
   const getProfilePicture = useCallback(async () => {
     try {
       const blob = await getFiles([data?.data?.personalDetail?.photo?.id])
-      
+
       const urlCreator = window.URL || window.webkitURL;
       const imageUrl = urlCreator.createObjectURL(blob[0]);
       setProfilePicture(imageUrl);
@@ -66,7 +66,7 @@ const ApplicantDetail: React.FC = () => {
   const getFilePreview = useCallback(async (fileIds: number[]) => {
     try {
       const blobs = await getApplicationFiles(data?.data?.id, fileIds);
-      
+
       const urls = blobs.map((blob) => {
         const urlCreator = window.URL || window.webkitURL;
         const imageUrl = urlCreator.createObjectURL(blob);
@@ -78,7 +78,7 @@ const ApplicantDetail: React.FC = () => {
       console.error(error);
     }
   }, [data?.data?.id, getApplicationFiles])
-  
+
   const downloadFiles = async (files) => {
     try {
       setLoading(true);
@@ -90,8 +90,7 @@ const ApplicantDetail: React.FC = () => {
       setLoading(false);
     } catch (error) {
       console.error(error);
-      setShowAlert(true);
-      setAlertMessage(error.message);
+      toaster.open(error.message);
     }
   }
 
@@ -112,12 +111,11 @@ const ApplicantDetail: React.FC = () => {
       setLoading(true);
       const res = await submitApproveFile(data?.data?.id, fileId)
       if (!res) throw new Error('Failed to approve file');
-      
+
       cb();
     } catch (error) {
       console.error(error);
-      setShowAlert(true);
-      setAlertMessage(error.message);
+      toaster.open(error.message);
     } finally {
       setLoading(false);
     }
@@ -128,12 +126,11 @@ const ApplicantDetail: React.FC = () => {
       setLoading(true);
       const res = await submitRejectFile(data?.data?.id, fileId)
       if (!res) throw new Error('Failed to reject file');
-      
+
       cb();
     } catch (error) {
       console.error(error);
-      setShowAlert(true);
-      setAlertMessage(error.message);
+      toaster.open(error.message);
     } finally {
       setLoading(false);
     }
@@ -145,12 +142,11 @@ const ApplicantDetail: React.FC = () => {
       setOpenApproveConfirmation(false);
       const res = await submitApproveApplication(data?.data?.id)
       if (!res) throw new Error('Failed to approve application');
-      
+
       navigate('/applicant');
     } catch (error) {
       console.error(error);
-      setShowAlert(true);
-      setAlertMessage(error.message);
+      toaster.open(error.message);
     } finally {
       setLoading(false);
     }
@@ -162,12 +158,11 @@ const ApplicantDetail: React.FC = () => {
       setOpenRejectConfirmation(false);
       const res = await submitRejectApplication(data?.data?.id)
       if (!res) throw new Error('Failed to reject application');
-      
+
       navigate('/applicant');
     } catch (error) {
       console.error(error);
-      setShowAlert(true);
-      setAlertMessage(error.message);
+      toaster.open(error.message);
     } finally {
       setLoading(false);
     }
@@ -203,22 +198,6 @@ const ApplicantDetail: React.FC = () => {
       {(isFetching || loading) && (
         <PageLoader />
       )}
-
-      <Snackbar
-        open={showAlert}
-        autoHideDuration={5000}
-        onClose={() => setShowAlert(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert
-          severity="error"
-          variant='filled'
-          onClose={() => setShowAlert(false)}
-          sx={{ width: '100%' }}
-        >
-          {alertMessage}
-        </Alert>
-      </Snackbar>
 
       <PageHeading title={t('page_applicant_detail.title')} withBackButton />
 

@@ -3,12 +3,14 @@ import { Button, Chip, CircularProgress, Menu, MenuItem, Typography } from "@mui
 import { useUpdateAppoinment } from "api/appointment";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import useToaster from "usecase/useToaster";
 
 const STATUS = ['Completed', 'UnStarted', 'Absent'];
 
 const AppointmentStatus = ({ appointmentId, status }) => {
   let current = null;
   const { t } = useTranslation();
+  const toaster = useToaster();
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const [currentStatus, setCurrentStatus] = useState(status);
 
@@ -47,7 +49,7 @@ const AppointmentStatus = ({ appointmentId, status }) => {
       }
     }).catch(err => {
       console.error(err);
-      // TODO: push toaster
+      toaster.open(err.message)
     });
   }
 

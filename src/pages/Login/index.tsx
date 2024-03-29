@@ -10,8 +10,6 @@ import {
   InputAdornment,
   Link,
   Typography,
-  Snackbar,
-  Alert,
   FormHelperText
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
@@ -20,6 +18,7 @@ import { useLogin } from 'api/auth';
 import { useNavigate, useLocation } from 'react-router';
 import PageLoader from 'components/PageLoader';
 import { useForm } from 'react-hook-form';
+import useToaster from 'usecase/useToaster';
 
 interface LoginForm {
   email: string;
@@ -32,13 +31,10 @@ const Login = () => {
   const navigate = useNavigate();
   const signIn = useSignIn();
   const location = useLocation();
+  const toaster = useToaster();
   const from = new URLSearchParams(location.search).get('from') || '/';
 
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
 
   const { register, formState: { errors }, handleSubmit } = useForm<LoginForm>({
     defaultValues: {
@@ -81,31 +77,16 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        setShowAlert(true);
-        setAlertMessage(error.message);
+        console.error(error);
+        toaster.open(error.message);
       })
-  }, [from, login, navigate, signIn]);
+  }, [from, login, navigate, signIn, toaster]);
 
   return (
     <>
       {login.isLoading && (
         <PageLoader />
       )}
-      <Snackbar
-        open={showAlert}
-        autoHideDuration={5000}
-        onClose={() => setShowAlert(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert
-          severity="error"
-          variant='filled'
-          onClose={() => setShowAlert(false)}
-          sx={{ width: '100%' }}
-        >
-          {alertMessage}
-        </Alert>
-      </Snackbar>
       <div className='space-y-4'>
         <Typography variant="h2" noWrap component="div" className='text-center'>
           {t('login.title')}
@@ -177,7 +158,7 @@ const Login = () => {
               })}
             />
             {errors.password && (
-              <FormHelperText error={Boolean(errors.password)}  id="password-helper-text">
+              <FormHelperText error={Boolean(errors.password)} id="password-helper-text">
                 {errors.password.message || ''}
               </FormHelperText>
             )}
