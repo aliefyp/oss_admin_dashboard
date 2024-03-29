@@ -1,4 +1,6 @@
-import { useState } from "react";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Chip, InputAdornment, TextField, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { FaSearch } from "react-icons/fa";
@@ -11,13 +13,19 @@ import useGroupFilter from "usecase/useGroupFilter";
 import AppointmentTable from "./components/AppointmentTable";
 import { useDebounce } from "use-debounce";
 import RangePicker from "./components/RangePicker";
-import dayjs from "dayjs";
 
 const Appointment = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [date, setDate] = useState([null, null] as [Date | null, Date | null]);
-  const [search, setSearch] = useState('');
+  const searchParams = new URLSearchParams(location.search);
+  const defaultSearch = searchParams.get('SearchValue') || '';
+  const defaultStartDate = searchParams.get('ScheduleAtStart') ? dayjs(searchParams.get('ScheduleAtStart')).toDate() : null;
+  const defaultEndDate = searchParams.get('ScheduleAtEnd') ? dayjs(searchParams.get('ScheduleAtEnd')).toDate() : null;
+
+  const [date, setDate] = useState([defaultStartDate, defaultEndDate] as [Date | null, Date | null]);
+  const [search, setSearch] = useState<string>(defaultSearch);
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10,
     page: 0,
@@ -51,8 +59,8 @@ const Appointment = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'service', groupLabel: 'Service', items: listService },
-      { groupId: 'office', groupLabel: 'Office', items: listMunicipality },
+      { groupId: 'ServiceId', groupLabel: 'Service', items: listService },
+      { groupId: 'OfficeLocationCode', groupLabel: 'Office', items: listMunicipality },
     ],
   });
 
@@ -60,15 +68,7 @@ const Appointment = () => {
     data: dataAppointments,
     isFetching: loadingAppointments,
     error: errorAppointments,
-  } = useAppointments({
-    PageNumber: paginationModel.page + 1,
-    PageSize: paginationModel.pageSize,
-    ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
-    ...(filter.service !== '0' ? { ServiceId: Number(filter.service) } : {}),
-    ...(filter.office !== '0' ? { OfficeLocationCode: String(filter.office) } : {}),
-    ...(date[0] ? { ScheduleAtStart: dayjs(date[0]).format('YYYY-MM-DD') } : {}),
-    ...(date[1] ? { ScheduleAtEnd: dayjs(date[1]).format('YYYY-MM-DD') } : {}),
-  });
+  } = useAppointments();
 
   const handleResetClick = () => {
     handleFilterClear();
@@ -79,6 +79,20 @@ const Appointment = () => {
   const handleDateChange = (date: [Date | null, Date | null]) => {
     setDate(date);
   }
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams({
+      PageNumber: String(paginationModel.page + 1),
+      PageSize: String(paginationModel.pageSize),
+      ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
+      ...(filter.ServiceId !== '0' ? { ServiceId: String(filter.ServiceId) } : {}),
+      ...(filter.OfficeLocationCode !== '0' ? { OfficeLocationCode: String(filter.OfficeLocationCode) } : {}),
+      ...(date[0] ? { ScheduleAtStart: dayjs(date[0]).format('YYYY-MM-DD') } : {}),
+      ...(date[1] ? { ScheduleAtEnd: dayjs(date[1]).format('YYYY-MM-DD') } : {}),
+    });
+
+    navigate('/appointment?' + urlParams.toString(), { replace: true });
+  }, [paginationModel, debouncedSearch, filter, date])
 
   const hasSearch = debouncedSearch.length > 0;
   const hasDate = date[0] !== null || date[1] !== null;

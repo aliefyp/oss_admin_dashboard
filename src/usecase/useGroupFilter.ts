@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 interface Item {
   itemId: string | number;
@@ -40,10 +41,15 @@ export interface UseGroupFilterInterface {
 }
 
 function useGroupFilter({ groups, defaultValue = "0" }: Deps): UseGroupFilterInterface {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  console.log(searchParams.get('ServiceId'))
+
   const keys = groups.map(dt => dt.groupId);
   const [filter, setFilter] = useState<FilterState>(() => {
     const f = {};
-    keys.forEach(key => { f[key] = groups[key]?.defaultValue || defaultValue });
+    keys.forEach(key => { f[key] = searchParams.get(key) || groups[key]?.defaultValue || defaultValue });
     return f;
   });
 
@@ -57,14 +63,14 @@ function useGroupFilter({ groups, defaultValue = "0" }: Deps): UseGroupFilterInt
   const handleFilterRemove = (group: Group['groupId']) => {
     setFilter(prev => ({
       ...prev,
-      [group]: groups[group]?.defaultValue || defaultValue
+      [group]: defaultValue
     }))
   }
 
   const handleFilterClear = () => {
     setFilter(() => {
       const f = {};
-      keys.forEach(key => { f[key] = groups[key]?.defaultValue || defaultValue });
+      keys.forEach(key => { f[key] = defaultValue });
       return f;
     })
   }

@@ -2,24 +2,26 @@ import { useQuery } from 'react-query';
 import { Response } from 'types/appointment/appointments';
 import { EP_APPOINTMENTS } from 'constants/endpoints';
 import useFetcher from 'usecase/useFetcher';
+import { useLocation } from 'react-router-dom';
 
-interface Params {
-  PageNumber: number;
-  PageSize: number;
+interface UseAppointmentParams {
+  PageNumber: string;
+  PageSize: string;
   SearchValue?: string;
   OfficeLocationCode?: string;
-  ServiceId?: number;
+  ServiceId?: string;
   ScheduleAtStart?: string;
   ScheduleAtEnd?: string;
 }
 
-const useAppointments = (params: Params) => {
+const useAppointments = () => {
   const fetcher = useFetcher();
-  const queryParams = new URLSearchParams(params as unknown as Record<string, string>);
+  const location = useLocation();
   return useQuery<Response, Error>({
-    queryKey: ['appointments', params], 
-    queryFn: () => fetcher('GET', `${EP_APPOINTMENTS}?${queryParams}`),
+    queryKey: ['appointments', location.search], 
+    queryFn: () => fetcher('GET', `${EP_APPOINTMENTS}?${location.search}`),
     refetchOnMount: true,
+    enabled: location.search !== '',
   });
 };
 
