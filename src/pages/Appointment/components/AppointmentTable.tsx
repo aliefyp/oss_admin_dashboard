@@ -6,21 +6,21 @@ import PageLoader from 'components/PageLoader';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Response as AppoinmentResponse } from 'types/appoinment/appoinments';
+import { Response as AppointmentResponse } from 'types/appointment/appointments';
 
 interface PaginationModel {
   page: number;
   pageSize: number;
 }
 interface Props {
-  data: AppoinmentResponse;
+  data: AppointmentResponse;
   loading: boolean;
   error: Error;
   paginationModel: PaginationModel;
   setPaginationModel: (paginationModel: PaginationModel) => void;
 }
 
-const AppoinmentTable = ({
+const AppointmentTable = ({
   data,
   loading,
   error,
@@ -31,27 +31,27 @@ const AppoinmentTable = ({
   const { t } = useTranslation();
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: t('page_appoinment.table.row_id') },
-    { field: 'citizens', headerName: t('page_appoinment.table.row_citizens'), flex: 2 },
-    { field: 'user_type', headerName: t('page_appoinment.table.row_user_type'), flex: 1 },
-    { field: 'services', headerName: t('page_appoinment.table.row_service'), flex: 1 },
-    { field: 'office', headerName: t('page_appoinment.table.row_office'), flex: 1 },
-    { field: 'appoinment_date', headerName: t('page_appoinment.table.row_appoinment_date'), flex: 1 },
+    { field: 'id', headerName: t('page_appointment.table.row_id') },
+    { field: 'citizens', headerName: t('page_appointment.table.row_citizens'), flex: 2 },
+    { field: 'user_type', headerName: t('page_appointment.table.row_user_type'), flex: 1 },
+    { field: 'services', headerName: t('page_appointment.table.row_service'), flex: 1 },
+    { field: 'office', headerName: t('page_appointment.table.row_office'), flex: 1 },
+    { field: 'appointment_date', headerName: t('page_appointment.table.row_appointment_date'), flex: 1 },
     {
       field: 'status',
-      headerName: t('page_appoinment.table.row_status'),
+      headerName: t('page_appointment.table.row_status'),
       flex: 1,
       renderCell: (params: GridValueGetterParams) => {
         let result = null;
         switch (params.row.status?.toLowerCase()) {
-          case 'approved':
-            result = <Chip label="Approved" size="small" className="!text-purple-600 !bg-purple-200" />;
+          case 'completed':
+            result = <Chip label="Completed" size="small" className="!text-purple-600 !bg-purple-200 !rounded-md" />;
             break;
-          case 'pending':
-            result = <Chip label="Pending" size="small" className="!text-yellow-600 !bg-yellow-200" />;
+          case 'unstarted':
+            result = <Chip label="Unstarted" size="small" className="!text-yellow-600 !bg-yellow-200 !rounded-md" />;
             break;
-          case 'rejected':
-            result = <Chip label="Rejected" size="small" className="!text-red-600 !bg-red-200" />;
+          case 'absent':
+            result = <Chip label="Absent" size="small" className="!text-red-600 !bg-red-200 !rounded-md" />;
             break;
           default:
             break;
@@ -65,9 +65,9 @@ const AppoinmentTable = ({
   const rows = data?.data?.map((item) => ({
     id: item.id,
     citizens: item.fullName,
-    user_type: 'Registered',
-    services: t(`services.${item.service}`),
-    appoinment_date: dayjs(item.scheduledAt).format('DD-MMM-YYYY HH:mm'),
+    user_type: item.isRegistered ? 'Registered' : 'Not Registered',
+    services: t(`sub_services.${item.service}`),
+    appointment_date: dayjs(item.scheduledAt).format('DD-MMM-YYYY HH:mm'),
     office: item.office,
     status: item.status,
   })) || [];
@@ -89,13 +89,13 @@ const AppoinmentTable = ({
     )
   }
 
-  if (!loading && !rows.length) {
-    return (
-      <EmptyState type="empty" title="No Data">
-        You have no data
-      </EmptyState>
-    )
-  }
+  // if (!loading && !rows.length) {
+  //   return (
+  //     <EmptyState type="empty" title="No Data">
+  //       You have no data
+  //     </EmptyState>
+  //   )
+  // }
 
   return (
     <DataGrid
@@ -106,11 +106,6 @@ const AppoinmentTable = ({
       hideFooterSelectedRowCount
       disableColumnMenu
       pagination
-      // initialState={{
-      //   pagination: {
-      //     paginationModel,
-      //   },
-      // }}
       paginationModel={paginationModel}
       onPaginationModelChange={setPaginationModel}
       slots={{
@@ -136,4 +131,4 @@ const AppoinmentTable = ({
   );
 }
 
-export default AppoinmentTable;
+export default AppointmentTable;

@@ -5,6 +5,7 @@ export const EP_LOGIN = `${BASE_URL}/auth/login`;
 
 // Services
 export const EP_SERVICES_TYPE = `${BASE_URL}/services/type`;
+export const EP_SERVICES = `${BASE_URL}/services`;
 
 // Regions
 export const EP_REGIONS_COUNTRY = `${BASE_URL}/regions/country`;
@@ -14,7 +15,7 @@ export const EP_REGIONS_MUNICIPALITY = `${BASE_URL}/regions/municipality`;
 export const EP_APPLICATIONS = `${BASE_URL}/applications`;
 
 // Appointments
-export const EP_APPOINMENTS = `${BASE_URL}/appoinments`;
+export const EP_AppointmentS = `${BASE_URL}/appointments`;
 
 // Files
 export const EP_FILES = `${BASE_URL}/files`;

@@ -1,1 +1,1 @@
-export { default as useAppoinments } from './useAppoinments';
+export { default as useAppointments } from './useAppointments';

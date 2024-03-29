@@ -82,8 +82,8 @@ function useGroupFilter({ groups, defaultValue = "0" }: Deps): UseGroupFilterInt
   }, [groups, filter]);
 
   const filterKeys = useMemo(() => {
-    return Object.keys(filter).filter(key => filter[key] !== "0");
-  }, [filter]);
+    return Object.keys(filter).filter(key => filter[key] !== defaultValue);
+  }, [filter, defaultValue]);
 
   const hasFilter = filterKeys.length > 0;
 

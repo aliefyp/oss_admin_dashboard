@@ -19,6 +19,40 @@
     "citizen-card": "Citizen Card",
     "birth-of-certificate": "Birth of Certificate"
   },
+  "sub_services": {
+    "new-passport": "New Passport",
+    "renew-passport": "Renew Passport",
+    "loss-passport": "Loss Passport",
+    "damage-passport": "Damage Passport",
+    "new-driving-license": "New Driving License",
+    "renew-driving-license": "Renew Driving License",
+    "loss-driving-license": "Loss Driving License",
+    "damage-driving-license": "Damage Driving License",
+    "new-nic": "New NIC",
+    "renew-nic": "Renew NIC",
+    "loss-nic": "Loss NIC",
+    "damage-nic": "Damage NIC",
+    "new-family-card": "New Family Card",
+    "renew-family-card": "Renew Family Card",
+    "loss-family-card": "Loss Family Card",
+    "damage-family-card": "Damage Family Card",
+    "new-business-card": "New Business Card",
+    "renew-business-card": "Renew Business Card",
+    "loss-business-card": "Loss Business Card",
+    "damage-business-card": "Damage Business Card",
+    "new-ficha-familia": "New Ficha Familia",
+    "renew-ficha-familia": "Renew Ficha Familia",
+    "loss-ficha-familia": "Loss Ficha Familia",
+    "damage-ficha-familia": "Damage Ficha Familia",
+    "new-citizen-card": "New Citizen Card",
+    "renew-citizen-card": "Renew Citizen Card",
+    "loss-citizen-card": "Loss Citizen Card",
+    "damage-citizen-card": "Damage Citizen Card",
+    "new-birth-of-certificate": "New Birth of Certificate",
+    "renew-birth-of-certificate": "Renew Birth of Certificate",
+    "loss-birth-of-certificate": "Loss Birth of Certificate",
+    "damage-birth-of-certificate": "Damage Birth of Certificate"
+  },
   "gender": {
     "male": "Male",
     "female": "Female"
@@ -215,9 +249,9 @@
       "row_submission_date": "Submission Date"
     }
   },
-  "page_appoinment": {
-    "title": "Appoinments",
-    "total_appoinments": "Total <b>{{count}}</b> Appoinments",
+  "page_appointment": {
+    "title": "Appointments",
+    "total_appointments": "Total <b>{{count}}</b> Appointments",
     "reset_filter": "Reset Filter",
     "filter": {
       "all_service": "All Service",
@@ -231,7 +265,7 @@
       "row_user_type": "Type",
       "row_service": "Services",
       "row_office": "Office",
-      "row_appoinment_date": "Appoinment Date",
+      "row_appointment_date": "Appointment Date",
       "row_status": "Status"
     }
   }

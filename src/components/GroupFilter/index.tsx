@@ -1,9 +1,11 @@
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { UseGroupFilterInterface } from "usecase/useGroupFilter";
 
-interface Props extends Pick<UseGroupFilterInterface, 'filter' | 'filterOptions' | 'handleFilterChange'>, React.HTMLAttributes<HTMLDivElement> { }
+interface Props extends Pick<UseGroupFilterInterface, 'filter' | 'filterOptions' | 'handleFilterChange'>, React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
+}
 
-const GroupFilter = ({ filter, filterOptions, handleFilterChange, ...otherProps }: Props) => {
+const GroupFilter = ({ children, filter, filterOptions, handleFilterChange, ...otherProps }: Props) => {
   const { className, ...rest } = otherProps;
 
   return (
@@ -23,6 +25,7 @@ const GroupFilter = ({ filter, filterOptions, handleFilterChange, ...otherProps 
           </Select>
         </FormControl>
       ))}
+      {children}
     </div>
   );
 }

@@ -6,7 +6,7 @@ export const MAIN_MENU = {
     { text: "Overview", icon: HiOutlineHome, url: "/" },
     { text: "Applicants", icon: HiOutlineClipboard, url: "/applicant" },
     { text: "Issued Cards", icon: HiOutlineCreditCard, url: "/issued-card" },
-    { text: "Appoinment", icon: HiOutlineCreditCard, url: "/appoinment" },
+    { text: "Appointment", icon: HiOutlineCreditCard, url: "/appointment" },
   ],
 };
 
