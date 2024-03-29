@@ -2,7 +2,6 @@ import { Chip, IconButton, Tooltip } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
 import EmptyState from 'components/EmptyState';
-import PageLoader from 'components/PageLoader';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
@@ -113,10 +112,6 @@ const ApplicantTable = ({
     preview: '',
   })) || [];
 
-  if (loading || !rows.length) {
-    <PageLoader />
-  }
-
   if (!loading && error) {
     return (
       <EmptyState
@@ -130,16 +125,9 @@ const ApplicantTable = ({
     )
   }
 
-  if (!loading && !rows.length) {
-    return (
-      <EmptyState type="empty" title="No Data">
-        You have no data
-      </EmptyState>
-    )
-  }
-
   return (
     <DataGrid
+      loading={loading}
       density="standard"
       rows={rows}
       columns={columns}
@@ -147,15 +135,15 @@ const ApplicantTable = ({
       hideFooterSelectedRowCount
       disableColumnMenu
       pagination
-      // initialState={{
-      //   pagination: {
-      //     paginationModel,
-      //   },
-      // }}
       paginationModel={paginationModel}
       onPaginationModelChange={setPaginationModel}
       slots={{
         pagination: CustomTablePagination,
+        noRowsOverlay: () => (
+          <EmptyState type="empty" title="Oops...">
+            No results found
+          </EmptyState>
+        ),
       }}
       sx={{
         border: 'none',
@@ -172,6 +160,9 @@ const ApplicantTable = ({
         [`& .MuiDataGrid-footerContainer`]: {
           border: 'none',
         },
+        [`& .MuiDataGrid-virtualScroller`]: {
+          minHeight: '200px',
+        }
       }}
     />
   );
