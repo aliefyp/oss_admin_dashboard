@@ -103,8 +103,8 @@ const Applicants: React.FC = () => {
       ...(filter.Status !== '0' ? { Status: String(filter.Status) } : {}),
     });
 
-    navigate('/applicant?' + urlParams.toString(), { replace: true });
-  }, [paginationModel, debouncedSearch, filter, navigate])
+    navigate(location.pathname + '?' + urlParams.toString(), { replace: true });
+  }, [paginationModel, debouncedSearch, filter, navigate, location.pathname])
 
   const hasSearch = debouncedSearch.length > 0;
 

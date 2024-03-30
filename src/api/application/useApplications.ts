@@ -9,7 +9,7 @@ const useApplications = () => {
   const location = useLocation();
   return useQuery<Response, Error>({
     queryKey: ['applications', location.search], 
-    queryFn: () => fetcher('GET', `${EP_APPLICATIONS}?${location.search}`),
+    queryFn: () => fetcher('GET', `${EP_APPLICATIONS}${location.search}`),
     refetchOnMount: true,
     enabled: location.search !== '',
   });

@@ -91,13 +91,11 @@ const Appointment = () => {
       ...(date[1] ? { ScheduleAtEnd: dayjs(date[1]).format('YYYY-MM-DD') } : {}),
     });
 
-    navigate('/appointment?' + urlParams.toString(), { replace: true });
-  }, [paginationModel, debouncedSearch, filter, date, navigate])
+    navigate(location.pathname + '?' + urlParams.toString(), { replace: true });
+  }, [paginationModel, debouncedSearch, filter, date, navigate, location.pathname])
 
   const hasSearch = debouncedSearch.length > 0;
   const hasDate = date[0] !== null || date[1] !== null;
-
-  console.log(paginationModel)
 
   return (
     <>

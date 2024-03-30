@@ -19,7 +19,7 @@ const useAppointments = () => {
   const location = useLocation();
   return useQuery<Response, Error>({
     queryKey: ['appointments', location.search], 
-    queryFn: () => fetcher('GET', `${EP_APPOINTMENTS}?${location.search}`),
+    queryFn: () => fetcher('GET', `${EP_APPOINTMENTS}${location.search}`),
     refetchOnMount: true,
     enabled: location.search !== '',
   });

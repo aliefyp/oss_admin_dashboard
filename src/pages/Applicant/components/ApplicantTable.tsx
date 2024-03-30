@@ -146,6 +146,7 @@ const ApplicantTable = ({
       pagination
       paginationModel={paginationModel}
       rowCount={rowCount}
+      paginationMode="server"
       onPaginationModelChange={setPaginationModel}
       slots={{
         pagination: CustomTablePagination,
