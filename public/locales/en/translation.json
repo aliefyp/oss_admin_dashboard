@@ -53,6 +53,9 @@
     "loss-birth-of-certificate": "Loss Birth of Certificate",
     "damage-birth-of-certificate": "Damage Birth of Certificate"
   },
+  "deliver": {
+    "normal": "Normal"
+  },
   "application_status": {
     "submitted": "Submitted",
     "resubmitted": "Resubmitted",
@@ -73,6 +76,12 @@
     "front-office": "Front Office",
     "back-office": "Back Office",
     "admin": "Admin"
+  },
+  "family_type": {
+    "self": "Self",
+    "child": "Child",
+    "spouse": "Spouse",
+    "parent": "Parent"
   },
   "login": {
     "title": "Welcome Back",

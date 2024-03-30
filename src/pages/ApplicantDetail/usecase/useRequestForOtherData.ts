@@ -12,7 +12,7 @@ const useRequestForOtherData = (data: Response) => {
   return [
     {
       label: t('page_applicant_detail.section_others.label_request_for'),
-      value: familyDetail?.familyType,
+      value: t(`family_type.${familyDetail?.familyType}`),
     },
     {
       label: t('page_applicant_detail.section_others.label_first_name'),
@@ -28,7 +28,7 @@ const useRequestForOtherData = (data: Response) => {
     },
     {
       label: t('page_applicant_detail.section_others.label_gender'),
-      value: familyDetail.gender,
+      value: t(`gender.${familyDetail.gender}`),
     }
   ]
 }

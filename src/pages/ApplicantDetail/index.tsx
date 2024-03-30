@@ -168,7 +168,7 @@ const ApplicantDetail: React.FC = () => {
     }
   }
 
-  const handleStatusChange = (fileId: number, status: 'Approved' | 'Rejected') => {
+  const handleStatusChange = (fileId: number, status: 'approved' | 'rejected') => {
     const cb = () => {
       setFilesStatus({
         ...filesStatus,
@@ -176,11 +176,11 @@ const ApplicantDetail: React.FC = () => {
       })
     }
 
-    if (status === 'Approved') {
+    if (status === 'approved') {
       handleApproveFile(fileId, cb);
     }
 
-    if (status === 'Rejected') {
+    if (status === 'rejected') {
       handleRejectFile(fileId, cb);
     }
   }
@@ -190,8 +190,6 @@ const ApplicantDetail: React.FC = () => {
       getProfilePicture()
     }
   }, [data?.data?.personalDetail?.photo, profilePicture, getProfilePicture])
-
-  // const allowedToApprove = filesStatus && Object.values(filesStatus).some((status) => status === 'Approved' || status === 'Rejected');
 
   return (
     <>
@@ -207,10 +205,10 @@ const ApplicantDetail: React.FC = () => {
         <div className="border rounded-lg py-2 px-3">
           <div className="flex justify-between items-center">
             <Typography variant="body2" className="m-0">
-              {t('page_applicant_detail.applying_for')}: <b>{data?.data?.service}</b>
+              {t('page_applicant_detail.applying_for')}: <b>{t(`sub_services.${data?.data?.service}`)}</b>
             </Typography>
             <Typography variant="body2" className="m-0">
-              {t('page_applicant_detail.deliver')}: <b>{data?.data?.deliveryTime}</b>
+              {t('page_applicant_detail.deliver')}: <b>{t(`deliver.${data?.data?.deliveryTime}`)}</b>
             </Typography>
             <Button variant="text" className="flex items-center gap-1 !py-1" onClick={handleDownloadAllFiles}>
               <HiOutlineDownload /> {t('page_applicant_detail.download')}

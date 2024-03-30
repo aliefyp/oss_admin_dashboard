@@ -16,27 +16,14 @@ const Table = ({ files, filesStatus, onPreviewFile, onDownloadFile, onFileStatus
   const { t } = useTranslation();
 
   const handleVerify = (id) => {
-    onFileStatusChange(id, 'Approved');
+    onFileStatusChange(id, 'approved');
   }
 
   const handleUnVerify = (id) => {
-    onFileStatusChange(id, 'Rejected');
+    onFileStatusChange(id, 'rejected');
   }
 
   const columns: GridColDef[] = [
-    // {
-    //   field: 'required_document',
-    //   headerName: t('page_applicant_detail.section_document.row_document'),
-    //   sortable: false,
-    //   flex: 1,
-    //   renderCell: (params: GridValueGetterParams) => {
-    //     return (
-    //       <Typography variant="body2" className="w-[200px]">
-    //         {t(`page_applicant_detail.section_document.scanned_${params.row.required_document}`)}
-    //       </Typography>
-    //     )
-    //   },
-    // },
     {
       field: 'document',
       headerName: '',
@@ -101,11 +88,10 @@ const Table = ({ files, filesStatus, onPreviewFile, onDownloadFile, onFileStatus
   const rows = files?.map((file, index) => ({
     id: file.id,
     file,
-    // required_document: 'cninc',
     download: '',
     preview: '',
-    verified: filesStatus[file.id] === 'Approved',
-    unverified: filesStatus[file.id] === 'Rejected',
+    verified: filesStatus[file.id]?.toLowerCase() === 'approved',
+    unverified: filesStatus[file.id]?.toLowerCase() === 'rejected',
   }));
 
   return (

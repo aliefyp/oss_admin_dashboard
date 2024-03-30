@@ -19,6 +19,55 @@
     "citizen-card": "Cartão de Cidadão",
     "birth-of-certificate": "Certidão de Nascimento"
   },
+  "sub_services": {
+    "new-passport": "Novo passaporte",
+    "renew-passport": "Renovar passaporte",
+    "loss-passport": "Passaporte de Perda",
+    "damage-passport": "Passaporte de Danos",
+    "new-driving-license": "Nova carta de condução",
+    "renew-driving-license": "Renovar carteira de motorista",
+    "loss-driving-license": "Perda de carteira de motorista",
+    "damage-driving-license": "Carta de condução de danos",
+    "new-nic": "Nova placa de rede",
+    "renew-nic": "Renovar placa de rede",
+    "loss-nic": "Perda de placa de rede",
+    "damage-nic": "Danificar NIC",
+    "new-family-card": "Novo Cartão Família",
+    "renew-family-card": "Renovar Cartão Família",
+    "loss-family-card": "Cartão Família Perda",
+    "damage-family-card": "Cartão Família de Danos",
+    "new-business-card": "Novo cartão de visita",
+    "renew-business-card": "Renovar cartão de visita",
+    "loss-business-card": "Cartão de visita de perda",
+    "damage-business-card": "Cartão de visita de danos",
+    "new-ficha-familia": "Nova Ficha Família",
+    "renew-ficha-familia": "Renovar Ficha Família",
+    "loss-ficha-familia": "Perda Ficha Família",
+    "damage-ficha-familia": "Danos Ficha Família",
+    "new-citizen-card": "Novo Cartão de Cidadão",
+    "renew-citizen-card": "Renovar Cartão de Cidadão",
+    "loss-citizen-card": "Perda do Cartão de Cidadão",
+    "damage-citizen-card": "Cartão de Cidadão Danos",
+    "new-birth-of-certificate": "Novo Certificado de Nascimento",
+    "renew-birth-of-certificate": "Renovar certidão de nascimento",
+    "loss-birth-of-certificate": "Perda de certidão de nascimento",
+    "damage-birth-of-certificate": "Certidão de Nascimento de Danos"
+  },
+  "deliver": {
+    "normal": "Normal"
+  },
+  "application_status": {
+    "submitted": "Submetido",
+    "resubmitted": "Reenviado",
+    "waitingapprovalfromfrontoffice": "Aguardando aprovação do Front Office",
+    "approvedfromfrontoffice": "Aprovado pelo Front Office",
+    "waitingapprovalfrombackoffice": "Aguardando aprovação do Back Office",
+    "approvedfrombackoffice": "Aprovado pelo Back Office",
+    "rejectedfromfrontoffice": "Rejeitado do Front Office",
+    "rejectedfrombackoffice": "Rejeitado do Back Office",
+    "completed": "Concluído",
+    "delivered": "Entregue"
+  },
   "gender": {
     "male": "Macho",
     "female": "Fêmea"
@@ -27,6 +76,12 @@
     "front-office": "Recepção",
     "back-office": "Backoffice",
     "admin": "Administrador"
+  },
+  "family_type": {
+    "self": "Auto",
+    "child": "Criança",
+    "spouse": "Cônjuge",
+    "parent": "Pai"
   },
   "login": {
     "title": "Bem vindo de volta",
@@ -213,6 +268,31 @@
       "row_municipality": "Município",
       "row_deliver": "Entregar",
       "row_submission_date": "Data de submissão"
+    }
+  },
+  "page_appointment": {
+    "title": "Compromissos",
+    "total_appointments": "Total <b>{{count}}</b> Compromissos",
+    "reset_filter": "Redefinir filtro",
+    "filter": {
+      "all_service": "Todos os serviços",
+      "all_office": "Todo o escritório",
+      "all_date": "Todas as datas",
+      "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
+    },
+    "table": {
+      "row_id": "EU IA",
+      "row_citizens": "Cidadãos",
+      "row_user_type": "Tipo",
+      "row_service": "Serviços",
+      "row_office": "Escritório",
+      "row_appointment_date": "Data do encontro",
+      "row_status": "Status"
+    },
+    "status": {
+      "unstarted": "Não iniciado",
+      "completed": "Concluído",
+      "absent": "Ausente"
     }
   }
 }
