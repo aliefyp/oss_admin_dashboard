@@ -3,6 +3,9 @@
   "auth": {
     "back": "Back"
   },
+  "header": {
+    "logout": "Logout"
+  },
   "sidebar": {
     "overview": "Overview",
     "applicant": "Applicants",

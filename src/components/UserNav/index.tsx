@@ -1,14 +1,20 @@
-import * as React from 'react';
+import { useState } from 'react';
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Avatar, IconButton, ListItemIcon, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { HiLogout } from 'react-icons/hi';
+import { Response } from 'types/auth/login';
+import { useTranslation } from 'react-i18next';
+import { ROLE_STRING } from 'constants/role';
 
 const UserNav = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { t } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const auth = useAuthUser() as Response['data'];
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -17,11 +23,6 @@ const UserNav = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-
-  const actions = [
-    { label: 'Logout', onClick: () => navigate('/logout') },
-  ]
 
   return (
     <div>
@@ -38,7 +39,7 @@ const UserNav = () => {
           variant="rounded"
           sx={{ width: 32, height: 32 }}
         >
-          U
+          {auth?.email[0]?.toUpperCase()}
         </Avatar>
       </IconButton>
       <Menu
@@ -56,14 +57,20 @@ const UserNav = () => {
           horizontal: 'left',
         }}
       >
-        {actions.map((action) => (
-          <MenuItem key={action.label} onClick={action.onClick}>
-            <ListItemIcon>
-              <HiLogout />
-            </ListItemIcon>
-            <Typography>{action.label}</Typography>
-          </MenuItem>
-        ))}
+        <div className='flex flex-col border-b px-4 pb-2 mb-2 min-w-[200px]'>
+          <Typography variant="h6">
+            {auth?.email}
+          </Typography>
+          <Typography variant="caption" className='text-gray-600'>
+            {ROLE_STRING[auth?.roleId]}
+          </Typography>
+        </div>
+        <MenuItem onClick={() => navigate('/logout')}>
+          <ListItemIcon>
+            <HiLogout />
+          </ListItemIcon>
+          <Typography>{t('header.logout')}</Typography>
+        </MenuItem>
       </Menu>
     </div>
   );
