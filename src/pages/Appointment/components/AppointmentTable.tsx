@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Response as AppointmentResponse } from 'types/appointment/appointments';
 import AppointmentStatus from './AppointmentStatus';
+import { useEffect, useState } from 'react';
 
 interface PaginationModel {
   page: number;
@@ -28,6 +29,8 @@ const AppointmentTable = ({
 }: Props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const [rowCount, setRowCountState] = useState<number | undefined>(data?.metadata?.totalCount);
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: t('page_appointment.table.row_id') },
@@ -56,6 +59,12 @@ const AppointmentTable = ({
     status: item.status,
   })) || [];
 
+  useEffect(() => {
+    setRowCountState((prevRowCountState) =>
+      data?.metadata?.totalCount !== undefined ? data?.metadata?.totalCount : prevRowCountState,
+    );
+  }, [data?.metadata?.totalCount, setRowCountState]);
+
   if (!loading && error) {
     return (
       <EmptyState
@@ -80,7 +89,7 @@ const AppointmentTable = ({
       disableColumnMenu
       pagination
       paginationModel={paginationModel}
-      rowCount={data?.metadata?.totalCount}
+      rowCount={rowCount}
       onPaginationModelChange={setPaginationModel}
       slots={{
         pagination: CustomTablePagination,

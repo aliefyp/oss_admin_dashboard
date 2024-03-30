@@ -97,6 +97,8 @@ const Appointment = () => {
   const hasSearch = debouncedSearch.length > 0;
   const hasDate = date[0] !== null || date[1] !== null;
 
+  console.log(paginationModel)
+
   return (
     <>
       <PageHeading title={t('page_appointment.title')} />

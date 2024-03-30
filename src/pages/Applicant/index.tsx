@@ -113,9 +113,7 @@ const Applicants: React.FC = () => {
       {downloading && (
         <PageLoader />
       )}
-      <PageHeading title={t('page_applicant.title')}>
-        {/* <Button variant="text">+ Apply for Services</Button> */}
-      </PageHeading>
+      <PageHeading title={t('page_applicant.title')} />
       <div className="space-y-4">
         <div className="mb-6 space-y-3">
           <div className="grid grid-cols-12 gap-8">
