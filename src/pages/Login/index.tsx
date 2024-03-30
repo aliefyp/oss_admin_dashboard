@@ -19,6 +19,7 @@ import { useNavigate, useLocation } from 'react-router';
 import PageLoader from 'components/PageLoader';
 import { useForm } from 'react-hook-form';
 import useToaster from 'usecase/useToaster';
+import { ROLE } from 'constants/role';
 
 interface LoginForm {
   email: string;
@@ -59,6 +60,13 @@ const Login = () => {
           throw new Error(res.errorMessage)
         }
 
+        const roleId = res.data.roleId;
+        const isEligible = roleId === ROLE.FrontOffice || roleId === ROLE.BackOffice || roleId === ROLE.Admin || roleId === ROLE.Manager;
+
+        if (!isEligible) {
+          throw new Error(t('login.error_not_eligible'))
+        }
+
         if (signIn({
           auth: {
             token: res.data.accessToken,
@@ -80,7 +88,7 @@ const Login = () => {
         console.error(error);
         toaster.open(error.message);
       })
-  }, [from, login, navigate, signIn, toaster]);
+  }, [from, login, navigate, signIn, toaster, t]);
 
   return (
     <>

@@ -97,7 +97,8 @@
     "error_email_invalid": "Email is invalid",
     "error_password_required": "Password is required",
     "error_password_min": "Password must be at least {{count}} characters",
-    "error_password_invalid": "Password should contain at least one uppercase, one lowercase, and one number"
+    "error_password_invalid": "Password should contain at least one uppercase, one lowercase, and one number",
+    "error_not_eligible": "You are not eligible to access this system"
   },
   "forgot_password": {
     "title": "Forgot Password?",
