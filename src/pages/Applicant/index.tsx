@@ -92,6 +92,11 @@ const Applicants: React.FC = () => {
     navigate(`/applicant/${id}`)
   }
 
+  const handleResetClick = () => {
+    handleFilterClear();
+    setSearch('');
+  }
+
   useEffect(() => {
     const urlParams = new URLSearchParams({
       PageNumber: String(paginationModel.page + 1),
@@ -145,7 +150,7 @@ const Applicants: React.FC = () => {
             </Typography>
             {(hasFilter || hasSearch) && (
               <div className="flex items-center gap-2">
-                <Button variant="text" size="small" color="error" onClick={handleFilterClear}>
+                <Button variant="text" size="small" color="error" onClick={handleResetClick}>
                   {t('page_overview.reset_filter')}
                 </Button>
                 {hasSearch && (
