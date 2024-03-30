@@ -12,13 +12,15 @@ import dayjs from "dayjs";
 import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
 import useLastNYearList from "usecase/useLastNYearList";
-import { GENDER_LIST } from "constants/index";
+import { useOptionsGenderType } from "api/options";
 
 const Overview: React.FC = () => {
   const { t } = useTranslation();
+
+  const { data: dataGenderType } = useOptionsGenderType();
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
-  const years = useLastNYearList(10);
+  const years = useLastNYearList(5);
 
   const listService = dataServicesType?.data?.map((item) => ({
     itemId: item.code,
@@ -30,10 +32,12 @@ const Overview: React.FC = () => {
     itemLabel: item.name,
   })) || [];
 
-  const listGender = GENDER_LIST.map((item) => ({
-    itemId: item.code,
-    itemLabel: t(`gender.${item.name}`),
-  }));
+  const listGender = dataGenderType?.data?.map((item) => ({
+    itemId: item,
+    itemLabel: t(`gender.${item.toLowerCase()}`),
+  })) || [];
+
+  console.log(listGender)
 
   const listYear = years.map((item) => ({
     itemId: item,
@@ -74,7 +78,7 @@ const Overview: React.FC = () => {
           />
           <div className="flex items-center gap-2">
             <Typography variant="caption" className="text-gray-600 block">
-              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 })}} />
+              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 }) }} />
             </Typography>
             {hasFilter && (
               <div className="flex items-center gap-2">

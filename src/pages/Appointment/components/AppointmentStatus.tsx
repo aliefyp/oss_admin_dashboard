@@ -18,13 +18,13 @@ const AppointmentStatus = ({ appointmentId, status }) => {
 
   switch (currentStatus.toLowerCase()) {
     case 'completed':
-      current = <Chip label="Completed" size="small" className="!text-purple-600 !bg-purple-200 !rounded-md" />;
+      current = <Chip label="Completed" size="small" className="!text-purple-600 !bg-purple-200 !rounded-md min-w-[100px]" />;
       break;
     case 'unstarted':
-      current = <Chip label="UnStarted" size="small" className="!text-yellow-600 !bg-yellow-200 !rounded-md" />;
+      current = <Chip label="UnStarted" size="small" className="!text-yellow-600 !bg-yellow-200 !rounded-md min-w-[100px]" />;
       break;
     case 'absent':
-      current = <Chip label="Absent" size="small" className="!text-red-600 !bg-red-200 !rounded-md" />;
+      current = <Chip label="Absent" size="small" className="!text-red-600 !bg-red-200 !rounded-md min-w-[100px]" />;
       break;
     default:
       break;

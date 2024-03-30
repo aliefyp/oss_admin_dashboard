@@ -52,13 +52,13 @@ const ApplicantTable = ({
         let result = null;
         switch (params.row.status?.toLowerCase()) {
           case 'approved':
-            result = <Chip label="Approved" size="small" className="!text-purple-600 !bg-purple-200" />;
+            result = <Chip label="Approved" size="small" className="!text-purple-600 !bg-purple-200 !rounded-md min-w-[80px]" />;
             break;
           case 'pending':
-            result = <Chip label="Pending" size="small" className="!text-yellow-600 !bg-yellow-200" />;
+            result = <Chip label="Pending" size="small" className="!text-yellow-600 !bg-yellow-200 !rounded-md min-w-[80px]" />;
             break;
           case 'rejected':
-            result = <Chip label="Rejected" size="small" className="!text-red-600 !bg-red-200" />;
+            result = <Chip label="Rejected" size="small" className="!text-red-600 !bg-red-200 !rounded-md min-w-[80px]" />;
             break;
           default:
             break;
