@@ -80,6 +80,7 @@ const AppointmentTable = ({
       disableColumnMenu
       pagination
       paginationModel={paginationModel}
+      rowCount={data?.metadata?.totalCount}
       onPaginationModelChange={setPaginationModel}
       slots={{
         pagination: CustomTablePagination,

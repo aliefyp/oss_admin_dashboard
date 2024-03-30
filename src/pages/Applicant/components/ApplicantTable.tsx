@@ -3,6 +3,7 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
 import EmptyState from 'components/EmptyState';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
@@ -33,6 +34,8 @@ const ApplicantTable = ({
 }: Props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const [rowCount, setRowCountState] = useState<number | undefined>(data?.metadata?.totalCount);
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: t('page_applicant.table.row_id') },
@@ -112,6 +115,12 @@ const ApplicantTable = ({
     preview: '',
   })) || [];
 
+  useEffect(() => {
+    setRowCountState((prevRowCountState) =>
+      data?.metadata?.totalCount !== undefined ? data?.metadata?.totalCount : prevRowCountState,
+    );
+  }, [data?.metadata?.totalCount, setRowCountState]);
+
   if (!loading && error) {
     return (
       <EmptyState
@@ -136,6 +145,7 @@ const ApplicantTable = ({
       disableColumnMenu
       pagination
       paginationModel={paginationModel}
+      rowCount={rowCount}
       onPaginationModelChange={setPaginationModel}
       slots={{
         pagination: CustomTablePagination,

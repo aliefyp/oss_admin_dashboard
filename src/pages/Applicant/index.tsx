@@ -7,27 +7,20 @@ import { useDebounce } from "use-debounce";
 import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
 import { useApplications } from "api/application";
-import { AVAILABLE_STATUS } from "constants/applications";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
 import PageLoader from "components/PageLoader";
 import useGroupFilter from "usecase/useGroupFilter";
 import useLastNYearList from "usecase/useLastNYearList";
-import usePascalToParamCase from "usecase/usePascalToParamCase";
 import ApplicantTable from "./components/ApplicantTable";
 import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
+import useOptionApplicationStatus from "api/options/useOptionsApplicationStatus";
 
 const Applicants: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
   const years = useLastNYearList(5);
-  const pascalToParam = usePascalToParamCase();
-
-  const statusList = AVAILABLE_STATUS.map((item) => ({
-    itemId: item,
-    itemLabel: t(`application_status.${pascalToParam(item)}`),
-  }));
 
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
@@ -41,6 +34,7 @@ const Applicants: React.FC = () => {
   const [debouncedSearch] = useDebounce(search, 500);
 
   const { downloadFile, downloading } = useApplicationFileDownload();
+  const { data: dataStatus } = useOptionApplicationStatus();
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({
     countryCode: 'TL'
@@ -67,6 +61,11 @@ const Applicants: React.FC = () => {
     itemLabel: item,
   }));
 
+  const listStatus = dataStatus?.data?.map((item) => ({
+    itemId: item,
+    itemLabel: t(`application_status.${item.toLowerCase()}`),
+  })) || [];
+
   const {
     filter,
     filterKeys,
@@ -81,7 +80,7 @@ const Applicants: React.FC = () => {
       { groupId: 'ServiceId', groupLabel: 'Service', items: listService },
       { groupId: 'MunicipalityCode', groupLabel: 'Municipality', items: listMunicipality },
       { groupId: 'SortYearBy', groupLabel: 'Year', items: listYear },
-      { groupId: 'Status', groupLabel: 'Status', items: statusList },
+      { groupId: 'Status', groupLabel: 'Status', items: listStatus },
     ],
   });
 
@@ -144,7 +143,7 @@ const Applicants: React.FC = () => {
           </div>
           <div className="flex items-center gap-2">
             <Typography variant="caption" className="text-gray-600 block">
-              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 }) }} />
+              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: dataApplications?.metadata?.totalCount }) }} />
             </Typography>
             {(hasFilter || hasSearch) && (
               <div className="flex items-center gap-2">

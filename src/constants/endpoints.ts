@@ -20,3 +20,6 @@ export const EP_APPOINTMENTS = `${BASE_URL}/appointments`;
 // Files
 export const EP_FILES = `${BASE_URL}/files`;
 
+// Options
+export const EP_OPTIONS = `${BASE_URL}/options`;
+

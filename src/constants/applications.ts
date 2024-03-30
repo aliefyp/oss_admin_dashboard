@@ -1,1 +1,0 @@
-export const AVAILABLE_STATUS = ['Submitted', 'Resubmitted', 'WaitingApprovalFromFrontOffice', 'ApprovedFromFrontOffice', 'WaitingApprovalFromBackOffice', 'ApprovedFromBackOffice', 'RejectedFromFrontOffice', 'RejectedFromBackOffice', 'Completed', 'Delivered'];
