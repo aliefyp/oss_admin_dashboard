@@ -80,6 +80,10 @@
     "male": "Male",
     "female": "Female"
   },
+  "identity_type": {
+    "citizencard": "Citizen Card",
+    "passport": "Passport"
+  },
   "role": {
     "front-office": "Front Office",
     "back-office": "Back Office",
