@@ -10,11 +10,13 @@ function CustomTablePagination() {
   const pageSize = useGridSelector(apiRef, gridPageSizeSelector);
   const rowCount = useGridSelector(apiRef, gridRowCountSelector);
 
+  const totalPage = Math.ceil(rowCount / pageSize);
+
   return (
     <div className="space-y-4 mx-auto py-8">
       <Pagination
         color="primary"
-        count={Math.ceil(rowCount / pageSize)}
+        count={totalPage}
         page={page + 1}
         shape="rounded"
         showFirstButton
@@ -33,7 +35,7 @@ function CustomTablePagination() {
         )}
       />
       <Typography variant="body2" className="text-gray-600 block text-center">
-        {t('pagination', { page: page + 1, total: pageSize })}
+        {t('pagination', { page: page + 1, total: totalPage })}
       </Typography>
     </div>
   );
