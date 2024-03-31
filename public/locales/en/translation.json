@@ -71,6 +71,11 @@
     "completed":"Completed",
     "delivered":"Delivered"
   },
+  "approval_status": {
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "pending": "Pending"
+  },
   "gender": {
     "male": "Male",
     "female": "Female"

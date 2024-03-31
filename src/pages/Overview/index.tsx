@@ -37,8 +37,6 @@ const Overview: React.FC = () => {
     itemLabel: t(`gender.${item.toLowerCase()}`),
   })) || [];
 
-  console.log(listGender)
-
   const listYear = years.map((item) => ({
     itemId: item,
     itemLabel: item,

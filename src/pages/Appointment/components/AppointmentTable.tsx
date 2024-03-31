@@ -30,7 +30,7 @@ const AppointmentTable = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const [rowCount, setRowCountState] = useState<number | undefined>(data?.metadata?.totalCount);
+  const [rowCount, setRowCountState] = useState<number>(data?.metadata?.totalCount || 0);
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: t('page_appointment.table.row_id') },

@@ -6,33 +6,13 @@ import Typography from '@mui/material/Typography';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import LanguageSelector from 'components/LanguageSelector';
 import Footer from './Footer';
-// import { useState } from "react";
-// import { CSSTransition } from "react-transition-group";
-import './style.css';
-
-// const TRANSITION_DURATION_MS = 200;
 
 const AuthLayout = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-  // const outlet = useOutlet();
-
-  // const [currentOutlet, setCurrentOutlet] = useState(outlet)
-  // const [isRouting, setIsRouting] = useState(false)
 
   const showBackButton = location.pathname !== '/login';
-
-  // useEffect(() => {
-  //   setIsRouting(false)
-  //   let timeout = setTimeout(() => {
-  //     setCurrentOutlet(outlet)
-  //     setIsRouting(true)
-  //     clearTimeout(timeout)
-  //   }, TRANSITION_DURATION_MS)
-  //   return () => clearTimeout(timeout)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [location.pathname])
 
   return (
     <div className="h-screen w-screen flex flex-col">
@@ -66,18 +46,9 @@ const AuthLayout = () => {
               </Typography>
             </div>
           )}
-          {/* <CSSTransition
-            key={location.key}
-            in={isRouting}
-            timeout={TRANSITION_DURATION_MS}
-            classNames="route"
-            unmountOnExit
-          > */}
-            <div className='grow flex justify-center items-center h-full p-3 max-w-[400px] mx-auto'>
-              {/* {currentOutlet} */}
-              <Outlet />
-            </div>
-          {/* </CSSTransition> */}
+          <div className='grow flex justify-center items-center h-full p-3 max-w-[400px] mx-auto'>
+            <Outlet />
+          </div>
         </div>
       </div>
       <Footer />

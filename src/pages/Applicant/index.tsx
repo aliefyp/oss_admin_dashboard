@@ -7,6 +7,7 @@ import { useDebounce } from "use-debounce";
 import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
 import { useApplications } from "api/application";
+import { useOptionsApprovalStatus } from "api/options";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
 import PageLoader from "components/PageLoader";
@@ -14,7 +15,6 @@ import useGroupFilter from "usecase/useGroupFilter";
 import useLastNYearList from "usecase/useLastNYearList";
 import ApplicantTable from "./components/ApplicantTable";
 import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
-import useOptionApplicationStatus from "api/options/useOptionsApplicationStatus";
 
 const Applicants: React.FC = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const Applicants: React.FC = () => {
   const [debouncedSearch] = useDebounce(search, 500);
 
   const { downloadFile, downloading } = useApplicationFileDownload();
-  const { data: dataStatus } = useOptionApplicationStatus();
+  const { data: dataStatus } = useOptionsApprovalStatus();
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({
     countryCode: 'TL'
@@ -63,7 +63,7 @@ const Applicants: React.FC = () => {
 
   const listStatus = dataStatus?.data?.map((item) => ({
     itemId: item,
-    itemLabel: t(`application_status.${item.toLowerCase()}`),
+    itemLabel: t(`approval_status.${item.toLowerCase()}`),
   })) || [];
 
   const {
