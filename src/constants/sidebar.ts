@@ -1,4 +1,5 @@
 import { HiOutlineClipboard, HiOutlineCreditCard, HiOutlineHome, HiOutlineCog } from "react-icons/hi";
+import { HiCalendarDays } from "react-icons/hi2";
 
 export const MAIN_MENU = {
   title: "Main Function",
@@ -6,7 +7,7 @@ export const MAIN_MENU = {
     { text: "Overview", icon: HiOutlineHome, url: "/" },
     { text: "Applicants", icon: HiOutlineClipboard, url: "/applicant" },
     { text: "Issued Cards", icon: HiOutlineCreditCard, url: "/issued-card" },
-    { text: "Appointment", icon: HiOutlineCreditCard, url: "/appointment" },
+    { text: "Appointment", icon: HiCalendarDays, url: "/appointment" },
   ],
 };
 
