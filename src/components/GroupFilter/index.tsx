@@ -18,7 +18,7 @@ const GroupFilter = ({ children, filter, filterOptions, handleFilterChange, ...o
             defaultValue="0"
             onChange={e => handleFilterChange(opt.groupId, e.target.value)}
           >
-            <MenuItem value="0">{`All ${opt.groupLabel}`}</MenuItem>
+            <MenuItem value="0" className=" !text-gray-600">{`All ${opt.groupLabel}`}</MenuItem>
             {opt.items.map((svc) => (
               <MenuItem key={svc.itemId} value={svc.itemId}>{svc.itemLabel}</MenuItem>
             ))}
