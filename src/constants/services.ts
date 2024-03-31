@@ -1,6 +1,17 @@
+export const SERVICE_ICONS = {
+  'passport': '/icon_service_passport_card.svg',
+  'driving-license': '/icon_service_driving_license.svg',
+  'nic': '/icon_service_nic.svg',
+  'family-card': '/icon_service_family_card.svg',
+  'business-card': '/icon_service_business_card.svg',
+  'ficha-familia': '/icon_service_ficha_familia.svg',
+  'citizen-card': '/icon_service_citizen_card.svg',
+  'birth-of-certificate': '/icon_service_birth_of_certificate.svg',
+};
+
 const services = [
   {
-    id: 'passport-card',
+    id: 'passport',
     name: 'Passport Card',
     icon: '/icon_service_passport_card.svg'
   },

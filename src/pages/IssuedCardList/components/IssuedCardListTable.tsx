@@ -4,15 +4,35 @@ import {
   GridColDef,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
+import { Response as IssuedCardResponse } from 'types/issued-card/issued-cards';
 import CustomTablePagination from 'components/CustomTablePagination';
 import { useTranslation } from 'react-i18next';
 import { HiDownload } from 'react-icons/hi';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import EmptyState from 'components/EmptyState';
+import { useNavigate } from 'react-router-dom';
 
-const IssuedCardListTable = () => {
+interface PaginationModel {
+  page: number;
+  pageSize: number;
+}
+interface Props {
+  data: IssuedCardResponse;
+  loading: boolean;
+  error: Error;
+  paginationModel: PaginationModel;
+  setPaginationModel: (paginationModel: PaginationModel) => void;
+}
+
+const IssuedCardListTable = ({ data, loading, error, paginationModel, setPaginationModel }: Props) => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
+  const [rowCount, setRowCountState] = useState<number>(data?.metadata?.totalCount || 0);
+
   const columns: GridColDef[] = [
-    { field: 'id', headerName: t('page_issued_card_list.table.row_id'), flex: 1},
+    { field: 'id', headerName: t('page_issued_card_list.table.row_id'), flex: 1 },
     { field: 'citizens', headerName: t('page_issued_card_list.table.row_citizens'), flex: 2 },
     { field: 'municipality', headerName: t('page_issued_card_list.table.row_municipality'), flex: 1 },
     { field: 'deliver', headerName: t('page_issued_card_list.table.row_deliver'), flex: 1 },
@@ -36,100 +56,37 @@ const IssuedCardListTable = () => {
     },
   ];
 
-  const rows = [
-    {
-      id: 1,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 2,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Urgent',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 3,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 4,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 5,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 6,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 7,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 8,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 9,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 10,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-    {
-      id: 11,
-      citizens: 'Jon Snow',
-      municipality: 'Bauncae',
-      deliver: 'Normal',
-      issued_date: '14-Apr-2024',
-      download: '',
-    },
-  ];
+  const rows = data?.data.map((item) => ({
+    id: item.id,
+    citizens: item.fullName,
+    municipality: item.municipality,
+    deliver: t(`deliver.${item.deliveryTime}`),
+    issued_date: dayjs(item.issuedAt).format('DD-MMM-YYYY HH:mm'),
+  })) || [];
+
+  useEffect(() => {
+    setRowCountState((prevRowCountState) =>
+      data?.metadata?.totalCount !== undefined ? data?.metadata?.totalCount : prevRowCountState,
+    );
+  }, [data?.metadata?.totalCount, setRowCountState]);
+
+  if (!loading && error) {
+    return (
+      <EmptyState
+        type="error"
+        title="Ooops..."
+        actionText="Return to home"
+        onClick={() => navigate('/')}
+      >
+        {error?.message || 'Something went wrong'}
+      </EmptyState>
+    )
+  }
 
   return (
     <div style={{ width: '100%' }}>
       <DataGrid
+        loading={loading}
         density="standard"
         rows={rows}
         columns={columns}
@@ -137,13 +94,16 @@ const IssuedCardListTable = () => {
         hideFooterSelectedRowCount
         disableColumnMenu
         pagination
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
-          },
-        }}
+        paginationMode="server"
+        paginationModel={paginationModel}
+        rowCount={rowCount}
         slots={{
           pagination: CustomTablePagination,
+          noRowsOverlay: () => (
+            <EmptyState type="empty" title="Oops...">
+              No results found
+            </EmptyState>
+          ),
         }}
         sx={{
           border: 'none',
@@ -160,6 +120,9 @@ const IssuedCardListTable = () => {
           [`& .MuiDataGrid-footerContainer`]: {
             border: 'none',
           },
+          [`& .MuiDataGrid-virtualScroller`]: {
+            minHeight: '200px',
+          }
         }}
       />
     </div>

@@ -23,3 +23,6 @@ export const EP_FILES = `${BASE_URL}/files`;
 // Options
 export const EP_OPTIONS = `${BASE_URL}/options`;
 
+// Issued Cards
+export const EP_ISSUED_CARDS = `${BASE_URL}/issued-cards`;
+

@@ -3,6 +3,9 @@
   "auth": {
     "back": "Voltar"
   },
+  "header": {
+    "logout": "Sair"
+  },
   "sidebar": {
     "overview": "Visão geral",
     "applicant": "Candidatos",
@@ -68,6 +71,11 @@
     "completed": "Concluído",
     "delivered": "Entregue"
   },
+  "approval_status": {
+    "approved": "Aprovado",
+    "rejected": "Rejeitado",
+    "pending": "Pendente"
+  },
   "gender": {
     "male": "Macho",
     "female": "Fêmea"
@@ -94,7 +102,8 @@
     "error_email_invalid": "Email inválido",
     "error_password_required": "Senha requerida",
     "error_password_min": "A senha deve ser pelo menos {{count}} personagens",
-    "error_password_invalid": "A senha deve conter pelo menos uma letra maiúscula, uma minúscula e um número"
+    "error_password_invalid": "A senha deve conter pelo menos uma letra maiúscula, uma minúscula e um número",
+    "error_not_eligible": "Você não está qualificado para acessar este sistema"
   },
   "forgot_password": {
     "title": "Esqueceu sua senha?",
