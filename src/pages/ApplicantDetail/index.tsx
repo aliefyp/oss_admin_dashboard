@@ -191,6 +191,9 @@ const ApplicantDetail: React.FC = () => {
     }
   }, [data?.data?.personalDetail?.photo, profilePicture, getProfilePicture])
 
+  const allowToApprove = Object.values(filesStatus).some(status => status === 'approved');
+  const allowToReject = Object.values(filesStatus).some(status => status === 'rejected');
+
   return (
     <>
       {(isFetching || loading) && (
@@ -276,6 +279,7 @@ const ApplicantDetail: React.FC = () => {
           />
           <div className="flex justify-end gap-4">
             <Button
+              disabled={!allowToApprove}
               variant="contained"
               className="w-[200px]"
               onClick={() => setOpenApproveConfirmation(true)}
@@ -283,6 +287,7 @@ const ApplicantDetail: React.FC = () => {
               {t('page_applicant_detail.section_document.cta_approve')}
             </Button>
             <Button
+              disabled={!allowToReject}
               variant="contained"
               color="error"
               className="w-[200px]"
