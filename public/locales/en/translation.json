@@ -179,7 +179,7 @@
       "all_region": "All Region",
       "all_gender": "All Gender",
       "all_year": "All Year",
-      "search_placeholder": "Search ID or citizens name here"
+      "search_placeholder": "Search identity number or citizens name here"
     },
     "table": {
       "row_id": "ID",
@@ -273,7 +273,7 @@
       "all_service": "All Service",
       "all_deliver": "All Deliver",
       "all_year": "All Year",
-      "search_placeholder":  "Search ID or citizens name here"
+      "search_placeholder":  "Search identity number or citizens name here"
     },
     "table": {
       "row_id": "ID",
@@ -291,7 +291,7 @@
       "all_service": "All Service",
       "all_office": "All Office",
       "all_date": "All Date",
-      "search_placeholder":  "Search ID or citizens name here"
+      "search_placeholder":  "Search identity number or citizens name here"
     },
     "table": {
       "row_id": "ID",
