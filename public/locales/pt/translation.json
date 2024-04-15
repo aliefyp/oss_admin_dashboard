@@ -6,6 +6,9 @@
   "header": {
     "logout": "Sair"
   },
+  "footer": {
+    "rights": "Todos os direitos reservados"
+  },
   "sidebar": {
     "overview": "Visão geral",
     "applicant": "Candidatos",
@@ -79,6 +82,10 @@
   "gender": {
     "male": "Macho",
     "female": "Fêmea"
+  },
+  "identity_type": {
+    "citizencard": "Cartão de Cidadão",
+    "passport": "Passaporte"
   },
   "role": {
     "front-office": "Recepção",
@@ -175,7 +182,7 @@
       "all_region": "Todas as regiões",
       "all_gender": "Todos os gêneros",
       "all_year": "Todo o ano",
-      "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
+      "search_placeholder": "Pesquise aqui o número de identidade ou o nome do cidadão"
     },
     "table": {
       "row_id": "EU IA",
@@ -216,9 +223,6 @@
       "row_document": "Documento requerido",
       "row_verified": "Verificado",
       "row_unverified": "Não verificado",
-      "scanned_cninc": "Cópia digitalizada do CNINC",
-      "scanned_card": "Cópia digitalizada do cartão",
-      "scanned_document": "Cópia digitalizada do documento",
       "cta_download": "Download",
       "cta_preview": "Visualização",
       "cta_approve": "Aprovar",
@@ -269,7 +273,7 @@
       "all_service": "Todos os serviços",
       "all_deliver": "Todos entregam",
       "all_year": "Todo o ano",
-      "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
+      "search_placeholder": "Pesquise aqui o número de identidade ou o nome do cidadão"
     },
     "table": {
       "row_id": "EU IA",
@@ -287,7 +291,7 @@
       "all_service": "Todos os serviços",
       "all_office": "Todo o escritório",
       "all_date": "Todas as datas",
-      "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
+      "search_placeholder": "Pesquise aqui o número de identidade ou o nome do cidadão"
     },
     "table": {
       "row_id": "EU IA",

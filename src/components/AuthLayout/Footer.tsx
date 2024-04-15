@@ -2,14 +2,17 @@ import Typography from '@mui/material/Typography';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import { PHONE, EMAIL } from 'constants/contacts';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="bg-[#2E2D2D] p-4 text-white min-h-[52px]">
       <div className='w-full max-w-screen-lg mx-auto flex flex-wrap gap-2 justify-between'>
 
         <Typography component="div" fontSize="small">
-          {`© ${new Date().getFullYear()} Balkaun Uniku. All rights reserved.`}
+          {`© ${new Date().getFullYear()} Balkaun Uniku. ${t('footer.rights')}.`}
         </Typography>
 
         <div className='flex space-x-4'>

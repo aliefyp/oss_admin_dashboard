@@ -1,47 +1,47 @@
 {
   "pagination": "Page {{page}} of {{total}}",
   "auth": {
-    "back": "Back"
+    "back": "Fila"
   },
   "header": {
     "logout": "Logout"
   },
   "footer": {
-    "rights": "All rights reserved"
+    "rights": "Direitu hotu reservadu ona"
   },
   "sidebar": {
     "overview": "Overview",
-    "applicant": "Applicants",
+    "applicant": "Aplikante",
     "issued_card": "Issued Cards",
     "settings": "Settings"
   },
   "services": {
-    "passport": "Passport",
-    "driving-license": "Driving License",
+    "passport": "Pasaporte",
+    "driving-license": "Karta-Kondusaun",
     "nic": "NIC",
-    "family-card": "Family Card",
+    "family-card": "Kartaun Familia",
     "business-card": "Business Card",
     "ficha-familia": "Ficha Familia",
     "citizen-card": "Citizen Card",
     "birth-of-certificate": "Birth of Certificate"
   },
   "sub_services": {
-    "new-passport": "New Passport",
-    "renew-passport": "Renew Passport",
-    "loss-passport": "Loss Passport",
-    "damage-passport": "Damage Passport",
-    "new-driving-license": "New Driving License",
-    "renew-driving-license": "Renew Driving License",
-    "loss-driving-license": "Loss Driving License",
-    "damage-driving-license": "Damage Driving License",
-    "new-nic": "New NIC",
-    "renew-nic": "Renew NIC",
-    "loss-nic": "Loss NIC",
-    "damage-nic": "Damage NIC",
-    "new-family-card": "New Family Card",
-    "renew-family-card": "Renew Family Card",
-    "loss-family-card": "Loss Family Card",
-    "damage-family-card": "Damage Family Card",
+    "new-passport": "Foun Pasaporte",
+    "renew-passport": "Renova Pasaporte",
+    "loss-passport": "Lakon Pasaporte",
+    "damage-passport": "Estragu Pasaporte",
+    "new-driving-license": "Foun Karta-Kondusaun",
+    "renew-driving-license": "Renova Karta-Kondusaun",
+    "loss-driving-license": "Lakon Karta-Kondusaun",
+    "damage-driving-license": "Estragu Karta-Kondusaun",
+    "new-nic": "Foun NIC",
+    "renew-nic": "Renova NIC",
+    "loss-nic": "Lakon NIC",
+    "damage-nic": "Estragu NIC",
+    "new-family-card": "Foun Kartaun Familia",
+    "renew-family-card": "Renova Kartaun Familia",
+    "loss-family-card": "Lakon Kartaun Familia",
+    "damage-family-card": "Estragu Kartaun Familia",
     "new-business-card": "New Business Card",
     "renew-business-card": "Renew Business Card",
     "loss-business-card": "Loss Business Card",
@@ -63,7 +63,7 @@
     "normal": "Normal"
   },
   "application_status": {
-    "submitted": "Submitted",
+    "submitted": "Submete",
     "resubmitted": "Resubmitted",
     "waitingapprovalfromfrontoffice": "Waiting Approval from Front Office",
     "approvedfromfrontoffice": "Approved from Front Office",
@@ -71,8 +71,8 @@
     "approvedfrombackoffice": "Approved from Back Office",
     "rejectedfromfrontoffice": "Rejected from Front Office",
     "rejectedfrombackoffice": "Rejected from Back Office",
-    "completed":"Completed",
-    "delivered":"Delivered"
+    "completed": "Kompleta",
+    "delivered": "Entrega"
   },
   "approval_status": {
     "approved": "Approved",
@@ -80,12 +80,12 @@
     "pending": "Pending"
   },
   "gender": {
-    "male": "Male",
-    "female": "Female"
+    "male": "Mane",
+    "female": "Feto"
   },
   "identity_type": {
-    "citizencard": "Citizen Card",
-    "passport": "Passport"
+    "citizencard": "Kartaun Sidadaun",
+    "passport": "Pasaporte"
   },
   "role": {
     "front-office": "Front Office",
@@ -93,18 +93,18 @@
     "admin": "Admin"
   },
   "family_type": {
-    "self": "Self",
-    "child": "Child",
-    "spouse": "Spouse",
-    "parent": "Parent"
+    "self": "An rasik",
+    "child": "Oan",
+    "spouse": "Espoza",
+    "parent": "Inan-aman"
   },
   "login": {
-    "title": "Welcome Back",
-    "subtitle": "Please login to your account.",
+    "title": "Benvindu",
+    "subtitle": "Favor login ba ita nia konta",
     "label_email": "Email",
     "label_password": "Password",
     "cta_submit": "Login",
-    "cta_forgot": "Forget Password?",
+    "cta_forgot": "Haluha Password?",
     "error_email_required": "Email is required",
     "error_email_invalid": "Email is invalid",
     "error_password_required": "Password is required",
@@ -113,10 +113,10 @@
     "error_not_eligible": "You are not eligible to access this system"
   },
   "forgot_password": {
-    "title": "Forgot Password?",
-    "subtitle": "Please input your email, and get the link for reset your password",
+    "title": "Haluha Password?",
+    "subtitle": " Favór hatama ita-nia e-mail, no hetan link atu hetan fila fali ita-nia password.",
     "label_email": "Email",
-    "cta_submit": "Request Reset Password ",
+    "cta_submit": "Pedidu ba hafoun password",
     "resend_code": "You can request resend code in {{time}}s",
     "error_email_required": "Email is required",
     "error_email_invalid": "Email is invalid"
@@ -186,9 +186,9 @@
     },
     "table": {
       "row_id": "ID",
-      "row_citizens": "Citizens",
+      "row_citizens": "Sidadaun",
       "row_service": "Service",
-      "row_municipality": "Municipality",
+      "row_municipality": "Munisípiu",
       "row_submission_date": "Submission Date",
       "row_review": "Review",
       "row_status": "Status"
@@ -200,22 +200,22 @@
     "deliver": "Deliver",
     "download": "Download All Data",
     "section_identity": {
-      "title": "Citizen Identity",
+      "title": "Identidade Sidadaun",
       "subtitle_personal": "Personal Details",
       "subtitle_birth": "Birth Details",
-      "subtitle_local": "Local Residence",
+      "subtitle_local": "Rezidensia Lokál",
       "label_id": "Applicant's ID",
-      "label_first_name": "First Name",
-      "label_last_name": "Last Name",
-      "label_identity_type": "Identity Type",
-      "label_identity_number": "Identity Number",
+      "label_first_name": "Naran Primeiru",
+      "label_last_name": "Naran ikus",
+      "label_identity_type": "Tipu Identidade",
+      "label_identity_number": "Númeru Identidade",
       "label_email": "Email",
-      "label_phone": "Phone Number",
-      "label_gender": "Gender",
-      "label_birth_date": "Birth Date",
-      "label_country": "Country",
-      "label_state": "Municipality/State",
-      "label_city": "Post Administrative/City",
+      "label_phone": "Númeru Telefone",
+      "label_gender": "Jéneru",
+      "label_birth_date": "Data Moris",
+      "label_country": "Nasaun",
+      "label_state": "Munisípiu",
+      "label_city": "Postu Administrativu",
       "label_sucos": "Sucos"
     },
     "section_document": {
@@ -237,10 +237,10 @@
     "section_others": {
       "title": "Request For Other",
       "label_request_for": "Request For",
-      "label_first_name": "First Name",
-      "label_last_name": "Last Name",
-      "label_birth_date": "Birth Date",
-      "label_gender": "Gender"
+      "label_first_name": "Naran Primeiru",
+      "label_last_name": "Naran ikus",
+      "label_birth_date": "Data Moris",
+      "label_gender": "Jéneru"
     },
     "modal_approve": {
       "title": "Are Your Sure to Approve?",
@@ -277,14 +277,14 @@
     },
     "table": {
       "row_id": "ID",
-      "row_citizens": "Citizens",
-      "row_municipality": "Municipality",
+      "row_citizens": "Sidadaun",
+      "row_municipality": "Munisípiu",
       "row_deliver": "Deliver",
       "row_submission_date": "Submission Date"
     }
   },
   "page_appointment": {
-    "title": "Appointments",
+    "title": "Ajendamentu",
     "total_appointments": "Total <b>{{count}}</b> Appointments",
     "reset_filter": "Reset Filter",
     "filter": {
@@ -295,9 +295,9 @@
     },
     "table": {
       "row_id": "ID",
-      "row_citizens": "Citizens",
+      "row_citizens": "Sidadaun",
       "row_user_type": "Type",
-      "row_service": "Services",
+      "row_service": "Servisu Sira",
       "row_office": "Office",
       "row_appointment_date": "Appointment Date",
       "row_status": "Status"

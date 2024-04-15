@@ -9,6 +9,7 @@ i18n
   .use(initReactI18next)
   .init({
     debug: process.env.NODE_ENV === "development",
+    lng: "to",
     fallbackLng: "en",
     react: {
       useSuspense: false,
