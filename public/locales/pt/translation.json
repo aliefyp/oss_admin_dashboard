@@ -10,10 +10,23 @@
     "rights": "Todos os direitos reservados"
   },
   "sidebar": {
+    "main": "Função principal",
+    "other": "Outro",
     "overview": "Visão geral",
     "applicant": "Candidatos",
     "issued_card": "Cartões emitidos",
+    "appointment": "Compromissos",
     "settings": "Configurações"
+  },
+  "filter_label": {
+    "service": "Serviço",
+    "region": "Região",
+    "municipality": "Município",
+    "year": "Ano",
+    "gender": "Gênero",
+    "deliver": "Entregar",
+    "office": "Escritório",
+    "status": "Status"
   },
   "services": {
     "passport": "Passaporte",
@@ -251,7 +264,10 @@
       "title": "Você tem certeza de aprovar?",
       "description": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendam aos critérios para ajudar nosso oficial",
       "cta_approve": "Aprovar",
-      "cta_recheck": "Verifique novamente"
+      "cta_recheck": "Verifique novamente",
+      "success_title": "O requerente aprovou",
+      "success_description": "Seus dados enviados estão sendo revisados ​​por nossa equipe. ",
+      "success_cta": "Entender"
     },
     "modal_reject": {
       "title": "Você tem certeza de rejeitar?",
@@ -260,7 +276,10 @@
       "label_message": "Mensagem",
       "placeholder_message": "Digite sua mensagem aqui...",
       "cta_reject": "Rejeitar",
-      "cta_recheck": "Verifique novamente"
+      "cta_recheck": "Verifique novamente",
+      "success_title": "Requerente Rejeitou",
+      "success_description": "Seus dados enviados estão sendo revisados ​​por nossa equipe. ",
+      "success_cta": "Entender"
     },
     "modal_preview": {
       "title": "Visualização do documento"
@@ -350,7 +369,7 @@
       "success_cta": "Entender"
     },
     "modal_reschedule": {
-      "title": "Você tem certeza de reagendar?",
+      "title": "Você tem certeza de rejeitar?",
       "description": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendam aos critérios para ajudar nosso oficial",
       "label_reason": "Razão",
       "label_date": "Selecione a data",
@@ -358,7 +377,7 @@
       "cta_reject": "Rejeitar",
       "cta_recheck": "Verifique novamente",
       "success_title": "Nomeação rejeitada",
-      "success_description": "A consulta está agendada, agora só falta o cidadão comparecer ao escritório conforme agendamento.",
+      "success_description": "A ação de rejeição foi encaminhada, portanto, não haverá agendamento para esse agendamento.",
       "success_cta": "Entender"
     }
   }
