@@ -22,7 +22,7 @@ const RoleAccessProvider = ({ children }) => {
   //   roleId: ROLE.FrontOffice
   // }
 
-  const { roleId } = auth;
+  const { roleId } = auth || { roleId: 0 };
 
   const roleAccess = {
     roleId: roleId,
