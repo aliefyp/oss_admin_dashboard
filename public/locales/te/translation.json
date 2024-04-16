@@ -10,10 +10,23 @@
     "rights": "Direitu hotu reservadu ona"
   },
   "sidebar": {
+    "main": "Main Function",
+    "other": "Other",
     "overview": "Overview",
     "applicant": "Aplikante",
     "issued_card": "Issued Cards",
+    "appointment": "Appointments",
     "settings": "Settings"
+  },
+  "filter_label": {
+    "service": "Servisu",
+    "region": "Region",
+    "municipality": "Munisípiu",
+    "year": "Year",
+    "gender": "Jéneru",
+    "deliver": "Deliver",
+    "office": "Office",
+    "status": "Status"
   },
   "services": {
     "passport": "Pasaporte",

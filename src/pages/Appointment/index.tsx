@@ -61,8 +61,8 @@ const Appointment = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'ServiceId', groupLabel: 'Service', items: listService, disabled: !hasAccessServiceTypeFilter },
-      { groupId: 'OfficeLocationCode', groupLabel: 'Office', items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
+      { groupId: 'ServiceId', groupLabel: t('filter_label.service'), items: listService, disabled: !hasAccessServiceTypeFilter },
+      { groupId: 'OfficeLocationCode', groupLabel: t('filter_label.office'), items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
     ],
   });
 

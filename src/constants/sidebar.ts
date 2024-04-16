@@ -1,19 +1,22 @@
 import { HiOutlineClipboard, HiOutlineCreditCard, HiOutlineHome, HiOutlineCog } from "react-icons/hi";
 import { HiCalendarDays } from "react-icons/hi2";
+import i18next from "i18next";
 
 export const MAIN_MENU = {
-  title: "Main Function",
+  key: 'main',
+  title: i18next.t('sidebar.main_function'),
   items: [
-    { key: 'overview', text: "Overview", icon: HiOutlineHome, url: "/" },
-    { key: 'applicants', text: "Applicants", icon: HiOutlineClipboard, url: "/applicant" },
-    { key: 'issued-card', text: "Issued Cards", icon: HiOutlineCreditCard, url: "/issued-card" },
-    { key: 'appoinment', text: "Appointment", icon: HiCalendarDays, url: "/appointment" },
+    { key: 'overview', text: i18next.t('sidebar.overview'), icon: HiOutlineHome, url: "/" },
+    { key: 'applicant', text: i18next.t('sidebar.applicant'), icon: HiOutlineClipboard, url: "/applicant" },
+    { key: 'issued_card', text: i18next.t('sidebar.issued_card'), icon: HiOutlineCreditCard, url: "/issued-card" },
+    { key: 'appointment', text: i18next.t('sidebar.appointment'), icon: HiCalendarDays, url: "/appointment" },
   ],
 };
 
-export const EXTRAS_MENU = {
-  title: "Other",
+export const OTHER_MENU = {
+  key: 'other',
+  title: i18next.t('sidebar.other'),
   items: [
-    { key: 'settings', text: 'Settings', icon: HiOutlineCog, url: "/settings" },
+    { key: 'settings', text: i18next.t('sidebar.settings'), icon: HiOutlineCog, url: "/settings" },
   ],
 };

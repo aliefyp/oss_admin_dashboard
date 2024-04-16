@@ -68,9 +68,9 @@ const IssuedCardList: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'MunicipalityCode', groupLabel: 'Municipality', items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
-      { groupId: 'DeliveryTime', groupLabel: 'Deliver', items: listDeliveryTime },
-      { groupId: 'SortByYear', groupLabel: 'Year', items: listYear },
+      { groupId: 'MunicipalityCode', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
+      { groupId: 'DeliveryTime', groupLabel: t('filter_label.deliver'), items: listDeliveryTime },
+      { groupId: 'SortByYear', groupLabel: t('filter_label.year'), items: listYear },
     ],
   });
 

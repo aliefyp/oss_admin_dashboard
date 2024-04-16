@@ -79,10 +79,10 @@ const Applicants: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'ServiceId', groupLabel: 'Service', items: listService, disabled: !hasAccessServiceTypeFilter },
-      { groupId: 'MunicipalityCode', groupLabel: 'Municipality', items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
-      { groupId: 'SortYearBy', groupLabel: 'Year', items: listYear },
-      { groupId: 'Status', groupLabel: 'Status', items: listStatus },
+      { groupId: 'ServiceId', groupLabel: t('filter_label.service'), items: listService, disabled: !hasAccessServiceTypeFilter },
+      { groupId: 'MunicipalityCode', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
+      { groupId: 'SortYearBy', groupLabel: t('filter_label.year'), items: listYear },
+      { groupId: 'Status', groupLabel: t('filter_label.status'), items: listStatus },
     ],
   });
 

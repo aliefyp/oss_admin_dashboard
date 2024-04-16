@@ -28,7 +28,7 @@ const LaguageSelector = () => {
   }
 
   const locales = [
-    { code: 'to', name: 'Totem' },
+    { code: 'te', name: 'Tetum' },
     { code: 'en', name: 'English' },
     { code: 'pt', name: 'Portugese' },
   ]

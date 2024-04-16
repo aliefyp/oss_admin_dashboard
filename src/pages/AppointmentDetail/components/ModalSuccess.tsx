@@ -28,7 +28,7 @@ const ModalSuccess = ({ open, title, description, onConfirm }: ModalSuccessProps
         }}
       >
         <Button className="w-full" onClick={onConfirm}>
-          {t('page_applicant_detail.')}
+          {t('page_applicant_detail.success_cta')}
         </Button>
       </ModalSheet>
     </Modal>

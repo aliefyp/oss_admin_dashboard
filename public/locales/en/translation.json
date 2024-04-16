@@ -10,10 +10,23 @@
     "rights": "All rights reserved"
   },
   "sidebar": {
+    "main": "Main Function",
+    "other": "Other",
     "overview": "Overview",
     "applicant": "Applicants",
     "issued_card": "Issued Cards",
+    "appointment": "Appointments",
     "settings": "Settings"
+  },
+  "filter_label": {
+    "service": "Service",
+    "region": "Region",
+    "municipality": "Municipality",
+    "year": "Year",
+    "gender": "Gender",
+    "deliver": "Deliver",
+    "office": "Office",
+    "status": "Status"
   },
   "services": {
     "passport": "Passport",
@@ -359,7 +372,7 @@
       "cta_reject": "Reject",
       "cta_recheck": "Recheck",
       "success_title": "Appointment Have Rejected",
-      "success_description": "The appointment has been scheduled, now citizens just have to come to the office according to schedule.",
+      "success_description": "Reject action has been submitted, therefore, there will be no schedule for this appointment.",
       "success_cta": "Understand"
     }
   }
