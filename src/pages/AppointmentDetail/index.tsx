@@ -28,6 +28,7 @@ const AppointmentDetail: React.FC = () => {
     open: false,
     title: "",
     description: "",
+    ctaText: "",
   })
 
   const getFiles = useLazyFiles();
@@ -60,6 +61,7 @@ const AppointmentDetail: React.FC = () => {
         open: true,
         title: t('page_appointment_detail.modal_approve.success_title'),
         description: t('page_appointment_detail.modal_approve.success_description'),
+        ctaText: t('page_appointment_detail.modal_approve.success_cta'),
       })
     } catch (error) {
       console.error(error);
@@ -80,6 +82,7 @@ const AppointmentDetail: React.FC = () => {
         open: true,
         title: t('page_appointment_detail.modal_reschedule.success_title'),
         description: t('page_appointment_detail.modal_reschedule.success_description'),
+        ctaText: t('page_appointment_detail.modal_reschedule.success_cta'),
       })
     } catch (error) {
       console.error(error);

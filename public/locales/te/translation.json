@@ -264,7 +264,10 @@
       "title": "Are Your Sure to Approve?",
       "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
       "cta_approve": "Approve",
-      "cta_recheck": "Recheck"
+      "cta_recheck": "Recheck",
+      "success_title": "Applicant Have Approved",
+      "success_description": "Your submitted data is being reviewed by our team. Verification may take some time. Thank you for your patience!",
+      "success_cta": "Understand"
     },
     "modal_reject": {
       "title": "Are Your Sure to Reject?",
@@ -273,7 +276,10 @@
       "label_message": "Message",
       "placeholder_message": "Type your message here...",
       "cta_reject": "Reject",
-      "cta_recheck": "Recheck"
+      "cta_recheck": "Recheck",
+      "success_title": "Applicant Have Rejected",
+      "success_description": "Your submitted data is being reviewed by our team. Verification may take some time. Thank you for your patience!",
+      "success_cta": "Understand"
     },
     "modal_preview": {
       "title": "Document Preview"

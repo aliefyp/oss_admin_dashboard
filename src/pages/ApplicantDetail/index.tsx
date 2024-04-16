@@ -17,6 +17,7 @@ import useLazyApplicationReject from "api/application/useLazyApplicationReject";
 import useLazyApplicationApprove from "api/application/useLazyApplicationApprove";
 import useRequestForOtherData from "./usecase/useRequestForOtherData";
 import useToaster from "usecase/useToaster";
+import ModalSuccess from "./components/ModalSuccess";
 
 const ApplicantDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -30,6 +31,12 @@ const ApplicantDetail: React.FC = () => {
   const [openApproveConfirmation, setOpenApproveConfirmation] = useState(false);
   const [openRejectConfirmation, setOpenRejectConfirmation] = useState(false);
   const [filesStatus, setFilesStatus] = useState({});
+  const [successModal, setSuccessModal] = useState({
+    open: false,
+    title: "",
+    description: "",
+    ctaText: "",
+  })
 
   const getFiles = useLazyFiles();
   const getApplicationFiles = useLazyApplicationFiles();
@@ -143,7 +150,13 @@ const ApplicantDetail: React.FC = () => {
       const res = await submitApproveApplication(data?.data?.id)
       if (!res) throw new Error('Failed to approve application');
 
-      navigate('/applicant');
+
+      setSuccessModal({
+        open: true,
+        title: t('page_applicant_detail.modal_approve.success_title'),
+        description: t('page_applicant_detail.modal_approve.success_description'),
+        ctaText: t('page_applicant_detail.modal_approve.success_cta'),
+      })
     } catch (error) {
       console.error(error);
       toaster.open(error.message);
@@ -159,7 +172,12 @@ const ApplicantDetail: React.FC = () => {
       const res = await submitRejectApplication(data?.data?.id)
       if (!res) throw new Error('Failed to reject application');
 
-      navigate('/applicant');
+      setSuccessModal({
+        open: true,
+        title: t('page_applicant_detail.modal_reject.success_title'),
+        description: t('page_applicant_detail.modal_reject.success_description'),
+        ctaText: t('page_applicant_detail.modal_reject.success_cta'),
+      })
     } catch (error) {
       console.error(error);
       toaster.open(error.message);
@@ -315,6 +333,11 @@ const ApplicantDetail: React.FC = () => {
         images={previewPicture || []}
         open={previewPicture?.length > 0}
         onClose={() => setPreviewPicture([])}
+      />
+
+      <ModalSuccess
+        {...successModal}
+        onConfirm={() => navigate('/applicant')}
       />
     </>
   );
