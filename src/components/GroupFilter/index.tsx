@@ -17,8 +17,9 @@ const GroupFilter = ({ children, filter, filterOptions, handleFilterChange, ...o
             value={filter[opt.groupId]}
             defaultValue="0"
             onChange={e => handleFilterChange(opt.groupId, e.target.value)}
+            disabled={opt.disabled}
           >
-            <MenuItem value="0" className=" !text-gray-600">{`All ${opt.groupLabel}`}</MenuItem>
+            <MenuItem value="0" className=" !text-gray-400">{opt.groupLabel}</MenuItem>
             {opt.items.map((svc) => (
               <MenuItem key={svc.itemId} value={svc.itemId}>{svc.itemLabel}</MenuItem>
             ))}

@@ -13,9 +13,11 @@ import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
 import useLastNYearList from "usecase/useLastNYearList";
 import { useOptionsGenderType } from "api/options";
+import useRoleAccess from "usecase/useRoleAccess";
 
 const Overview: React.FC = () => {
   const { t } = useTranslation();
+  const { showServiceType, showOfficeLocation, hasAccessServiceTypeFilter, hasAccessMunicipalityFilter } = useRoleAccess();
 
   const { data: dataGenderType } = useOptionsGenderType();
   const { data: dataServicesType } = useServicesType();
@@ -53,8 +55,8 @@ const Overview: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'service', groupLabel: 'Service', items: listService },
-      { groupId: 'municipality', groupLabel: 'Municipality', items: listMunicipality },
+      { groupId: 'service', groupLabel: 'Service', items: listService, disabled: !hasAccessServiceTypeFilter },
+      { groupId: 'municipality', groupLabel: 'Municipality', items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
       { groupId: 'gender', groupLabel: 'Gender', items: listGender },
       { groupId: 'year', groupLabel: 'Year', items: listYear },
     ],
@@ -78,6 +80,20 @@ const Overview: React.FC = () => {
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 }) }} />
             </Typography>
+            {showServiceType && (
+              <Chip
+                size="small"
+                variant="outlined"
+                label="Passport Card"
+              />
+            )}
+            {showOfficeLocation && (
+              <Chip
+                size="small"
+                variant="outlined"
+                label="Dili"
+              />
+            )}
             {hasFilter && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleFilterClear}>

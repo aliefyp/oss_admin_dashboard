@@ -13,11 +13,13 @@ import PageHeading from "components/PageHeading";
 import useGroupFilter from "usecase/useGroupFilter";
 import AppointmentTable from "./components/AppointmentTable";
 import RangePicker from "./components/RangePicker";
+import useRoleAccess from "usecase/useRoleAccess";
 
 const Appointment = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const { showServiceType, showOfficeLocation, hasAccessServiceTypeFilter, hasAccessMunicipalityFilter } = useRoleAccess();
 
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
@@ -59,8 +61,8 @@ const Appointment = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'ServiceId', groupLabel: 'Service', items: listService },
-      { groupId: 'OfficeLocationCode', groupLabel: 'Office', items: listMunicipality },
+      { groupId: 'ServiceId', groupLabel: 'Service', items: listService, disabled: !hasAccessServiceTypeFilter },
+      { groupId: 'OfficeLocationCode', groupLabel: 'Office', items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
     ],
   });
 
@@ -136,6 +138,20 @@ const Appointment = () => {
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_appointment.total_appointments', { count: dataAppointments?.metadata?.totalCount }) }} />
             </Typography>
+            {showServiceType && (
+              <Chip
+                size="small"
+                variant="outlined"
+                label="Passport Card"
+              />
+            )}
+            {showOfficeLocation && (
+              <Chip
+                size="small"
+                variant="outlined"
+                label="Dili"
+              />
+            )}
             {(hasFilter || hasSearch || hasDate) && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleResetClick}>

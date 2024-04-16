@@ -13,6 +13,7 @@ import useGroupFilter from "usecase/useGroupFilter";
 import useLastNYearList from "usecase/useLastNYearList";
 import IssuedCardListTable from "./components/IssuedCardListTable";
 import { useMunicipality } from "api/region";
+import useRoleAccess from "usecase/useRoleAccess";
 
 const IssuedCardList: React.FC = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const IssuedCardList: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const years = useLastNYearList(5);
+  const { showServiceType, showOfficeLocation, hasAccessMunicipalityFilter } = useRoleAccess();
 
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
@@ -66,7 +68,7 @@ const IssuedCardList: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'MunicipalityCode', groupLabel: 'Municipality', items: listMunicipality },
+      { groupId: 'MunicipalityCode', groupLabel: 'Municipality', items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
       { groupId: 'DeliveryTime', groupLabel: 'Deliver', items: listDeliveryTime },
       { groupId: 'SortByYear', groupLabel: 'Year', items: listYear },
     ],
@@ -127,6 +129,20 @@ const IssuedCardList: React.FC = () => {
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_issued_card_list.total_issued', { count: dataIssuedCards?.metadata?.totalCount }) }} />
             </Typography>
+            {showServiceType && (
+              <Chip
+                size="small"
+                variant="outlined"
+                label="Passport Card"
+              />
+            )}
+            {showOfficeLocation && (
+              <Chip
+                size="small"
+                variant="outlined"
+                label="Dili"
+              />
+            )}
             {(hasFilter || hasSearch) && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleResetClick}>

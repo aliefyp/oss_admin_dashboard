@@ -10,6 +10,7 @@ interface Group {
   groupId: string;
   groupLabel: string;
   defaultValue?: Item['itemId'];
+  disabled?: boolean;
   items: Item[];
 }
 

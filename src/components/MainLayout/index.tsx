@@ -12,10 +12,10 @@ import AuthOutlet from '@auth-kit/react-router/AuthOutlet';
 import LanguageSelector from 'components/LanguageSelector';
 import { Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { EXTRAS_MENU, MAIN_MENU } from 'constants/sidebar';
 import React from 'react';
 import Notification from 'components/Notification';
 import UserNav from 'components/UserNav';
+import useSidebarMenu from 'usecase/useSidebarMenu';
 
 const drawerWidth = 240;
 
@@ -25,6 +25,8 @@ export default function MainLayout() {
   const from = pathname !== '/'
     ? `?${new URLSearchParams({ from: `${pathname}` }).toString()}`
     : '';
+
+  const sidebarMenu = useSidebarMenu();
 
   const handleMenuClick = (url: string) => {
     if (pathname !== url) {
@@ -78,7 +80,7 @@ export default function MainLayout() {
             paddingTop: '32px',
           }}
         >
-          {[MAIN_MENU, EXTRAS_MENU].map((menu, index) => (
+          {sidebarMenu.map((menu, index) => (
             <React.Fragment key={index}>
               <Typography variant="h6" component="div" sx={{ px: 2, pt: 1 }}>
                 {menu.title}

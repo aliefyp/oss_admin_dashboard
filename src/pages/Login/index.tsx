@@ -61,7 +61,7 @@ const Login = () => {
         }
 
         const roleId = res.data.roleId;
-        const isEligible = roleId === ROLE.FrontOffice || roleId === ROLE.BackOffice || roleId === ROLE.Admin || roleId === ROLE.Manager;
+        const isEligible = roleId !== ROLE.Citizen;
 
         if (!isEligible) {
           throw new Error(t('login.error_not_eligible'))
