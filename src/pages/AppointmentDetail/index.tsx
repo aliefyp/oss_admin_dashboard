@@ -115,7 +115,7 @@ const AppointmentDetail: React.FC = () => {
               {t('page_appointment_detail.purpose')}: <b>{t(`deliver.${data?.data?.deliveryTime}`)}</b>
             </Typography>
             <Typography variant="body2" className="m-0">
-              {t('page_appointment_detail.status')}: <b className=" text-yellow-500">{t(`deliver.${data?.data?.deliveryTime}`)}</b>
+              {t('page_appointment_detail.status')}: <b className=" text-yellow-500">UnStarted</b>
             </Typography>
           </div>
         </div>
