@@ -79,6 +79,11 @@
     "rejected": "Rejected",
     "pending": "Pending"
   },
+  "appointment_status": {
+    "completed": "Completed",
+    "unstarted": "Unstarted",
+    "absent": "Absent"
+  },
   "gender": {
     "male": "Male",
     "female": "Female"
@@ -182,7 +187,7 @@
       "all_region": "All Region",
       "all_gender": "All Gender",
       "all_year": "All Year",
-      "search_placeholder": "Search identity number or citizens name here"
+      "search_placeholder": "Search ID or citizens name here"
     },
     "table": {
       "row_id": "ID",
@@ -273,7 +278,7 @@
       "all_service": "All Service",
       "all_deliver": "All Deliver",
       "all_year": "All Year",
-      "search_placeholder":  "Search identity number or citizens name here"
+      "search_placeholder":  "Search ID or citizens name here"
     },
     "table": {
       "row_id": "ID",
@@ -291,7 +296,7 @@
       "all_service": "All Service",
       "all_office": "All Office",
       "all_date": "All Date",
-      "search_placeholder":  "Search identity number or citizens name here"
+      "search_placeholder":  "Search ID or citizens name here"
     },
     "table": {
       "row_id": "ID",
@@ -306,6 +311,56 @@
       "unstarted": "Unstarted",
       "completed": "Completed",
       "absent": "Absent"
+    }
+  },
+  "page_appointment_detail": {
+    "title": "Appointment Detail",
+    "service": "Service",
+    "purpose": "Purpose",
+    "status": "Status",
+    "instruction": "If the schedule suits you, you can give approval, so that citizens will get a booking code to come to the branch",
+    "cta_approve": "Approve",
+    "cta_reject": "Reject",
+    "section_identity": {
+      "title": "Citizen Identity",
+      "subtitle_personal": "Personal Details",
+      "subtitle_appointment": "Appointment",
+      "label_id": "Applicant's ID",
+      "label_first_name": "First Name",
+      "label_last_name": "Last Name",
+      "label_identity_type": "Identity Type",
+      "label_identity_number": "Identity Number",
+      "label_email": "Email",
+      "label_phone": "Phone Number",
+      "label_gender": "Gender",
+      "label_birth_date": "Birth Date",
+      "label_city": "Post Administrative/City",
+      "label_sucos": "Sucos",
+      "label_location": "Location",
+      "label_office": "Office Representative",
+      "label_date": "Date"
+
+    },
+    "modal_approve": {
+      "title": "Are Your Sure to Approve?",
+      "description": "Please check your data before submitting, after this citizen will recieved code booking to visit office",
+      "cta_approve": "Approve",
+      "cta_recheck": "Recheck",
+      "success_title": "Appointment Have Approved",
+      "success_description": "The appointment has been scheduled, now citizens just have to come to the office according to schedule.",
+      "success_cta": "Understand"
+    },
+    "modal_reschedule": {
+      "title": "Are Your Sure to Reschedule?",
+      "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
+      "label_reason": "Reason",
+      "label_date": "Select Date",
+      "placeholder_message": "Type your message here...",
+      "cta_reject": "Reject",
+      "cta_recheck": "Recheck",
+      "success_title": "Appointment Have Rejected",
+      "success_description": "The appointment has been scheduled, now citizens just have to come to the office according to schedule.",
+      "success_cta": "Understand"
     }
   }
 }

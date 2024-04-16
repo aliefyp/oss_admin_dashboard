@@ -80,6 +80,10 @@ const Appointment = () => {
     setDate(date);
   }
 
+  const handlePreview = (id: number) => {
+    navigate(`/appointment/${id}`)
+  }
+
   useEffect(() => {
     const urlParams = new URLSearchParams({
       PageNumber: String(paginationModel.page + 1),
@@ -175,6 +179,7 @@ const Appointment = () => {
             data={dataAppointments}
             loading={loadingAppointments}
             error={errorAppointments}
+            onPreview={handlePreview}
           />
         </div>
       </div>

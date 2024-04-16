@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { Response as AppointmentResponse } from 'types/appointment/appointments';
 import AppointmentStatus from './AppointmentStatus';
 import { useEffect, useState } from 'react';
+import { IconButton, Tooltip } from '@mui/material';
+import { HiOutlineDocumentSearch } from 'react-icons/hi';
 
 interface PaginationModel {
   page: number;
@@ -18,6 +20,7 @@ interface Props {
   error: Error;
   paginationModel: PaginationModel;
   setPaginationModel: (paginationModel: PaginationModel) => void;
+  onPreview: (id: number) => void;
 }
 
 const AppointmentTable = ({
@@ -26,6 +29,7 @@ const AppointmentTable = ({
   error,
   paginationModel,
   setPaginationModel,
+  onPreview,
 }: Props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -44,9 +48,26 @@ const AppointmentTable = ({
       headerName: t('page_appointment.table.row_status'),
       flex: 1,
       renderCell: (params: GridValueGetterParams) => (
-        <AppointmentStatus status={params.row.status} appointmentId={params.row.id} />
+        <AppointmentStatus status={params.row.status} />
       ),
     },
+    {
+      field: 'preview',
+      headerName: '',
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
+      width: 40,
+      renderCell: (params: GridValueGetterParams) => (
+        <div id="preview-button" className='hidden'>
+          <Tooltip title="Preview">
+            <IconButton onClick={() => onPreview(params.row.id)}>
+              <HiOutlineDocumentSearch className='text-sm font-bold' />
+            </IconButton>
+          </Tooltip>
+        </div>
+      ),
+    }
   ];
 
   const rows = data?.data?.map((item) => ({
@@ -57,6 +78,7 @@ const AppointmentTable = ({
     appointment_date: dayjs(item.scheduledAt).format('DD-MMM-YYYY HH:mm'),
     office: item.office,
     status: item.status,
+    preview: '',
   })) || [];
 
   useEffect(() => {
@@ -92,6 +114,7 @@ const AppointmentTable = ({
       rowCount={rowCount}
       paginationMode="server"
       onPaginationModelChange={setPaginationModel}
+      onRowClick={(params) => onPreview(params.row.id)}
       slots={{
         pagination: CustomTablePagination,
         noRowsOverlay: () => (
@@ -117,6 +140,12 @@ const AppointmentTable = ({
         },
         [`& .MuiDataGrid-virtualScroller`]: {
           minHeight: '200px',
+        },
+        '.MuiDataGrid-cell:focus': {
+          outline: 'none'
+        },
+        '& .MuiDataGrid-row:hover': {
+          cursor: 'pointer'
         }
       }}
     />

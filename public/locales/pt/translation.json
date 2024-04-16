@@ -79,6 +79,11 @@
     "rejected": "Rejeitado",
     "pending": "Pendente"
   },
+  "appointment_status": {
+    "completed": "Concluído",
+    "unstarted": "Não iniciado",
+    "absent": "Ausente"
+  },
   "gender": {
     "male": "Macho",
     "female": "Fêmea"
@@ -182,7 +187,7 @@
       "all_region": "Todas as regiões",
       "all_gender": "Todos os gêneros",
       "all_year": "Todo o ano",
-      "search_placeholder": "Pesquise aqui o número de identidade ou o nome do cidadão"
+      "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
     },
     "table": {
       "row_id": "EU IA",
@@ -273,7 +278,7 @@
       "all_service": "Todos os serviços",
       "all_deliver": "Todos entregam",
       "all_year": "Todo o ano",
-      "search_placeholder": "Pesquise aqui o número de identidade ou o nome do cidadão"
+      "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
     },
     "table": {
       "row_id": "EU IA",
@@ -291,7 +296,7 @@
       "all_service": "Todos os serviços",
       "all_office": "Todo o escritório",
       "all_date": "Todas as datas",
-      "search_placeholder": "Pesquise aqui o número de identidade ou o nome do cidadão"
+      "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
     },
     "table": {
       "row_id": "EU IA",
@@ -306,6 +311,55 @@
       "unstarted": "Não iniciado",
       "completed": "Concluído",
       "absent": "Ausente"
+    }
+  },
+  "page_appointment_detail": {
+    "title": "Detalhes do compromisso",
+    "service": "Serviço",
+    "purpose": "Propósito",
+    "status": "Status",
+    "instruction": "Se o horário for adequado para você, você pode aprovar, para que os cidadãos recebam um código de reserva para comparecer à agência",
+    "cta_approve": "Aprovar",
+    "cta_reject": "Rejeitar",
+    "section_identity": {
+      "title": "Identidade Cidadã",
+      "subtitle_personal": "Detalhes pessoais",
+      "subtitle_appointment": "Encontro",
+      "label_id": "ID do requerente",
+      "label_first_name": "Primeiro nome",
+      "label_last_name": "Sobrenome",
+      "label_identity_type": "Tipo de Identidade",
+      "label_identity_number": "Número de identificação",
+      "label_email": "E-mail",
+      "label_phone": "Número de telefone",
+      "label_gender": "Gênero",
+      "label_birth_date": "Data de nascimento",
+      "label_city": "Posto Administrativo/Cidade",
+      "label_sucos": "Sucos",
+      "label_location": "Localização",
+      "label_office": "Representante do escritório",
+      "label_date": "Data"
+    },
+    "modal_approve": {
+      "title": "Você tem certeza de aprovar?",
+      "description": "Por favor, verifique seus dados antes de enviar, após este cidadão receber o código de reserva para visitar o escritório",
+      "cta_approve": "Aprovar",
+      "cta_recheck": "Verifique novamente",
+      "success_title": "Nomeação aprovada",
+      "success_description": "A consulta está agendada, agora só falta o cidadão comparecer ao escritório conforme agendamento.",
+      "success_cta": "Entender"
+    },
+    "modal_reschedule": {
+      "title": "Você tem certeza de reagendar?",
+      "description": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendam aos critérios para ajudar nosso oficial",
+      "label_reason": "Razão",
+      "label_date": "Selecione a data",
+      "placeholder_message": "Digite sua mensagem aqui...",
+      "cta_reject": "Rejeitar",
+      "cta_recheck": "Verifique novamente",
+      "success_title": "Nomeação rejeitada",
+      "success_description": "A consulta está agendada, agora só falta o cidadão comparecer ao escritório conforme agendamento.",
+      "success_cta": "Entender"
     }
   }
 }

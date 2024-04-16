@@ -7,16 +7,16 @@ const LazyAppointment = Loadable({
   loading: () => <PageLoader />,
 });
 
-// const LazyAppointmentDetail = Loadable({
-//   loader: () => import('pages/AppointmentDetail'),
-//   loading: () => <PageLoader />,
-// });
+const LazyAppointmentDetail = Loadable({
+  loader: () => import('pages/AppointmentDetail'),
+  loading: () => <PageLoader />,
+});
 
 function AppointmentRoute() {
   return (
     <Routes>
       <Route path="/" element={<LazyAppointment />} />
-      {/* <Route path="/:applicant_id" element={<LazyAppointmentDetail />} /> */}
+      <Route path="/:appointment_id" element={<LazyAppointmentDetail />} />
     </Routes>
   );
 }

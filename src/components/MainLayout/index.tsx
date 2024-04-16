@@ -48,7 +48,9 @@ export default function MainLayout() {
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <img src="/logo_main.png" alt="Balkaun Uniku" />
+          <a href="/">
+            <img width={80} src="/logo_main.jpeg" alt="Balkaun Uniku" className='rounded-lg' />
+          </a>
           <div className="flex items-center gap-2">
             <LanguageSelector />
             <Notification />
