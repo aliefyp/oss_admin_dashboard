@@ -26,6 +26,7 @@ import IssuedCardRoute from "routes/issued-card";
 import AppointmentRoute from "routes/appointment";
 import OverviewRoute from "routes/overview";
 import NotificationRoute from "routes/notification";
+import ManagementRoute from "routes/management";
 
 import './App.css';
 import { Suspense } from "react";
@@ -54,6 +55,7 @@ function App() {
                         <Route path="/issued-card/*" element={<IssuedCardRoute />} />
                         <Route path="/appointment/*" element={<AppointmentRoute />} />
                         <Route path="/notification" element={<NotificationRoute />} />
+                        <Route path="/management*" element={<ManagementRoute />} />
                         <Route path="/" element={<OverviewRoute />} />
                         <Route path="*" element={<NotFound />} />
                       </Route>

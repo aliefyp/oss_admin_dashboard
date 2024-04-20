@@ -10,6 +10,7 @@ interface RoleAccessContextType {
   hasAccessMunicipalityFilter: boolean;
   hasAccessServiceTypeFilter: boolean;
   hasAccessAppointmentMenu: boolean;
+  hasAccessUserManagement: boolean;
 }
 
 const RoleAccessContext = createContext<RoleAccessContextType | undefined>(undefined);
@@ -32,6 +33,7 @@ const RoleAccessProvider = ({ children }) => {
     hasAccessMunicipalityFilter: roleId === ROLE.FrontOfficeManager || roleId === ROLE.OssManager || roleId === ROLE.SuperAdmin || roleId === ROLE.BackOfficeManager,
     hasAccessServiceTypeFilter: roleId === ROLE.FrontOfficeManager || roleId === ROLE.OssManager || roleId === ROLE.SuperAdmin || roleId === ROLE.FrontOffice,
     hasAccessAppointmentMenu: roleId === ROLE.FrontOffice || roleId === ROLE.BackOffice || roleId === ROLE.BackOfficeManager,
+    hasAccessUserManagement: roleId === ROLE.SuperAdmin,
   }
 
   return (

@@ -3,7 +3,7 @@ import useRoleAccess from "./useRoleAccess"
 import { useTranslation } from "react-i18next";
 
 const useSidebarMenu = () => {
-  const { hasAccessAppointmentMenu } = useRoleAccess();
+  const { hasAccessAppointmentMenu, hasAccessUserManagement } = useRoleAccess();
   const { t } = useTranslation();
 
   const otherMenu = {
@@ -23,14 +23,16 @@ const useSidebarMenu = () => {
         return hasAccessAppointmentMenu
       }
 
+      if (item.key === 'management') {
+        return hasAccessUserManagement
+      }
+
       return true
     }).map(item => ({
       ...item,
       text: t(`sidebar.${item.key}`)
     }))
   };
-
-  console.log(mainMenu, otherMenu)
 
   return [mainMenu, otherMenu]
 }

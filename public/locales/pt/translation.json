@@ -16,7 +16,8 @@
     "applicant": "Candidatos",
     "issued_card": "Cartões emitidos",
     "appointment": "Compromissos",
-    "settings": "Configurações"
+    "settings": "Configurações",
+    "management": "Gerenciamento"
   },
   "filter_label": {
     "service": "Serviço",
@@ -26,17 +27,19 @@
     "gender": "Gênero",
     "deliver": "Entregar",
     "office": "Escritório",
-    "status": "Status"
+    "status": "Status",
+    "role": "Papel",
+    "organization": "Organização"
   },
   "services": {
-    "passport": "Passaporte",
+    "citizen-id": "Cartão de Cidadão",
+    "general-passport": "Passaporte comum",
+    "birth-certificate": "Certidão de Nascimento RDTL",
+    "marriage-certificate": "Certidão de casamento",
+    "criminal-record-certificate": "Certidão de Registo Criminal",
     "driving-license": "Carteira de motorista",
-    "nic": "Placa de rede",
-    "family-card": "Cartão Família",
-    "business-card": "Cartão de visitas",
-    "ficha-familia": "Ficha Família",
-    "citizen-card": "Cartão de Cidadão",
-    "birth-of-certificate": "Certidão de Nascimento"
+    "commercial-registration": "Registo Comercial e Licenciamento de Atividades Económicas",
+    "family-card": "Cartão Família"
   },
   "sub_services": {
     "new-passport": "Novo passaporte",
@@ -365,7 +368,7 @@
       "cta_approve": "Aprovar",
       "cta_recheck": "Verifique novamente",
       "success_title": "Nomeação aprovada",
-      "success_description": "A consulta está agendada, agora só falta o cidadão comparecer ao escritório conforme agendamento.",
+      "success_description": "A consulta está agendada, agora só falta o cidadão comparecer ao gabinete conforme agendamento.",
       "success_cta": "Entender"
     },
     "modal_reschedule": {
@@ -379,6 +382,79 @@
       "success_title": "Nomeação rejeitada",
       "success_description": "A ação de rejeição foi encaminhada, portanto, não haverá agendamento para esse agendamento.",
       "success_cta": "Entender"
+    }
+  },
+  "page_management": {
+    "title": "Gerenciamento",
+    "total_user": "Total <b>{{count}}</b> Do utilizador",
+    "add_new_account": "Adicionar nova conta",
+    "filter": {
+      "label_role": "Papel",
+      "label_organization": "Organização",
+      "search_placeholder": "Pesquise ID ou nome aqui"
+    },
+    "table": {
+      "row_id": "EU IA",
+      "row_name": "Nome",
+      "row_email": "E-mail",
+      "row_phone_number": "Número de telefone",
+      "row_organization": "Organização",
+      "row_role": "Papel"
+    }
+  },
+  "page_management_form": {
+    "title_new": "Adicionar nova conta",
+    "title_edit": "Editar conta",
+    "cta_submit_new": "Criar",
+    "cta_submit_edit": "Atualizar",
+    "section_identity": {
+      "title": "Identidade",
+      "label_first_name": "Primeiro nome",
+      "label_last_name": "Sobrenome",
+      "label_email": "E-mail",
+      "label_id_card": "Carteira de identidade",
+      "label_phone_number": "Número de telefone",
+      "label_organization": "Organização"
+    },
+    "section_role": {
+      "title": "Escolha a função",
+      "role_fo": "FO",
+      "role_fo_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz",
+      "role_fom": "Gerente de FO",
+      "role_fom_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz",
+      "role_bo": "BO",
+      "role_bo_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz",
+      "role_bom": "Gerente de BO",
+      "role_bom_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz",
+      "role_admin": "Superadministrador",
+      "role_admin_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz"
+    },
+    "section_services": {
+      "title": "Escolha os serviços"
+    },
+    "section_municipality_area": {
+      "title": "Escolha a área do município",
+      "label_municipality": "Município"
+    },
+    "modal_confirmation": {
+      "update_title": "Você tem certeza de atualizar?",
+      "update_description": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendem aos critérios.",
+      "update_primary_cta": "Atualizar",
+      "update_secondary_cta": "Cancelar",
+      "delete_title": "Você tem certeza de excluir?",
+      "delete_description": "A exclusão da conta resultará na perda permanente de todos os dados associados a ela. ",
+      "delete_primary_cta": "Excluir",
+      "delete_secondary_cta": "Cancelar"
+    },
+    "modal_success": {
+      "update_title": "O membro atualizou",
+      "update_description": "Dados dos membros atualizados. ",
+      "update_cta": "Entender",
+      "create_title": "Conta criada",
+      "create_description": "Aguarde até 1 minuto para que as alterações entrem em vigor. ",
+      "create_cta": "Entender",
+      "delete_title": "Conta excluída",
+      "delete_description": "Conta excluída com sucesso. "
     }
   }
 }

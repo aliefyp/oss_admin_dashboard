@@ -16,7 +16,8 @@
     "applicant": "Applicants",
     "issued_card": "Issued Cards",
     "appointment": "Appointments",
-    "settings": "Settings"
+    "settings": "Settings",
+    "management": "Management"
   },
   "filter_label": {
     "service": "Service",
@@ -26,17 +27,19 @@
     "gender": "Gender",
     "deliver": "Deliver",
     "office": "Office",
-    "status": "Status"
+    "status": "Status",
+    "role": "Role",
+    "organization": "Organization"
   },
   "services": {
-    "passport": "Passport",
+    "citizen-id": "Citizen Card",
+    "general-passport": "Ordinary Passport",
+    "birth-certificate": "RDTL Birth Certificate",
+    "marriage-certificate": "Marriage Certificate",
+    "criminal-record-certificate": "Criminal Record Certificate",
     "driving-license": "Driving License",
-    "nic": "NIC",
-    "family-card": "Family Card",
-    "business-card": "Business Card",
-    "ficha-familia": "Ficha Familia",
-    "citizen-card": "Citizen Card",
-    "birth-of-certificate": "Birth of Certificate"
+    "commercial-registration": "Commercial Registration and Licensing of Economic Activities",
+    "family-card": "Family Card"
   },
   "sub_services": {
     "new-passport": "New Passport",
@@ -380,6 +383,79 @@
       "success_title": "Appointment Have Rejected",
       "success_description": "Reject action has been submitted, therefore, there will be no schedule for this appointment.",
       "success_cta": "Understand"
+    }
+  },
+  "page_management": {
+    "title": "Management",
+    "total_user": "Total <b>{{count}}</b> User",
+    "add_new_account": "Add New Account",
+    "filter": {
+      "label_role": "Role",
+      "label_organization": "Organization",
+      "search_placeholder": "Search ID or name here"
+    },
+    "table": {
+      "row_id": "ID",
+      "row_name": "Name",
+      "row_email": "Email",
+      "row_phone_number": "Phone Number",
+      "row_organization": "Organization",
+      "row_role": "Role"
+    }
+  },
+  "page_management_form": {
+    "title_new": "Add New Account",
+    "title_edit": "Edit Account",
+    "cta_submit_new": "Create",
+    "cta_submit_edit": "Update",
+    "section_identity": {
+      "title": "Identity",
+      "label_first_name": "First Name",
+      "label_last_name": "Last Name",
+      "label_email": "Email",
+      "label_id_card": "ID Card",
+      "label_phone_number": "Phone Number",
+      "label_organization": "Organization"
+    },
+    "section_role": {
+      "title": "Choose Role",
+      "role_fo": "FO",
+      "role_fo_description": "This role assisting visitors and managing inquiries effectively",
+      "role_fom": "FO Manager",
+      "role_fom_description": "This role assisting visitors and managing inquiries effectively",
+      "role_bo": "BO",
+      "role_bo_description": "This role assisting visitors and managing inquiries effectively",
+      "role_bom": "BO Manager",
+      "role_bom_description": "This role assisting visitors and managing inquiries effectively",
+      "role_admin": "Super Admin",
+      "role_admin_description": "This role assisting visitors and managing inquiries effectively"
+    },
+    "section_services": {
+      "title": "Choose Services"
+    },
+    "section_municipality_area": {
+      "title": "Choose Municipality Area",
+      "label_municipality": "Municipality"
+    },
+    "modal_confirmation": {
+      "update_title": "Are Your Sure to Update?",
+      "update_description": "Please check your data before submitting, make sure all data meet the criteria.",
+      "update_primary_cta": "Update",
+      "update_secondary_cta": "Cancel",
+      "delete_title": "Are Your Sure to Delete?",
+      "delete_description": "Deleting account will result in permanent loss of all data associated with it. This action cannot be undone.",
+      "delete_primary_cta": "Delete",
+      "delete_secondary_cta": "Cancel"
+    },
+    "modal_success": {
+      "update_title": "Member have updated",
+      "update_description": "Member data updated. Please allow up to 1 minute for changes to take effect. Thank you for your patience",
+      "update_cta": "Understand",
+      "create_title": "Account created",
+      "create_description": "Please allow up to 1 minute for changes to take effect. Thank you for your patience",
+      "create_cta": "Understand",
+      "delete_title": "Account Deleted",
+      "delete_description": "Account successfully deleted. All associated data has been permanently removed."
     }
   }
 }

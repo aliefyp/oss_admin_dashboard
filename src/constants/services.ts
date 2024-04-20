@@ -1,12 +1,12 @@
 export const SERVICE_ICONS = {
-  'passport': '/icon_service_passport_card.svg',
+  'general-passport': '/icon_service_general_passport.svg',
   'driving-license': '/icon_service_driving_license.svg',
   'nic': '/icon_service_nic.svg',
   'family-card': '/icon_service_family_card.svg',
   'business-card': '/icon_service_business_card.svg',
   'ficha-familia': '/icon_service_ficha_familia.svg',
-  'citizen-card': '/icon_service_citizen_card.svg',
-  'birth-of-certificate': '/icon_service_birth_of_certificate.svg',
+  'citizen-id': '/icon_service_citizen_id.svg',
+  'birth-certificate': '/icon_service_birth_certificate.svg',
 };
 
 const services = [
@@ -48,7 +48,7 @@ const services = [
   {
     id: 'birth-of-certificate',
     name: 'Birth of Certificate',
-    icon: '/icon_service_birth_of_certificate.svg'
+    icon: '/icon_service_birth_certificate.svg'
   },
 ]
 

@@ -33,7 +33,7 @@ const AuthLayout = () => {
           >
             <Toolbar sx={{ justifyContent: 'space-between' }}>
               <a href="/" className="block">
-                <img src="/logo_main.png" alt="Balkaun Uniku" />
+                <img width={80} src="/logo_main.jpeg" alt="Balkaun Uniku" className="rounded-lg" />
               </a>
               <LanguageSelector />
             </Toolbar>
