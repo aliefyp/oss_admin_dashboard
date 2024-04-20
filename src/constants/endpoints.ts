@@ -2,6 +2,9 @@ const BASE_URL = process.env.REACT_APP_API_ENDPOINT;
 
 // Auth
 export const EP_LOGIN = `${BASE_URL}/auth/login`;
+export const EP_REFRESH_TOKEN = `${BASE_URL}/auth/refresh-token`;
+export const EP_FORGET_PASSWORD = `${BASE_URL}/auth/forget-password`;
+export const EP_RESET_PASSWORD = `${BASE_URL}/auth/reset-password`;
 
 // Services
 export const EP_SERVICES_TYPE = `${BASE_URL}/services/type`;

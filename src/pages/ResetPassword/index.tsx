@@ -12,6 +12,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useForm } from 'react-hook-form';
 import { FormHelperText } from '@mui/material';
+import { useResetPassword } from 'api/auth';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useToaster from 'usecase/useToaster';
 
 interface ResetPasswordForm {
   password: string;
@@ -20,6 +23,13 @@ interface ResetPasswordForm {
 
 const ResetPassword = () => {
   const { t } = useTranslation();
+  const location = useLocation();
+  const toaster = useToaster();
+  const navigate = useNavigate();
+
+  const activationToken = new URLSearchParams(location.search).get('token');
+
+  const resetPassword = useResetPassword();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -58,8 +68,24 @@ const ResetPassword = () => {
   const isDisabled = !valid.uppercase || !valid.lowercase || !valid.number || !valid.specialCharacter;
 
   const submitForm = (val: ResetPasswordForm) => {
-    const { password, confirm_password } = val;
-    console.log({ password, confirm_password });
+    const { password } = val;
+
+    resetPassword.mutateAsync({ password, activationToken })
+      .then(res => {
+        if (res.errorMessage) {
+          throw new Error(res.errorMessage)
+        }
+
+        toaster.open('Password has been reset. Please try to login with your new password', {
+          isError: false
+        });
+
+        navigate('/login')
+      })
+      .catch(err => {
+        console.error(err);
+        toaster.open(err.message);
+      })
   }
 
   useEffect(() => {
@@ -110,7 +136,7 @@ const ResetPassword = () => {
             })}
           />
           {errors.password && (
-            <FormHelperText error={Boolean(errors.password)}  id="password-helper-text">
+            <FormHelperText error={Boolean(errors.password)} id="password-helper-text">
               {errors.password.message || ''}
             </FormHelperText>
           )}
@@ -148,7 +174,7 @@ const ResetPassword = () => {
             })}
           />
           {errors.confirm_password && (
-            <FormHelperText error={Boolean(errors.confirm_password)}  id="confirm-password-helper-text">
+            <FormHelperText error={Boolean(errors.confirm_password)} id="confirm-password-helper-text">
               {errors.confirm_password.message || ''}
             </FormHelperText>
           )}

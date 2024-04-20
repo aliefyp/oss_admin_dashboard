@@ -14,7 +14,7 @@ const useFetcher = () => {
         ...options,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': auth,
+          ...(auth ? { 'Authorization': auth } : {}),
           ...options?.headers,
         }
       }).then((res) => {

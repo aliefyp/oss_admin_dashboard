@@ -1,18 +1,18 @@
-import { EP_LOGIN } from 'constants/endpoints';
+import { EP_RESET_PASSWORD } from 'constants/endpoints';
 import { useMutation } from 'react-query';
 import { Response } from 'types/auth/login';
 import useFetcher from 'usecase/useFetcher';
 
 export type Params = {
-  email: string;
+  activationToken: string;
   password: string;
 }
 
-const useLogin = () => {
+const useResetPassword = () => {
   const fetcher = useFetcher();
 
   const mutate = (params: Params) => {
-    return fetcher('POST', `${EP_LOGIN}`, {
+    return fetcher('POST', `${EP_RESET_PASSWORD}`, {
       body: JSON.stringify(params),
     });
   }
@@ -20,4 +20,4 @@ const useLogin = () => {
   return useMutation<Response, Error, Params>(mutate);
 };
 
-export default useLogin;
+export default useResetPassword;
