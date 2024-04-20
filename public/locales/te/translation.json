@@ -4,26 +4,26 @@
     "back": "Fila"
   },
   "header": {
-    "logout": "Logout"
+    "logout": "Sai"
   },
   "footer": {
     "rights": "Direitu hotu reservadu ona"
   },
   "sidebar": {
-    "citizen-id": "Billete-Identidade",
-    "general-passport": "Pasaporte Komum",
-    "birth-certificate": "Sertidaun Moris RDTL",
-    "marriage-certificate": "Sertidaun Kazamentu",
-    "criminal-record-certificate": "Sertifikadu Rejistu Kriminál",
-    "driving-license": "Karta-Kondusaun",
-    "commercial-registration": "Commercial Registration",
-    "family-card": "Ficha Família"
+    "main": "Funsaun Prinsipal",
+    "other": "Other",
+    "overview": "Vizaun jerál",
+    "applicant": "Aplikante",
+    "issued_card": "Kartaun Ne'ebé Fó Sai",
+    "appointment": "Ajendamentu Sira",
+    "settings": "Konfigurasaun Sira",
+    "management": "Management"
   },
   "filter_label": {
     "service": "Servisu",
-    "region": "Region",
+    "region": "Rejiaun",
     "municipality": "Munisípiu",
-    "year": "Year",
+    "year": "Tinan",
     "gender": "Jéneru",
     "deliver": "Deliver",
     "office": "Office",
@@ -32,68 +32,68 @@
     "organization": "Organization"
   },
   "services": {
-    "passport": "Pasaporte",
+    "citizen-id": "Billete-Identidade",
+    "general-passport": "Pasaporte Komum",
+    "birth-certificate": "Sertidaun Moris RDTL",
+    "marriage-certificate": "Sertidaun Kazamentu",
+    "criminal-record-certificate": "Sertifikadu Rejistu Kriminál",
     "driving-license": "Karta-Kondusaun",
-    "nic": "NIC",
-    "family-card": "Kartaun Familia",
-    "business-card": "Business Card",
-    "ficha-familia": "Ficha Familia",
-    "citizen-card": "Citizen Card",
-    "birth-of-certificate": "Birth of Certificate"
+    "commercial-registration": "Rejistu Komersiál no Lisensiamentu ba Atividade Ekonómika Sira",
+    "family-card": "Ficha Família"
   },
   "sub_services": {
-    "new-passport": "Foun Pasaporte",
-    "renew-passport": "Renova Pasaporte",
-    "loss-passport": "Lakon Pasaporte",
-    "damage-passport": "Estragu Pasaporte",
-    "new-driving-license": "Foun Karta-Kondusaun",
+    "new-citizen-id": "Billete-Identidade Foun",
+    "renew-citizen-id": "Renova Billete-Identidade",
+    "loss-citizen-id": "Billete-Identidade Lakon",
+    "damage-citizen-id": "Billete-Identidade Estragu",
+    "new-general-passport": "Pasaporte Foun",
+    "renew-general-passport": "Renova Pasaporte",
+    "loss-general-passport": "Pasaporte Lakon",
+    "damage-general-passport": "Pasaporte Estragu",
+    "new-birth-certificate": "Sertidaun Moris RDTL Foun",
+    "renew-birth-certificate": "Renova Sertidaun Moris RDTL",
+    "loss-birth-certificate": "Sertidaun Moris RDTL Lakon",
+    "damage-birth-certificate": "Sertidaun Moris RDTL Estragu",
+    "new-marriage-certificate": "Sertidaun Kazamentu Foun",
+    "renew-marriage-certificate": "Renova Sertidaun Kazamentu",
+    "loss-marriage-certificate": "Sertidaun Kazamentu Lakon",
+    "damage-marriage-certificate": "Sertidaun Kazamentu Estragu",
+    "new-criminal-record-certificate": "Sertifikadu Rejistu Kriminál Foun",
+    "renew-criminal-record-certificate": "Renova Sertifikadu Rejistu Kriminál",
+    "loss-criminal-record-certificate": "Sertifikadu Rejistu Kriminál Lakon",
+    "damage-criminal-record-certificate": "Sertifikadu Rejistu Kriminál Estragu",
+    "new-driving-license": "Karta-Kondusaun Foun",
     "renew-driving-license": "Renova Karta-Kondusaun",
-    "loss-driving-license": "Lakon Karta-Kondusaun",
-    "damage-driving-license": "Estragu Karta-Kondusaun",
-    "new-nic": "Foun NIC",
-    "renew-nic": "Renova NIC",
-    "loss-nic": "Lakon NIC",
-    "damage-nic": "Estragu NIC",
-    "new-family-card": "Foun Kartaun Familia",
+    "loss-driving-license": "Karta-Kondusaun Lakon",
+    "damage-driving-license": "Karta-Kondusaun Estragu",
+    "new-commercial-registration": "Rejistu Komersiál Foun",
+    "renew-commercial-registration": "Renova Rejistu Komersiál",
+    "loss-commercial-registration": "Rejistu Komersiál Lakon",
+    "damage-commercial-registration": "Rejistu Komersiál Estragu",
+    "new-family-card": "Kartaun Familia Foun",
     "renew-family-card": "Renova Kartaun Familia",
-    "loss-family-card": "Lakon Kartaun Familia",
-    "damage-family-card": "Estragu Kartaun Familia",
-    "new-business-card": "New Business Card",
-    "renew-business-card": "Renew Business Card",
-    "loss-business-card": "Loss Business Card",
-    "damage-business-card": "Damage Business Card",
-    "new-ficha-familia": "New Ficha Familia",
-    "renew-ficha-familia": "Renew Ficha Familia",
-    "loss-ficha-familia": "Loss Ficha Familia",
-    "damage-ficha-familia": "Damage Ficha Familia",
-    "new-citizen-card": "New Citizen Card",
-    "renew-citizen-card": "Renew Citizen Card",
-    "loss-citizen-card": "Loss Citizen Card",
-    "damage-citizen-card": "Damage Citizen Card",
-    "new-birth-of-certificate": "New Birth of Certificate",
-    "renew-birth-of-certificate": "Renew Birth of Certificate",
-    "loss-birth-of-certificate": "Loss Birth of Certificate",
-    "damage-birth-of-certificate": "Damage Birth of Certificate"
+    "loss-family-card": "Kartaun Familia Lakon",
+    "damage-family-card": "Kartaun Familia Estragu"
   },
   "deliver": {
     "normal": "Normal"
   },
   "application_status": {
     "submitted": "Submete",
-    "resubmitted": "Resubmitted",
-    "waitingapprovalfromfrontoffice": "Waiting Approval from Front Office",
-    "approvedfromfrontoffice": "Approved from Front Office",
-    "waitingapprovalfrombackoffice": "Waiting Approval from Back Office",
-    "approvedfrombackoffice": "Approved from Back Office",
-    "rejectedfromfrontoffice": "Rejected from Front Office",
-    "rejectedfrombackoffice": "Rejected from Back Office",
+    "resubmitted": "Submete filafali",
+    "waitingapprovalfromfrontoffice": "Hein Aprovasaun hosi Resepsaun",
+    "approvedfromfrontoffice": "Aprovadu hosi Resepsaun",
+    "waitingapprovalfrombackoffice": "Hein Aprovasaun hosi Back-Office",
+    "approvedfrombackoffice": "Aprovadu hosi Back-Office",
+    "rejectedfromfrontoffice": "Rejeita hosi Resepsaun",
+    "rejectedfrombackoffice": "Rejeita hosi",
     "completed": "Kompleta",
     "delivered": "Entrega"
   },
   "approval_status": {
-    "approved": "Approved",
-    "rejected": "Rejected",
-    "pending": "Pending"
+    "approved": "Aprovadu",
+    "rejected": "Rejeita",
+    "pending": "Pendente"
   },
   "appointment_status": {
     "completed": "Completed",
@@ -109,7 +109,7 @@
     "passport": "Pasaporte"
   },
   "role": {
-    "front-office": "Front Office",
+    "front-office": "Resepsaun",
     "back-office": "Back Office",
     "admin": "Admin"
   },
@@ -126,8 +126,8 @@
     "label_password": "Password",
     "cta_submit": "Login",
     "cta_forgot": "Haluha Password?",
-    "error_email_required": "Email is required",
-    "error_email_invalid": "Email is invalid",
+    "error_email_required": "E-mail presiza",
+    "error_email_invalid": "E-mail ne'e inválidu",
     "error_password_required": "Password is required",
     "error_password_min": "Password must be at least {{count}} characters",
     "error_password_invalid": "Password should contain at least one uppercase, one lowercase, and one number",
@@ -138,15 +138,15 @@
     "subtitle": " Favór hatama ita-nia e-mail, no hetan link atu hetan fila fali ita-nia password.",
     "label_email": "Email",
     "cta_submit": "Pedidu ba hafoun password",
-    "resend_code": "You can request resend code in {{time}}s",
-    "error_email_required": "Email is required",
-    "error_email_invalid": "Email is invalid"
+    "resend_code": "Ita bele husu fila fali kódigu iha {{time}}s",
+    "error_email_required": "E-mail presiza",
+    "error_email_invalid": "E-mail ne'e inválidu"
   },
   "reset_password": {
-    "title": "Reset Your Password",
+    "title": "Redefine ita-nia password.",
     "label_password": "Password",
-    "label_confirm_password": "Confirm Password",
-    "cta_submit": "Submit",
+    "label_confirm_password": "Konfirma Password",
+    "cta_submit": "Submete",
     "validation": {
       "title": "Make sure your password contains it",
       "uppercase": "Uppercase",
@@ -160,27 +160,21 @@
     "error_confirm_password_min": "Confirm Password must be at least {{count}} characters"
   },
   "page_overview": {
-    "title": "Overview",
-    "latest_update": "Latest Update",
-    "total_registered": "Total <b>{{count}}</b> Registered",
-    "reset_filter": "Reset Filter",
-    "section_filter": {
-      "all_service": "All Service",
-      "all_region": "All Region",
-      "all_gender": "All Gender",
-      "all_year": "All Year"
-    },
+    "title": "Vizaun Jerál",
+    "latest_update": "Atualizasaun Foun",
+    "total_registered": "Total <b>{{count}}</b> Rejistadu",
+    "reset_filter": "Redifini Filtru",
     "section_registered_citizen": {
-      "title": "Registered Citizen",
-      "tab_daily": "Daily",
-      "tab_weekly": "Weekly",
-      "tab_monthly": "Monthly"
+      "title": "Sidadaun Rejistadu",
+      "tab_daily": "Loroloron",
+      "tab_weekly": "Semana-semana",
+      "tab_monthly": "Ful-fulan"
     },
     "section_type_registered": {
       "title": "Type Registered",
-      "status_pending": "Pending",
-      "status_approved": "Approved",
-      "status_rejected": "Rejected",
+      "status_pending": "Pendente",
+      "status_approved": "Aprovadu",
+      "status_rejected": "Rejeita",
       "status_in_progress": "In Progress",
       "issued_card_count": "Issued Card {{count}}",
       "issued_card_description": "Include as approved but have waiting list"
@@ -196,7 +190,7 @@
     }
   },
   "page_applicant": {
-    "title": "Applicants",
+    "title": "Aplikante",
     "total_registered": "Total <b>{{count}}</b> Registered",
     "filter": {
       "all_service": "All Service",
@@ -208,7 +202,7 @@
     "table": {
       "row_id": "ID",
       "row_citizens": "Sidadaun",
-      "row_service": "Service",
+      "row_service": "Servisu Sira",
       "row_municipality": "Munisípiu",
       "row_submission_date": "Submission Date",
       "row_review": "Review",
@@ -246,14 +240,8 @@
       "row_unverified": "Unverified",
       "cta_download": "Download",
       "cta_preview": "Preview",
-      "cta_approve": "Approve",
-      "cta_reject": "Reject",
-      "reject_title": "Are Your Sure to Reject?",
-      "reject_text": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
-      "reject_reason_label": "Reason",
-      "reject_message_label": "Message",
-      "reject_confirm": "Reject",
-      "reject_recheck": "Recheck"
+      "cta_approve": "Aprovadu",
+      "cta_reject": "Reject"
     },
     "section_others": {
       "title": "Request For Other",
@@ -264,16 +252,16 @@
       "label_gender": "Jéneru"
     },
     "modal_approve": {
-      "title": "Are Your Sure to Approve?",
+      "title": "Ita hakarak duni atu aprova?",
       "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
-      "cta_approve": "Approve",
+      "cta_approve": "Aprovadu",
       "cta_recheck": "Recheck",
       "success_title": "Applicant Have Approved",
       "success_description": "Your submitted data is being reviewed by our team. Verification may take some time. Thank you for your patience!",
       "success_cta": "Understand"
     },
     "modal_reject": {
-      "title": "Are Your Sure to Reject?",
+      "title": "Ita hakarak duni atu rejeita?",
       "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
       "label_reason": "Reason",
       "label_message": "Message",
@@ -295,7 +283,7 @@
   "page_issued_card_list": {
     "title": "Issued Card",
     "total_issued": "Total <b>{{count}}</b> Issued Cards",
-    "reset_filter": "Reset Filter",
+    "reset_filter": "Redifini Filtru",
     "filter": {
       "all_service": "All Service",
       "all_deliver": "All Deliver",
@@ -313,26 +301,23 @@
   "page_appointment": {
     "title": "Ajendamentu",
     "total_appointments": "Total <b>{{count}}</b> Appointments",
-    "reset_filter": "Reset Filter",
+    "reset_filter": "Redifini Filtru",
     "filter": {
-      "all_service": "All Service",
-      "all_office": "All Office",
-      "all_date": "All Date",
       "search_placeholder":  "Search ID or citizens name here"
     },
     "table": {
-      "row_id": "ID",
+      "row_id": "Id.",
       "row_citizens": "Sidadaun",
-      "row_user_type": "Type",
+      "row_user_type": "Tipu",
       "row_service": "Servisu Sira",
-      "row_office": "Office",
-      "row_appointment_date": "Appointment Date",
+      "row_office": "Eskritóriu",
+      "row_appointment_date": "Data Audiénsia",
       "row_status": "Status"
     },
     "status": {
-      "unstarted": "Unstarted",
-      "completed": "Completed",
-      "absent": "Absent"
+      "unstarted": "Seidauk hahú",
+      "completed": "Kompleta",
+      "absent": "Falta"
     }
   },
   "page_appointment_detail": {
@@ -341,7 +326,7 @@
     "purpose": "Purpose",
     "status": "Status",
     "instruction": "If the schedule suits you, you can give approval, so that citizens will get a booking code to come to the branch",
-    "cta_approve": "Approve",
+    "cta_approve": "Aprovadu",
     "cta_reject": "Reject",
     "section_identity": {
       "title": "Identidade Sidadaun",
@@ -366,7 +351,7 @@
     "modal_approve": {
       "title": "Are Your Sure to Approve?",
       "description": "Please check your data before submitting, after this citizen will recieved code booking to visit office",
-      "cta_approve": "Approve",
+      "cta_approve": "Aprovadu",
       "cta_recheck": "Recheck",
       "success_title": "Appointment Have Approved",
       "success_description": "The appointment has been scheduled, now citizens just have to come to the office according to schedule.",
