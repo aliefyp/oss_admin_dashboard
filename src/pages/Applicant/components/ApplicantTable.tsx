@@ -39,7 +39,7 @@ const ApplicantTable = ({
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: t('page_applicant.table.row_id') },
-    { field: 'citizens', headerName: t('page_applicant.table.row_citizens'), flex: 2 },
+    { field: 'citizens', headerName: t('page_applicant.table.row_citizens'), flex: 1 },
     { field: 'services', headerName: t('page_applicant.table.row_service'), flex: 1 },
     { field: 'municipality', headerName: t('page_applicant.table.row_municipality'), flex: 1 },
     { field: 'submission_date', headerName: t('page_applicant.table.row_submission_date'), flex: 1 },
@@ -107,7 +107,7 @@ const ApplicantTable = ({
     id: item.id,
     citizens: item.fullName,
     services: t(`services.${item.serviceType}`),
-    municipality: item.municipality,
+    municipality: item.state,
     submission_date: dayjs(item.submissionAt).format('DD-MMM-YYYY HH:mm'),
     review: t(`role.${item.reviewStep}`),
     status: item.status,

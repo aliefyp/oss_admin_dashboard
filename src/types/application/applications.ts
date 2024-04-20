@@ -12,8 +12,7 @@ export interface Daum {
   fullName: string
   serviceType: string
   service: string
-  municipalityCode: string
-  municipality: string
+  state: string
   submissionAt: string
   reviewStep: string
   status: string
