@@ -6,9 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Response as AppointmentResponse } from 'types/appointment/appointments';
 import { useEffect, useState } from 'react';
-import { Chip, IconButton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import { HiOutlineDocumentSearch } from 'react-icons/hi';
-import { APPOINTMENT_STATUS_COLOR } from 'constants/appointment';
 import AppointmentStatus from './AppointmentStatus';
 
 interface PaginationModel {
