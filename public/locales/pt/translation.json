@@ -81,12 +81,8 @@
   "application_status": {
     "submitted": "Submetido",
     "resubmitted": "Reenviado",
-    "waitingapprovalfromfrontoffice": "Aguardando aprovação do Front Office",
-    "approvedfromfrontoffice": "Aprovado pelo Front Office",
-    "waitingapprovalfrombackoffice": "Aguardando aprovação do Back Office",
-    "approvedfrombackoffice": "Aprovado pelo Back Office",
-    "rejectedfromfrontoffice": "Rejeitado do Front Office",
-    "rejectedfrombackoffice": "Rejeitado do Back Office",
+    "waitingapproval": "Esperando aprovação",
+    "rejected": "Rejeitado",
     "completed": "Concluído",
     "delivered": "Entregue"
   },
@@ -113,7 +109,7 @@
   "role": {
     "front-office": "Recepção",
     "front-office-manager": "Gerente principal do escritório",
-    "back-office": "Backoffice",
+    "back-office": "Back Office",
     "back-office-manager": "Gerente de Backoffice",
     "ministry-of-justice": "ministro da Justiça",
     "ministry-of-justice-manager": "Gerente do Ministério da Justiça",
