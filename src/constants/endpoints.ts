@@ -12,7 +12,7 @@ export const EP_SERVICES = `${BASE_URL}/services`;
 
 // Regions
 export const EP_REGIONS_COUNTRY = `${BASE_URL}/regions/country`;
-export const EP_REGIONS_MUNICIPALITY = `${BASE_URL}/regions/municipality`;
+export const EP_REGIONS_MUNICIPALITY = `${BASE_URL}/regions/state`;
 
 // Applications
 export const EP_APPLICATIONS = `${BASE_URL}/applications`;
