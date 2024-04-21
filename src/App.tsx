@@ -52,8 +52,8 @@ function App() {
                       <Route path="/applicant/*" element={<ApplicantRoute />} />
                       <Route path="/issued-card/*" element={<IssuedCardRoute />} />
                       <Route path="/appointment/*" element={<AppointmentRoute />} />
+                      <Route path="/management/*" element={<ManagementRoute />} />
                       <Route path="/notification" element={<NotificationRoute />} />
-                      <Route path="/management*" element={<ManagementRoute />} />
                       <Route path="/" element={<OverviewRoute />} />
                       <Route path="*" element={<NotFound />} />
                     </Route>
