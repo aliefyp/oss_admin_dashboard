@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { Chip, IconButton, Tooltip } from '@mui/material';
 import { HiOutlineDocumentSearch } from 'react-icons/hi';
 import { APPOINTMENT_STATUS_COLOR } from 'constants/appointment';
+import AppointmentStatus from './AppointmentStatus';
 
 interface PaginationModel {
   page: number;
@@ -48,9 +49,10 @@ const AppointmentTable = ({
       headerName: t('page_appointment.table.row_status'),
       flex: 1,
       renderCell: (params: GridValueGetterParams) => {
-        const status = params.row.status.toLowerCase();
-        const color = APPOINTMENT_STATUS_COLOR[status];
-        return <Chip label={t(`appointment_status.${status}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
+        // const status = params.row.status.toLowerCase();
+        // const color = APPOINTMENT_STATUS_COLOR[status];
+        // return <Chip label={t(`appointment_status.${status}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
+        return <AppointmentStatus appointmentId={params.row.id} status={params.row.status.toLowerCase()} />
       },
     },
     {

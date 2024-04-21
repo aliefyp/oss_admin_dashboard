@@ -1,39 +1,95 @@
-import { Chip } from "@mui/material";
+import { ArrowDropDownOutlined } from "@mui/icons-material";
+import { Button, Chip, CircularProgress, Menu, MenuItem, Typography } from "@mui/material";
+import { useUpdateAppoinment } from "api/appointment";
+import { APPOINTMENT_STATUS_COLOR } from "constants/appointment";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import useToaster from "usecase/useToaster";
 
 interface Props {
+  appointmentId: number;
   status: string;
 }
 
-const AppointmentStatus = ({ status }: Props) => {
+const STATUS = ['completed', 'absent'];
+
+const AppointmentStatus = ({ appointmentId, status }: Props) => {
   const { t } = useTranslation();
+  const toaster = useToaster();
+  const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 
-  let current = null;
+  const [loading, setLoading] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState(status);
 
-  switch (status.toLowerCase()) {
-    case 'waitingapproval':
-      current = <Chip label={t('appointment_status.waitingapproval')} size="small" className="!text-yellow-600 !bg-yellow-200 !rounded-md min-w-[120px]" />;
-      break;
-    case 'confirm':
-      current = <Chip label={t('appointment_status.confirm')} size="small" className="!text-blue-600 !bg-blue-200 !rounded-md min-w-[120px]" />;
-      break;
-    case 'reject':
-      current = <Chip label={t('appointment_status.reject')} size="small" className="!text-orange-600 !bg-orange-200 !rounded-md min-w-[120px]" />;
-      break;
-    case 'completed':
-      current = <Chip label={t('appointment_status.completed')} size="small" className="!text-green-600 !bg-green-200 !rounded-md min-w-[120px]" />;
-      break;
-    case 'absent':
-      current = <Chip label={t('appointment_status.absent')} size="small" className="!text-red-600 !bg-red-200 !rounded-md min-w-[120px]" />;
-      break;
-    default:
-      break;
+  const updateStatus = useUpdateAppoinment({ appointmentId })
+
+  const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {
+    setAnchorEl(event.currentTarget);
   }
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleStatusClick = async (newStatus: string) => {
+    try {
+      handleClose();
+      setLoading(true);
+
+      const res = await updateStatus({ status: newStatus });
+      if (!res) throw new Error('Failed to update status');
+
+      setCurrentStatus(newStatus);
+    } catch (err) {
+      console.error(err);
+      toaster.open(err.message)
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'start-popover' : undefined;
+  const color = APPOINTMENT_STATUS_COLOR[currentStatus];
+
+  const label = <Chip label={t(`appointment_status.${currentStatus}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
+
   return (
-    <>
-      {current}
-    </>
+    <div onClick={e => e.stopPropagation()}>
+      {currentStatus === 'confirm' ? (
+        <>
+          <Button
+            component="div"
+            variant="text"
+            size="small"
+            endIcon={loading ? <CircularProgress size={12} /> : <ArrowDropDownOutlined />}
+            onClick={handleOpen}
+          >
+            {label}
+          </Button>
+          <Menu
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+          >
+            {STATUS.filter(s => s !== currentStatus).map((s) => (
+              <MenuItem key={s} onClick={() => handleStatusClick(s)}>
+                <Typography variant="body1">{t(`page_appointment.status.${s.toLowerCase()}`)}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </>
+      ) : (
+        <div className="p-1">
+          {label}
+        </div>
+      )}
+    </div>
   )
 }
 
