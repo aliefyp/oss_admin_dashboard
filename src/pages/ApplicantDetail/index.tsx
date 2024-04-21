@@ -52,14 +52,22 @@ const ApplicantDetail: React.FC = () => {
   const citizenIdentityData = useCitizenIdentityData(data);
   const requestForOtherData = useRequestForOtherData(data);
 
+  const isEligibleToAction = auth.roleGroup === 'frontOffice' || auth.roleGroup === 'backOffice';
+
+  const getFileStatus = useCallback((foStatus: string, boStatus: string) => {
+    if (auth.roleGroup === 'frontOffice') return foStatus;
+    if (auth.roleGroup === 'backOffice') return boStatus;
+    return 'pending';
+  }, [auth.roleGroup]);
+
   useEffect(() => {
     const st = {}
     const files = data?.data?.files;
     files?.forEach((file) => {
-      st[file.id] = auth.roleGroup === 'frontOffice' ? file.frontOfficeStatus : file.backOfficeStatus;
+      st[file.id] = getFileStatus(file.frontOfficeStatus, file.backOfficeStatus);
     })
     setFilesStatus(st);
-  }, [auth.roleGroup, data?.data?.files]);
+  }, [auth.roleGroup, data?.data?.files, getFileStatus]);
 
   const getProfilePicture = useCallback(async () => {
     try {
@@ -294,28 +302,38 @@ const ApplicantDetail: React.FC = () => {
           <Table
             files={data?.data?.files || []}
             filesStatus={filesStatus}
+            disableAction={!isEligibleToAction}
             onPreviewFile={handlePreviewSingleFile}
             onDownloadFile={handleDownloadSingleFile}
             onFileStatusChange={handleStatusChange}
           />
-          <div className="flex justify-end gap-4">
-            <Button
-              disabled={!allowToApprove}
-              variant="contained"
-              className="w-[200px]"
-              onClick={() => setOpenApproveConfirmation(true)}
-            >
-              {t('page_applicant_detail.section_document.cta_approve')}
-            </Button>
-            <Button
-              disabled={!allowToReject}
-              variant="contained"
-              color="error"
-              className="w-[200px]"
-              onClick={() => setOpenRejectConfirmation(true)}
-            >
-              {t('page_applicant_detail.section_document.cta_reject')}
-            </Button>
+          <div className="flex justify-between gap-4 items-center">
+            <div>
+              {!isEligibleToAction && (
+                <Typography variant="body2" className="!text-gray-500">
+                  You're not eligible to do approval/rejection
+                </Typography>
+              )}
+            </div>
+            <div className="flex justify-end gap-4">
+              <Button
+                disabled={!allowToApprove}
+                variant="contained"
+                className="w-[200px]"
+                onClick={() => setOpenApproveConfirmation(true)}
+              >
+                {t('page_applicant_detail.section_document.cta_approve')}
+              </Button>
+              <Button
+                disabled={!allowToReject}
+                variant="contained"
+                color="error"
+                className="w-[200px]"
+                onClick={() => setOpenRejectConfirmation(true)}
+              >
+                {t('page_applicant_detail.section_document.cta_reject')}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

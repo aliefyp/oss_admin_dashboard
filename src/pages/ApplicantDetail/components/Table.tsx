@@ -7,12 +7,13 @@ import { Response } from 'types/application/application-detail';
 interface Props {
   files: Response['data']['files'];
   filesStatus: Record<number, string | undefined>;
+  disableAction: boolean;
   onDownloadFile: (file: any) => void;
   onPreviewFile: (file: any) => void;
   onFileStatusChange: (id: number, status: string) => void;
 }
 
-const Table = ({ files, filesStatus, onPreviewFile, onDownloadFile, onFileStatusChange }: Props) => {
+const Table = ({ files, filesStatus, disableAction, onPreviewFile, onDownloadFile, onFileStatusChange }: Props) => {
   const { t } = useTranslation();
 
   const handleVerify = (id) => {
@@ -67,6 +68,7 @@ const Table = ({ files, filesStatus, onPreviewFile, onDownloadFile, onFileStatus
       sortable: false,
       renderCell: (params: GridValueGetterParams) => (
         <Checkbox
+          disabled={disableAction}
           checked={params.row.verified}
           onClick={() => handleVerify(params.row.id)}
         />
@@ -78,6 +80,7 @@ const Table = ({ files, filesStatus, onPreviewFile, onDownloadFile, onFileStatus
       sortable: false,
       renderCell: (params: GridValueGetterParams) => (
         <Checkbox
+          disabled={disableAction}
           checked={params.row.unverified}
           onClick={() => handleUnVerify(params.row.id)}
         />

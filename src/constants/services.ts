@@ -1,12 +1,12 @@
 export const SERVICE_ICONS = {
-  'general-passport': '/icon_service_general_passport.svg',
-  'driving-license': '/icon_service_driving_license.svg',
-  'nic': '/icon_service_nic.svg',
-  'family-card': '/icon_service_family_card.svg',
-  'business-card': '/icon_service_business_card.svg',
-  'ficha-familia': '/icon_service_ficha_familia.svg',
-  'citizen-id': '/icon_service_citizen_id.svg',
-  'birth-certificate': '/icon_service_birth_certificate.svg',
+  'citizen-id': '/icon_service_citizen_id.png',
+  'general-passport': '/icon_service_general_passport.png',
+  'birth-certificate': '/icon_service_birth_certificate.png',
+  'marriage-certificate': '/icon_service_marriage_certificate.png',
+  'criminal-record-certificate': '/icon_service_criminal_record_certificate.png',
+  'driving-license': '/icon_service_driving_license.png',
+  'commercial-registration': '/icon_service_commercial_registration.png',
+  'family-card': '/icon_service_family_card.png',
 };
 
 const services = [
