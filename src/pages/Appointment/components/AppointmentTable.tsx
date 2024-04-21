@@ -38,7 +38,7 @@ const AppointmentTable = ({
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: t('page_appointment.table.row_id') },
-    { field: 'citizens', headerName: t('page_appointment.table.row_citizens'), flex: 2 },
+    { field: 'citizens', headerName: t('page_appointment.table.row_citizens'), flex: 1 },
     { field: 'user_type', headerName: t('page_appointment.table.row_user_type'), flex: 1 },
     { field: 'services', headerName: t('page_appointment.table.row_service'), flex: 1 },
     { field: 'office', headerName: t('page_appointment.table.row_office'), flex: 1 },
