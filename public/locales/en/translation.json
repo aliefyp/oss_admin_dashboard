@@ -81,14 +81,10 @@
   "application_status": {
     "submitted": "Submitted",
     "resubmitted": "Resubmitted",
-    "waitingapprovalfromfrontoffice": "Waiting Approval from Front Office",
-    "approvedfromfrontoffice": "Approved from Front Office",
-    "waitingapprovalfrombackoffice": "Waiting Approval from Back Office",
-    "approvedfrombackoffice": "Approved from Back Office",
-    "rejectedfromfrontoffice": "Rejected from Front Office",
-    "rejectedfrombackoffice": "Rejected from Back Office",
-    "completed":"Completed",
-    "delivered":"Delivered"
+    "waitingapproval": "Waiting Approval",
+    "rejected": "Rejected",
+    "completed": "Completed",
+    "delivered" : "Delivered"
   },
   "approval_status": {
     "approved": "Approved",

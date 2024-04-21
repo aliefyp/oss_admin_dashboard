@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 const ModalImagePreview = ({ open, onClose, images }) => {
   const { t } = useTranslation();
-  
+
   return (
     <Modal
       open={open}

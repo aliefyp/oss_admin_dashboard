@@ -2,6 +2,7 @@ import { Chip, IconButton, Tooltip } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
 import EmptyState from 'components/EmptyState';
+import { APPLICATION_STATUS_COLOR } from 'constants/applications';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -49,22 +50,10 @@ const ApplicantTable = ({
       headerName: t('page_applicant.table.row_status'),
       flex: 1,
       renderCell: (params: GridValueGetterParams) => {
-        let result = null;
-        switch (params.row.status?.toLowerCase()) {
-          case 'approved':
-            result = <Chip label="Approved" size="small" className="!text-purple-600 !bg-purple-200 !rounded-md min-w-[80px]" />;
-            break;
-          case 'pending':
-            result = <Chip label="Pending" size="small" className="!text-yellow-600 !bg-yellow-200 !rounded-md min-w-[80px]" />;
-            break;
-          case 'rejected':
-            result = <Chip label="Rejected" size="small" className="!text-red-600 !bg-red-200 !rounded-md min-w-[80px]" />;
-            break;
-          default:
-            break;
-        }
+        const status = params.row.status.toLowerCase();
+        const color = APPLICATION_STATUS_COLOR[status];
 
-        return result;
+        return <Chip label={t(`application_status.${status}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
       }
     },
     {

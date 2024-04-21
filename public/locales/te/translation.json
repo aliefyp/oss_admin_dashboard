@@ -81,14 +81,10 @@
   "application_status": {
     "submitted": "Submete",
     "resubmitted": "Submete filafali",
-    "waitingapprovalfromfrontoffice": "Hein Aprovasaun hosi Resepsaun",
-    "approvedfromfrontoffice": "Aprovadu hosi Resepsaun",
-    "waitingapprovalfrombackoffice": "Hein Aprovasaun hosi Back-Office",
-    "approvedfrombackoffice": "Aprovadu hosi Back-Office",
-    "rejectedfromfrontoffice": "Rejeita hosi Resepsaun",
-    "rejectedfrombackoffice": "Rejeita hosi",
+    "waitingapproval": "Hein Aprovasaun",
+    "rejected": "Rejeita",
     "completed": "Kompleta",
-    "delivered": "Entrega"
+    "delivered" : "Entrega"
   },
   "approval_status": {
     "approved": "Aprovadu",
