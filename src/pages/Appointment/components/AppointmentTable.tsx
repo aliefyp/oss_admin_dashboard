@@ -76,7 +76,7 @@ const AppointmentTable = ({
     user_type: item.isRegistered ? 'Registered' : 'Not Registered',
     services: t(`sub_services.${item.service}`),
     appointment_date: dayjs(item.scheduledAt).format('DD-MMM-YYYY HH:mm'),
-    office: item.office,
+    office: item.officeLocation,
     status: item.status,
     preview: '',
   })) || [];

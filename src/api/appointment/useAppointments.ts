@@ -8,7 +8,7 @@ export interface UseAppointmentParams {
   PageNumber: string;
   PageSize: string;
   SearchValue?: string;
-  OfficeLocationCode?: string;
+  OfficeLocationId?: string;
   ServiceId?: string;
   ScheduleAtStart?: string;
   ScheduleAtEnd?: string;

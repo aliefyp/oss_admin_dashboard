@@ -96,8 +96,10 @@
     "pending": "Pending"
   },
   "appointment_status": {
+    "waitingapproval": "Waiting Approval",
+    "confirm": "Confirm",
+    "reject": "Reject",
     "completed": "Completed",
-    "unstarted": "Unstarted",
     "absent": "Absent"
   },
   "gender": {

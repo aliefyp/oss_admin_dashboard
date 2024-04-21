@@ -9,8 +9,12 @@ export interface Daum {
   id: number
   fullName: string
   identityNumber: string
+  serviceId: number
   service: string
-  office: string
+  stateId: number
+  state: string
+  officeLocationId: number
+  officeLocation: string
   scheduledAt: string
   status: string
   isRegistered: boolean
