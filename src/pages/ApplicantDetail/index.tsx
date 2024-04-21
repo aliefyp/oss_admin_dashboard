@@ -18,11 +18,14 @@ import useLazyApplicationApprove from "api/application/useLazyApplicationApprove
 import useRequestForOtherData from "./usecase/useRequestForOtherData";
 import useToaster from "usecase/useToaster";
 import ModalSuccess from "./components/ModalSuccess";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { UserData } from "types/auth/user";
 
 const ApplicantDetail: React.FC = () => {
   const { t } = useTranslation();
   const toaster = useToaster();
   const navigate = useNavigate();
+  const auth = useAuthUser<UserData>();
   const { applicant_id } = useParams();
 
   const [profilePicture, setProfilePicture] = useState<string | undefined>(undefined);
@@ -53,10 +56,10 @@ const ApplicantDetail: React.FC = () => {
     const st = {}
     const files = data?.data?.files;
     files?.forEach((file) => {
-      st[file.id] = file.status
+      st[file.id] = auth.roleGroup === 'frontOffice' ? file.frontOfficeStatus : file.backOfficeStatus;
     })
     setFilesStatus(st);
-  }, [data?.data?.files]);
+  }, [auth.roleGroup, data?.data?.files]);
 
   const getProfilePicture = useCallback(async () => {
     try {

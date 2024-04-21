@@ -62,15 +62,15 @@ const useCitizenIdentityData = (data: Response) => {
       },
       {
         label: t('page_applicant_detail.section_identity.label_state'),
-        value: birthDetail.municipality,
+        value: birthDetail.state,
       },
       {
         label: t('page_applicant_detail.section_identity.label_city'),
-        value: birthDetail.postAdministrative,
+        value: birthDetail.district,
       },
       {
         label: t('page_applicant_detail.section_identity.label_sucos'),
-        value: birthDetail.sucos,
+        value: birthDetail.subDistrict,
       },
     ];
   }, [data, t])
@@ -86,15 +86,15 @@ const useCitizenIdentityData = (data: Response) => {
       },
       {
         label: t('page_applicant_detail.section_identity.label_state'),
-        value: residenceDetail.municipality
+        value: residenceDetail.state
       },
       {
         label: t('page_applicant_detail.section_identity.label_city'),
-        value: residenceDetail.postAdministrative
+        value: residenceDetail.district
       },
       {
         label: t('page_applicant_detail.section_identity.label_sucos'),
-        value: residenceDetail.sucos
+        value: residenceDetail.subDistrict
       },
     ];
   }, [data, t])

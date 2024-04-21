@@ -2,7 +2,7 @@ export interface Response {
   success: boolean
   errorMessage: string
   data: Data
-  metadata: Metadata
+  metadata: any
 }
 
 export interface Data {
@@ -44,45 +44,48 @@ export interface Identity {
 
 export interface BirthDetail {
   dateOfBirth: string
+  countryId: number
   countryCode: string
   country: string
-  municipalityCode: string
-  municipality: string
-  postAdministrativeCode: string
-  postAdministrative: string
-  sucosCode: string
-  sucos: string
+  stateId: number
+  stateCode: string
+  state: string
+  districtId: number
+  districtCode: string
+  district: string
+  subDistrictId: number
+  subDistrictCode: string
+  subDistrict: string
 }
 
 export interface ResidenceDetail {
   address: string
+  countryId: number
   countryCode: string
   country: string
-  municipalityCode: string
-  municipality: string
-  postAdministrativeCode: string
-  postAdministrative: string
-  sucosCode: string
-  sucos: string
+  stateId: number
+  stateCode: string
+  state: string
+  districtId: number
+  districtCode: string
+  district: string
+  subDistrictId: number
+  subDistrictCode: string
+  subDistrict: string
 }
 
 export interface FamilyDetail {
   familyType: string
-  firstName: string
-  lastName: string
-  gender: string
-  dateOfBirth: string
+  firstName: any
+  lastName: any
+  gender: any
+  dateOfBirth: any
 }
 
 export interface File {
   id: number
   fileName: string
-  status: string
+  frontOfficeStatus: string
+  backOfficeStatus: string
 }
-
-export interface Metadata {
-  currentPage: number
-  totalPages: number
-  pageSize: number
-  totalCount: number
-}
+  

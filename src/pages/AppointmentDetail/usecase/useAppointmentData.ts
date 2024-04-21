@@ -56,15 +56,15 @@ const useAppointmentData = (data: Response) => {
       },
       {
         label: t('page_appointment_detail.section_identity.label_office'),
-        value: residenceDetail.municipality
+        value: residenceDetail.state
       },
       {
         label: t('page_appointment_detail.section_identity.label_date'),
-        value: residenceDetail.postAdministrative
+        value: residenceDetail.district
       },
       {
         label: t('page_appointment_detail.section_identity.label_city'),
-        value: residenceDetail.sucos
+        value: residenceDetail.subDistrict
       },
     ];
   }, [data, t])
