@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
-import { useApplicationDetail } from "api/application";
+import { useAppointmentDetail } from "api/appointment";
 import { useLazyFiles } from "api/files";
 import PageHeading from "components/PageHeading";
 import PageLoader from "components/PageLoader";
@@ -12,6 +12,7 @@ import ModalSuccess from "./components/ModalSuccess";
 import useAppointmentData from "./usecase/useAppointmentData";
 import { useUpdateAppoinmentStatus } from "api/appointment";
 import useToaster from "usecase/useToaster";
+import { APPOINTMENT_STATUS_COLOR } from "constants/appointment";
 
 const AppointmentDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -35,12 +36,12 @@ const AppointmentDetail: React.FC = () => {
     appointmentId: Number(appointment_id),
   });
 
-  const { data, isFetching } = useApplicationDetail(Number(appointment_id));
+  const { data, isFetching } = useAppointmentDetail(Number(appointment_id));
   const appointmentData = useAppointmentData(data);
 
   const getProfilePicture = useCallback(async () => {
     try {
-      const blob = await getFiles([data?.data?.personalDetail?.photo?.id])
+      const blob = await getFiles([data?.data?.photoFileId])
 
       const urlCreator = window.URL || window.webkitURL;
       const imageUrl = urlCreator.createObjectURL(blob[0]);
@@ -48,7 +49,7 @@ const AppointmentDetail: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [data?.data?.personalDetail?.photo?.id, getFiles])
+  }, [data?.data?.photoFileId, getFiles])
 
   const handleApproveAppointment = async () => {
     try {
@@ -93,10 +94,13 @@ const AppointmentDetail: React.FC = () => {
   }
 
   useEffect(() => {
-    if (data?.data?.personalDetail?.photo && !profilePicture) {
+    if (data?.data?.photoFileId && !profilePicture) {
       getProfilePicture()
     }
-  }, [data?.data?.personalDetail?.photo, profilePicture, getProfilePicture])
+  }, [data?.data?.photoFileId, profilePicture, getProfilePicture])
+
+  const status = data?.data?.status?.toLowerCase();
+  const statusColor = APPOINTMENT_STATUS_COLOR[status];
 
   return (
     <>
@@ -112,13 +116,13 @@ const AppointmentDetail: React.FC = () => {
         <div className="border rounded-lg py-2 px-3">
           <div className="flex justify-between items-center">
             <Typography variant="body2" className="m-0">
-              {t('page_appointment_detail.service')}: <b>{t(`sub_services.${data?.data?.service}`)}</b>
+              {t('page_appointment_detail.service')}: <b>{t(`services.${data?.data?.serviceType}`)}</b>
             </Typography>
             <Typography variant="body2" className="m-0">
-              {t('page_appointment_detail.purpose')}: <b>{t(`deliver.${data?.data?.deliveryTime}`)}</b>
+              {t('page_appointment_detail.purpose')}: <b>{t(`sub_services.${data?.data?.service}`)}</b>
             </Typography>
             <Typography variant="body2" className="m-0">
-              {t('page_appointment_detail.status')}: <b className=" text-yellow-500">UnStarted</b>
+              {t('page_appointment_detail.status')}: <b className={`text-${statusColor}-500`}>{t(`appointment_status.${status}`)}</b>
             </Typography>
           </div>
         </div>

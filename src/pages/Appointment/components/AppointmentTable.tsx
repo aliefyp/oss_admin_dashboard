@@ -5,10 +5,10 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Response as AppointmentResponse } from 'types/appointment/appointments';
-import AppointmentStatus from './AppointmentStatus';
 import { useEffect, useState } from 'react';
-import { IconButton, Tooltip } from '@mui/material';
+import { Chip, IconButton, Tooltip } from '@mui/material';
 import { HiOutlineDocumentSearch } from 'react-icons/hi';
+import { APPOINTMENT_STATUS_COLOR } from 'constants/appointment';
 
 interface PaginationModel {
   page: number;
@@ -47,9 +47,11 @@ const AppointmentTable = ({
       field: 'status',
       headerName: t('page_appointment.table.row_status'),
       flex: 1,
-      renderCell: (params: GridValueGetterParams) => (
-        <AppointmentStatus status={params.row.status} />
-      ),
+      renderCell: (params: GridValueGetterParams) => {
+        const status = params.row.status.toLowerCase();
+        const color = APPOINTMENT_STATUS_COLOR[status];
+        return <Chip label={t(`appointment_status.${status}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
+      },
     },
     {
       field: 'preview',
