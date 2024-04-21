@@ -368,7 +368,7 @@
       "success_description": "The appointment has been scheduled, now citizens just have to come to the office according to schedule.",
       "success_cta": "Understand"
     },
-    "modal_reschedule": {
+    "modal_reject": {
       "title": "Are Your Sure to Reject?",
       "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
       "label_reason": "Reason",

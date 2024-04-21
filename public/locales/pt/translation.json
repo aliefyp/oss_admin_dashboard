@@ -367,7 +367,7 @@
       "success_description": "A consulta está agendada, agora só falta o cidadão comparecer ao gabinete conforme agendamento.",
       "success_cta": "Entender"
     },
-    "modal_reschedule": {
+    "modal_reject": {
       "title": "Você tem certeza de rejeitar?",
       "description": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendam aos critérios para ajudar nosso oficial",
       "label_reason": "Razão",

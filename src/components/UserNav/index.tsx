@@ -60,12 +60,16 @@ const UserNav = () => {
           <Typography variant="h6">
             {auth?.email}
           </Typography>
-          <Typography variant="caption" className='text-gray-600'>
-            {auth?.roleGroup}
-          </Typography>
-          <Typography variant="caption" className='text-gray-600'>
-            {t(`role.${auth?.roleName}`)}
-          </Typography>
+          {auth.roleGroup && (
+            <Typography variant="caption" className='text-gray-600'>
+              {auth?.roleGroup}
+            </Typography>
+          )}
+          {auth.roleName && (
+            <Typography variant="caption" className='text-gray-600'>
+              {t(`role.${auth.roleName}`)}
+            </Typography>
+          )}
         </div>
         <MenuItem onClick={() => navigate('/logout')}>
           <ListItemIcon>

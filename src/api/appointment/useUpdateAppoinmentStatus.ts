@@ -5,16 +5,16 @@ export type Params = {
   status: string;
 }
 
-const useUpdateAppoinment = ({ appointmentId }) => {
+const useUpdateAppoinmentStatus = ({ appointmentId }) => {
   const fetcher = useFetcher();
 
   const mutate = (params: Params) => {
-    return fetcher('PUT', `${EP_APPOINTMENTS}/${appointmentId}`, {
+    return fetcher('PUT', `${EP_APPOINTMENTS}/${appointmentId}/status`, {
       body: JSON.stringify(params),
     });
   }
 
-  return mutate
+  return mutate;
 };
 
-export default useUpdateAppoinment;
+export default useUpdateAppoinmentStatus;

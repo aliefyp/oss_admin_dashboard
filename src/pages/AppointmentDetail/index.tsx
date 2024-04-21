@@ -10,8 +10,7 @@ import ModalApproveConfirmation from "./components/ModalApproveConfirmation";
 import ModalRescheduleConfirmation from "./components/ModalRescheduleConfirmation";
 import ModalSuccess from "./components/ModalSuccess";
 import useAppointmentData from "./usecase/useAppointmentData";
-import useLazyApplicationReject from "api/application/useLazyApplicationReject";
-import useLazyApplicationApprove from "api/application/useLazyApplicationApprove";
+import { useUpdateAppoinmentStatus } from "api/appointment";
 import useToaster from "usecase/useToaster";
 
 const AppointmentDetail: React.FC = () => {
@@ -32,8 +31,9 @@ const AppointmentDetail: React.FC = () => {
   })
 
   const getFiles = useLazyFiles();
-  const submitApproveApplication = useLazyApplicationApprove();
-  const submitRejectApplication = useLazyApplicationReject();
+  const updateAppointmentStatus = useUpdateAppoinmentStatus({
+    appointmentId: Number(appointment_id),
+  });
 
   const { data, isFetching } = useApplicationDetail(Number(appointment_id));
   const appointmentData = useAppointmentData(data);
@@ -54,7 +54,7 @@ const AppointmentDetail: React.FC = () => {
     try {
       setLoading(true);
       setOpenApproveConfirmation(false);
-      const res = await submitApproveApplication(data?.data?.id)
+      const res = await updateAppointmentStatus({ status: 'confirm' })
       if (!res) throw new Error('Failed to approve appointment');
 
       setSuccessModal({
@@ -75,14 +75,14 @@ const AppointmentDetail: React.FC = () => {
     try {
       setLoading(true);
       setOpenRescheduleConfirmation(false);
-      const res = await submitRejectApplication(data?.data?.id)
-      if (!res) throw new Error('Failed to reschedule application');
+      const res = await updateAppointmentStatus({ status: 'reject' })
+      if (!res) throw new Error('Failed to reject application');
 
       setSuccessModal({
         open: true,
-        title: t('page_appointment_detail.modal_reschedule.success_title'),
-        description: t('page_appointment_detail.modal_reschedule.success_description'),
-        ctaText: t('page_appointment_detail.modal_reschedule.success_cta'),
+        title: t('page_appointment_detail.modal_reject.success_title'),
+        description: t('page_appointment_detail.modal_reject.success_description'),
+        ctaText: t('page_appointment_detail.modal_reject.success_cta'),
       })
     } catch (error) {
       console.error(error);
@@ -189,7 +189,7 @@ const AppointmentDetail: React.FC = () => {
 
       <ModalSuccess
         {...successModal}
-        onConfirm={() => navigate('/appointments')}
+        onConfirm={() => navigate('/appointment')}
       />
     </>
   );

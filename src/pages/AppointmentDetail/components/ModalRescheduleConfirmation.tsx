@@ -40,8 +40,8 @@ const ModalRescheduleConfirmation = ({ open, onClose, onConfirm }: ModalReschedu
       aria-describedby="modal-modal-description"
     >
       <ModalSheet
-        title={t('page_appointment_detail.modal_reschedule.title')}
-        description={t('page_appointment_detail.modal_reschedule.description')}
+        title={t('page_appointment_detail.modal_reject.title')}
+        description={t('page_appointment_detail.modal_reject.description')}
         onClose={onClose}
         sx={{
           width: 600,
@@ -50,10 +50,10 @@ const ModalRescheduleConfirmation = ({ open, onClose, onConfirm }: ModalReschedu
         <div className="space-y-8 mt-4">
           <FormControl className="w-full">
             <InputLabel id="label-reason">
-              {t('page_appointment_detail.modal_reschedule.label_reason')}
+              {t('page_appointment_detail.modal_reject.label_reason')}
             </InputLabel>
             <Select
-              label={t('page_appointment_detail.modal_reschedule.label_reason')}
+              label={t('page_appointment_detail.modal_reject.label_reason')}
               variant="standard"
               labelId="reason"
               id="input-reason"
@@ -77,18 +77,18 @@ const ModalRescheduleConfirmation = ({ open, onClose, onConfirm }: ModalReschedu
                 textField: {
                   variant: "standard",
                   id: "input-date",
-                  label: t('page_appointment_detail.modal_reschedule.label_date'),
-                  placeholder: t('page_appointment_detail.modal_reschedule.placeholder_date')
+                  label: t('page_appointment_detail.modal_reject.label_date'),
+                  placeholder: t('page_appointment_detail.modal_reject.placeholder_date')
                 }
               }}
             />
           </FormControl> */}
           <div className="flex gap-4 justify-center mt-6">
             <Button variant="outlined" className="w-full" onClick={onClose}>
-              {t('page_appointment_detail.modal_reschedule.cta_recheck')}
+              {t('page_appointment_detail.modal_reject.cta_recheck')}
             </Button>
             <Button variant="contained" className="w-full" onClick={onConfirm}>
-              {t('page_appointment_detail.modal_reschedule.cta_reject')}
+              {t('page_appointment_detail.modal_reject.cta_reject')}
             </Button>
           </div>
         </div>
