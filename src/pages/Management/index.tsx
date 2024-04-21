@@ -7,13 +7,13 @@ import { useDebounce } from "use-debounce";
 import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
 import { useApplications } from "api/application";
-import { useOptionsApprovalStatus } from "api/options";
+// import { useOptionsApprovalStatus } from "api/options";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
-import PageLoader from "components/PageLoader";
+// import PageLoader from "components/PageLoader";
 import useGroupFilter from "usecase/useGroupFilter";
 import ManagementTable from "./components/ManagementTable";
-import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
+// import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
 import { HiOutlinePlus } from "react-icons/hi";
 
 const Management: React.FC = () => {
@@ -32,7 +32,7 @@ const Management: React.FC = () => {
 
   const [debouncedSearch] = useDebounce(search, 500);
 
-  const { data: dataStatus } = useOptionsApprovalStatus();
+  // const { data: dataStatus } = useOptionsApprovalStatus();
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({
     countryCode: 'TL'
@@ -53,6 +53,8 @@ const Management: React.FC = () => {
     itemId: item.code,
     itemLabel: item.name,
   })) || [];
+
+  console.log(listService, listMunicipality)
 
   const {
     filter,
