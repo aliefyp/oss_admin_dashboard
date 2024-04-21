@@ -13,13 +13,14 @@ import PageHeading from "components/PageHeading";
 import useGroupFilter from "usecase/useGroupFilter";
 import AppointmentTable from "./components/AppointmentTable";
 import RangePicker from "./components/RangePicker";
-import useRoleAccess from "usecase/useRoleAccess";
+import { UserData } from "types/auth/user";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const Appointment = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const { showServiceType, showOfficeLocation, hasAccessServiceTypeFilter, hasAccessMunicipalityFilter } = useRoleAccess();
+  const auth = useAuthUser<UserData>();
 
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
@@ -61,8 +62,8 @@ const Appointment = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'ServiceId', groupLabel: t('filter_label.service'), items: listService, disabled: !hasAccessServiceTypeFilter },
-      { groupId: 'OfficeLocationCode', groupLabel: t('filter_label.office'), items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
+      { groupId: 'ServiceId', groupLabel: t('filter_label.service'), items: listService },
+      { groupId: 'OfficeLocationCode', groupLabel: t('filter_label.office'), items: listMunicipality, disabled: !!auth.region },
     ],
   });
 
@@ -138,18 +139,18 @@ const Appointment = () => {
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_appointment.total_appointments', { count: dataAppointments?.metadata?.totalCount }) }} />
             </Typography>
-            {showServiceType && (
+            {auth.serviceTypes?.map(service => (
               <Chip
                 size="small"
                 variant="outlined"
-                label="Passport Card"
+                label={t(`services.${service.name}`)}
               />
-            )}
-            {showOfficeLocation && (
+            ))}
+            {auth.region && (
               <Chip
                 size="small"
                 variant="outlined"
-                label="Dili"
+                label={auth.region}
               />
             )}
             {(hasFilter || hasSearch || hasDate) && (

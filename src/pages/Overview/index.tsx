@@ -13,11 +13,12 @@ import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
 import useLastNYearList from "usecase/useLastNYearList";
 import { useOptionsGenderType } from "api/options";
-import useRoleAccess from "usecase/useRoleAccess";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { UserData } from "types/auth/user";
 
 const Overview: React.FC = () => {
   const { t } = useTranslation();
-  const { showServiceType, showOfficeLocation, hasAccessServiceTypeFilter, hasAccessMunicipalityFilter } = useRoleAccess();
+  const auth = useAuthUser<UserData>();
 
   const { data: dataGenderType } = useOptionsGenderType();
   const { data: dataServicesType } = useServicesType();
@@ -55,8 +56,8 @@ const Overview: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'service', groupLabel: t('filter_label.service'), items: listService, disabled: !hasAccessServiceTypeFilter },
-      { groupId: 'municipality', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
+      { groupId: 'service', groupLabel: t('filter_label.service'), items: listService },
+      { groupId: 'municipality', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
       { groupId: 'gender', groupLabel: t('filter_label.gender'), items: listGender },
       { groupId: 'year', groupLabel: t('filter_label.year'), items: listYear },
     ],
@@ -80,18 +81,18 @@ const Overview: React.FC = () => {
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 }) }} />
             </Typography>
-            {showServiceType && (
+            {auth.serviceTypes?.map(service => (
               <Chip
                 size="small"
                 variant="outlined"
-                label="Passport Card"
+                label={t(`services.${service.name}`)}
               />
-            )}
-            {showOfficeLocation && (
+            ))}
+            {auth.region && (
               <Chip
                 size="small"
                 variant="outlined"
-                label="Dili"
+                label={auth.region}
               />
             )}
             {hasFilter && (

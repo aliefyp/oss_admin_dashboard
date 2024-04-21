@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { HiLogout } from 'react-icons/hi';
 import { Response } from 'types/auth/login';
 import { useTranslation } from 'react-i18next';
-import { ROLE_STRING } from 'constants/role';
 
 const UserNav = () => {
   const { t } = useTranslation();
@@ -62,7 +61,10 @@ const UserNav = () => {
             {auth?.email}
           </Typography>
           <Typography variant="caption" className='text-gray-600'>
-            {ROLE_STRING[auth?.roleId]}
+            {auth?.roleGroup}
+          </Typography>
+          <Typography variant="caption" className='text-gray-600'>
+            {t(`role.${auth?.roleName}`)}
           </Typography>
         </div>
         <MenuItem onClick={() => navigate('/logout')}>

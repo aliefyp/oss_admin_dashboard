@@ -110,8 +110,19 @@
   },
   "role": {
     "front-office": "Front Office",
+    "front-office-manager": "Front Office Manager",
     "back-office": "Back Office",
-    "admin": "Admin"
+    "back-office-manager": "Back Office Manager",
+    "ministry-of-justice": "Ministry of Justice",
+    "ministry-of-justice-manager": "Ministry of Justice Manager",
+    "ministry-of-transport-and-communication": "Ministry of Transport and Communication",
+    "ministry-of-transport-and-communication-manager": "Ministry of Transport and Communication Manager",
+    "economic-affairs-ministry": "Economic Affairs Ministry",
+    "economic-affairs-ministry-manager": "Economic Affairs Ministry Manager",
+    "ministry-of-administration-state": "Ministry of Administration State",
+    "ministry-of-administration-state-manager": "Ministry of Administration State Manager",
+    "oss-manager": "OSS Manager",
+    "super-admin": "Super Admin"
   },
   "family_type": {
     "self": "Self",

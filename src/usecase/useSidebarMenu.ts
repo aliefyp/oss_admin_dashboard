@@ -1,10 +1,11 @@
 import { MAIN_MENU, OTHER_MENU } from "constants/sidebar"
-import useRoleAccess from "./useRoleAccess"
 import { useTranslation } from "react-i18next";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { UserData } from "types/auth/user";
 
 const useSidebarMenu = () => {
-  const { hasAccessAppointmentMenu, hasAccessUserManagement } = useRoleAccess();
   const { t } = useTranslation();
+  const auth = useAuthUser<UserData>();
 
   const otherMenu = {
     ...OTHER_MENU,
@@ -20,11 +21,11 @@ const useSidebarMenu = () => {
     title: t(`sidebar.${MAIN_MENU.key}`),
     items: MAIN_MENU.items.filter(item => {
       if (item.key === 'appointment') {
-        return hasAccessAppointmentMenu
+        return auth.roleName === 'front-office'
       }
 
       if (item.key === 'management') {
-        return hasAccessUserManagement
+        return auth.roleName === 'super-admin'
       }
 
       return true

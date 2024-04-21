@@ -42,38 +42,38 @@
     "family-card": "Cartão Família"
   },
   "sub_services": {
-    "new-passport": "Novo passaporte",
-    "renew-passport": "Renovar passaporte",
-    "loss-passport": "Passaporte de Perda",
-    "damage-passport": "Passaporte de Danos",
+    "new-citizen-id": "Novo Cartão de Cidadão",
+    "renew-citizen-id": "Renovar Cartão de Cidadão",
+    "loss-citizen-id": "Perda do Cartão de Cidadão",
+    "damage-citizen-id": "Cartão de Cidadão Danos",
+    "new-general-passport": "Novo passaporte",
+    "renew-general-passport": "Renovar passaporte",
+    "loss-general-passport": "Passaporte de Perda",
+    "damage-general-passport": "Passaporte de Danos",
+    "new-birth-certificate": "Novo Certificado de Nascimento",
+    "renew-birth-certificate": "Renovar certidão de nascimento",
+    "loss-birth-certificate": "Perda de certidão de nascimento",
+    "damage-birth-certificate": "Certidão de Nascimento de Danos",
+    "new-marriage-certificate": "Nova certidão de casamento",
+    "renew-marriage-certificate": "Renovar certidão de casamento",
+    "loss-marriage-certificate": "Certidão de casamento perdida",
+    "damage-marriage-certificate": "Certidão de casamento danificada",
+    "new-criminal-record-certificate": "Novo certificado de antecedentes criminais",
+    "renew-criminal-record-certificate": "Renovar Certidão de Registo Criminal",
+    "loss-criminal-record-certificate": "Certidão de Antecedentes Criminais de Perda",
+    "damage-criminal-record-certificate": "Certidão de Registo Criminal de Danos",
     "new-driving-license": "Nova carta de condução",
     "renew-driving-license": "Renovar carteira de motorista",
     "loss-driving-license": "Perda de carteira de motorista",
     "damage-driving-license": "Carta de condução de danos",
-    "new-nic": "Nova placa de rede",
-    "renew-nic": "Renovar placa de rede",
-    "loss-nic": "Perda de placa de rede",
-    "damage-nic": "Danificar NIC",
+    "new-commercial-registration": "Novo Registro Comercial",
+    "renew-commercial-registration": "Renovar Registro Comercial",
+    "loss-commercial-registration": "Registro Comercial de Perda",
+    "damage-commercial-registration": "Registro Comercial de Danos",
     "new-family-card": "Novo Cartão Família",
     "renew-family-card": "Renovar Cartão Família",
     "loss-family-card": "Cartão Família Perda",
-    "damage-family-card": "Cartão Família de Danos",
-    "new-business-card": "Novo cartão de visita",
-    "renew-business-card": "Renovar cartão de visita",
-    "loss-business-card": "Cartão de visita de perda",
-    "damage-business-card": "Cartão de visita de danos",
-    "new-ficha-familia": "Nova Ficha Família",
-    "renew-ficha-familia": "Renovar Ficha Família",
-    "loss-ficha-familia": "Perda Ficha Família",
-    "damage-ficha-familia": "Danos Ficha Família",
-    "new-citizen-card": "Novo Cartão de Cidadão",
-    "renew-citizen-card": "Renovar Cartão de Cidadão",
-    "loss-citizen-card": "Perda do Cartão de Cidadão",
-    "damage-citizen-card": "Cartão de Cidadão Danos",
-    "new-birth-of-certificate": "Novo Certificado de Nascimento",
-    "renew-birth-of-certificate": "Renovar certidão de nascimento",
-    "loss-birth-of-certificate": "Perda de certidão de nascimento",
-    "damage-birth-of-certificate": "Certidão de Nascimento de Danos"
+    "damage-family-card": "Cartão Família de Danos"
   },
   "deliver": {
     "normal": "Normal"
@@ -110,8 +110,19 @@
   },
   "role": {
     "front-office": "Recepção",
+    "front-office-manager": "Gerente principal do escritório",
     "back-office": "Backoffice",
-    "admin": "Administrador"
+    "back-office-manager": "Gerente de Backoffice",
+    "ministry-of-justice": "ministro da Justiça",
+    "ministry-of-justice-manager": "Gerente do Ministério da Justiça",
+    "ministry-of-transport-and-communication": "Ministério dos Transportes e Comunicações",
+    "ministry-of-transport-and-communication-manager": "Gerente do Ministério dos Transportes e Comunicações",
+    "economic-affairs-ministry": "Ministério dos Assuntos Económicos",
+    "economic-affairs-ministry-manager": "Gerente do Ministério de Assuntos Econômicos",
+    "ministry-of-administration-state": "Ministério da Administração do Estado",
+    "ministry-of-administration-state-manager": "Gestor Estadual do Ministério da Administração",
+    "oss-manager": "Gerente de OSS",
+    "super-admin": "Superadministrador"
   },
   "family_type": {
     "self": "Auto",
@@ -164,12 +175,6 @@
     "latest_update": "Última atualização",
     "total_registered": "Total <b>{{count}}</b> Registrado",
     "reset_filter": "Redefinir filtro",
-    "section_filter": {
-      "all_service": "Todos os serviços",
-      "all_region": "Todas as regiões",
-      "all_gender": "Todos os gêneros",
-      "all_year": "Todo o ano"
-    },
     "section_registered_citizen": {
       "title": "Cidadão Registrado",
       "tab_daily": "Diário",
@@ -247,13 +252,7 @@
       "cta_download": "Download",
       "cta_preview": "Visualização",
       "cta_approve": "Aprovar",
-      "cta_reject": "Rejeitar",
-      "reject_title": "Você tem certeza de rejeitar?",
-      "reject_text": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendam aos critérios para ajudar nosso oficial",
-      "reject_reason_label": "Razão",
-      "reject_message_label": "Mensagem",
-      "reject_confirm": "Rejeitar",
-      "reject_recheck": "Verifique novamente"
+      "cta_reject": "Rejeitar"
     },
     "section_others": {
       "title": "Solicitação de outro",
@@ -315,9 +314,6 @@
     "total_appointments": "Total <b>{{count}}</b> Compromissos",
     "reset_filter": "Redefinir filtro",
     "filter": {
-      "all_service": "Todos os serviços",
-      "all_office": "Todo o escritório",
-      "all_date": "Todas as datas",
       "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
     },
     "table": {

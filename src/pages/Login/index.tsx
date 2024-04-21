@@ -19,7 +19,6 @@ import { useNavigate, useLocation } from 'react-router';
 import PageLoader from 'components/PageLoader';
 import { useForm } from 'react-hook-form';
 import useToaster from 'usecase/useToaster';
-import { ROLE } from 'constants/role';
 
 interface LoginForm {
   email: string;
@@ -61,7 +60,7 @@ const Login = () => {
         }
 
         const roleId = res.data.roleId;
-        const isEligible = roleId !== ROLE.Citizen;
+        const isEligible = roleId !== 0;
 
         if (!isEligible) {
           throw new Error(t('login.error_not_eligible'))
@@ -77,6 +76,10 @@ const Login = () => {
             email: res.data.email,
             userId: res.data.userId,
             roleId: res.data.roleId,
+            roleName: res.data.roleName,
+            roleGroup: res.data.roleGroup,
+            region: res.data.region,
+            serviceTypes: res.data.serviceTypes,
           }
         })) {
           navigate(from, { replace: true });

@@ -15,14 +15,15 @@ import useGroupFilter from "usecase/useGroupFilter";
 import useLastNYearList from "usecase/useLastNYearList";
 import ApplicantTable from "./components/ApplicantTable";
 import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
-import useRoleAccess from "usecase/useRoleAccess";
+import { UserData } from "types/auth/user";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const Applicants: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
   const years = useLastNYearList(5);
-  const { showServiceType, showOfficeLocation, hasAccessServiceTypeFilter, hasAccessMunicipalityFilter } = useRoleAccess();
+  const auth = useAuthUser<UserData>();
 
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
@@ -79,8 +80,8 @@ const Applicants: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'ServiceId', groupLabel: t('filter_label.service'), items: listService, disabled: !hasAccessServiceTypeFilter },
-      { groupId: 'MunicipalityCode', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
+      { groupId: 'ServiceId', groupLabel: t('filter_label.service'), items: listService },
+      { groupId: 'MunicipalityCode', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
       { groupId: 'SortYearBy', groupLabel: t('filter_label.year'), items: listYear },
       { groupId: 'Status', groupLabel: t('filter_label.status'), items: listStatus },
     ],
@@ -150,18 +151,18 @@ const Applicants: React.FC = () => {
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: dataApplications?.metadata?.totalCount }) }} />
             </Typography>
-            {showServiceType && (
+            {auth.serviceTypes?.map(service => (
               <Chip
                 size="small"
                 variant="outlined"
-                label="Passport Card"
+                label={t(`services.${service.name}`)}
               />
-            )}
-            {showOfficeLocation && (
+            ))}
+            {auth.region && (
               <Chip
                 size="small"
                 variant="outlined"
-                label="Dili"
+                label={auth.region}
               />
             )}
             {(hasFilter || hasSearch) && (

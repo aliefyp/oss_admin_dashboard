@@ -13,7 +13,8 @@ import useGroupFilter from "usecase/useGroupFilter";
 import useLastNYearList from "usecase/useLastNYearList";
 import IssuedCardListTable from "./components/IssuedCardListTable";
 import { useMunicipality } from "api/region";
-import useRoleAccess from "usecase/useRoleAccess";
+import { UserData } from "types/auth/user";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const IssuedCardList: React.FC = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const IssuedCardList: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const years = useLastNYearList(5);
-  const { showServiceType, showOfficeLocation, hasAccessMunicipalityFilter } = useRoleAccess();
+  const auth = useAuthUser<UserData>();
 
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
@@ -68,7 +69,7 @@ const IssuedCardList: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'MunicipalityCode', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !hasAccessMunicipalityFilter },
+      { groupId: 'MunicipalityCode', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
       { groupId: 'DeliveryTime', groupLabel: t('filter_label.deliver'), items: listDeliveryTime },
       { groupId: 'SortByYear', groupLabel: t('filter_label.year'), items: listYear },
     ],
@@ -129,18 +130,18 @@ const IssuedCardList: React.FC = () => {
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_issued_card_list.total_issued', { count: dataIssuedCards?.metadata?.totalCount }) }} />
             </Typography>
-            {showServiceType && (
+            {auth.serviceTypes?.map(service => (
               <Chip
                 size="small"
                 variant="outlined"
-                label="Passport Card"
+                label={t(`services.${service.name}`)}
               />
-            )}
-            {showOfficeLocation && (
+            ))}
+            {auth.region && (
               <Chip
                 size="small"
                 variant="outlined"
-                label="Dili"
+                label={auth.region}
               />
             )}
             {(hasFilter || hasSearch) && (
