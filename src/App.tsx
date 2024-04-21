@@ -1,8 +1,9 @@
+import { Suspense, useCallback, useState } from "react";
 import { QueryClientProvider } from "react-query";
 import AuthProvider from "react-auth-kit";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
-import i18next from "i18next";
 
 import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -14,6 +15,9 @@ import setupTheme from "config/theme/setupTheme";
 
 import MainLayout from "components/MainLayout";
 import AuthLayout from "components/AuthLayout";
+import PageLoader from "components/PageLoader";
+
+import { ToasterProvider } from "contexts/ToasterContext";
 
 import Login from "pages/Login";
 import Logout from "pages/Logout";
@@ -28,14 +32,10 @@ import OverviewRoute from "routes/overview";
 import NotificationRoute from "routes/notification";
 import ManagementRoute from "routes/management";
 
-import './App.css';
-import { Suspense, useCallback, useEffect, useState } from "react";
-import PageLoader from "components/PageLoader";
-
 import 'dayjs/locale/en';
 import 'dayjs/locale/pt';
-import { ToasterProvider } from "contexts/ToasterContext";
-import { useTranslation } from "react-i18next";
+
+import './App.css';
 
 function App() {
   const [lang, setLang] = useState('tm');
