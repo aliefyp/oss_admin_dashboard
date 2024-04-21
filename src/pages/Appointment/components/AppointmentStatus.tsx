@@ -56,7 +56,7 @@ const AppointmentStatus = ({ appointmentId, status }: Props) => {
   const id = open ? 'start-popover' : undefined;
   const color = APPOINTMENT_STATUS_COLOR[currentStatus];
 
-  if (!color || !currentStatus) return null;
+  const label = <Chip label={t(`appointment_status.${currentStatus}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
 
   return (
     <div onClick={e => e.stopPropagation()}>
@@ -69,7 +69,7 @@ const AppointmentStatus = ({ appointmentId, status }: Props) => {
             endIcon={loading ? <CircularProgress size={12} /> : <ArrowDropDownOutlined />}
             onClick={handleOpen}
           >
-            <Chip label={t(`appointment_status.${currentStatus}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
+            {label}
           </Button>
           <Menu
             id={id}
@@ -90,7 +90,7 @@ const AppointmentStatus = ({ appointmentId, status }: Props) => {
         </>
       ) : (
         <div className="p-1">
-          <Chip label={t(`appointment_status.${currentStatus}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
+          {label}
         </div>
       )}
     </div>
