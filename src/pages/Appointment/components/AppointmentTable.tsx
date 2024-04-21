@@ -62,7 +62,7 @@ const AppointmentTable = ({
       disableColumnMenu: true,
       width: 40,
       renderCell: (params: GridValueGetterParams) => (
-        <div id="preview-button" className='hidden'>
+        <div id="preview-button" className='hidden' onClick={e => e.stopPropagation()}>
           <Tooltip title="Preview">
             <IconButton onClick={() => onPreview(params.row.id)}>
               <HiOutlineDocumentSearch className='text-sm font-bold' />

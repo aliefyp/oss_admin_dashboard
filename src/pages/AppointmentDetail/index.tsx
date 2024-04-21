@@ -102,6 +102,8 @@ const AppointmentDetail: React.FC = () => {
   const status = data?.data?.status?.toLowerCase();
   const statusColor = APPOINTMENT_STATUS_COLOR[status];
 
+  const isEligibleToAction = status === 'waitingapproval';
+
   return (
     <>
       {(isFetching || loading) && (
@@ -164,6 +166,7 @@ const AppointmentDetail: React.FC = () => {
           <Button
             variant="contained"
             className="w-[200px] shrink-0"
+            disabled={!isEligibleToAction}
             onClick={() => setOpenApproveConfirmation(true)}
           >
             {t('page_appointment_detail.cta_approve')}
@@ -172,6 +175,7 @@ const AppointmentDetail: React.FC = () => {
             variant="contained"
             color="error"
             className="w-[200px] shrink-0"
+            disabled={!isEligibleToAction}
             onClick={() => setOpenRescheduleConfirmation(true)}
           >
             {t('page_appointment_detail.cta_reject')}
