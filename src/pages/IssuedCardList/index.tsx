@@ -69,9 +69,9 @@ const IssuedCardList: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'ServiceTypeId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
+      { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
       { groupId: 'DeliveryTime', groupLabel: t('filter_label.deliver'), items: listDeliveryTime },
-      { groupId: 'SortByYear', groupLabel: t('filter_label.year'), items: listYear },
+      { groupId: 'Year', groupLabel: t('filter_label.year'), items: listYear },
     ],
   });
 
@@ -85,9 +85,9 @@ const IssuedCardList: React.FC = () => {
       PageNumber: String(paginationModel.page + 1),
       PageSize: String(paginationModel.pageSize),
       ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
-      ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
+      ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
       ...(filter.DeliveryTime !== '0' ? { DeliveryTime: String(filter.DeliveryTime) } : {}),
-      ...(filter.SortByYear !== '0' ? { SortByYear: String(filter.SortByYear) } : {}),
+      ...(filter.Year !== '0' ? { Year: String(filter.Year) } : {}),
     });
 
     navigate(location.pathname + '?' + urlParams.toString(), { replace: true });

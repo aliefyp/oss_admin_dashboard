@@ -82,7 +82,7 @@ const Applicants: React.FC = () => {
     groups: [
       { groupId: 'ServiceTypeId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
       { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
-      { groupId: 'SortYearBy', groupLabel: t('filter_label.year'), items: listYear },
+      { groupId: 'Year', groupLabel: t('filter_label.year'), items: listYear },
       { groupId: 'Status', groupLabel: t('filter_label.status'), items: listStatus },
     ],
   });
@@ -107,7 +107,7 @@ const Applicants: React.FC = () => {
       ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
       ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
       ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
-      ...(filter.SortYearBy !== '0' ? { SortYearBy: String(filter.SortYearBy) } : {}),
+      ...(filter.Year !== '0' ? { Year: String(filter.Year) } : {}),
       ...(filter.Status !== '0' ? { Status: String(filter.Status) } : {}),
     });
 
