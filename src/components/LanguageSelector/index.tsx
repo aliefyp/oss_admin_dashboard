@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTranslation } from "react-i18next";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,11 +6,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ListItemIcon, Typography } from '@mui/material';
 import { HiCheck } from 'react-icons/hi';
 
-const LaguageSelector = () => {
+const LaguageSelector = ({ language, onLanguageChange }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  const { i18n } = useTranslation();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -22,13 +19,13 @@ const LaguageSelector = () => {
   };
 
   const handleChangeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+    onLanguageChange(lng);
     handleClose();
     // window.location.reload();
   }
 
   const locales = [
-    { code: 'te', name: 'Tetum' },
+    { code: 'tm', name: 'Tetum' },
     { code: 'en', name: 'English' },
     { code: 'pt', name: 'Portugese' },
   ]
@@ -45,7 +42,7 @@ const LaguageSelector = () => {
         className="!text-white"
         endIcon={<KeyboardArrowDownIcon />}
       >
-        {i18n.resolvedLanguage?.toUpperCase()}
+        {language?.toUpperCase()}
       </Button>
       <Menu
         id="language-selector"
@@ -65,7 +62,7 @@ const LaguageSelector = () => {
         {locales.map((loc) => (
           <MenuItem key={loc.code} onClick={() => handleChangeLanguage(loc.code)}>
             <ListItemIcon>
-              {i18n.resolvedLanguage === loc.code && <HiCheck className='text-green-500 font-bold' />}
+              {language === loc.code && <HiCheck className='text-green-500 font-bold' />}
             </ListItemIcon>
             <Typography>{loc.name}</Typography>
           </MenuItem>

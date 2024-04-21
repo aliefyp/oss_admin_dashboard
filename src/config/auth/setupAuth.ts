@@ -6,7 +6,7 @@ const setupAuth = () => {
     authType: "localstorage",
     authName: process.env.REACT_APP_SESSION_PREFIX || "_oss_auth",
     refresh: setupRefresh,
-    debug: process.env.NODE_ENV !== "production",
+    // debug: process.env.NODE_ENV !== "production",
     // cookieDomain: window.location.hostname,
     // cookieSecure: process.env.NODE_ENV === "production",
   })

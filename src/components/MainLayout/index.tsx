@@ -19,7 +19,12 @@ import useSidebarMenu from 'usecase/useSidebarMenu';
 
 const drawerWidth = 240;
 
-export default function MainLayout() {
+interface Props {
+  language: string;
+  onLanguageChange: (language: string) => void;
+}
+
+export default function MainLayout({ language, onLanguageChange }: Props) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const from = pathname !== '/'
@@ -54,7 +59,7 @@ export default function MainLayout() {
             <img width={80} src="/logo_main.jpeg" alt="Balkaun Uniku" className='rounded-lg' />
           </a>
           <div className="flex items-center gap-2">
-            <LanguageSelector />
+            <LanguageSelector language={language} onLanguageChange={onLanguageChange} />
             <Notification />
             <UserNav />
           </div>

@@ -29,16 +29,25 @@ import NotificationRoute from "routes/notification";
 import ManagementRoute from "routes/management";
 
 import './App.css';
-import { Suspense } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import PageLoader from "components/PageLoader";
 
 import 'dayjs/locale/en';
 import 'dayjs/locale/pt';
 import { ToasterProvider } from "contexts/ToasterContext";
-
-dayjs.locale(i18next.resolvedLanguage);
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const [lang, setLang] = useState('tm');
+
+  const { i18n } = useTranslation();
+
+  const handleChangeLanguage = useCallback((language: string) => {
+    i18n.changeLanguage(language);
+    dayjs.locale(language);
+    setLang(language);
+  }, [i18n]);
+
   return (
     <Suspense fallback={<PageLoader />}>
       <ToasterProvider>
@@ -48,7 +57,7 @@ function App() {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <BrowserRouter>
                   <Routes>
-                    <Route element={<MainLayout />}>
+                    <Route element={<MainLayout language={lang} onLanguageChange={handleChangeLanguage} />}>
                       <Route path="/applicant/*" element={<ApplicantRoute />} />
                       <Route path="/issued-card/*" element={<IssuedCardRoute />} />
                       <Route path="/appointment/*" element={<AppointmentRoute />} />
@@ -57,7 +66,7 @@ function App() {
                       <Route path="/" element={<OverviewRoute />} />
                       <Route path="*" element={<NotFound />} />
                     </Route>
-                    <Route element={<AuthLayout />}>
+                    <Route element={<AuthLayout language={lang} onLanguageChange={handleChangeLanguage} />}>
                       <Route path="/forgot-password" element={<ForgotPassword />} />
                       <Route path="/reset-password" element={<ResetPassword />} />
                       <Route path="/login" element={<Login />} />

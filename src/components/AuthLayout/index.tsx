@@ -7,7 +7,12 @@ import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import LanguageSelector from 'components/LanguageSelector';
 import Footer from './Footer';
 
-const AuthLayout = () => {
+interface Props {
+  language: string;
+  onLanguageChange: (language: string) => void;
+}
+
+const AuthLayout = ({ language, onLanguageChange }: Props) => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
@@ -35,7 +40,7 @@ const AuthLayout = () => {
               <a href="/" className="block">
                 <img width={80} src="/logo_main.jpeg" alt="Balkaun Uniku" className="rounded-lg" />
               </a>
-              <LanguageSelector />
+              <LanguageSelector language={language} onLanguageChange={onLanguageChange} />
             </Toolbar>
           </AppBar>
           {showBackButton && (
