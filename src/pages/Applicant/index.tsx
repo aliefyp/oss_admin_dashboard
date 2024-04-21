@@ -7,7 +7,7 @@ import { useDebounce } from "use-debounce";
 import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
 import { useApplications } from "api/application";
-import { useOptionsApprovalStatus } from "api/options";
+import { useOptionsApplicationStatus } from "api/options";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
 import PageLoader from "components/PageLoader";
@@ -37,7 +37,7 @@ const Applicants: React.FC = () => {
   const [debouncedSearch] = useDebounce(search, 500);
 
   const { downloadFile, downloading } = useApplicationFileDownload();
-  const { data: dataStatus } = useOptionsApprovalStatus();
+  const { data: dataStatus } = useOptionsApplicationStatus();
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({
     countryCode: 'TL'
@@ -55,7 +55,7 @@ const Applicants: React.FC = () => {
   })) || [];
 
   const listMunicipality = dataMunicipality?.data?.map((item) => ({
-    itemId: item.code,
+    itemId: item.id,
     itemLabel: item.name,
   })) || [];
 
@@ -66,7 +66,7 @@ const Applicants: React.FC = () => {
 
   const listStatus = dataStatus?.data?.map((item) => ({
     itemId: item,
-    itemLabel: t(`approval_status.${item.toLowerCase()}`),
+    itemLabel: t(`application_status.${item.toLowerCase()}`),
   })) || [];
 
   const {
@@ -80,8 +80,8 @@ const Applicants: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'ServiceId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
-      { groupId: 'MunicipalityCode', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
+      { groupId: 'ServiceTypeId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
+      { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
       { groupId: 'SortYearBy', groupLabel: t('filter_label.year'), items: listYear },
       { groupId: 'Status', groupLabel: t('filter_label.status'), items: listStatus },
     ],
@@ -105,8 +105,8 @@ const Applicants: React.FC = () => {
       PageNumber: String(paginationModel.page + 1),
       PageSize: String(paginationModel.pageSize),
       ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
-      ...(filter.ServiceId !== '0' ? { ServiceId: String(filter.ServiceId) } : {}),
-      ...(filter.MunicipalityCode !== '0' ? { MunicipalityCode: String(filter.MunicipalityCode) } : {}),
+      ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
+      ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
       ...(filter.SortYearBy !== '0' ? { SortYearBy: String(filter.SortYearBy) } : {}),
       ...(filter.Status !== '0' ? { Status: String(filter.Status) } : {}),
     });

@@ -6,6 +6,7 @@ export interface Response {
 }
 
 export interface Daum {
+  id: number
   code: string
   name: string
 }

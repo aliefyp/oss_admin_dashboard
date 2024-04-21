@@ -44,7 +44,7 @@ const IssuedCardList: React.FC = () => {
   const pageTitle = dataServicesType?.data?.find((item) => item.code === issued_card_id)?.name;
 
   const listMunicipality = dataMunicipality?.data?.map((item) => ({
-    itemId: item.code,
+    itemId: item.id,
     itemLabel: item.name
   })) || [];
 
@@ -69,7 +69,7 @@ const IssuedCardList: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'MunicipalityCode', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
+      { groupId: 'ServiceTypeId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
       { groupId: 'DeliveryTime', groupLabel: t('filter_label.deliver'), items: listDeliveryTime },
       { groupId: 'SortByYear', groupLabel: t('filter_label.year'), items: listYear },
     ],
@@ -85,7 +85,7 @@ const IssuedCardList: React.FC = () => {
       PageNumber: String(paginationModel.page + 1),
       PageSize: String(paginationModel.pageSize),
       ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
-      ...(filter.MunicipalityCode !== '0' ? { MunicipalityCode: String(filter.MunicipalityCode) } : {}),
+      ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
       ...(filter.DeliveryTime !== '0' ? { DeliveryTime: String(filter.DeliveryTime) } : {}),
       ...(filter.SortByYear !== '0' ? { SortByYear: String(filter.SortByYear) } : {}),
     });

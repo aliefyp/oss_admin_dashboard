@@ -59,7 +59,7 @@ const IssuedCardListTable = ({ data, loading, error, paginationModel, setPaginat
   const rows = data?.data.map((item) => ({
     id: item.id,
     citizens: item.fullName,
-    municipality: item.municipality,
+    municipality: item.state,
     deliver: t(`deliver.${item.deliveryTime}`),
     issued_date: dayjs(item.issuedAt).format('DD-MMM-YYYY HH:mm'),
   })) || [];

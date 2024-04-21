@@ -10,8 +10,8 @@ export interface Daum {
   identityType: string
   identityNumber: string
   fullName: string
-  municipalityCode: string
-  municipality: string
+  stateId: number
+  state: string
   deliveryTime: string
   issuedAt: string
 }
