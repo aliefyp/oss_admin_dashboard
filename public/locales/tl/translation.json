@@ -130,11 +130,11 @@
   },
   "login": {
     "title": "Benvindu",
-    "subtitle": "Favor login ba ita nia konta",
+    "subtitle": "Asesu sistema ho ita nia konta",
     "label_email": "Email",
     "label_password": "Password",
     "cta_submit": "Login",
-    "cta_forgot": "Haluha Password?",
+    "cta_forgot": "Haluha palavra-chave",
     "error_email_required": "E-mail presiza",
     "error_email_invalid": "E-mail ne'e inválidu",
     "error_password_required": "Password is required",
