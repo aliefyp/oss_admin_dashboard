@@ -21,7 +21,7 @@ const useSidebarMenu = () => {
     title: t(`sidebar.${MAIN_MENU.key}`),
     items: MAIN_MENU.items.filter(item => {
       if (item.key === 'appointment') {
-        return auth?.roleName === 'front-office'
+        return auth?.roleName === 'front-office' || auth?.roleName === 'front-office-manager'
       }
 
       if (item.key === 'management') {
