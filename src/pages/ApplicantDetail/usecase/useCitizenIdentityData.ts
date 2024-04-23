@@ -37,7 +37,7 @@ const useCitizenIdentityData = (data: Response) => {
       },
       {
         label: t('page_applicant_detail.section_identity.label_identity_type'),
-        value: t(`identity_type.${personalDetail.identityType.toLocaleLowerCase()}`),
+        value: t(`identity_type.${personalDetail.identityType?.toLocaleLowerCase()}`),
       },
       {
         label: t('page_applicant_detail.section_identity.label_gender'),
