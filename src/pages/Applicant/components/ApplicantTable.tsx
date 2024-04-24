@@ -51,9 +51,23 @@ const ApplicantTable = ({
       flex: 1,
       renderCell: (params: GridValueGetterParams) => {
         const status = params.row.status.toLowerCase();
-        const color = APPLICATION_STATUS_COLOR[status];
 
-        return <Chip label={t(`application_status.${status}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
+        switch (status) {
+          case 'submitted':
+            return <Chip label={t(`application_status.submitted`)} size="small" className={`!text-blue-600 !bg-blue-200 !rounded-md min-w-[120px]`} />
+          case 'resubmitted':
+            return <Chip label={t(`application_status.resubmitted`)} size="small" className={`!text-blue-600 !bg-blue-200 !rounded-md min-w-[120px]`} />
+          case 'waitingapproval':
+            return <Chip label={t(`application_status.waitingapproval`)} size="small" className={`!text-yellow-600 !bg-yellow-200 !rounded-md min-w-[120px]`} />
+          case 'rejected':
+            return <Chip label={t(`application_status.rejected`)} size="small" className={`!text-red-600 !bg-red-200 !rounded-md min-w-[120px]`} />
+          case 'completed':
+            return <Chip label={t(`application_status.completed`)} size="small" className={`!text-gray-600 !bg-gray-200 !rounded-md min-w-[120px]`} />
+          case 'delivered':
+            return <Chip label={t(`application_status.delivered`)} size="small" className={`!text-green-600 !bg-green-200 !rounded-md min-w-[120px]`} />
+          default:
+            return null;
+        }
       }
     },
     {
