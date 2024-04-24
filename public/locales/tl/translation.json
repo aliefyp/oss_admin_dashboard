@@ -438,7 +438,7 @@
       "update_description": "Member data updated. Please allow up to 1 minute for changes to take effect. Thank you for your patience",
       "update_cta": "Komprende",
       "create_title": "Account created",
-      "create_description": "Please allow up to 1 minute for changes to take effect. Thank you for your patience",
+      "create_description": "User account have sent to email registered, make sure they check and verified to continue",
       "create_cta": "Komprende",
       "delete_title": "Account Deleted",
       "delete_description": "Account successfully deleted. All associated data has been permanently removed."
