@@ -11,13 +11,13 @@
   },
   "sidebar": {
     "main": "Funsaun Prinsipal",
-    "other": "Other",
+    "other": "Seluk",
     "overview": "Vizaun jerál",
     "applicant": "Aplikante",
     "issued_card": "Kartaun Ne'ebé Fó Sai",
     "appointment": "Ajendamentu Sira",
     "settings": "Konfigurasaun Sira",
-    "management": "Management"
+    "management": "Jestaun"
   },
   "filter_label": {
     "service": "Servisu",
@@ -25,9 +25,9 @@
     "municipality": "Munisípiu",
     "year": "Tinan",
     "gender": "Jéneru",
-    "deliver": "Deliver",
+    "deliver": "Entrega",
     "office": "Office",
-    "status": "Status",
+    "status": "Estatutu",
     "role": "Role",
     "organization": "Organization"
   },
@@ -92,11 +92,11 @@
     "pending": "Pendente"
   },
   "appointment_status": {
-    "waitingapproval": "Waiting Approval",
-    "confirm": "Confirm",
-    "reject": "Reject",
-    "completed": "Completed",
-    "absent": "Absent"
+    "waitingapproval": "Hein Aprovasaun ",
+    "confirm": "Konfirma",
+    "reject": "Rejeitadu",
+    "completed": "Kompleta",
+    "absent": "Falta"
   },
   "gender": {
     "male": "Mane",
@@ -107,10 +107,10 @@
     "passport": "Pasaporte"
   },
   "role": {
-    "front-office": "Front Office",
-    "front-office-manager": "Front Office Manager",
+    "front-office": "Resepsaun",
+    "front-office-manager": "Jerente Resepsaun",
     "back-office": "Back Office",
-    "back-office-manager": "Back Office Manager",
+    "back-office-manager": "Jerente Back-Office",
     "ministry-of-justice": "Ministry of Justice",
     "ministry-of-justice-manager": "Ministry of Justice Manager",
     "ministry-of-transport-and-communication": "Ministry of Transport and Communication",
@@ -119,7 +119,7 @@
     "economic-affairs-ministry-manager": "Economic Affairs Ministry Manager",
     "ministry-of-administration-state": "Ministry of Administration State",
     "ministry-of-administration-state-manager": "Ministry of Administration State Manager",
-    "oss-manager": "OSS Manager",
+    "oss-manager": "Jerente OSS",
     "super-admin": "Super Admin"
   },
   "family_type": {
@@ -137,10 +137,10 @@
     "cta_forgot": "Haluha palavra-chave",
     "error_email_required": "E-mail presiza",
     "error_email_invalid": "E-mail ne'e inválidu",
-    "error_password_required": "Password is required",
-    "error_password_min": "Password must be at least {{count}} characters",
-    "error_password_invalid": "Password should contain at least one uppercase, one lowercase, and one number",
-    "error_not_eligible": "You are not eligible to access this system"
+    "error_password_required": "Password Presiza",
+    "error_password_min": "Password tenke pelumenus karakter {{count}}",
+    "error_password_invalid": "Password tenke pelumenus iha letra boot ida, letra kiik ida, no númeru ida.",
+    "error_not_eligible": "Ita la elijivel atu asesu ba sistema ida-ne'e"
   },
   "forgot_password": {
     "title": "Haluha Password?",
@@ -157,16 +157,16 @@
     "label_confirm_password": "Konfirma Password",
     "cta_submit": "Submete",
     "validation": {
-      "title": "Make sure your password contains it",
-      "uppercase": "Uppercase",
-      "lowercase": "Lowercase",
-      "number": "Number",
-      "special_character": "Special Character"
+      "title": "Asegura katak Ita-nia password iha kontein.",
+      "uppercase": "Letra boot",
+      "lowercase": "Letra kiik",
+      "number": "Numeru",
+      "special_character": "Karakter Espesiál"
     },
-    "error_password_required": "Password is required",
-    "error_password_min": "Password must be at least {{count}} characters",
-    "error_confirm_password_required": "Confirm Password is required",
-    "error_confirm_password_min": "Confirm Password must be at least {{count}} characters"
+    "error_password_required": "Password Presiza",
+    "error_password_min": "Password tenke pelumenus karakter {{count}}",
+    "error_confirm_password_required": "Konfirma Password Presiza",
+    "error_confirm_password_min": "Konfirma Password tenke pelumenus karakter {{count}}"
   },
   "page_overview": {
     "title": "Vizaun Jerál",
@@ -180,57 +180,53 @@
       "tab_monthly": "Ful-fulan"
     },
     "section_type_registered": {
-      "title": "Type Registered",
+      "title": "Tipu Rejistu.",
       "status_pending": "Pendente",
       "status_approved": "Aprovadu",
       "status_rejected": "Rejeita",
-      "status_in_progress": "In Progress",
-      "issued_card_count": "Issued Card {{count}}",
-      "issued_card_description": "Include as approved but have waiting list"
+      "status_in_progress": "Iha Progresu",
+      "issued_card_count": "Karta ne'ebé fó sai ona {{count}}",
+      "issued_card_description": "Inklui hanesan hetan aprovasaun ona maibé iha lista hein."
     },
     "section_by_gender": {
-      "title": "By Gender"
+      "title": "Tuir Jéneru."
     },
     "section_by_age": {
-      "title": "By Age"
+      "title": "Tuir Idade."
     },
     "section_service_distributed": {
-      "title": "Service Distributed"
+      "title": "Servisu Distribúidu"
     }
   },
   "page_applicant": {
     "title": "Aplikante",
-    "total_registered": "Total <b>{{count}}</b> Registered",
+    "total_registered": "Total <b>{{count}}</b> Rejistadu",
     "filter": {
-      "all_service": "All Service",
-      "all_region": "All Region",
-      "all_gender": "All Gender",
-      "all_year": "All Year",
-      "search_placeholder": "Search ID or citizens name here"
+      "search_placeholder": "Buka númeru identidade ka sidadaun sira-nia naran iha ne'e."
     },
     "table": {
       "row_id": "ID",
       "row_citizens": "Sidadaun",
       "row_service": "Servisu Sira",
       "row_municipality": "Munisípiu",
-      "row_submission_date": "Submission Date",
-      "row_review": "Review",
-      "row_status": "Status"
+      "row_submission_date": "Data Submisaun",
+      "row_review": "Revee",
+      "row_status": "Estatutu"
     }
   },
   "page_applicant_detail": {
-    "title": "Applicant Detail",
-    "applying_for": "Applying for",
-    "deliver": "Deliver",
-    "download": "Download All Data",
+    "title": "Detallu aplikante",
+    "applying_for": "Aplika ba",
+    "deliver": "Entrega",
+    "download": "Download Dadus hotu",
     "section_identity": {
       "title": "Identidade Sidadaun",
-      "subtitle_personal": "Personal Details",
-      "subtitle_birth": "Birth Details",
+      "subtitle_personal": "Detallu pesoál sira",
+      "subtitle_birth": "Detallu moris",
       "subtitle_local": "Rezidensia Lokál",
-      "label_id": "Applicant's ID",
+      "label_id": "Aplikante nia ID",
       "label_first_name": "Naran Primeiru",
-      "label_last_name": "Naran ikus",
+      "label_last_name": "Apelidu",
       "label_identity_type": "Tipu Identidade",
       "label_identity_number": "Númeru Identidade",
       "label_email": "Email",
@@ -240,88 +236,85 @@
       "label_country": "Nasaun",
       "label_state": "Munisípiu",
       "label_city": "Postu Administrativu",
-      "label_sucos": "Sucos"
+      "label_sucos": "Suku Sira"
     },
     "section_document": {
-      "title": "Checking Required Documents",
-      "row_document": "Required Document",
-      "row_verified": "Verified",
-      "row_unverified": "Unverified",
+      "title": "Verifika hela dokumentu sira ne'ebé presiza",
+      "row_document": "Dokumentu obrigatóriu",
+      "row_verified": "Verifikadu",
+      "row_unverified": "Seidauk Verifika",
       "cta_download": "Download",
-      "cta_preview": "Preview",
+      "cta_preview": "Previzaun",
       "cta_approve": "Aprovadu",
-      "cta_reject": "Reject"
+      "cta_reject": "Rejeita"
     },
     "section_others": {
-      "title": "Request For Other",
-      "label_request_for": "Request For",
+      "title": "Rejeita",
+      "label_request_for": "Pedidu ba",
       "label_first_name": "Naran Primeiru",
-      "label_last_name": "Naran ikus",
+      "label_last_name": "Apelidu",
       "label_birth_date": "Data Moris",
       "label_gender": "Jéneru"
     },
     "modal_approve": {
       "title": "Ita hakarak duni atu aprova?",
-      "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
+      "description": "Favór haree didiak ita-nia dadus molok submete, asegura katak dadus hotu-hotu kumpre kriteriu atu ajuda ami-nia ofisiál.",
       "cta_approve": "Aprovadu",
-      "cta_recheck": "Recheck",
-      "success_title": "Applicant Have Approved",
-      "success_description": "Your submitted data is being reviewed by our team. Verification may take some time. Thank you for your patience!",
-      "success_cta": "Understand"
+      "cta_recheck": "Cek Fila Fali",
+      "success_title": "Aplikante Aprova Ona.",
+      "success_description": "Ami nian ekipa halo revizaun hela ba ita-nia dadus ne'ebé ita submete ona. Verifikasaun bele lori tempu uitoan. Obrigadu ba ita-nia pasiénsia!",
+      "success_cta": "Komprende"
     },
     "modal_reject": {
       "title": "Ita hakarak duni atu rejeita?",
-      "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
-      "label_reason": "Reason",
-      "label_message": "Message",
-      "placeholder_message": "Type your message here...",
-      "cta_reject": "Reject",
-      "cta_recheck": "Recheck",
-      "success_title": "Applicant Have Rejected",
-      "success_description": "Your submitted data is being reviewed by our team. Verification may take some time. Thank you for your patience!",
-      "success_cta": "Understand"
+      "description": "Favór haree didiak ita-nia dadus molok submete, asegura katak dadus hotu-hotu kumpre kriteriu atu ajuda ami-nia ofisiál.",
+      "label_reason": "Razaun",
+      "label_message": "Mensajem",
+      "placeholder_message": "Hakerek ita-nia mensajen iha ne'e...",
+      "cta_reject": "Rejeita",
+      "cta_recheck": "Cek Fila Fali",
+      "success_title": "Aplikante Rejeita Ona.",
+      "success_description": "Ami nian ekipa halo revizaun hela ba ita-nia dadus ne'ebé ita submete ona. Verifikasaun bele lori tempu uitoan. Obrigadu ba ita-nia pasiénsia!",
+      "success_cta": "Komprende"
     },
     "modal_preview": {
-      "title": "Document Preview"
+      "title": "Previzaun Dokumentu"
     }
   },
   "page_issued_card": {
-    "title": "Issued Cards",
-    "card_count": "{{count}} issued cards"
+    "title": "Kartaun sira ne'ebé fó sai ona ",
+    "card_count": "{{count}} kartaun mak fó sai ona "
   },
   "page_issued_card_list": {
-    "title": "Issued Card",
-    "total_issued": "Total <b>{{count}}</b> Issued Cards",
+    "title": "Kartaun ne'ebé fó sai ona ",
+    "total_issued": "Totál <b>{{count}}</b> kartaun sira ne'ebé mak fó sai ona.",
     "reset_filter": "Redifini Filtru",
     "filter": {
-      "all_service": "All Service",
-      "all_deliver": "All Deliver",
-      "all_year": "All Year",
-      "search_placeholder":  "Search ID or citizens name here"
+      "search_placeholder":  "Buka númeru identidade ka sidadaun sira-nia naran iha ne'e."
     },
     "table": {
       "row_id": "ID",
       "row_citizens": "Sidadaun",
       "row_municipality": "Munisípiu",
-      "row_deliver": "Deliver",
-      "row_submission_date": "Submission Date"
+      "row_deliver": "Entrega",
+      "row_submission_date": "Data Submisaun"
     }
   },
   "page_appointment": {
     "title": "Ajendamentu",
-    "total_appointments": "Total <b>{{count}}</b> Appointments",
+    "total_appointments": "Totál <b>{{count}}</b> Ajendamentu",
     "reset_filter": "Redifini Filtru",
     "filter": {
-      "search_placeholder":  "Search ID or citizens name here"
+      "search_placeholder":  "Buka númeru identidade ka sidadaun sira-nia naran iha ne'e."
     },
     "table": {
-      "row_id": "Id.",
+      "row_id": "ID",
       "row_citizens": "Sidadaun",
       "row_user_type": "Tipu",
       "row_service": "Servisu Sira",
       "row_office": "Eskritóriu",
       "row_appointment_date": "Data Audiénsia",
-      "row_status": "Status"
+      "row_status": "Estatutu"
     },
     "status": {
       "unstarted": "Seidauk hahú",
@@ -332,18 +325,18 @@
   "page_appointment_detail": {
     "title": "Appointment Detail",
     "service": "Servisu",
-    "purpose": "Purpose",
-    "status": "Status",
-    "instruction": "If the schedule suits you, you can give approval, so that citizens will get a booking code to come to the branch",
+    "purpose": "Objetivu",
+    "status": "Estatutu",
+    "instruction": "Se oráriu ne'e tuir duni ita-boot nia hakarak, ita bele fó aprovasaun, atu nune'e sidadaun sira bele hetan kódigu rezerva atu bele mai aprezenta iha sukursal.",
     "cta_approve": "Aprovadu",
-    "cta_reject": "Reject",
+    "cta_reject": "Rejeita",
     "section_identity": {
       "title": "Identidade Sidadaun",
-      "subtitle_personal": "Personal Details",
-      "subtitle_appointment": "Appointment",
-      "label_id": "Applicant's ID",
+      "subtitle_personal": "Detallu pesoál sira.",
+      "subtitle_appointment": "Ajendamentu",
+      "label_id": "Aplikante nia ID",
       "label_first_name": "Naran Primeiru",
-      "label_last_name": "Naran ikus",
+      "label_last_name": "Apelidu",
       "label_identity_type": "Tipu Identidade",
       "label_identity_number": "Númeru Identidade",
       "label_email": "Email",
@@ -351,32 +344,31 @@
       "label_gender": "Jéneru",
       "label_birth_date": "Data Moris",
       "label_city": "Postu Administrativu",
-      "label_sucos": "Sucos",
-      "label_location": "Location",
-      "label_office": "Office Representative",
-      "label_date": "Date"
-
+      "label_sucos": "Suku Sira",
+      "label_location": "Fatin",
+      "label_office": "Reprezentante Eskritóriu",
+      "label_date": "Data"
     },
     "modal_approve": {
-      "title": "Are Your Sure to Approve?",
-      "description": "Please check your data before submitting, after this citizen will recieved code booking to visit office",
+      "title": "Ita Hakarak Duni Atu Aprova?",
+      "description": "Favór haree didiak ita-nia dadus molok submete, hafoin ida ne'e sidadaun ne'e sei simu kódigu rezerva hodi bele ba vizita eskritóriu.",
       "cta_approve": "Aprovadu",
-      "cta_recheck": "Recheck",
-      "success_title": "Appointment Have Approved",
-      "success_description": "The appointment has been scheduled, now citizens just have to come to the office according to schedule.",
-      "success_cta": "Understand"
+      "cta_recheck": "Cek Fila Fali",
+      "success_title": "Ajendamentu aprova ona.",
+      "success_description": "Oráriu ba ajendamentu marka ona, agora sidadaun sira sei mai de'it iha eskritóriu tuir oráriu.",
+      "success_cta": "Komprende"
     },
     "modal_reject": {
-      "title": "Are Your Sure to Reject?",
-      "description": "Please check your data before submitting, make sure all data meet the criteria to help our officer",
-      "label_reason": "Reason",
+      "title": "Ita Hakarak Duni Atu Rejeita?",
+      "description": "Favór haree didiak ita-nia dadus molok submete, asegura katak dadus hotu-hotu kumpre kriteriu atu ajuda ami-nia ofisiál.",
+      "label_reason": "Razaun",
       "label_date": "Select Date",
       "placeholder_message": "Type your message here...",
-      "cta_reject": "Reject",
-      "cta_recheck": "Recheck",
-      "success_title": "Appointment Have Rejected",
-      "success_description": "The appointment has been scheduled, now citizens just have to come to the office according to schedule.",
-      "success_cta": "Understand"
+      "cta_reject": "Rejeita",
+      "cta_recheck": "Cek Fila Fali",
+      "success_title": "Ajendamentu rejeita ona.",
+      "success_description": "Oráriu ba ajendamentu marka ona, agora sidadaun sira sei mai de'it iha eskritóriu tuir oráriu.",
+      "success_cta": "Komprende"
     }
   },
   "page_management": {
@@ -444,10 +436,10 @@
     "modal_success": {
       "update_title": "Member have updated",
       "update_description": "Member data updated. Please allow up to 1 minute for changes to take effect. Thank you for your patience",
-      "update_cta": "Understand",
+      "update_cta": "Komprende",
       "create_title": "Account created",
       "create_description": "Please allow up to 1 minute for changes to take effect. Thank you for your patience",
-      "create_cta": "Understand",
+      "create_cta": "Komprende",
       "delete_title": "Account Deleted",
       "delete_description": "Account successfully deleted. All associated data has been permanently removed."
     }

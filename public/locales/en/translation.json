@@ -202,10 +202,6 @@
     "title": "Applicants",
     "total_registered": "Total <b>{{count}}</b> Registered",
     "filter": {
-      "all_service": "All Service",
-      "all_region": "All Region",
-      "all_gender": "All Gender",
-      "all_year": "All Year",
       "search_placeholder": "Search ID or citizens name here"
     },
     "table": {
@@ -294,9 +290,6 @@
     "total_issued": "Total <b>{{count}}</b> Issued Cards",
     "reset_filter": "Reset Filter",
     "filter": {
-      "all_service": "All Service",
-      "all_deliver": "All Deliver",
-      "all_year": "All Year",
       "search_placeholder":  "Search ID or citizens name here"
     },
     "table": {
@@ -355,7 +348,6 @@
       "label_location": "Location",
       "label_office": "Office Representative",
       "label_date": "Date"
-
     },
     "modal_approve": {
       "title": "Are Your Sure to Approve?",

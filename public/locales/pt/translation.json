@@ -202,10 +202,6 @@
     "title": "Candidatos",
     "total_registered": "Total <b>{{count}}</b> Registrado",
     "filter": {
-      "all_service": "Todos os serviços",
-      "all_region": "Todas as regiões",
-      "all_gender": "Todos os gêneros",
-      "all_year": "Todo o ano",
       "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
     },
     "table": {
@@ -294,9 +290,6 @@
     "total_issued": "Total <b>{{count}}</b> Cartões emitidos",
     "reset_filter": "Redefinir filtro",
     "filter": {
-      "all_service": "Todos os serviços",
-      "all_deliver": "Todos entregam",
-      "all_year": "Todo o ano",
       "search_placeholder": "Pesquise ID ou nome do cidadão aqui"
     },
     "table": {
