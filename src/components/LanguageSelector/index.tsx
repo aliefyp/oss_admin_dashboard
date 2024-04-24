@@ -25,9 +25,9 @@ const LaguageSelector = ({ language, onLanguageChange }) => {
   }
 
   const locales = [
-    { code: 'tl', name: 'Timor Leste' },
+    { code: 'tl', name: 'Tetum' },
     { code: 'en', name: 'English' },
-    { code: 'pt', name: 'Portugese' },
+    { code: 'pt', name: 'Portuguese' },
   ]
 
   return (
