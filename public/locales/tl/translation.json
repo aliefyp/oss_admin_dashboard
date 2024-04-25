@@ -76,7 +76,9 @@
     "damage-family-card": "Kartaun Familia Estragu"
   },
   "deliver": {
-    "normal": "Normal"
+    "normal": "Normal",
+    "urgent": "Urjente",
+    "veryUrgent": "Urjente Tebes"
   },
   "application_status": {
     "submitted": "Submete",

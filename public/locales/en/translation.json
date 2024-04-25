@@ -76,7 +76,9 @@
     "damage-family-card": "Damage Family Card"
   },
   "deliver": {
-    "normal": "Normal"
+    "normal": "Normal",
+    "urgent": "Urgent",
+    "veryUrgent": "Very Urgent"
   },
   "application_status": {
     "submitted": "Submitted",

@@ -76,7 +76,9 @@
     "damage-family-card": "Cartão Família de Danos"
   },
   "deliver": {
-    "normal": "Normal"
+    "normal": "Normal",
+    "urgent": "Urgente",
+    "veryUrgent": "Muito Urgente"
   },
   "application_status": {
     "submitted": "Submetido",
