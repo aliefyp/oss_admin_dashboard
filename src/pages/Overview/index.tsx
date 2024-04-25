@@ -16,8 +16,12 @@ import TypeRegistered from "./components/TypeRegistered";
 import ByGender from "./components/ByGender";
 import ByAge from "./components/ByAge";
 import ServiceDistributed from "./components/ServiceDistributed";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Overview: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
   const auth = useAuthUser<UserData>();
 
@@ -65,12 +69,27 @@ const Overview: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'service', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
-      { groupId: 'municipality', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
-      { groupId: 'gender', groupLabel: t('filter_label.gender'), items: listGender },
-      { groupId: 'year', groupLabel: t('filter_label.year'), items: listYear },
+      { groupId: 'ServiceTypeId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
+      { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
+      { groupId: 'GenderType', groupLabel: t('filter_label.gender'), items: listGender },
+      { groupId: 'Year', groupLabel: t('filter_label.year'), items: listYear },
     ],
   });
+
+  const handleResetClick = () => {
+    handleFilterClear();
+  }
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams({
+      ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
+      ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
+      ...(filter.GenderType !== '0' ? { GenderType: String(filter.GenderType) } : {}),
+      ...(filter.Year !== '0' ? { Year: String(filter.Year) } : {}),
+    });
+
+    navigate(location.pathname + '?' + urlParams.toString(), { replace: true });
+  }, [filter, navigate, location.pathname])
 
   return (
     <>
@@ -106,7 +125,7 @@ const Overview: React.FC = () => {
             )}
             {hasFilter && (
               <div className="flex items-center gap-2">
-                <Button variant="text" size="small" color="error" onClick={handleFilterClear}>
+                <Button variant="text" size="small" color="error" onClick={handleResetClick}>
                   {t('page_overview.reset_filter')}
                 </Button>
                 {filterKeys.map((key) => {
