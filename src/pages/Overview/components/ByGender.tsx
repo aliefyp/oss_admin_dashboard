@@ -4,6 +4,7 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { useTranslation } from "react-i18next";
 import ChartLegend from "components/ChartLegend";
 import { Response } from "types/dashboard/dashboard";
+import EmptyState from "components/EmptyState";
 
 const CHART_COLOR_BY_GENDER = {
   male: '#292D30',
@@ -38,6 +39,11 @@ const ByGender = ({ data, loading }: Props) => {
         <div className="flex w-[100%] h-[300px] justify-center items-center">
           <CircularProgress />
         </div>
+      )}
+      {data?.length === 0 && !loading && (
+        <EmptyState title="No data">
+          No data available
+        </EmptyState>
       )}
       <div className="grid grid-cols-4 gap-4 items-center">
         <div className="lg:col-span-3 col-span-4" ref={chartWrapperRef}>

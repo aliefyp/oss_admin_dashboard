@@ -5,6 +5,7 @@ import { ChartsXAxis, ChartsYAxis, MarkPlot, ResponsiveChartContainer } from "@m
 import { useTranslation } from "react-i18next";
 import { Response } from "types/dashboard/dashboard";
 import dayjs from "dayjs";
+import EmptyState from "components/EmptyState";
 
 interface Data {
   daily: Response['data']['dailyRegisteredCitizens'];
@@ -47,7 +48,12 @@ const RegisteredCitizens = ({ data, loading }: Props) => {
             <CircularProgress />
           </div>
         )}
-        {dataSource.length && (
+        {dataSource.length === 0 && !loading && (
+          <EmptyState title="No data">
+            No data available
+          </EmptyState>
+        )}
+        {dataSource.length > 0 && !loading && (
           <ResponsiveChartContainer
             series={[
               {

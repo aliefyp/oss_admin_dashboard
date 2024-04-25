@@ -71,7 +71,7 @@ const Overview: React.FC = () => {
     groups: [
       { groupId: 'ServiceTypeId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
       { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.regions?.length },
-      { groupId: 'GenderType', groupLabel: t('filter_label.gender'), items: listGender },
+      { groupId: 'Gender', groupLabel: t('filter_label.gender'), items: listGender },
       { groupId: 'Year', groupLabel: t('filter_label.year'), items: listYear },
     ],
   });
@@ -84,7 +84,7 @@ const Overview: React.FC = () => {
     const urlParams = new URLSearchParams({
       ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
       ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
-      ...(filter.GenderType !== '0' ? { GenderType: String(filter.GenderType) } : {}),
+      ...(filter.Gender !== '0' ? { Gender: String(filter.Gender) } : {}),
       ...(filter.Year !== '0' ? { Year: String(filter.Year) } : {}),
     });
 

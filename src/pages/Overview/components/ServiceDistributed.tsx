@@ -1,4 +1,5 @@
 import { CircularProgress, Typography } from "@mui/material";
+import EmptyState from "components/EmptyState";
 import { SERVICE_ICONS } from "constants/services";
 import { useTranslation } from "react-i18next";
 import { Response } from "types/dashboard/dashboard";
@@ -20,6 +21,11 @@ const ServiceDistributed = ({ data, loading }: Props) => {
         <div className="flex w-[100%] h-[300px] justify-center items-center">
           <CircularProgress />
         </div>
+      )}
+      {data?.length === 0 && !loading && (
+        <EmptyState title="No data">
+          No data available
+        </EmptyState>
       )}
       {data && (
         <div className="flex flex-col mt-4">
