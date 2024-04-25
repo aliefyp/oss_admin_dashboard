@@ -2,7 +2,7 @@ import { ArrowDropDownOutlined } from "@mui/icons-material";
 import { Button, Chip, CircularProgress, Menu, MenuItem, Typography } from "@mui/material";
 import { useUpdateAppoinment } from "api/appointment";
 import { APPOINTMENT_STATUS_COLOR } from "constants/appointment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import useToaster from "usecase/useToaster";
 
