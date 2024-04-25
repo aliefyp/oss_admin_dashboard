@@ -18,6 +18,7 @@ interface Props {
   data: AppointmentResponse;
   loading: boolean;
   error: Error;
+  refetch: () => void;
   paginationModel: PaginationModel;
   setPaginationModel: (paginationModel: PaginationModel) => void;
   onPreview: (id: number) => void;
@@ -27,6 +28,7 @@ const AppointmentTable = ({
   data,
   loading,
   error,
+  refetch,
   paginationModel,
   setPaginationModel,
   onPreview,
@@ -51,7 +53,7 @@ const AppointmentTable = ({
         // const status = params.row.status.toLowerCase();
         // const color = APPOINTMENT_STATUS_COLOR[status];
         // return <Chip label={t(`appointment_status.${status}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
-        return <AppointmentStatus appointmentId={params.row.id} status={params.row.status.toLowerCase()} />
+        return <AppointmentStatus appointmentId={params.row.id} status={params.row.status.toLowerCase()} refetch={refetch} />
       },
     },
     {

@@ -9,17 +9,17 @@ import useToaster from "usecase/useToaster";
 interface Props {
   appointmentId: number;
   status: string;
+  refetch: () => void;
 }
 
 const STATUS = ['completed', 'absent'];
 
-const AppointmentStatus = ({ appointmentId, status }: Props) => {
+const AppointmentStatus = ({ appointmentId, status, refetch }: Props) => {
   const { t } = useTranslation();
   const toaster = useToaster();
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 
   const [loading, setLoading] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState(status);
 
   const updateStatus = useUpdateAppoinment({ appointmentId })
 
@@ -39,7 +39,7 @@ const AppointmentStatus = ({ appointmentId, status }: Props) => {
       const res = await updateStatus({ status: newStatus });
       if (!res) throw new Error('Failed to update status');
 
-      setCurrentStatus(newStatus);
+      refetch();
     } catch (err) {
       console.error(err);
       toaster.open(err.message)
@@ -48,19 +48,15 @@ const AppointmentStatus = ({ appointmentId, status }: Props) => {
     }
   }
 
-  useEffect(() => {
-    if (status !== currentStatus) setCurrentStatus(status);
-  }, [currentStatus, status])
-
   const open = Boolean(anchorEl);
   const id = open ? 'start-popover' : undefined;
-  const color = APPOINTMENT_STATUS_COLOR[currentStatus];
+  const color = APPOINTMENT_STATUS_COLOR[status];
 
-  const label = <Chip label={t(`appointment_status.${currentStatus}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
+  const label = <Chip label={t(`appointment_status.${status}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
 
   return (
     <div onClick={e => e.stopPropagation()}>
-      {currentStatus === 'confirm' ? (
+      {status === 'confirm' ? (
         <>
           <Button
             component="div"
@@ -81,7 +77,7 @@ const AppointmentStatus = ({ appointmentId, status }: Props) => {
               horizontal: 'left',
             }}
           >
-            {STATUS.filter(s => s !== currentStatus).map((s) => (
+            {STATUS.filter(s => s !== status).map((s) => (
               <MenuItem key={s} onClick={() => handleStatusClick(s)}>
                 <Typography variant="body1">{t(`page_appointment.status.${s.toLowerCase()}`)}</Typography>
               </MenuItem>

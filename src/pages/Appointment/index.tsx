@@ -71,6 +71,7 @@ const Appointment = () => {
     data: dataAppointments,
     isFetching: loadingAppointments,
     error: errorAppointments,
+    refetch: refetchAppointments,
   } = useAppointments();
 
   const handleResetClick = () => {
@@ -196,6 +197,7 @@ const Appointment = () => {
             data={dataAppointments}
             loading={loadingAppointments}
             error={errorAppointments}
+            refetch={refetchAppointments}
             onPreview={handlePreview}
           />
         </div>
