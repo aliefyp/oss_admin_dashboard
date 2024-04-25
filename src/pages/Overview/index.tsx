@@ -1,20 +1,21 @@
 import { Button, Chip, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import dayjs from "dayjs";
+import { useServicesType } from "api/service";
+import { useMunicipality } from "api/region";
+import { useOptionsGenderType } from "api/options";
+import { useDashboard } from "api/dashboard";
+import useLastNYearList from "usecase/useLastNYearList";
 import useGroupFilter from "usecase/useGroupFilter";
+import { UserData } from "types/auth/user";
 import GroupFilter from "components/GroupFilter";
+import PageHeading from "components/PageHeading";
 import RegisteredCitizens from "./components/RegisteredCitizens";
 import TypeRegistered from "./components/TypeRegistered";
 import ByGender from "./components/ByGender";
 import ByAge from "./components/ByAge";
 import ServiceDistributed from "./components/ServiceDistributed";
-import PageHeading from "components/PageHeading";
-import { useTranslation } from "react-i18next";
-import dayjs from "dayjs";
-import { useServicesType } from "api/service";
-import { useMunicipality } from "api/region";
-import useLastNYearList from "usecase/useLastNYearList";
-import { useOptionsGenderType } from "api/options";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import { UserData } from "types/auth/user";
 
 const Overview: React.FC = () => {
   const { t } = useTranslation();
@@ -24,6 +25,14 @@ const Overview: React.FC = () => {
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
   const years = useLastNYearList(5);
+
+  const { data: dataDashboard, isFetching } = useDashboard();
+
+  const registeredCitizen = {
+    daily: dataDashboard?.data?.dailyRegisteredCitizens || [],
+    weekly: dataDashboard?.data?.weeklyRegisteredCitizens || [],
+    monthly: dataDashboard?.data?.monthlyRegisteredCitizens || [],
+  };
 
   const listService = dataServicesType?.data?.map((item) => ({
     itemId: item.code,
@@ -116,15 +125,15 @@ const Overview: React.FC = () => {
           </div>
         </div>
         <div className="col-span-8 space-y-4">
-          <RegisteredCitizens />
+          <RegisteredCitizens data={registeredCitizen} loading={isFetching} />
           <div className="grid grid-cols-2 gap-4">
-            <ByGender />
-            <ByAge />
+            <ByGender data={dataDashboard?.data?.registeredCitizenByGenders} loading={isFetching} />
+            <ByAge data={dataDashboard?.data?.registeredCitizenByAges} loading={isFetching} />
           </div>
         </div>
         <div className="col-span-4 space-y-4">
-          <TypeRegistered />
-          <ServiceDistributed />
+          <TypeRegistered data={dataDashboard?.data?.totalApplicationByStatus} loading={isFetching} />
+          <ServiceDistributed data={dataDashboard?.data?.totalApplicationByServiceTypes} loading={isFetching} />
         </div>
       </div>
     </>

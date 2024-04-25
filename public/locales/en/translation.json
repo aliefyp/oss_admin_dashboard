@@ -189,10 +189,12 @@
       "issued_card_description": "Include as approved but have waiting list"
     },
     "section_by_gender": {
-      "title": "By Gender"
+      "title": "By Gender",
+      "total": "Total Registered"
     },
     "section_by_age": {
-      "title": "By Age"
+      "title": "By Age",
+      "total": "Total Registered"
     },
     "section_service_distributed": {
       "title": "Service Distributed"

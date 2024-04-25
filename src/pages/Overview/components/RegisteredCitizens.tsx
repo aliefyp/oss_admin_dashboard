@@ -1,16 +1,33 @@
 import { useState } from "react";
-import { Tab, Tabs, Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import { BarPlot } from '@mui/x-charts/BarChart';
 import { ChartsXAxis, ChartsYAxis, MarkPlot, ResponsiveChartContainer } from "@mui/x-charts";
 import { useTranslation } from "react-i18next";
+import { Response } from "types/dashboard/dashboard";
+import dayjs from "dayjs";
 
-const RegisteredCitizens = () => {
-  const [activeTab, setActiveTab] = useState(0);
+interface Data {
+  daily: Response['data']['dailyRegisteredCitizens'];
+  weekly: Response['data']['weeklyRegisteredCitizens'];
+  monthly: Response['data']['monthlyRegisteredCitizens'];
+}
+
+interface Props {
+  data: Data;
+  loading: boolean;
+}
+
+const RegisteredCitizens = ({ data, loading }: Props) => {
+  const [activeTab, setActiveTab] = useState("daily");
   const { t } = useTranslation();
 
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-    setActiveTab(newValue);
-  }
+  console.log(setActiveTab)
+
+  // const handleChange = (_: React.SyntheticEvent, newValue: string) => {
+  //   setActiveTab(newValue);
+  // }
+
+  const dataSource = data.daily?.length > 0 ? data[activeTab] : [];
 
   return (
     <div className="border rounded-lg py-4 px-3">
@@ -18,34 +35,41 @@ const RegisteredCitizens = () => {
         <Typography variant="h6" className="font-sm">
           {t('page_overview.section_registered_citizen.title')}
         </Typography>
-        <Tabs value={activeTab} onChange={handleChange} aria-label="Period">
-          <Tab sx={{ minWidth: '56px', padding: '4px 8px' }} label={t('page_overview.section_registered_citizen.tab_daily')} id="daily" />
-          <Tab sx={{ minWidth: '56px', padding: '4px 8px' }} label={t('page_overview.section_registered_citizen.tab_weekly')} id="weekly" />
-          <Tab sx={{ minWidth: '56px', padding: '4px 8px' }} label={t('page_overview.section_registered_citizen.tab_monthly')} id="monthly" />
-        </Tabs>
+        {/* <Tabs value={activeTab} onChange={handleChange} aria-label="Period">
+          <Tab value="daily" sx={{ minWidth: '56px', padding: '4px 8px' }} label={t('page_overview.section_registered_citizen.tab_daily')} id="daily" />
+          <Tab value="weekly" sx={{ minWidth: '56px', padding: '4px 8px' }} label={t('page_overview.section_registered_citizen.tab_weekly')} id="weekly" />
+          <Tab value="monthly" sx={{ minWidth: '56px', padding: '4px 8px' }} label={t('page_overview.section_registered_citizen.tab_monthly')} id="monthly" />
+        </Tabs> */}
       </div>
       <div className="py-2 overflow-x-auto h-[300px] w-full">
-        <ResponsiveChartContainer
-          series={[
-            {
-              type: 'bar',
-              data: [40, 30, 50, 25, 35, 60, 40],
-              color: '#357AF6',
-            }
-          ]}
-          xAxis={[
-            {
-              scaleType: 'band',
-              id: 'x-axis-id',
-              data: ['Tue, 9', 'Wed, 10', 'Thu, 11', 'Fri, 12', 'Sat, 13', 'Sun, 14', 'Mon, 15'],
-            }
-          ]}
-        >
-          <BarPlot />
-          <MarkPlot />
-          <ChartsXAxis position="bottom" axisId="x-axis-id" />
-          <ChartsYAxis position="left" />
-        </ResponsiveChartContainer>
+        {loading && (
+          <div className="flex w-[100%] h-[300px] justify-center items-center">
+            <CircularProgress />
+          </div>
+        )}
+        {dataSource.length && (
+          <ResponsiveChartContainer
+            series={[
+              {
+                type: 'bar',
+                data: dataSource.map(item => item.total),
+                color: '#357AF6',
+              }
+            ]}
+            xAxis={[
+              {
+                scaleType: 'band',
+                id: 'x-axis-id',
+                data: dataSource.map(item => dayjs(item.date).format('ddd, DD')),
+              }
+            ]}
+          >
+            <BarPlot />
+            <MarkPlot />
+            <ChartsXAxis position="bottom" axisId="x-axis-id" />
+            <ChartsYAxis position="left" />
+          </ResponsiveChartContainer>
+        )}
       </div>
     </div>
   );
