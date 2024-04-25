@@ -21,11 +21,11 @@ const useSidebarMenu = () => {
     title: t(`sidebar.${MAIN_MENU.key}`),
     items: MAIN_MENU.items.filter(item => {
       if (item.key === 'appointment') {
-        return auth?.roleName === 'front-office' || auth?.roleName === 'front-office-manager'
+        return auth?.roleGroup?.toLowerCase() === 'frontoffice'
       }
 
       if (item.key === 'management') {
-        return auth?.roleName === 'super-admin'
+        return auth?.roleGroup === 'admin'
       }
 
       return true
