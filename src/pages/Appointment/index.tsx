@@ -63,7 +63,7 @@ const Appointment = () => {
     defaultValue: "0",
     groups: [
       { groupId: 'ServiceId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
-      { groupId: 'OfficeLocationCode', groupLabel: t('filter_label.office'), items: listMunicipality, disabled: !!auth.region },
+      { groupId: 'OfficeLocationCode', groupLabel: t('filter_label.office'), items: listMunicipality, disabled: !!auth.regions?.length },
     ],
   });
 
@@ -146,13 +146,13 @@ const Appointment = () => {
                 label={t(`services.${service.name}`)}
               />
             ))}
-            {auth.region && (
+            {auth.regions?.map(region => (
               <Chip
                 size="small"
                 variant="outlined"
-                label={auth.region}
+                label={region.name}
               />
-            )}
+            ))}
             {(hasFilter || hasSearch || hasDate) && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleResetClick}>

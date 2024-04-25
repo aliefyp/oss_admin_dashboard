@@ -69,7 +69,7 @@ const IssuedCardList: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
+      { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.regions?.length },
       { groupId: 'DeliveryTime', groupLabel: t('filter_label.deliver'), items: listDeliveryTime },
       { groupId: 'Year', groupLabel: t('filter_label.year'), items: listYear },
     ],
@@ -137,13 +137,13 @@ const IssuedCardList: React.FC = () => {
                 label={t(`services.${service.name}`)}
               />
             ))}
-            {auth.region && (
+            {auth.regions?.map(region => (
               <Chip
                 size="small"
                 variant="outlined"
-                label={auth.region}
+                label={region.name}
               />
-            )}
+            ))}
             {(hasFilter || hasSearch) && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleResetClick}>

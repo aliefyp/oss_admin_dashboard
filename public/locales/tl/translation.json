@@ -189,10 +189,12 @@
       "issued_card_description": "Inklui hanesan hetan aprovasaun ona maibé iha lista hein."
     },
     "section_by_gender": {
-      "title": "Tuir Jéneru."
+      "title": "Tuir Jéneru.",
+      "total": "Total Rejistadu"
     },
     "section_by_age": {
-      "title": "Tuir Idade."
+      "title": "Tuir Idade.",
+      "total": "Total Rejistadu"
     },
     "section_service_distributed": {
       "title": "Servisu Distribúidu"

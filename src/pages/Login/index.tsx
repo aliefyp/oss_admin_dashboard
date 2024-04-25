@@ -78,8 +78,8 @@ const Login = () => {
             roleId: res.data.roleId,
             roleName: res.data.roleName,
             roleGroup: res.data.roleGroup,
-            region: res.data.region,
-            serviceTypes: res.data.serviceTypes,
+            regions: res.data.regions,
+            serviceTypes: res.data.serviceTypes || [],
           }
         })) {
           navigate(from, { replace: true });

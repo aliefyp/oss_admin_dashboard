@@ -189,10 +189,12 @@
       "issued_card_description": "Incluir como aprovado, mas com lista de espera"
     },
     "section_by_gender": {
-      "title": "Por gênero"
+      "title": "Por gênero",
+      "total": "Total cadastrado"
     },
     "section_by_age": {
-      "title": "Por idade"
+      "title": "Por idade",
+      "total": "Total cadastrado"
     },
     "section_service_distributed": {
       "title": "Serviço distribuído"
@@ -438,7 +440,7 @@
       "update_description": "Dados dos membros atualizados. ",
       "update_cta": "Entender",
       "create_title": "Conta criada",
-      "create_description": "Aguarde até 1 minuto para que as alterações entrem em vigor. ",
+      "create_description": "A conta do usuário foi enviada para o e-mail registrado, certifique-se de verificar e verificar para continuar",
       "create_cta": "Entender",
       "delete_title": "Conta excluída",
       "delete_description": "Conta excluída com sucesso. "

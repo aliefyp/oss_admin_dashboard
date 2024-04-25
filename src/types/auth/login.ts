@@ -13,9 +13,15 @@ export interface Data {
   roleId: number
   roleName: string
   roleGroup: string
-  region: string
+  regions: Region[]
   status: string
   serviceTypes: ServiceType[]
+}
+
+export interface Region {
+  id: number
+  code: string
+  name: string
 }
 
 export interface ServiceType {

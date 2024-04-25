@@ -70,7 +70,7 @@ const Overview: React.FC = () => {
     defaultValue: "0",
     groups: [
       { groupId: 'ServiceTypeId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
-      { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.region },
+      { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.regions?.length },
       { groupId: 'GenderType', groupLabel: t('filter_label.gender'), items: listGender },
       { groupId: 'Year', groupLabel: t('filter_label.year'), items: listYear },
     ],
@@ -116,13 +116,13 @@ const Overview: React.FC = () => {
                 label={t(`services.${service.name}`)}
               />
             ))}
-            {auth.region && (
+            {auth.regions?.map(region => (
               <Chip
                 size="small"
                 variant="outlined"
-                label={auth.region}
+                label={region.name}
               />
-            )}
+            ))}
             {hasFilter && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleResetClick}>
