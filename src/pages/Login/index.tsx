@@ -55,6 +55,7 @@ const Login = () => {
     const { email, password } = val;
     login.mutateAsync({ email, password })
       .then((res) => {
+        console.log(res)
         if (res.errorMessage) {
           throw new Error(res.errorMessage)
         }
