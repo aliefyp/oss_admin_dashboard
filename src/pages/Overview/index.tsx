@@ -91,6 +91,8 @@ const Overview: React.FC = () => {
     navigate(location.pathname + '?' + urlParams.toString(), { replace: true });
   }, [filter, navigate, location.pathname])
 
+  // const total = dataDashboard?.data?.totalApplicationByServiceTypes?.reduce((acc, item) => acc + item.total, 0) || 0;
+
   return (
     <>
       <PageHeading title={t("page_overview.title")}>
@@ -106,9 +108,9 @@ const Overview: React.FC = () => {
             handleFilterChange={handleFilterChange}
           />
           <div className="flex items-center gap-2">
-            <Typography variant="caption" className="text-gray-600 block">
-              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: 2000 }) }} />
-            </Typography>
+            {/* <Typography variant="caption" className="text-gray-600 block">
+              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: total }) }} />
+            </Typography> */}
             {auth.serviceTypes?.map(service => (
               <Chip
                 size="small"
