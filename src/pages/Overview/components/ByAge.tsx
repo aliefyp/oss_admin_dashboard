@@ -4,7 +4,6 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { useTranslation } from "react-i18next";
 import ChartLegend from "components/ChartLegend";
 import { Response } from "types/dashboard/dashboard";
-import EmptyState from "components/EmptyState";
 
 const COLORS = ['#292D30', '#54BEF2', '#9DD7F3', '#DCEBF5', '#C2D3DF'];
 
