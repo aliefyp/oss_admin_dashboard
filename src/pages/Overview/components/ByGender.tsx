@@ -45,45 +45,47 @@ const ByGender = ({ data, loading }: Props) => {
           No data available
         </EmptyState>
       )}
-      <div className="grid grid-cols-4 gap-4 items-center">
-        <div className="lg:col-span-3 col-span-4" ref={chartWrapperRef}>
-          <div className="relative flex items-center justify-center bg-gray-100 rounded-full">
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <Typography variant="body2" className="text-gray-600">
-                {t('page_overview.section_by_gender.total')}
-              </Typography>
-              <Typography variant="h6" className="font-sm text-center">
-                {total}
-              </Typography>
+      {data?.length > 0 && (
+        <div className="grid grid-cols-4 gap-4 items-center">
+          <div className="lg:col-span-3 col-span-4" ref={chartWrapperRef}>
+            <div className="relative flex items-center justify-center bg-gray-100 rounded-full">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <Typography variant="body2" className="text-gray-600">
+                  {t('page_overview.section_by_gender.total')}
+                </Typography>
+                <Typography variant="h6" className="font-sm text-center">
+                  {total}
+                </Typography>
+              </div>
+              <PieChart
+                margin={{ top: 12, right: 12, bottom: 12, left: 12 }}
+                series={[{
+                  data: data?.map(item => ({
+                    value: item.total,
+                    label: t(`gender.${item.gender}`),
+                    color: CHART_COLOR_BY_GENDER[item.gender]
+                  })) || [],
+                  innerRadius: chartWidth / 3,
+                }]}
+                width={chartWidth}
+                height={chartWidth}
+                slotProps={{
+                  legend: {
+                    hidden: true,
+                  },
+                }}
+              />
             </div>
-            <PieChart
-              margin={{ top: 12, right: 12, bottom: 12, left: 12 }}
-              series={[{
-                data: data?.map(item => ({
-                  value: item.total,
-                  label: t(`gender.${item.gender}`),
-                  color: CHART_COLOR_BY_GENDER[item.gender]
-                })) || [],
-                innerRadius: chartWidth / 3,
-              }]}
-              width={chartWidth}
-              height={chartWidth}
-              slotProps={{
-                legend: {
-                  hidden: true,
-                },
-              }}
-            />
+          </div>
+          <div className="lg:col-span-1 col-span-4">
+            <ChartLegend data={data?.map(item => ({
+              value: `${Math.round(item.total / total * 100)}%`,
+              label: t(`gender.${item.gender}`),
+              color: CHART_COLOR_BY_GENDER[item.gender]
+            })) || []} />
           </div>
         </div>
-        <div className="lg:col-span-1 col-span-4">
-          <ChartLegend data={data?.map(item => ({
-            value: `${Math.round(item.total / total * 100)}%`,
-            label: t(`gender.${item.gender}`),
-            color: CHART_COLOR_BY_GENDER[item.gender]
-          })) || []} />
-        </div>
-      </div>
+      )}
     </div>
   );
 }
