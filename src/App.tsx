@@ -38,7 +38,7 @@ import 'dayjs/locale/pt';
 import './App.css';
 
 function App() {
-  const [lang, setLang] = useState('tl');
+  const [lang, setLang] = useState('en');
 
   const { i18n } = useTranslation();
 
