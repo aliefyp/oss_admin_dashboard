@@ -31,3 +31,6 @@ export const EP_ISSUED_CARDS = `${BASE_URL}/issued-cards`;
 
 // Dashboard
 export const EP_DASHBOARD = `${BASE_URL}/dashboard`;
+
+// Me
+export const EP_LOGS = `${BASE_URL}/me/logs`;
