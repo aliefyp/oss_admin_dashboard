@@ -31,7 +31,8 @@ const LaguageSelector = ({ language, onLanguageChange }) => {
   ]
 
   return (
-    <div>
+    // TODO: remove hidden when the language is ready
+    <div className='hidden'>
       <Button
         id="language-selector"
         variant="text"
