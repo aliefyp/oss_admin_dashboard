@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { PRIMARY_COLOR_500 } from 'constants/colors';
 
 const setupTheme = () => createTheme({
   typography: {
@@ -6,7 +7,7 @@ const setupTheme = () => createTheme({
   },
   palette: {
     primary: {
-      main: '#1C25E7',
+      main: PRIMARY_COLOR_500,
     }
   },
   components: {
@@ -59,7 +60,7 @@ const setupTheme = () => createTheme({
     MuiLink: {
       styleOverrides: {
         root: {
-          color: '#1C25E7',
+          color: PRIMARY_COLOR_500,
           fontWeight: 700,
           textDecoration: 'none',
           '&:hover': {

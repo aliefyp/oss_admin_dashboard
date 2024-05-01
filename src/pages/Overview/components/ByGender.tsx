@@ -4,10 +4,11 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { useTranslation } from "react-i18next";
 import ChartLegend from "components/ChartLegend";
 import { Response } from "types/dashboard/dashboard";
+import { DARK_GREY, PRIMARY_COLOR_500 } from "constants/colors";
 
 const CHART_COLOR_BY_GENDER = {
-  male: '#292D30',
-  female: '#9DD7F3',
+  male: DARK_GREY,
+  female: PRIMARY_COLOR_500,
 };
 
 interface Props {

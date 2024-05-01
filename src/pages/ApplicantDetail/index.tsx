@@ -326,8 +326,7 @@ const ApplicantDetail: React.FC = () => {
               </Button>
               <Button
                 disabled={!allowToReject}
-                variant="contained"
-                color="error"
+                variant="outlined"
                 className="w-[200px]"
                 onClick={() => setOpenRejectConfirmation(true)}
               >

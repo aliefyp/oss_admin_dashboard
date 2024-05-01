@@ -4,8 +4,9 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { useTranslation } from "react-i18next";
 import ChartLegend from "components/ChartLegend";
 import { Response } from "types/dashboard/dashboard";
+import { DARK_GREY, PRIMARY_COLOR_500, PRIMARY_COLOR_400, PRIMARY_COLOR_300, PRIMARY_COLOR_200, PRIMARY_COLOR_100 } from "constants/colors";
 
-const COLORS = ['#292D30', '#54BEF2', '#9DD7F3', '#DCEBF5', '#C2D3DF'];
+const COLORS = [DARK_GREY, PRIMARY_COLOR_500, PRIMARY_COLOR_400, PRIMARY_COLOR_300, PRIMARY_COLOR_200, PRIMARY_COLOR_100];
 
 interface Props {
   data: Response['data']['registeredCitizenByAges'];

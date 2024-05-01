@@ -1,5 +1,6 @@
 import { CircularProgress, Divider, Typography } from "@mui/material";
 import EmptyState from "components/EmptyState";
+import { DARK_GREY, PRIMARY_COLOR_500, PRIMARY_COLOR_400, PRIMARY_COLOR_300, PRIMARY_COLOR_200, PRIMARY_COLOR_100 } from "constants/colors";
 import { useTranslation } from "react-i18next";
 import { Response } from "types/dashboard/dashboard";
 
@@ -8,7 +9,7 @@ interface Props {
   loading: boolean;
 }
 
-const COLORS = ['#292D30', '#54BEF2', '#9DD7F3', '#DCEBF5', '#C2D3DF', '#F3F4F6'];
+const COLORS = [DARK_GREY, PRIMARY_COLOR_500, PRIMARY_COLOR_400, PRIMARY_COLOR_300, PRIMARY_COLOR_200, PRIMARY_COLOR_100];
 
 const TypeRegistered = ({ data, loading }: Props) => {
   const { t } = useTranslation();

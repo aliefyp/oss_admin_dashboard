@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Response } from "types/dashboard/dashboard";
 import dayjs from "dayjs";
 import EmptyState from "components/EmptyState";
+import { PRIMARY_COLOR_500 } from "constants/colors";
 
 interface Data {
   daily: Response['data']['dailyRegisteredCitizens'];
@@ -59,7 +60,7 @@ const RegisteredCitizens = ({ data, loading }: Props) => {
               {
                 type: 'bar',
                 data: dataSource.map(item => item.total),
-                color: '#357AF6',
+                color: PRIMARY_COLOR_500,
               }
             ]}
             xAxis={[

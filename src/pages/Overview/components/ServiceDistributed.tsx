@@ -1,5 +1,6 @@
 import { CircularProgress, Typography } from "@mui/material";
 import EmptyState from "components/EmptyState";
+import { PRIMARY_COLOR_100 } from "constants/colors";
 import { SERVICE_ICONS } from "constants/services";
 import { useTranslation } from "react-i18next";
 import { Response } from "types/dashboard/dashboard";
@@ -31,7 +32,7 @@ const ServiceDistributed = ({ data, loading }: Props) => {
         <div className="flex flex-col mt-4">
           {data.map(service => (
             <div key={service.serviceType} className="flex gap-2 items-center w-full border-b py-2 last:border-none">
-              <div className="w-[24px] h-[24px] rounded-md bg-orange-200 flex items-center justify-center">
+              <div className="w-[24px] h-[24px] rounded-md bg-orange-200 flex items-center justify-center" style={{ backgroundColor: PRIMARY_COLOR_100 }}>
                 <img src={SERVICE_ICONS[service.serviceType]} alt={service.serviceType} width={12} height={12} />
               </div>
               <Typography className="grow">{t(`services.${service.serviceType}`)}</Typography>

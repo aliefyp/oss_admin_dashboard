@@ -172,8 +172,7 @@ const AppointmentDetail: React.FC = () => {
             {t('page_appointment_detail.cta_approve')}
           </Button>
           <Button
-            variant="contained"
-            color="error"
+            variant="outlined"
             className="w-[200px] shrink-0"
             disabled={!isEligibleToAction}
             onClick={() => setOpenRescheduleConfirmation(true)}
