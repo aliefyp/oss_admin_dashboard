@@ -3,6 +3,7 @@ import useFetcher from 'usecase/useFetcher';
 
 export type Params = {
   status: string;
+  notes?: string;
 }
 
 const useUpdateAppoinmentStatus = ({ appointmentId }) => {

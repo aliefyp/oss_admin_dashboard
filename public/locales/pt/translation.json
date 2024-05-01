@@ -372,7 +372,9 @@
       "cta_recheck": "Verifique novamente",
       "success_title": "Nomeação rejeitada",
       "success_description": "A ação de rejeição foi encaminhada, portanto, não haverá agendamento para esse agendamento.",
-      "success_cta": "Entender"
+      "success_cta": "Entender",
+      "reason_quota": "A cota está cheia",
+      "reason_availability": "Oficial não está disponível"
     }
   },
   "page_management": {

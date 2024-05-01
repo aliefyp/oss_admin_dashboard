@@ -372,7 +372,9 @@
       "cta_recheck": "Recheck",
       "success_title": "Appointment Have Rejected",
       "success_description": "Reject action has been submitted, therefore, there will be no schedule for this appointment.",
-      "success_cta": "Understand"
+      "success_cta": "Understand",
+      "reason_quota": "Quota is full",
+      "reason_availability": "Officer is not available"
     }
   },
   "page_management": {

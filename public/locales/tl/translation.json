@@ -372,7 +372,9 @@
       "cta_recheck": "Cek Fila Fali",
       "success_title": "Ajendamentu rejeita ona.",
       "success_description": "Oráriu ba ajendamentu marka ona, agora sidadaun sira sei mai de'it iha eskritóriu tuir oráriu.",
-      "success_cta": "Komprende"
+      "success_cta": "Komprende",
+      "reason_quota": "Kuota iha ona",
+      "reason_availability": "⁠Funskionáriu la iha hikas"
     }
   },
   "page_management": {

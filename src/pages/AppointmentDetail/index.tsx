@@ -72,11 +72,11 @@ const AppointmentDetail: React.FC = () => {
     }
   }
 
-  const handleRescheduleAppointment = async () => {
+  const handleRescheduleAppointment = async (notes: string) => {
     try {
       setLoading(true);
       setOpenRescheduleConfirmation(false);
-      const res = await updateAppointmentStatus({ status: 'reject' })
+      const res = await updateAppointmentStatus({ status: 'reject', notes })
       if (!res) throw new Error('Failed to reject application');
 
       setSuccessModal({

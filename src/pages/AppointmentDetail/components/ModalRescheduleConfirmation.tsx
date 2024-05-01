@@ -1,32 +1,30 @@
 import { Button, FormControl, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material";
 // import { DatePicker } from "@mui/x-date-pickers";
 import ModalSheet from "components/ModalSheet";
+import { REJECTION_REASONS } from "constants/appointment";
 // import dayjs from "dayjs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const DUMMY_REASON = [
-  { id: '1', name: 'Reason 1' },
-  { id: '2', name: 'Reason 2' },
-  { id: '3', name: 'Reason 3' },
-  { id: '4', name: 'Reason 4' },
-]
-
 interface ModalRescheduleConfirmationProps {
   open: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: (value: string) => void;
 }
 
 const ModalRescheduleConfirmation = ({ open, onClose, onConfirm }: ModalRescheduleConfirmationProps) => {
   const { t } = useTranslation();
 
-  const [reasonType, setReasonType] = useState('1');
+  const [reasonType, setReasonType] = useState(REJECTION_REASONS[0].code);
   // const [date, setDate] = useState(dayjs().add(1, 'day'));
 
   const handleReasonTypeChange = (event: SelectChangeEvent<string>) => {
     setReasonType(event.target.value);
   };
+
+  const handleConfirmClick = () => {
+    onConfirm(reasonType)
+  }
 
   // const handleDateChange = (newDate) => {
   //   setDate(newDate);
@@ -61,8 +59,10 @@ const ModalRescheduleConfirmation = ({ open, onClose, onConfirm }: ModalReschedu
               placeholder="Select Reason"
               onChange={e => handleReasonTypeChange(e)}
             >
-              {DUMMY_REASON.map((svc) => (
-                <MenuItem key={svc.id} value={svc.id}>{svc.name}</MenuItem>
+              {REJECTION_REASONS.map((reason) => (
+                <MenuItem key={reason.id} value={reason.code}>
+                  {t(`page_appointment_detail.modal_reject.reason_${reason.code}`)}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -87,7 +87,7 @@ const ModalRescheduleConfirmation = ({ open, onClose, onConfirm }: ModalReschedu
             <Button variant="outlined" className="w-full" onClick={onClose}>
               {t('page_appointment_detail.modal_reject.cta_recheck')}
             </Button>
-            <Button variant="contained" className="w-full" onClick={onConfirm}>
+            <Button variant="contained" className="w-full" onClick={handleConfirmClick}>
               {t('page_appointment_detail.modal_reject.cta_reject')}
             </Button>
           </div>
