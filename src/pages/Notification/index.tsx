@@ -88,40 +88,43 @@ const Notification: React.FC = () => {
 
   const getTemplateByAction = (logItem: LogItem) => {
     const action = logItem.action as ActionType;
+
     const service = logItem.applicationService;
     const serviceStr = service ? `for ${t(`sub_services.${service}`)}` : '';
+
     const name = logItem.citizenFullName;
+    const nameStr = name ? `from <b>${name}</b>` : '';
 
     switch (action) {
       case 'createApplication':
-        if (isFo) return `You have new application from <b>${name}</b> ${serviceStr}`;
+        if (isFo) return `You have new application ${nameStr} ${serviceStr}`;
         else return '';
       case 'approveApplicationFromFrontOffice':
-        if (isFo) return `You have <b>Approved</b> application from <b>${name}</b> ${serviceStr}`;
-        if (isBo) return `You have new application from <b>${name}</b> ${serviceStr}`
+        if (isFo) return `You have <b>Approved</b> application ${nameStr} ${serviceStr}`;
+        if (isBo) return `You have new application ${nameStr} ${serviceStr}`
         else return '';
       case 'rejectApplicationFromFrontOffice':
-        if (isFo) return `You have <b>Rejected</b> application from <b>${name}</b> ${serviceStr}`;
+        if (isFo) return `You have <b>Rejected</b> application ${nameStr} ${serviceStr}`;
         else return '';
       case 'approveApplicationFromBackOffice':
-        if (isFo) return `Application from <b>${name}</b> ${serviceStr} is <b>Completed</b>`;
-        if (isBo) return `You have <b>Approved</b> application from <b>${name}</b> ${serviceStr}`;
+        if (isFo) return `Application ${nameStr} ${serviceStr} is <b>Completed</b>`;
+        if (isBo) return `You have <b>Approved</b> application ${nameStr} ${serviceStr}`;
         else return '';
       case 'rejectApplicationFromBackOffice':
-        if (isFo) return `Application from <b>${name}</b> ${serviceStr} is <b>Rejected</b>`;
-        if (isBo) return `You have <b>Rejected</b> application from <b>${name}</b> ${serviceStr}`;
+        if (isFo) return `Application ${nameStr} ${serviceStr} is <b>Rejected</b>`;
+        if (isBo) return `You have <b>Rejected</b> application ${nameStr} ${serviceStr}`;
         else return '';
       case 'createAppointment':
-        if (isFo) return `You have new <b>Appointment</b> request from <b>${name}</b> ${serviceStr}`;
+        if (isFo) return `You have new <b>Appointment</b> request ${nameStr} ${serviceStr}`;
         else return '';
       case 'rescheduleAppointment':
-        if (isFo) return `You have rescheduled <b>Appointment</b> request from <b>${name}</b> ${serviceStr}`;
+        if (isFo) return `You have rescheduled <b>Appointment</b> request ${nameStr} ${serviceStr}`;
         else return '';
       case 'approveAppointment':
-        if (isFo) return `You have <b>Approved</b> appointment request from <b>${name}</b> ${serviceStr}`;
+        if (isFo) return `You have <b>Approved</b> appointment request ${nameStr} ${serviceStr}`;
         else return '';
       case 'rejectAppointment':
-        if (isFo) return `You have Rejected appointment request from <b>${name}</b> ${serviceStr}`;
+        if (isFo) return `You have Rejected appointment request ${nameStr} ${serviceStr}`;
         else return '';
       default:
         return '';
