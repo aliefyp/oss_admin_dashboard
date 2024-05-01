@@ -16,6 +16,7 @@ import React from 'react';
 import Notification from 'components/Notification';
 import UserNav from 'components/UserNav';
 import useSidebarMenu from 'usecase/useSidebarMenu';
+import { MAIN_LOGO } from 'constants/assets';
 
 const drawerWidth = 240;
 
@@ -56,7 +57,7 @@ export default function MainLayout({ language, onLanguageChange }: Props) {
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <a href="/">
-            <img width={80} src="/logo_main.jpeg" alt="Balkaun Uniku" className='rounded-lg' />
+            <img width={80} src={MAIN_LOGO} alt="Balkaun Uniku" className='rounded-lg' />
           </a>
           <div className="flex items-center gap-2">
             <LanguageSelector language={language} onLanguageChange={onLanguageChange} />

@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import LanguageSelector from 'components/LanguageSelector';
 import Footer from './Footer';
+import { AUTH_BANNER, MAIN_LOGO } from "constants/assets";
 
 interface Props {
   language: string;
@@ -23,7 +24,7 @@ const AuthLayout = ({ language, onLanguageChange }: Props) => {
     <div className="h-screen w-screen flex flex-col">
       <div className="grow items-stretch grid grid-cols-1 lg:grid-cols-2 overflow-auto">
         <img
-          src='/hero_login.jpeg'
+          src={AUTH_BANNER}
           alt='Login'
           className='object-cover hidden lg:block w-full'
           style={{ height: 'calc(100vh - 52px)' }}
@@ -38,7 +39,7 @@ const AuthLayout = ({ language, onLanguageChange }: Props) => {
           >
             <Toolbar sx={{ justifyContent: 'space-between' }}>
               <a href="/" className="block">
-                <img width={80} src="/logo_main.jpeg" alt="Balkaun Uniku" className="rounded-lg" />
+                <img width={80} src={MAIN_LOGO} alt="Balkaun Uniku" className="rounded-lg" />
               </a>
               <LanguageSelector language={language} onLanguageChange={onLanguageChange} />
             </Toolbar>
