@@ -163,26 +163,22 @@ const Notification: React.FC = () => {
 
   if (isFetching) return <PageLoader />;
 
-  if (error && !isFetching) {
-    return (
-      <EmptyState type="error" title="Error">{error.message}</EmptyState>
-    )
-  }
-
-  if ((!logData || (!isFo && !isBo)) && !isFetching) {
-    return (
-      <EmptyState type="empty" title="No Notification">
-        No notification found.
-      </EmptyState>
-    )
-  }
-
   return (
     <>
       <PageHeading withBackButton title="Notification">
-        <Button variant="text" onClick={markAllAsUnRead}>Mark as Unread</Button>
+        {logData?.length > 0 && (
+          <Button variant="text" onClick={markAllAsUnRead}>Mark as Unread</Button>
+        )}
       </PageHeading>
-      {dates.map((date) => (
+      {(error && !isFetching) && (
+        <EmptyState type="error" title="Error">{error.message}</EmptyState>
+      )}
+      {(!logData?.length || (!isFo && !isBo)) && !isFetching && (
+        <EmptyState type="empty" title="Ooops..">
+          No notification found.
+        </EmptyState>
+      )}
+      {logData?.length > 0 && dates?.map((date) => (
         <div key={date} className="mb-4">
           <Typography variant="h6" className="!mb-2">{date}</Typography>
           {groupedByDate[date].map((item) => (
