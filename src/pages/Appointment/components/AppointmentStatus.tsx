@@ -1,6 +1,6 @@
 import { ArrowDropDownOutlined } from "@mui/icons-material";
 import { Button, Chip, CircularProgress, Menu, MenuItem, Typography } from "@mui/material";
-import { useUpdateAppoinment } from "api/appointment";
+import { useUpdateAppoinmentStatus } from "api/appointment";
 import { APPOINTMENT_STATUS_COLOR } from "constants/appointment";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -21,7 +21,7 @@ const AppointmentStatus = ({ appointmentId, status, refetch }: Props) => {
 
   const [loading, setLoading] = useState(false);
 
-  const updateStatus = useUpdateAppoinment({ appointmentId })
+  const updateStatus = useUpdateAppoinmentStatus({ appointmentId })
 
   const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
