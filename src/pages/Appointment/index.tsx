@@ -47,7 +47,7 @@ const Appointment = () => {
   })) || [];
 
   const listMunicipality = dataMunicipality?.data?.map((item) => ({
-    itemId: item.code,
+    itemId: item.id,
     itemLabel: item.name,
   })) || [];
 
@@ -63,7 +63,7 @@ const Appointment = () => {
     defaultValue: "0",
     groups: [
       { groupId: 'ServiceId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
-      { groupId: 'OfficeLocationCode', groupLabel: t('filter_label.office'), items: listMunicipality, disabled: !!auth.regions?.length },
+      { groupId: 'StateId', groupLabel: t('filter_label.office'), items: listMunicipality, disabled: !!auth.regions?.length },
     ],
   });
 
@@ -94,7 +94,7 @@ const Appointment = () => {
       PageSize: String(paginationModel.pageSize),
       ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
       ...(filter.ServiceId !== '0' ? { ServiceId: String(filter.ServiceId) } : {}),
-      ...(filter.OfficeLocationCode !== '0' ? { OfficeLocationCode: String(filter.OfficeLocationCode) } : {}),
+      ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
       ...(date[0] ? { ScheduleAtStart: dayjs(date[0]).format('YYYY-MM-DD') } : {}),
       ...(date[1] ? { ScheduleAtEnd: dayjs(date[1]).format('YYYY-MM-DD') } : {}),
     });
