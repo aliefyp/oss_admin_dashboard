@@ -32,7 +32,7 @@ const LaguageSelector = ({ language, onLanguageChange }) => {
 
   return (
     // TODO: remove hidden when the language is ready
-    <div className='hidden'>
+    <div className={process.env.REACT_APP_ENV === 'staging' ? 'block' : 'hidden'}>
       <Button
         id="language-selector"
         variant="text"
