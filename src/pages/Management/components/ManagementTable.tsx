@@ -6,14 +6,14 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HiPencil, HiTrash } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-import { Response as ApplicationResponse } from 'types/application/applications';
+import { Response as OfficersResponse } from 'types/officer/officers';
 
 interface PaginationModel {
   page: number;
   pageSize: number;
 }
 interface Props {
-  data: ApplicationResponse;
+  data: OfficersResponse;
   loading: boolean;
   error: Error;
   paginationModel: PaginationModel;
@@ -22,7 +22,7 @@ interface Props {
   onDelete: (id: number) => void;
 }
 
-const ApplicantTable = ({
+const ManagementTable = ({
   data,
   loading,
   error,
@@ -154,4 +154,4 @@ const ApplicantTable = ({
   );
 }
 
-export default ApplicantTable;
+export default ManagementTable;

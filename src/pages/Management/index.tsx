@@ -6,14 +6,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import { useServicesType } from "api/service";
 import { useMunicipality } from "api/region";
-import { useApplications } from "api/application";
-// import { useOptionsApprovalStatus } from "api/options";
+import { useOfficers } from "api/officer";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
-// import PageLoader from "components/PageLoader";
 import useGroupFilter from "usecase/useGroupFilter";
 import ManagementTable from "./components/ManagementTable";
-// import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
 import { HiOutlinePlus } from "react-icons/hi";
 
 const Management: React.FC = () => {
@@ -39,10 +36,10 @@ const Management: React.FC = () => {
   });
 
   const {
-    data: dataApplications,
-    isFetching: loadingApplications,
-    error: errorApplications,
-  } = useApplications();
+    data: dataOfficers,
+    isFetching: loadingOfficers,
+    error: errorOfficers,
+  } = useOfficers();
 
   const listService = dataServicesType?.data?.map((item) => ({
     itemId: item.code,
@@ -133,7 +130,7 @@ const Management: React.FC = () => {
           </div>
           <div className="flex items-center gap-2">
             <Typography variant="caption" className="text-gray-600 block">
-              <span dangerouslySetInnerHTML={{ __html: t('page_management.total_user', { count: dataApplications?.metadata?.totalCount }) }} />
+              <span dangerouslySetInnerHTML={{ __html: t('page_management.total_user', { count: dataOfficers?.metadata?.totalCount }) }} />
             </Typography>
             {(hasFilter || hasSearch) && (
               <div className="flex items-center gap-2">
@@ -167,9 +164,9 @@ const Management: React.FC = () => {
           <ManagementTable
             paginationModel={paginationModel}
             setPaginationModel={setPaginationModel}
-            data={dataApplications}
-            loading={loadingApplications}
-            error={errorApplications}
+            data={dataOfficers}
+            loading={loadingOfficers}
+            error={errorOfficers}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
