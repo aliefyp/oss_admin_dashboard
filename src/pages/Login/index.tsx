@@ -3,14 +3,11 @@ import { useTranslation } from "react-i18next";
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import {
   Button,
-  Input,
-  FormControl,
   IconButton,
-  InputLabel,
   InputAdornment,
   Link,
   Typography,
-  FormHelperText
+  TextField
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -107,42 +104,33 @@ const Login = () => {
           {t('login.subtitle')}
         </Typography>
         <form autoComplete='off' noValidate onSubmit={handleSubmit(submitForm)} className="space-y-4">
-          <FormControl sx={{ my: 2, width: '100%' }} variant="outlined" required>
-            <InputLabel htmlFor="email" variant='outlined'>{t('login.label_email')}</InputLabel>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete='false'
-              aria-describedby='email-helper-text'
-              error={!!errors.email}
-              {...register('email', {
-                required: {
-                  value: true,
-                  message: t('login.error_email_required'),
-                },
-                pattern: {
-                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: t('login.error_email_invalid')
-                }
-              })}
-            />
-            {errors.email && (
-              <FormHelperText error={Boolean(errors.email)} id="email-helper-text">
-                {errors.email.message || ''}
-              </FormHelperText>
-            )}
-          </FormControl>
-          <FormControl sx={{ my: 2, width: '100%' }} variant="outlined" required>
-            <InputLabel htmlFor="password" variant='outlined'>{t('login.label_password')}</InputLabel>
-            <Input
-              id="password"
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              autoComplete='false'
-              aria-describedby='password-helper-text'
-              error={!!errors.password}
-              endAdornment={
+          <TextField
+            fullWidth
+            required
+            variant="standard"
+            label={t('login.label_email')}
+            error={!!errors.email}
+            helperText={errors.email?.message}
+            sx={{ my: 2 }}
+            {...register('email', {
+              required: t('login.error_email_required'),
+              pattern: {
+                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: t('login.error_email_invalid')
+              }
+            })}
+          />
+          <TextField
+            fullWidth
+            required
+            variant="standard"
+            label={t('login.label_password')}
+            error={!!errors.password}
+            helperText={errors.password?.message}
+            sx={{ my: 2 }}
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -153,28 +141,20 @@ const Login = () => {
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
+              )
+            }}
+            {...register('password', {
+              required: t('login.error_password_required'),
+              minLength: {
+                value: 8,
+                message: t('login.error_password_min', { count: 8 })
+              },
+              pattern: {
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+                message: t('login.error_password_invalid')
               }
-              {...register('password', {
-                required: {
-                  value: true,
-                  message: t('login.error_password_required'),
-                },
-                minLength: {
-                  value: 8,
-                  message: t('login.error_password_min', { count: 8 })
-                },
-                pattern: {
-                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
-                  message: t('login.error_password_invalid')
-                }
-              })}
-            />
-            {errors.password && (
-              <FormHelperText error={Boolean(errors.password)} id="password-helper-text">
-                {errors.password.message || ''}
-              </FormHelperText>
-            )}
-          </FormControl>
+            })}
+          />
           <div className="space-y-4 mt-4">
             <Button type="submit" size="large" variant="contained" className="w-full">
               <span className="py-2">

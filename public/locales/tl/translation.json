@@ -405,29 +405,12 @@
       "label_first_name": "First Name",
       "label_last_name": "Last Name",
       "label_email": "Email",
-      "label_id_card": "ID Card",
+      "label_id_card": "Role",
       "label_phone_number": "Númeru Telefone",
       "label_organization": "Organization"
     },
-    "section_role": {
-      "title": "Choose Role",
-      "role_fo": "FO",
-      "role_fo_description": "This role assisting visitors and managing inquiries effectively",
-      "role_fom": "FO Manager",
-      "role_fom_description": "This role assisting visitors and managing inquiries effectively",
-      "role_bo": "BO",
-      "role_bo_description": "This role assisting visitors and managing inquiries effectively",
-      "role_bom": "BO Manager",
-      "role_bom_description": "This role assisting visitors and managing inquiries effectively",
-      "role_admin": "Super Admin",
-      "role_admin_description": "This role assisting visitors and managing inquiries effectively"
-    },
-    "section_services": {
-      "title": "Choose Services"
-    },
-    "section_municipality_area": {
-      "title": "Choose Municipality Area",
-      "label_municipality": "Municipality"
+    "section_municipality": {
+      "title": "Choose Municipality Area"
     },
     "modal_confirmation": {
       "update_title": "Are Your Sure to Update?",

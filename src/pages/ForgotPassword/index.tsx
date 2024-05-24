@@ -1,12 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
 import { useForm } from 'react-hook-form';
-import { FormHelperText } from '@mui/material';
+import { TextField } from '@mui/material';
 import useToaster from 'usecase/useToaster';
 import PageLoader from 'components/PageLoader';
 import { useForgetPassword } from 'api/auth';
@@ -81,32 +78,21 @@ const ForgotPassword = () => {
           {t('forgot_password.subtitle')}
         </Typography>
         <form autoComplete='off' noValidate onSubmit={handleSubmit(submitForm)}>
-          <FormControl sx={{ my: 2, width: '100%' }} variant="outlined" required>
-            <InputLabel htmlFor="email" variant='outlined'>{t('forgot_password.label_email')}</InputLabel>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete='false'
-              aria-describedby='email-helper-text'
-              error={!!errors.email}
-              {...register('email', {
-                required: {
-                  value: true,
-                  message: t('forgot_password.error_email_required'),
-                },
-                pattern: {
-                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: t('forgot_password.error_email_invalid')
-                }
-              })}
-            />
-            {errors.email && (
-              <FormHelperText error={Boolean(errors.email)} id="email-helper-text">
-                {errors.email.message || ''}
-              </FormHelperText>
-            )}
-          </FormControl>
+          <TextField
+            fullWidth
+            variant="standard"
+            sx={{ mb: 2 }}
+            label={t('forgot_password.label_email')}
+            error={!!errors.email}
+            helperText={errors.email?.message}
+            {...register('email', {
+              required: t('forgot_password.error_email_required'),
+              pattern: {
+                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: t('forgot_password.error_email_invalid')
+              }
+            })}
+          />
           {codeSent ? (
             <Typography className='text-center text-gray-500 mt-6'>
               {t('forgot_password.resend_code', { time: countdown })}

@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
-import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useForm } from 'react-hook-form';
-import { FormHelperText } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useResetPassword } from 'api/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useToaster from 'usecase/useToaster';
@@ -49,6 +46,9 @@ const ResetPassword = () => {
 
   const typedPassword = watch('password');
 
+  const watchPassword = watch('password');
+  const watchConfirmPassword = watch('confirm_password');
+
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show)
   };
@@ -65,7 +65,7 @@ const ResetPassword = () => {
     event.preventDefault();
   };
 
-  const isDisabled = !valid.uppercase || !valid.lowercase || !valid.number || !valid.specialCharacter;
+  const isDisabled = !valid.uppercase || !valid.lowercase || !valid.number || !valid.specialCharacter || watchPassword !== watchConfirmPassword;
 
   const submitForm = (val: ResetPasswordForm) => {
     const { password } = val;
@@ -103,16 +103,16 @@ const ResetPassword = () => {
         {t('reset_password.title')}
       </Typography>
       <form autoComplete='off' noValidate onSubmit={handleSubmit(submitForm)}>
-        <FormControl sx={{ my: 2, width: '100%' }} variant="outlined" required>
-          <InputLabel htmlFor="password" variant='outlined'>{t('reset_password.label_password')}</InputLabel>
-          <Input
-            id="password"
-            name="password"
-            type={showPassword ? 'text' : 'password'}
-            autoComplete='false'
-            aria-describedby='password-helper-text'
-            error={!!errors.password}
-            endAdornment={
+        <TextField
+          fullWidth
+          variant="standard"
+          sx={{ mb: 2 }}
+          label={t('reset_password.label_password')}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          InputProps={{
+            type: showPassword ? 'text' : 'password',
+            endAdornment: (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
@@ -123,34 +123,29 @@ const ResetPassword = () => {
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
+            ),
+          }}
+          {...register('password', {
+            required: {
+              value: true,
+              message: t('reset_password.error_password_required'),
+            },
+            minLength: {
+              value: 6,
+              message: t('reset_password.error_password_min')
             }
-            {...register('password', {
-              required: {
-                value: true,
-                message: t('reset_password.error_password_required'),
-              },
-              minLength: {
-                value: 6,
-                message: t('reset_password.error_password_min')
-              }
-            })}
-          />
-          {errors.password && (
-            <FormHelperText error={Boolean(errors.password)} id="password-helper-text">
-              {errors.password.message || ''}
-            </FormHelperText>
-          )}
-        </FormControl>
-        <FormControl sx={{ my: 2, width: '100%' }} variant="outlined" required>
-          <InputLabel htmlFor="confirm_password" variant='outlined'>{t('reset_password.label_confirm_password')}</InputLabel>
-          <Input
-            id="confirm_password"
-            name="confirm_password"
-            type={showConfirmPassword ? 'text' : 'password'}
-            autoComplete='false'
-            aria-describedby='confirm-password-helper-text'
-            error={!!errors.password}
-            endAdornment={
+          })}
+        />
+        <TextField
+          fullWidth
+          variant="standard"
+          sx={{ mb: 2 }}
+          label={t('reset_password.label_confirm_password')}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          InputProps={{
+            type: showConfirmPassword ? 'text' : 'password',
+            endAdornment: (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
@@ -161,24 +156,19 @@ const ResetPassword = () => {
                   {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
+            ),
+          }}
+          {...register('confirm_password', {
+            required: {
+              value: true,
+              message: t('reset_password.error_confirm_password_required'),
+            },
+            minLength: {
+              value: 6,
+              message: t('reset_password.error_confirm_password_min')
             }
-            {...register('confirm_password', {
-              required: {
-                value: true,
-                message: t('reset_password.error_confirm_password_required'),
-              },
-              minLength: {
-                value: 6,
-                message: t('reset_password.error_confirm_password_min')
-              }
-            })}
-          />
-          {errors.confirm_password && (
-            <FormHelperText error={Boolean(errors.confirm_password)} id="confirm-password-helper-text">
-              {errors.confirm_password.message || ''}
-            </FormHelperText>
-          )}
-        </FormControl>
+          })}
+        />
         <div className='grid grid-cols-2 gap-4 py-6'>
           <div className="col-span-2">
             <Typography className="text-gray-500">{t('reset_password.validation.title')}</Typography>

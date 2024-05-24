@@ -43,13 +43,13 @@ const setupTheme = () => createTheme({
         },
       },
     },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          transform: 'translate(0, -9px) scale(0.75)',
-        },
-      },
-    },
+    // MuiInputLabel: {
+    //   styleOverrides: {
+    //     root: {
+    //       transform: 'translate(0, -9px) scale(0.75)',
+    //     },
+    //   },
+    // },
     MuiFormHelperText: {
       styleOverrides: {
         root: {

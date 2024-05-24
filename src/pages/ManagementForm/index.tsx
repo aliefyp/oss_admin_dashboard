@@ -1,54 +1,65 @@
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from "@mui/material";
-import { useMunicipality } from "api/region";
-import { useServicesType } from "api/service";
-import PageHeading from "components/PageHeading";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import ModalConfirmation from "./components/ModalConfirmation";
-import { useState } from "react";
-import ModalSuccess from "./components/ModalSuccess";
 import { Controller, useForm } from "react-hook-form";
+import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { useMunicipality } from "api/region";
+import PageHeading from "components/PageHeading";
+import ModalConfirmation from "./components/ModalConfirmation";
+import ModalSuccess from "./components/ModalSuccess";
 
 interface AccountForm {
   first_name: string;
   last_name: string;
   email: string;
   phone_number: string;
-  id_card: string;
   organization: string;
   role: string;
   services: string[];
-  municipality: string;
+  municipality: string[];
 }
 
 const ROLES = [
-  { id: 1, key: 'fo', name: 'FO', description: 'This role assisting visitors and managing inquiries effectively' },
-  { id: 2, key: 'fom', name: 'FO Manager', description: 'This role assisting visitors and managing inquiries effectively' },
-  { id: 3, key: 'bo', name: 'BO', description: 'This role assisting visitors and managing inquiries effectively' },
-  { id: 4, key: 'bom', name: 'BO Manager', description: 'This role assisting visitors and managing inquiries effectively' },
-  { id: 5, key: 'admin', name: 'Super Admin', description: 'This role assisting visitors and managing inquiries effectively' },
+  { id: '1', key: 'fo', name: 'FO' },
+  { id: '2', key: 'fom', name: 'FO Manager' },
+  { id: '3', key: 'bo', name: 'BO' },
+  { id: '4', key: 'bom', name: 'BO Manager' },
+  { id: '5', key: 'admin', name: 'Super Admin' },
 ]
 
 const ManagementForm = () => {
   const { t } = useTranslation();
   const { user_id } = useParams();
 
-  const { watch, control, register, handleSubmit, formState } = useForm<AccountForm>({
+  const { watch, control, register, handleSubmit, formState, setValue } = useForm<AccountForm>({
     defaultValues: {
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone_number: '',
-      id_card: '',
-      organization: '',
-      role: '',
+      first_name: undefined,
+      last_name: undefined,
+      email: undefined,
+      phone_number: undefined,
+      organization: undefined,
+      role: undefined,
       services: [],
-      municipality: '',
+      municipality: ['0'],
     }
   });
-  const watchServices = watch('services');
 
-  console.log(formState.errors)
+  const watchMunicipality = watch('municipality');
+
+  useEffect(() => {
+    const hasMunicipalityAll = watchMunicipality.includes('0');
+    const lastMunicipality = watchMunicipality?.[watchMunicipality?.length - 1];
+    const lastMunicipalityIsAll = lastMunicipality === '0';
+
+    if (hasMunicipalityAll && watchMunicipality.length > 1) {
+      if (lastMunicipalityIsAll) {
+        setValue('municipality', ['0']);
+      } else {
+        setValue('municipality', watchMunicipality.filter((item: string) => item !== '0'));
+      }
+    }
+
+  }, [setValue, watchMunicipality])
 
   const [modalConfirmation, setModalConfirmation] = useState({
     open: false,
@@ -72,20 +83,14 @@ const ManagementForm = () => {
 
   const isEdit = !!user_id;
 
-  const { data: dataServices } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({
     countryCode: 'TL',
   });
 
-  const serviceList = dataServices?.data?.map((item) => ({
+  const municipalityList = [{ key: '0', label: 'All Municipality' }, ...dataMunicipality?.data?.map((item) => ({
     key: item.code,
     label: item.name,
-  })) || [];
-
-  const municipalityList = dataMunicipality?.data?.map((item) => ({
-    key: item.code,
-    label: item.name,
-  })) || [];
+  })) || []];
 
   const handleEdit = (data: AccountForm) => {
     setModalConfirmation({ ...modalConfirmation, open: false });
@@ -131,7 +136,6 @@ const ManagementForm = () => {
                 <TextField
                   variant="standard"
                   label={t('page_management_form.section_identity.label_first_name')}
-                  placeholder={t('page_management_form.section_identity.label_first_name')}
                   fullWidth
                   required
                   error={!!formState.errors.first_name}
@@ -143,10 +147,10 @@ const ManagementForm = () => {
                     }
                   })}
                 />
+
                 <TextField
                   variant="standard"
                   label={t('page_management_form.section_identity.label_last_name')}
-                  placeholder={t('page_management_form.section_identity.label_last_name')}
                   fullWidth
                   required
                   error={!!formState.errors.last_name}
@@ -158,69 +162,110 @@ const ManagementForm = () => {
                     }
                   })}
                 />
+
                 <TextField
                   variant="standard"
                   label={t('page_management_form.section_identity.label_email')}
-                  placeholder={t('page_management_form.section_identity.label_email')}
                   fullWidth
                   required
                   error={!!formState.errors.email}
                   helperText={formState.errors.email?.message}
                   {...register('email', {
-                    required: { value: true, message: 'This field is required' },
-                    pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' }
+                    required: {
+                      value: true,
+                      message: 'This field is required'
+                    },
+                    pattern: {
+                      value: /^\S+@\S+$/i,
+                      message: 'Invalid email address'
+                    }
                   })}
                 />
+
                 <TextField
                   variant="standard"
                   label={t('page_management_form.section_identity.label_phone_number')}
-                  placeholder={t('page_management_form.section_identity.label_phone_number')}
                   fullWidth
                   required
                   error={!!formState.errors.phone_number}
                   helperText={formState.errors.phone_number?.message}
                   {...register('phone_number', {
-                    required: { value: true, message: 'This field is required' },
-                    pattern: { value: /^\d+$/, message: 'Invalid phone number' }
-                  })}
-                />
-                <TextField
-                  variant="standard"
-                  label={t('page_management_form.section_identity.label_id_card')}
-                  placeholder={t('page_management_form.section_identity.label_id_card')}
-                  fullWidth
-                  required
-                  error={!!formState.errors.id_card}
-                  helperText={formState.errors.id_card?.message}
-                  {...register('id_card', {
                     required: {
                       value: true,
                       message: 'This field is required'
+                    },
+                    pattern: {
+                      value: /^\d+$/,
+                      message: 'Invalid phone number'
                     }
                   })}
                 />
 
                 <FormControl>
-                  <InputLabel error={!!formState.errors.organization}>{t('page_management_form.section_identity.label_organization')}</InputLabel>
-                  <Select
-                    variant="standard"
-                    labelId="organization"
-                    id="input-organization"
-                    label={t('page_management_form.section_identity.label_organization')}
-                    placeholder={t('page_management_form.section_identity.label_organization')}
-                    error={!!formState.errors.organization}
-                    {...register('organization', {
-                      required: {
-                        value: true,
-                        message: 'This field is required'
-                      },
-                    })}
+                  <InputLabel
+                    id="input-role-label"
+                    required
+                    sx={{
+                      [`&.MuiInputLabel-root`]: {
+                        marginLeft: '-14px',
+                      }
+                    }}
                   >
-                    <MenuItem value="0" className=" !text-gray-400">{t('page_management_form.section_identity.label_organization')}</MenuItem>
-                    {/* {DUMMY_REASON.map((svc) => (
-                      <MenuItem key={svc.id} value={svc.id}>{svc.name}</MenuItem>
-                    ))} */}
-                  </Select>
+                    {t('page_management_form.section_identity.label_role')}
+                  </InputLabel>
+                  <Controller
+                    control={control}
+                    name="role"
+                    render={({ field: { onChange, value } }) => (
+                      <Select
+                        variant="standard"
+                        labelId="role"
+                        id="input-role"
+                        error={!!formState.errors.role}
+                        value={value}
+                        onChange={(e) => onChange(e.target.value)}
+                      >
+                        {ROLES.map((role) => (
+                          <MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {formState.errors.role?.message && (
+                    <FormHelperText error>{formState.errors.role?.message}</FormHelperText>
+                  )}
+                </FormControl>
+
+                <FormControl>
+                  <InputLabel
+                    id="input-organization-label"
+                    required
+                    sx={{
+                      [`&.MuiInputLabel-root`]: {
+                        marginLeft: '-14px',
+                      }
+                    }}
+                  >
+                    {t('page_management_form.section_identity.label_organization')}
+                  </InputLabel>
+                  <Controller
+                    control={control}
+                    name="organization"
+                    render={({ field: { onChange, value } }) => (
+                      <Select
+                        variant="standard"
+                        labelId="organization"
+                        id="input-organization"
+                        error={!!formState.errors.organization}
+                        value={value}
+                        onChange={(e) => onChange(e.target.value)}
+                      >
+                        {/* {DUMMY_REASON.map((svc) => (
+                          <MenuItem key={svc.id} value={svc.id}>{svc.name}</MenuItem>
+                        ))} */}
+                      </Select>
+                    )}
+                  />
                   {formState.errors.organization?.message && (
                     <FormHelperText error>{formState.errors.organization?.message}</FormHelperText>
                   )}
@@ -229,57 +274,28 @@ const ManagementForm = () => {
             </section>
 
             <section>
-              <Typography variant="h5">{t('page_management_form.section_role.title')}</Typography>
-              <RadioGroup
-                className="!grid grid-cols-4 gap-6 my-6"
-                {...register('role', {
-                  required: {
-                    value: true,
-                    message: 'This field is required'
-                  }
-                })}>
-                {ROLES.map(role => (
-                  <FormControlLabel
-                    value={role.id}
-                    control={<Radio />}
-                    className="!items-start"
-                    label={(
-                      <div>
-                        <Typography variant="h6">{t(`page_management_form.section_role.role_${role.key}`)}</Typography>
-                        <Typography variant="body2">{t(`page_management_form.section_role.role_${role.key}_description`)}</Typography>
-                      </div>
-                    )}
-                  />
-                ))}
-              </RadioGroup>
-              {formState.errors.role?.message && (
-                <FormHelperText error>{formState.errors.role?.message}</FormHelperText>
-              )}
-            </section>
-
-            <section>
-              <Typography variant="h5">{t('page_management_form.section_services.title')}</Typography>
-              <FormGroup className="!grid grid-cols-4 gap-6 mt-6">
-                {serviceList.map(service => (
+              <Typography variant="h5">{t('page_management_form.section_municipality.title')}</Typography>
+              <FormGroup className="!grid grid-cols-4 gap-2 mt-6">
+                {municipalityList.map(municipality => (
                   <Controller
-                    key={service.key}
+                    key={municipality.key}
                     control={control}
-                    name="services"
+                    name="municipality"
                     render={({ field: { onChange, value } }) => {
                       return (
                         <FormControlLabel
-                          label={t(`services.${service.label}`)}
+                          label={municipality.label}
                           control={
                             <Checkbox
-                              value={service.key}
-                              checked={value?.includes(service.key)}
+                              value={municipality.key}
+                              checked={value?.includes(municipality.key)}
                               onChange={e => {
                                 if (e.target.checked) {
-                                  onChange([...watchServices, e.target.value]);
+                                  onChange([...watchMunicipality, e.target.value]);
                                   return;
                                 }
 
-                                onChange(watchServices?.filter((item: string) => item !== e.target.value));
+                                onChange(watchMunicipality?.filter((item: string) => item !== e.target.value));
                               }}
                             />
                           }
@@ -288,34 +304,6 @@ const ManagementForm = () => {
                     }}
                   />
                 ))}
-                {formState.errors.services?.message && (
-                  <FormHelperText error>{formState.errors.services?.message}</FormHelperText>
-                )}
-              </FormGroup>
-            </section>
-
-            <section>
-              <Typography variant="h5">{t('page_management_form.section_municipality_area.title')}</Typography>
-              <FormGroup className="mt-6 w-1/2">
-                <Select
-                  variant="standard"
-                  labelId="municipality"
-                  id="input-municipality"
-                  defaultValue="0"
-                  label={t('page_management_form.section_municipality_area.label_municipality')}
-                  placeholder={t('page_management_form.section_municipality_area.label_municipality')}
-                  {...register('municipality', {
-                    required: {
-                      value: true,
-                      message: 'This field is required'
-                    }
-                  })}
-                >
-                  <MenuItem value="0" className=" !text-gray-400">{t('page_management_form.section_municipality_area.label_municipality')}</MenuItem>
-                  {municipalityList.map((m) => (
-                    <MenuItem key={m.key} value={m.key}>{m.label}</MenuItem>
-                  ))}
-                </Select>
                 {formState.errors.municipality?.message && (
                   <FormHelperText error>{formState.errors.municipality?.message}</FormHelperText>
                 )}

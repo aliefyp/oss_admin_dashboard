@@ -47,7 +47,14 @@ const ModalRescheduleConfirmation = ({ open, onClose, onConfirm }: ModalReschedu
       >
         <div className="space-y-8 mt-4">
           <FormControl className="w-full">
-            <InputLabel id="label-reason">
+            <InputLabel
+              id="label-reason"
+              sx={{
+                [`&.MuiInputLabel-root`]: {
+                  marginLeft: '-14px',
+                }
+              }}
+            >
               {t('page_appointment_detail.modal_reject.label_reason')}
             </InputLabel>
             <Select

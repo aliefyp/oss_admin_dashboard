@@ -405,29 +405,12 @@
       "label_first_name": "Primeiro nome",
       "label_last_name": "Sobrenome",
       "label_email": "E-mail",
-      "label_id_card": "Carteira de identidade",
+      "label_role": "Papel",
       "label_phone_number": "Número de telefone",
       "label_organization": "Organização"
     },
-    "section_role": {
-      "title": "Escolha a função",
-      "role_fo": "FO",
-      "role_fo_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz",
-      "role_fom": "Gerente de FO",
-      "role_fom_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz",
-      "role_bo": "BO",
-      "role_bo_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz",
-      "role_bom": "Gerente de BO",
-      "role_bom_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz",
-      "role_admin": "Superadministrador",
-      "role_admin_description": "Esta função auxilia os visitantes e gerencia as consultas de maneira eficaz"
-    },
-    "section_services": {
-      "title": "Escolha os serviços"
-    },
-    "section_municipality_area": {
-      "title": "Escolha a área do município",
-      "label_municipality": "Município"
+    "section_municipality": {
+      "title": "Escolha a área do município"
     },
     "modal_confirmation": {
       "update_title": "Você tem certeza de atualizar?",
