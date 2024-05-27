@@ -70,7 +70,7 @@ const Management: React.FC = () => {
   });
 
   const handleEdit = async (id: number) => {
-    navigate(`/management/${id}`);
+    navigate(`/management/form/${id}`);
   }
 
   const handleDelete = (id: number) => {
@@ -99,7 +99,7 @@ const Management: React.FC = () => {
   return (
     <>
       <PageHeading title={t('page_management.title')}>
-        <Button variant="text" startIcon={<HiOutlinePlus />} onClick={() => navigate('/management/new')}>
+        <Button variant="text" startIcon={<HiOutlinePlus />} onClick={() => navigate('/management/form')}>
           {t('page_management.add_new_account')}
         </Button>
       </PageHeading>

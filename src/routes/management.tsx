@@ -16,8 +16,7 @@ function ManagementRoute() {
   return (
     <Routes>
       <Route path="/" element={<LazyManagement />} />
-      <Route path="/new" element={<LazyManagementForm />} />
-      <Route path="/edit/:user_id?" element={<LazyManagementForm />} />
+      <Route path="/form/:user_id?" element={<LazyManagementForm />} />
     </Routes>
   );
 }

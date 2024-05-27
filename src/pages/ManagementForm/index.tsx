@@ -1,66 +1,29 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
-import { Controller, useForm } from "react-hook-form";
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMunicipality } from "api/region";
 import PageHeading from "components/PageHeading";
 import ModalConfirmation from "./components/ModalConfirmation";
 import ModalSuccess from "./components/ModalSuccess";
-
-interface AccountForm {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone_number: string;
-  organization: string;
-  role: string;
-  services: string[];
-  municipality: string[];
-}
-
-const ROLES = [
-  { id: '1', key: 'fo', name: 'FO' },
-  { id: '2', key: 'fom', name: 'FO Manager' },
-  { id: '3', key: 'bo', name: 'BO' },
-  { id: '4', key: 'bom', name: 'BO Manager' },
-  { id: '5', key: 'admin', name: 'Super Admin' },
-]
+import { useCreateOfficer, useOfficerDetail, useUpdateOfficer } from "api/officer";
+import PageLoader from "components/PageLoader";
+import { UserFormType } from "./types";
+import UserForm from "./components/UserForm";
+import useToaster from "usecase/useToaster";
 
 const ManagementForm = () => {
+  const toaster = useToaster();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const { user_id } = useParams();
+  const isEdit = !!user_id;
 
-  const { watch, control, register, handleSubmit, formState, setValue } = useForm<AccountForm>({
-    defaultValues: {
-      first_name: undefined,
-      last_name: undefined,
-      email: undefined,
-      phone_number: undefined,
-      organization: undefined,
-      role: undefined,
-      services: [],
-      municipality: ['0'],
-    }
-  });
+  const createOfficer = useCreateOfficer();
+  const updateOfficer = useUpdateOfficer();
+  const { data, isFetching } = useOfficerDetail(Number(user_id));
+  const userDetail = data?.data;
 
-  const watchMunicipality = watch('municipality');
-
-  useEffect(() => {
-    const hasMunicipalityAll = watchMunicipality.includes('0');
-    const lastMunicipality = watchMunicipality?.[watchMunicipality?.length - 1];
-    const lastMunicipalityIsAll = lastMunicipality === '0';
-
-    if (hasMunicipalityAll && watchMunicipality.length > 1) {
-      if (lastMunicipalityIsAll) {
-        setValue('municipality', ['0']);
-      } else {
-        setValue('municipality', watchMunicipality.filter((item: string) => item !== '0'));
-      }
-    }
-
-  }, [setValue, watchMunicipality])
-
+  const [loading, setLoading] = useState(false);
   const [modalConfirmation, setModalConfirmation] = useState({
     open: false,
     title: '',
@@ -70,7 +33,6 @@ const ManagementForm = () => {
     onPrimaryClick: () => { },
     onSecondaryClick: () => { },
   });
-
   const [modalSuccess, setModalSuccess] = useState({
     open: false,
     title: '',
@@ -79,29 +41,75 @@ const ManagementForm = () => {
     onConfirm: () => { },
   });
 
-  console.log(setModalSuccess)
-
-  const isEdit = !!user_id;
-
   const { data: dataMunicipality } = useMunicipality({
     countryCode: 'TL',
   });
 
-  const municipalityList = [{ key: '0', label: 'All Municipality' }, ...dataMunicipality?.data?.map((item) => ({
-    key: item.code,
+  const municipalityList = [{ key: 0, label: 'All Municipality' }, ...dataMunicipality?.data?.map((item) => ({
+    key: item.id,
     label: item.name,
   })) || []];
 
-  const handleEdit = (data: AccountForm) => {
+  const isAllMunicipalityChecked = (stateIds: number[]) => {
+    return stateIds.includes(0);
+  }
+
+  const allMunicipalityId = municipalityList.filter(m => m.key !== 0).map(m => m.key);
+
+  const handleEdit = async (data: UserFormType) => {
     setModalConfirmation({ ...modalConfirmation, open: false });
-    console.log('edit', data)
+    try {
+      setLoading(true);
+      const payload = {
+        ...data,
+        stateIds: isAllMunicipalityChecked(data.stateIds) ? allMunicipalityId : data.stateIds,
+      }
+      const res = await updateOfficer(Number(user_id), payload)
+      if (!res) throw new Error('Failed to update officer');
+
+
+      setModalSuccess({
+        open: true,
+        title: t('page_management_form.modal_success.update_title'),
+        description: t('page_management_form.modal_success.update_description'),
+        ctaText: t('page_management_form.modal_success.update_cta'),
+        onConfirm: () => navigate('/management', { replace: true }),
+      })
+    } catch (error) {
+      console.error(error);
+      toaster.open(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const handleCreate = (data: AccountForm) => {
-    console.log('create')
+  const handleCreate = async (data: UserFormType) => {
+    try {
+      setLoading(true);
+      const payload = {
+        ...data,
+        stateIds: isAllMunicipalityChecked(data.stateIds) ? allMunicipalityId : data.stateIds,
+      }
+      const res = await createOfficer(payload)
+      if (!res) throw new Error('Failed to create officer');
+
+
+      setModalSuccess({
+        open: true,
+        title: t('page_management_form.modal_success.create_title'),
+        description: t('page_management_form.modal_success.create_description'),
+        ctaText: t('page_management_form.modal_success.create_cta'),
+        onConfirm: () => navigate('/management', { replace: true }),
+      })
+    } catch (error) {
+      console.error(error);
+      toaster.open(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const submitForm = (data: AccountForm) => {
+  const submitForm = (data: UserFormType) => {
     if (isEdit) {
       setModalConfirmation({
         open: true,
@@ -114,213 +122,51 @@ const ManagementForm = () => {
           setModalConfirmation({ ...modalConfirmation, open: false });
         }
       });
-      return;
+    } else {
+      handleCreate(data);
     }
-
-    handleCreate(data);
   }
+
+  const defaultValues = useMemo(() => {
+    if (!isEdit) {
+      return {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        organizationId: 0,
+        roleGroup: '',
+        stateIds: [0],
+      }
+    };
+
+    return {
+      firstName: userDetail?.firstName || '',
+      lastName: userDetail?.lastName || '',
+      email: userDetail?.email || '',
+      phoneNumber: userDetail?.phoneNumber || '',
+      organizationId: userDetail?.organizationId || 0,
+      roleGroup: userDetail?.roleGroup || '',
+      stateIds: userDetail?.stateIds.length === allMunicipalityId.length ? [0] : userDetail?.stateIds || [0],
+    }
+  }, [isEdit, allMunicipalityId, userDetail])
 
   return (
     <>
+      {isFetching && (
+        <PageLoader />
+      )}
       <div className="max-w-screen-lg">
         <PageHeading
           withBackButton
           title={isEdit ? t('page_management_form.title_edit') : t('page_management_form.title_new')}
         />
-
-        <form noValidate autoComplete="off" onSubmit={handleSubmit(submitForm)}>
-          <div className="space-y-14">
-            <section>
-              <Typography variant="h5">{t('page_management_form.section_identity.title')}</Typography>
-              <div className="grid grid-cols-2 gap-6 gap-y-8 mt-6">
-                <TextField
-                  variant="standard"
-                  label={t('page_management_form.section_identity.label_first_name')}
-                  fullWidth
-                  required
-                  error={!!formState.errors.first_name}
-                  helperText={formState.errors.first_name?.message}
-                  {...register('first_name', {
-                    required: {
-                      value: true,
-                      message: 'This field is required'
-                    }
-                  })}
-                />
-
-                <TextField
-                  variant="standard"
-                  label={t('page_management_form.section_identity.label_last_name')}
-                  fullWidth
-                  required
-                  error={!!formState.errors.last_name}
-                  helperText={formState.errors.last_name?.message}
-                  {...register('last_name', {
-                    required: {
-                      value: true,
-                      message: 'This field is required'
-                    }
-                  })}
-                />
-
-                <TextField
-                  variant="standard"
-                  label={t('page_management_form.section_identity.label_email')}
-                  fullWidth
-                  required
-                  error={!!formState.errors.email}
-                  helperText={formState.errors.email?.message}
-                  {...register('email', {
-                    required: {
-                      value: true,
-                      message: 'This field is required'
-                    },
-                    pattern: {
-                      value: /^\S+@\S+$/i,
-                      message: 'Invalid email address'
-                    }
-                  })}
-                />
-
-                <TextField
-                  variant="standard"
-                  label={t('page_management_form.section_identity.label_phone_number')}
-                  fullWidth
-                  required
-                  error={!!formState.errors.phone_number}
-                  helperText={formState.errors.phone_number?.message}
-                  {...register('phone_number', {
-                    required: {
-                      value: true,
-                      message: 'This field is required'
-                    },
-                    pattern: {
-                      value: /^\d+$/,
-                      message: 'Invalid phone number'
-                    }
-                  })}
-                />
-
-                <FormControl>
-                  <InputLabel
-                    id="input-role-label"
-                    required
-                    sx={{
-                      [`&.MuiInputLabel-root`]: {
-                        marginLeft: '-14px',
-                      }
-                    }}
-                  >
-                    {t('page_management_form.section_identity.label_role')}
-                  </InputLabel>
-                  <Controller
-                    control={control}
-                    name="role"
-                    render={({ field: { onChange, value } }) => (
-                      <Select
-                        variant="standard"
-                        labelId="role"
-                        id="input-role"
-                        error={!!formState.errors.role}
-                        value={value}
-                        onChange={(e) => onChange(e.target.value)}
-                      >
-                        {ROLES.map((role) => (
-                          <MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
-                        ))}
-                      </Select>
-                    )}
-                  />
-                  {formState.errors.role?.message && (
-                    <FormHelperText error>{formState.errors.role?.message}</FormHelperText>
-                  )}
-                </FormControl>
-
-                <FormControl>
-                  <InputLabel
-                    id="input-organization-label"
-                    required
-                    sx={{
-                      [`&.MuiInputLabel-root`]: {
-                        marginLeft: '-14px',
-                      }
-                    }}
-                  >
-                    {t('page_management_form.section_identity.label_organization')}
-                  </InputLabel>
-                  <Controller
-                    control={control}
-                    name="organization"
-                    render={({ field: { onChange, value } }) => (
-                      <Select
-                        variant="standard"
-                        labelId="organization"
-                        id="input-organization"
-                        error={!!formState.errors.organization}
-                        value={value}
-                        onChange={(e) => onChange(e.target.value)}
-                      >
-                        {/* {DUMMY_REASON.map((svc) => (
-                          <MenuItem key={svc.id} value={svc.id}>{svc.name}</MenuItem>
-                        ))} */}
-                      </Select>
-                    )}
-                  />
-                  {formState.errors.organization?.message && (
-                    <FormHelperText error>{formState.errors.organization?.message}</FormHelperText>
-                  )}
-                </FormControl>
-              </div>
-            </section>
-
-            <section>
-              <Typography variant="h5">{t('page_management_form.section_municipality.title')}</Typography>
-              <FormGroup className="!grid grid-cols-4 gap-2 mt-6">
-                {municipalityList.map(municipality => (
-                  <Controller
-                    key={municipality.key}
-                    control={control}
-                    name="municipality"
-                    render={({ field: { onChange, value } }) => {
-                      return (
-                        <FormControlLabel
-                          label={municipality.label}
-                          control={
-                            <Checkbox
-                              value={municipality.key}
-                              checked={value?.includes(municipality.key)}
-                              onChange={e => {
-                                if (e.target.checked) {
-                                  onChange([...watchMunicipality, e.target.value]);
-                                  return;
-                                }
-
-                                onChange(watchMunicipality?.filter((item: string) => item !== e.target.value));
-                              }}
-                            />
-                          }
-                        />
-                      )
-                    }}
-                  />
-                ))}
-                {formState.errors.municipality?.message && (
-                  <FormHelperText error>{formState.errors.municipality?.message}</FormHelperText>
-                )}
-              </FormGroup>
-            </section>
-
-            <section>
-              <Button type="submit" variant="contained" color="primary" className="w-[200px]">
-                {isEdit ? t('page_management_form.cta_submit_edit') : t('page_management_form.cta_submit_new')}
-              </Button>
-            </section>
-          </div>
-        </form>
+        {!(isEdit && isFetching) && (
+          <UserForm loading={loading} isEdit={isEdit} defaultValues={defaultValues} municipalityList={municipalityList} onSubmit={submitForm} />
+        )}
       </div>
 
       <ModalConfirmation {...modalConfirmation} />
-
       <ModalSuccess {...modalSuccess} />
 
     </>
