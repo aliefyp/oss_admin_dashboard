@@ -124,6 +124,21 @@
     "oss-manager": "Gerente de OSS",
     "super-admin": "Superadministrador"
   },
+  "role_group": {
+    "citizen": "Cidadão",
+    "frontOffice": "Recepção",
+    "backOffice": "Back Office",
+    "manager": "Gerente",
+    "admin": "Administrador",
+    "frontOfficeManager": "Gerente principal do escritório",
+    "backOfficeManager": "Gerente de Backoffice"
+  },
+  "organization": {
+    "ministry-of-justice": "ministro da Justiça",
+    "ministry-of-transport-and-communication": "Ministério dos Transportes e Comunicações",
+    "economic-affairs-ministry": "Ministério dos Assuntos Económicos",
+    "ministry-of-administration-state": "Ministério da Administração do Estado"
+  },
   "family_type": {
     "self": "Auto",
     "child": "Criança",
@@ -380,6 +395,7 @@
   "page_management": {
     "title": "Gerenciamento",
     "total_user": "Total <b>{{count}}</b> Do utilizador",
+    "reset_filter": "Redefinir filtro",
     "add_new_account": "Adicionar nova conta",
     "filter": {
       "label_role": "Papel",

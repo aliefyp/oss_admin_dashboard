@@ -124,6 +124,21 @@
     "oss-manager": "Jerente OSS",
     "super-admin": "Super Admin"
   },
+  "role_group": {
+    "citizen": "Sidadaun",
+    "frontOffice": "Resepsaun",
+    "backOffice": "Back Office",
+    "manager": "Jerente",
+    "admin": "Admin",
+    "frontOfficeManager": "Jerente Resepsaun",
+    "backOfficeManager":  "Jerente Back-Office"
+  },
+  "organization": {
+    "ministry-of-justice": "Ministry of Justice",
+    "ministry-of-transport-and-communication": "Ministry of Transport and Communication",
+    "economic-affairs-ministry": "Economic Affairs Ministry",
+    "ministry-of-administration-state": "Ministry of Administration State"
+  },
   "family_type": {
     "self": "An rasik",
     "child": "Oan",
@@ -380,6 +395,7 @@
   "page_management": {
     "title": "Management",
     "total_user": "Total <b>{{count}}</b> User",
+    "reset_filter": "Redifini Filtru",
     "add_new_account": "Add New Account",
     "filter": {
       "label_role": "Role",

@@ -81,11 +81,11 @@ const ManagementTable = ({
 
   const rows = data?.data?.map((item) => ({
     id: item.id,
-    name: '',
-    email: '',
-    phone_number: '',
-    organization: '',
-    role: '',
+    name: item.fullName,
+    email: item.email,
+    phone_number: item.phoneNumber,
+    organization: item.organizationName ? t(`organization.${item.organizationName}`) : '',
+    role: item.roleGroup ? t(`role_group.${item.roleGroup}`) : '',
     edit: '',
     delete: '',
   })) || [];

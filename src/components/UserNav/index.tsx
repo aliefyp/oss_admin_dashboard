@@ -62,7 +62,7 @@ const UserNav = () => {
           </Typography>
           {auth?.roleGroup && (
             <Typography variant="caption" className='text-gray-600'>
-              {auth?.roleGroup}
+              {t(`role_group.${auth?.roleGroup}`)}
             </Typography>
           )}
           {auth?.roleName && (
