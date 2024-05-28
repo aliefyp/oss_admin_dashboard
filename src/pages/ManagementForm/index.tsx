@@ -10,6 +10,8 @@ import PageLoader from "components/PageLoader";
 import { UserFormType } from "./types";
 import UserForm from "./components/UserForm";
 import useToaster from "usecase/useToaster";
+import { useOptionsRoleGroup } from "api/options";
+import { useOrganizations } from "api/organization";
 
 const ManagementForm = () => {
   const toaster = useToaster();
@@ -41,6 +43,8 @@ const ManagementForm = () => {
     onConfirm: () => { },
   });
 
+  const { data: dataRoleGroup } = useOptionsRoleGroup();
+  const { data: dataOrganization } = useOrganizations();
   const { data: dataMunicipality } = useMunicipality({
     countryCode: 'TL',
   });
@@ -49,6 +53,18 @@ const ManagementForm = () => {
     key: item.id,
     label: item.name,
   })) || []];
+
+  const listRoleGroup = dataRoleGroup?.data
+    ?.filter(item => item !== 'citizen')
+    ?.map((item) => ({
+      key: item,
+      label: t(`role_group.${item}`),
+    })) || [];
+
+  const listOrganization = dataOrganization?.data?.map((item) => ({
+    key: item.id,
+    label: t(`organization.${item.name}`),
+  })) || [];
 
   const isAllMunicipalityChecked = (stateIds: number[]) => {
     return stateIds.includes(0);
@@ -134,9 +150,9 @@ const ManagementForm = () => {
         lastName: '',
         email: '',
         phoneNumber: '',
-        organizationId: 0,
-        roleGroup: '',
-        stateIds: [0],
+        organizationId: undefined,
+        roleGroup: undefined,
+        stateIds: [],
       }
     };
 
@@ -162,7 +178,15 @@ const ManagementForm = () => {
           title={isEdit ? t('page_management_form.title_edit') : t('page_management_form.title_new')}
         />
         {!(isEdit && isFetching) && (
-          <UserForm loading={loading} isEdit={isEdit} defaultValues={defaultValues} municipalityList={municipalityList} onSubmit={submitForm} />
+          <UserForm
+            loading={loading}
+            isEdit={isEdit}
+            defaultValues={defaultValues}
+            municipalityList={municipalityList}
+            roleGroupList={listRoleGroup}
+            organizationList={listOrganization}
+            onSubmit={submitForm}
+          />
         )}
       </div>
 

@@ -5,8 +5,13 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 
 
-interface Municipality {
+interface Option {
   key: number;
+  label: string;
+}
+
+interface Option2 {
+  key: string;
   label: string;
 }
 
@@ -14,11 +19,21 @@ interface Props {
   loading: boolean;
   isEdit: boolean;
   defaultValues?: UserFormType;
-  municipalityList: Municipality[];
+  municipalityList: Option[];
+  roleGroupList: Option2[];
+  organizationList: Option[];
   onSubmit: (val: UserFormType) => void;
 }
 
-const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }: Props) => {
+const UserForm = ({
+  loading,
+  isEdit,
+  defaultValues,
+  municipalityList,
+  roleGroupList,
+  organizationList,
+  onSubmit
+}: Props) => {
   const { t } = useTranslation();
 
   const {
@@ -45,24 +60,7 @@ const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }
       }
     }
 
-  }, [setValue, watchStateIds])
-
-
-  const roleOptions = [
-    { key: 'frontOffice', label: t(`role_group.frontOffice`) },
-    { key: 'backOffice', label: t(`role_group.backOffice`) },
-    { key: 'manager', label: t(`role_group.manager`) },
-    { key: 'admin', label: t(`role_group.admin`) },
-    { key: 'frontOfficeManager', label: t(`role_group.frontOfficeManager`) },
-    { key: 'backOfficeManager', label: t(`role_group.backOfficeManager`) },
-  ];
-
-  const organizationOptions = [
-    { key: 'ministry-of-justice', label: t(`organization.ministry-of-justice`) },
-    { key: 'ministry-of-transport-and-communication', label: t(`organization.ministry-of-transport-and-communication`) },
-    { key: 'economic-affairs-ministry', label: t(`organization.economic-affairs-ministry`) },
-    { key: 'ministry-of-administration-state', label: t(`organization.ministry-of-administration-state`) },
-  ];
+  }, [setValue, watchStateIds]);
 
   return (
     <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
@@ -142,6 +140,7 @@ const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }
               <InputLabel
                 id="input-role-label"
                 required
+                error={!!formState.errors.roleGroup}
                 sx={{
                   [`&.MuiInputLabel-root`]: {
                     marginLeft: '-14px',
@@ -153,6 +152,7 @@ const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }
               <Controller
                 control={control}
                 name="roleGroup"
+                rules={{ required: 'This field is required' }}
                 render={({ field: { onChange, value } }) => (
                   <Select
                     variant="standard"
@@ -162,7 +162,7 @@ const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
                   >
-                    {roleOptions.map((role) => (
+                    {roleGroupList.map((role) => (
                       <MenuItem key={role.key} value={role.key}>{role.label}</MenuItem>
                     ))}
                   </Select>
@@ -177,6 +177,7 @@ const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }
               <InputLabel
                 id="input-organization-label"
                 required
+                error={!!formState.errors.organizationId}
                 sx={{
                   [`&.MuiInputLabel-root`]: {
                     marginLeft: '-14px',
@@ -188,6 +189,7 @@ const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }
               <Controller
                 control={control}
                 name="organizationId"
+                rules={{ required: 'This field is required' }}
                 render={({ field: { onChange, value } }) => (
                   <Select
                     variant="standard"
@@ -197,7 +199,7 @@ const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }
                     value={value}
                     onChange={(e) => onChange(Number(e.target.value))}
                   >
-                    {organizationOptions.map((organization) => (
+                    {organizationList.map((organization) => (
                       <MenuItem key={organization.key} value={organization.key}>{organization.label}</MenuItem>
                     ))}
                   </Select>
@@ -218,6 +220,7 @@ const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }
                 key={municipality.key}
                 control={control}
                 name="stateIds"
+                rules={{ required: 'This field is required' }}
                 render={({ field: { onChange, value } }) => {
                   return (
                     <FormControlLabel
@@ -241,10 +244,11 @@ const UserForm = ({ loading, isEdit, defaultValues, municipalityList, onSubmit }
                 }}
               />
             ))}
-            {formState.errors.stateIds?.message && (
-              <FormHelperText error>{formState.errors.stateIds?.message}</FormHelperText>
-            )}
           </FormGroup>
+
+          {formState.errors.stateIds?.message && (
+            <FormHelperText error>{formState.errors.stateIds?.message}</FormHelperText>
+          )}
         </section>
 
         <section>

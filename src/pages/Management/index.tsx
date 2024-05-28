@@ -4,8 +4,7 @@ import { useTranslation } from "react-i18next";
 import { FaSearch } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDebounce } from "use-debounce";
-import { useServicesType } from "api/service";
-import { useMunicipality } from "api/region";
+import { useOptionsRoleGroup } from "api/options";
 import { useOfficers } from "api/officer";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
@@ -17,6 +16,7 @@ import ModalConfirmation from "pages/ManagementForm/components/ModalConfirmation
 import ModalSuccess from "pages/ManagementForm/components/ModalSuccess";
 import PageLoader from "components/PageLoader";
 import useToaster from "usecase/useToaster";
+import { useOrganizations } from "api/organization";
 
 const Management: React.FC = () => {
   const toaster = useToaster();
@@ -54,10 +54,8 @@ const Management: React.FC = () => {
 
   const [debouncedSearch] = useDebounce(search, 500);
 
-  const { data: dataServicesType } = useServicesType();
-  const { data: dataMunicipality } = useMunicipality({
-    countryCode: 'TL'
-  });
+  const { data: dataRoleGroup } = useOptionsRoleGroup();
+  const { data: dataOrganization } = useOrganizations();
 
   const {
     data: dataOfficers,
@@ -66,17 +64,17 @@ const Management: React.FC = () => {
     refetch,
   } = useOfficers();
 
-  const listService = dataServicesType?.data?.map((item) => ({
-    itemId: item.code,
-    itemLabel: t(`services.${item.name}`),
-  })) || [];
+  const listRoleGroup = dataRoleGroup?.data
+    ?.filter(item => item !== 'citizen')
+    ?.map((item) => ({
+      itemId: item,
+      itemLabel: t(`role_group.${item}`),
+    })) || [];
 
-  const listMunicipality = dataMunicipality?.data?.map((item) => ({
-    itemId: item.code,
-    itemLabel: item.name,
+  const listOrganization = dataOrganization?.data?.map((item) => ({
+    itemId: item.id,
+    itemLabel: t(`organization.${item.name}`),
   })) || [];
-
-  console.log(listService, listMunicipality)
 
   const {
     filter,
@@ -89,8 +87,8 @@ const Management: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
-      { groupId: 'Role', groupLabel: t('filter_label.role'), items: [] },
-      { groupId: 'Organization', groupLabel: t('filter_label.organization'), items: [] },
+      { groupId: 'RoleGroup', groupLabel: t('filter_label.role'), items: listRoleGroup },
+      { groupId: 'OrganizationId', groupLabel: t('filter_label.organization'), items: listOrganization },
     ],
   });
 
@@ -143,8 +141,8 @@ const Management: React.FC = () => {
       PageNumber: String(paginationModel.page + 1),
       PageSize: String(paginationModel.pageSize),
       ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
-      ...(filter.Role !== '0' ? { Role: String(filter.Role) } : {}),
-      ...(filter.Organization !== '0' ? { Organization: String(filter.Organization) } : {}),
+      ...(filter.RoleGroup !== '0' ? { RoleGroup: String(filter.RoleGroup) } : {}),
+      ...(filter.OrganizationId !== '0' ? { OrganizationId: String(filter.OrganizationId) } : {}),
     });
 
     navigate(location.pathname + '?' + urlParams.toString(), { replace: true });

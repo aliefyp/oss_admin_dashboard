@@ -37,3 +37,6 @@ export const EP_LOGS = `${BASE_URL}/me/logs`;
 
 // Officer
 export const EP_OFFICERS = `${BASE_URL}/officers`;
+
+// Organizations
+export const EP_ORGANIZATIONS = `${BASE_URL}/organizations`;
