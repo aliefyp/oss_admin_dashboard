@@ -409,6 +409,16 @@
       "row_phone_number": "Númeru Telefone",
       "row_organization": "Organization",
       "row_role": "Role"
+    },
+    "modal_confirmation": {
+      "delete_title": "Are Your Sure to Delete?",
+      "delete_description": "Deleting account will result in permanent loss of all data associated with it. This action cannot be undone.",
+      "delete_primary_cta": "Delete",
+      "delete_secondary_cta": "Cancel"
+    },
+    "modal_success": {
+      "delete_title": "Account Deleted",
+      "delete_description": "Account successfully deleted. All associated data has been permanently removed."
     }
   },
   "page_management_form": {
@@ -432,11 +442,7 @@
       "update_title": "Are Your Sure to Update?",
       "update_description": "Please check your data before submitting, make sure all data meet the criteria.",
       "update_primary_cta": "Update",
-      "update_secondary_cta": "Cancel",
-      "delete_title": "Are Your Sure to Delete?",
-      "delete_description": "Deleting account will result in permanent loss of all data associated with it. This action cannot be undone.",
-      "delete_primary_cta": "Delete",
-      "delete_secondary_cta": "Cancel"
+      "update_secondary_cta": "Cancel"
     },
     "modal_success": {
       "update_title": "Member have updated",
@@ -444,9 +450,7 @@
       "update_cta": "Komprende",
       "create_title": "Account created",
       "create_description": "User account have sent to email registered, make sure they check and verified to continue",
-      "create_cta": "Komprende",
-      "delete_title": "Account Deleted",
-      "delete_description": "Account successfully deleted. All associated data has been permanently removed."
+      "create_cta": "Komprende"
     }
   }
 }

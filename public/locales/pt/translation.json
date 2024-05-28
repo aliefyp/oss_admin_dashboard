@@ -409,6 +409,16 @@
       "row_phone_number": "Número de telefone",
       "row_organization": "Organização",
       "row_role": "Papel"
+    },
+    "modal_confirmation": {
+      "delete_title": "Você tem certeza de excluir?",
+      "delete_description": "A exclusão da conta resultará na perda permanente de todos os dados associados a ela. ",
+      "delete_primary_cta": "Excluir",
+      "delete_secondary_cta": "Cancelar"
+    },
+    "modal_success": {
+      "delete_title": "Conta excluída",
+      "delete_description": "Conta excluída com sucesso. "
     }
   },
   "page_management_form": {
@@ -432,11 +442,7 @@
       "update_title": "Você tem certeza de atualizar?",
       "update_description": "Por favor, verifique seus dados antes de enviar, certifique-se de que todos os dados atendem aos critérios.",
       "update_primary_cta": "Atualizar",
-      "update_secondary_cta": "Cancelar",
-      "delete_title": "Você tem certeza de excluir?",
-      "delete_description": "A exclusão da conta resultará na perda permanente de todos os dados associados a ela. ",
-      "delete_primary_cta": "Excluir",
-      "delete_secondary_cta": "Cancelar"
+      "update_secondary_cta": "Cancelar"
     },
     "modal_success": {
       "update_title": "O membro atualizou",
@@ -444,9 +450,7 @@
       "update_cta": "Entender",
       "create_title": "Conta criada",
       "create_description": "A conta do usuário foi enviada para o e-mail registrado, certifique-se de verificar e verificar para continuar",
-      "create_cta": "Entender",
-      "delete_title": "Conta excluída",
-      "delete_description": "Conta excluída com sucesso. "
+      "create_cta": "Entender"
     }
   }
 }

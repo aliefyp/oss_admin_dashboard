@@ -10,17 +10,42 @@ import { useOfficers } from "api/officer";
 import PageHeading from "components/PageHeading";
 import GroupFilter from "components/GroupFilter";
 import useGroupFilter from "usecase/useGroupFilter";
-import ManagementTable from "./components/ManagementTable";
 import { HiOutlinePlus } from "react-icons/hi";
+import useDeleteOfficer from "api/officer/useDeleteOfficer";
+import ManagementTable from "./components/ManagementTable";
+import ModalConfirmation from "pages/ManagementForm/components/ModalConfirmation";
+import ModalSuccess from "pages/ManagementForm/components/ModalSuccess";
+import PageLoader from "components/PageLoader";
+import useToaster from "usecase/useToaster";
 
 const Management: React.FC = () => {
+  const toaster = useToaster();
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
 
+  const deleteOfficer = useDeleteOfficer();
+
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
 
+  const [loading, setLoading] = useState(false);
+  const [modalConfirmation, setModalConfirmation] = useState({
+    open: false,
+    title: '',
+    description: '',
+    ctaPrimary: '',
+    ctaSecondary: '',
+    onPrimaryClick: () => { },
+    onSecondaryClick: () => { },
+  });
+  const [modalSuccess, setModalSuccess] = useState({
+    open: false,
+    title: '',
+    description: '',
+    ctaText: '',
+    onConfirm: () => { },
+  });
   const [search, setSearch] = useState<string>(defaultSearch);
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10,
@@ -29,7 +54,6 @@ const Management: React.FC = () => {
 
   const [debouncedSearch] = useDebounce(search, 500);
 
-  // const { data: dataStatus } = useOptionsApprovalStatus();
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({
     countryCode: 'TL'
@@ -39,6 +63,7 @@ const Management: React.FC = () => {
     data: dataOfficers,
     isFetching: loadingOfficers,
     error: errorOfficers,
+    refetch,
   } = useOfficers();
 
   const listService = dataServicesType?.data?.map((item) => ({
@@ -69,12 +94,43 @@ const Management: React.FC = () => {
     ],
   });
 
-  const handleEdit = async (id: number) => {
+  const handleDelete = async (id: number) => {
+    setModalConfirmation({ ...modalConfirmation, open: false });
+    try {
+      setLoading(true);
+      const res = await deleteOfficer(id)
+      if (!res) throw new Error('Failed to delete officer');
+
+
+      setModalSuccess({
+        open: true,
+        title: t('page_management.modal_success.delete_title'),
+        description: t('page_management.modal_success.delete_description'),
+        ctaText: t('page_management.modal_success.delete_cta'),
+        onConfirm: refetch,
+      })
+    } catch (error) {
+      console.error(error);
+      toaster.open(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleEditClick = async (id: number) => {
     navigate(`/management/form/${id}`);
   }
 
-  const handleDelete = (id: number) => {
-    console.log('delete', id);
+  const handleDeleteClick = (id: number) => {
+    setModalConfirmation({
+      open: true,
+      title: t('page_management.modal_confirmation.delete_title'),
+      description: t('page_management.modal_confirmation.delete_description'),
+      ctaPrimary: t('page_management.modal_confirmation.delete_primary_cta'),
+      ctaSecondary: t('page_management.modal_confirmation.delete_secondary_cta'),
+      onPrimaryClick: () => handleDelete(id),
+      onSecondaryClick: () => setModalConfirmation({ ...modalConfirmation, open: false }),
+    });
   }
 
   const handleResetClick = () => {
@@ -98,6 +154,9 @@ const Management: React.FC = () => {
 
   return (
     <>
+      {loading && (
+        <PageLoader />
+      )}
       <PageHeading title={t('page_management.title')}>
         <Button variant="text" startIcon={<HiOutlinePlus />} onClick={() => navigate('/management/form')}>
           {t('page_management.add_new_account')}
@@ -167,11 +226,13 @@ const Management: React.FC = () => {
             data={dataOfficers}
             loading={loadingOfficers}
             error={errorOfficers}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
+            onEdit={handleEditClick}
+            onDelete={handleDeleteClick}
           />
         </div>
       </div>
+      <ModalConfirmation {...modalConfirmation} />
+      <ModalSuccess {...modalSuccess} />
     </>
   );
 }
