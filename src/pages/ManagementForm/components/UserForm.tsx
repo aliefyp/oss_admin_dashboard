@@ -176,7 +176,7 @@ const UserForm = ({
             <FormControl>
               <InputLabel
                 id="input-organization-label"
-                required
+                // required
                 error={!!formState.errors.organizationId}
                 sx={{
                   [`&.MuiInputLabel-root`]: {
@@ -189,7 +189,7 @@ const UserForm = ({
               <Controller
                 control={control}
                 name="organizationId"
-                rules={{ required: 'This field is required' }}
+                // rules={{ required: 'This field is required' }}
                 render={({ field: { onChange, value } }) => (
                   <Select
                     variant="standard"

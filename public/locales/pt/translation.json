@@ -418,7 +418,8 @@
     },
     "modal_success": {
       "delete_title": "Conta excluída",
-      "delete_description": "Conta excluída com sucesso. "
+      "delete_description": "Conta excluída com sucesso. ",
+      "delete_cta": "Entender"
     }
   },
   "page_management_form": {

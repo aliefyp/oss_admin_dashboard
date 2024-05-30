@@ -418,7 +418,8 @@
     },
     "modal_success": {
       "delete_title": "Account Deleted",
-      "delete_description": "Account successfully deleted. All associated data has been permanently removed."
+      "delete_description": "Account successfully deleted. All associated data has been permanently removed.",
+      "delete_cta": "Understand"
     }
   },
   "page_management_form": {

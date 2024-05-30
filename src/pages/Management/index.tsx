@@ -105,7 +105,10 @@ const Management: React.FC = () => {
         title: t('page_management.modal_success.delete_title'),
         description: t('page_management.modal_success.delete_description'),
         ctaText: t('page_management.modal_success.delete_cta'),
-        onConfirm: refetch,
+        onConfirm: () => {
+          refetch();
+          setModalSuccess({ ...modalSuccess, open: false });
+        },
       })
     } catch (error) {
       console.error(error);
