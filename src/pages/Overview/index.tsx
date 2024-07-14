@@ -44,7 +44,7 @@ const Overview: React.FC = () => {
   })) || [];
 
   const listMunicipality = dataMunicipality?.data?.map((item) => ({
-    itemId: item.code,
+    itemId: item.id,
     itemLabel: item.name,
   })) || [];
 

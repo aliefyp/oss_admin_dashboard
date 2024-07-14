@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CircularProgress, Typography } from "@mui/material";
 import { BarPlot } from '@mui/x-charts/BarChart';
 import { ChartsXAxis, ChartsYAxis, MarkPlot, ResponsiveChartContainer } from "@mui/x-charts";
@@ -20,14 +19,8 @@ interface Props {
 }
 
 const RegisteredCitizens = ({ data, loading }: Props) => {
-  const [activeTab, setActiveTab] = useState("daily");
+  const activeTab = 'daily';
   const { t } = useTranslation();
-
-  console.log(setActiveTab)
-
-  // const handleChange = (_: React.SyntheticEvent, newValue: string) => {
-  //   setActiveTab(newValue);
-  // }
 
   const dataSource = data.daily?.length > 0 ? data[activeTab] : [];
 
