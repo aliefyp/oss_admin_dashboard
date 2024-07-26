@@ -17,7 +17,8 @@
     "issued_card": "Cartões emitidos",
     "appointment": "Compromissos",
     "settings": "Configurações",
-    "management": "Gerenciamento"
+    "management": "Gerenciamento",
+    "ticket": "Ingressos"
   },
   "filter_label": {
     "service": "Serviço",
@@ -452,6 +453,20 @@
       "create_title": "Conta criada",
       "create_description": "A conta do usuário foi enviada para o e-mail registrado, certifique-se de verificar e verificar para continuar",
       "create_cta": "Entender"
+    }
+  },
+  "page_ticket": {
+    "title": "Bilhete",
+    "total_registered": "Total de <b>{{count}}</b> Registrados",
+    "filter": {
+      "search_placeholder": "Pesquisar ID ou nome dos cidadãos aqui"
+    },
+    "table": {
+      "row_id": "ID do Bilhete",
+      "row_category": "Categoria",
+      "row_citizens": "Nome dos Cidadãos",
+      "row_submission_date": "Data de Submissão",
+      "row_service": "Serviços"
     }
   }
 }

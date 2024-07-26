@@ -1,36 +1,37 @@
-import { Suspense, useCallback, useState } from "react";
-import { QueryClientProvider } from "react-query";
-import AuthProvider from "react-auth-kit";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
+import { Suspense, useCallback, useState } from "react";
+import AuthProvider from "react-auth-kit";
+import { useTranslation } from "react-i18next";
+import { QueryClientProvider } from "react-query";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import setupQueryClient from "config/query/setupQueryClient";
 import setupAuth from "config/auth/setupAuth";
+import setupQueryClient from "config/query/setupQueryClient";
 import setupTheme from "config/theme/setupTheme";
 
-import MainLayout from "components/MainLayout";
 import AuthLayout from "components/AuthLayout";
+import MainLayout from "components/MainLayout";
 import PageLoader from "components/PageLoader";
 
 import { ToasterProvider } from "contexts/ToasterContext";
 
+import ForgotPassword from "pages/ForgotPassword";
 import Login from "pages/Login";
 import Logout from "pages/Logout";
-import ForgotPassword from "pages/ForgotPassword";
-import ResetPassword from "pages/ResetPassword";
 import NotFound from "pages/NotFound";
+import ResetPassword from "pages/ResetPassword";
 
 import ApplicantRoute from "routes/applicant";
-import IssuedCardRoute from "routes/issued-card";
 import AppointmentRoute from "routes/appointment";
-import OverviewRoute from "routes/overview";
-import NotificationRoute from "routes/notification";
+import IssuedCardRoute from "routes/issued-card";
 import ManagementRoute from "routes/management";
+import NotificationRoute from "routes/notification";
+import OverviewRoute from "routes/overview";
+import TicketRoute from "routes/ticket";
 
 import 'dayjs/locale/en';
 import 'dayjs/locale/pt';
@@ -62,6 +63,7 @@ function App() {
                       <Route path="/issued-card/*" element={<IssuedCardRoute />} />
                       <Route path="/appointment/*" element={<AppointmentRoute />} />
                       <Route path="/management/*" element={<ManagementRoute />} />
+                      <Route path="/ticket/*" element={<TicketRoute />} />
                       <Route path="/notification" element={<NotificationRoute />} />
                       <Route path="/" element={<OverviewRoute />} />
                       <Route path="*" element={<NotFound />} />

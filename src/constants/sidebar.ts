@@ -1,6 +1,6 @@
-import { HiOutlineClipboard, HiOutlineCreditCard, HiOutlineHome, HiOutlineCog, HiOutlineUsers } from "react-icons/hi";
-import { HiCalendarDays } from "react-icons/hi2";
 import i18next from "i18next";
+import { HiOutlineClipboard, HiOutlineCog, HiOutlineCreditCard, HiOutlineHome, HiOutlineTicket, HiOutlineUsers } from "react-icons/hi";
+import { HiCalendarDays } from "react-icons/hi2";
 
 export const MAIN_MENU = {
   key: 'main',
@@ -11,6 +11,7 @@ export const MAIN_MENU = {
     { key: 'issued_card', text: i18next.t('sidebar.issued_card'), icon: HiOutlineCreditCard, url: "/issued-card" },
     { key: 'appointment', text: i18next.t('sidebar.appointment'), icon: HiCalendarDays, url: "/appointment" },
     { key: 'management', text: i18next.t('sidebar.management'), icon: HiOutlineUsers, url: "/management" },
+    { key: 'ticket', text: i18next.t('sidebar.ticket'), icon: HiOutlineTicket, url: "/ticket" },
   ],
 };
 

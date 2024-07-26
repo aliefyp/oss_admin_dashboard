@@ -17,7 +17,8 @@
     "issued_card": "Issued Cards",
     "appointment": "Appointments",
     "settings": "Settings",
-    "management": "Management"
+    "management": "Management",
+    "ticket": "Ticket"
   },
   "filter_label": {
     "service": "Service",
@@ -452,6 +453,20 @@
       "create_title": "Account created",
       "create_description": "User account have sent to email registered, make sure they check and verified to continue",
       "create_cta": "Understand"
+    }
+  },
+  "page_ticket": {
+    "title": "Ticket",
+    "total_registered": "Total <b>{{count}}</b> Registered",
+    "filter": {
+      "search_placeholder": "Search ID or citizens name here"
+    },
+    "table": {
+      "row_id": "Ticket ID",
+      "row_category": "Category",
+      "row_citizens": "Citizens Name",
+      "row_submission_date": "Submission Date",
+      "row_service": "Services"
     }
   }
 }
