@@ -459,14 +459,15 @@
     "title": "Bilhete",
     "total_registered": "Total de <b>{{count}}</b> Registrados",
     "filter": {
-      "search_placeholder": "Pesquisar ID ou nome dos cidadãos aqui"
+      "search_placeholder": "Pesquise o ID ou o nome dos cidadãos aqui"
     },
     "table": {
       "row_id": "ID do Bilhete",
-      "row_category": "Categoria",
-      "row_citizens": "Nome dos Cidadãos",
-      "row_submission_date": "Data de Submissão",
-      "row_service": "Serviços"
+      "row_subject": "Assunto",
+      "row_description": "Descrição",
+      "row_status": "Status",
+      "row_tags": "Etiquetas",
+      "row_created": "Data de Criação"
     }
   }
 }

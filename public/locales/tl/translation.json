@@ -456,17 +456,18 @@
     }
   },
   "page_ticket": {
-    "title": "Biletu",
+    "title": "Bilikete",
     "total_registered": "Total <b>{{count}}</b> Rejistradu",
     "filter": {
-      "search_placeholder": "Buka ID ka naran cidadaun iha ne'e"
+      "search_placeholder": "Buka ID ka naran cidadanes iha nee"
     },
     "table": {
-      "row_id": "Biletu ID",
-      "row_category": "Kategoria",
-      "row_citizens": "Naran Cidadaun",
-      "row_submission_date": "Data Submisaun",
-      "row_service": "Servisu"
+      "row_id": "ID Bilikete",
+      "row_subject": "Títulu",
+      "row_description": "Deskrisaun",
+      "row_status": "Estadu",
+      "row_tags": "Etiqueta",
+      "row_created": "Data Kria"
     }
   }
 }
