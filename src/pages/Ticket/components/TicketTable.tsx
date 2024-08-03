@@ -36,7 +36,7 @@ const TicketTable = ({
     { field: 'subject', headerName: t('page_ticket.table.row_subject'), flex: 1 },
     { field: 'description', headerName: t('page_ticket.table.row_description'), flex: 2 },
     { field: 'status', headerName: t('page_ticket.table.row_status') },
-    { field: 'tags', headerName: t('page_ticket.table.row_tags'), flex: 1 },
+    { field: 'tags', headerName: t('page_ticket.table.row_tags'), flex: 2 },
     { field: 'createdAt', headerName: t('page_ticket.table.row_created'), flex: 1 },
   ];
 
@@ -45,7 +45,7 @@ const TicketTable = ({
     subject: item.subject,
     description: item.description,
     status: item.status,
-    tags: item.tags,
+    tags: item.tags.join(', '),
     createdAt: dayjs(item.createdAt).format('DD-MMM-YYYY HH:mm'),
   })) || [];
 
@@ -70,10 +70,12 @@ const TicketTable = ({
 
   return (
     <DataGrid
+      autoHeight
       loading={loading}
       density="standard"
       rows={rows}
       columns={columns}
+      rowSelection={false}
       showColumnVerticalBorder={false}
       hideFooterSelectedRowCount
       disableColumnMenu
@@ -90,6 +92,7 @@ const TicketTable = ({
           </EmptyState>
         ),
       }}
+      getRowHeight={() => 'auto'}
       sx={{
         border: 'none',
         [`& .MuiDataGrid-columnHeaders`]: {
@@ -109,8 +112,10 @@ const TicketTable = ({
           minHeight: '200px',
         },
         [`& .MuiDataGrid-cell`]: {
+          padding: '8px',
           whiteSpace: 'normal !important',
           wordWrap: 'break-word !important',
+          maxHeight: 'none !important',
         }
       }}
     />
