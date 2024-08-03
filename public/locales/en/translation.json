@@ -463,10 +463,11 @@
     },
     "table": {
       "row_id": "Ticket ID",
-      "row_category": "Category",
-      "row_citizens": "Citizens Name",
-      "row_submission_date": "Submission Date",
-      "row_service": "Services"
+      "row_subject": "Subject",
+      "row_description": "Description",
+      "row_status": "Status",
+      "row_tags": "Tags",
+      "row_created": "Date Created"
     }
   }
 }

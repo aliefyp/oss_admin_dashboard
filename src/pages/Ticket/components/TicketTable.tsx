@@ -5,21 +5,21 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Response as ApplicationResponse } from 'types/application/applications';
+import { Response as TicketsResponse } from 'types/zendesk/tickets';
 
 interface PaginationModel {
   page: number;
   pageSize: number;
 }
 interface Props {
-  data: ApplicationResponse;
+  data: TicketsResponse;
   loading: boolean;
   error: Error;
   paginationModel: PaginationModel;
   setPaginationModel: (paginationModel: PaginationModel) => void;
 }
 
-const TicketTableTable = ({
+const TicketTable = ({
   data,
   loading,
   error,
@@ -33,18 +33,20 @@ const TicketTableTable = ({
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: t('page_ticket.table.row_id') },
-    { field: 'category', headerName: t('page_ticket.table.row_category'), flex: 1 },
-    { field: 'citizens', headerName: t('page_ticket.table.row_citizens'), flex: 1 },
-    { field: 'submission_date', headerName: t('page_ticket.table.row_submission_date'), flex: 1 },
-    { field: 'service', headerName: t('page_ticket.table.row_service'), flex: 1 },
+    { field: 'subject', headerName: t('page_ticket.table.row_subject'), flex: 1 },
+    { field: 'description', headerName: t('page_ticket.table.row_description'), flex: 2 },
+    { field: 'status', headerName: t('page_ticket.table.row_status') },
+    { field: 'tags', headerName: t('page_ticket.table.row_tags'), flex: 1 },
+    { field: 'createdAt', headerName: t('page_ticket.table.row_created'), flex: 1 },
   ];
 
   const rows = data?.data?.map((item) => ({
     id: item.id,
-    category: '',
-    citizens: item.fullName,
-    services: t(`services.${item.serviceType}`),
-    submission_date: dayjs(item.submissionAt).format('DD-MMM-YYYY HH:mm'),
+    subject: item.subject,
+    description: item.description,
+    status: item.status,
+    tags: item.tags,
+    createdAt: dayjs(item.createdAt).format('DD-MMM-YYYY HH:mm'),
   })) || [];
 
   useEffect(() => {
@@ -105,10 +107,14 @@ const TicketTableTable = ({
         },
         [`& .MuiDataGrid-virtualScroller`]: {
           minHeight: '200px',
+        },
+        [`& .MuiDataGrid-cell`]: {
+          whiteSpace: 'normal !important',
+          wordWrap: 'break-word !important',
         }
       }}
     />
   );
 }
 
-export default TicketTableTable;
+export default TicketTable;

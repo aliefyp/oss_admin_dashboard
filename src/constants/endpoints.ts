@@ -40,3 +40,6 @@ export const EP_OFFICERS = `${BASE_URL}/officers`;
 
 // Organizations
 export const EP_ORGANIZATIONS = `${BASE_URL}/organizations`;
+
+// Zendesk
+export const EP_ZENDESK = `${BASE_URL}/zendesk`;
