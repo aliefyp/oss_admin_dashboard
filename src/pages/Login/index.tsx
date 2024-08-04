@@ -1,20 +1,20 @@
-import { useCallback, useState } from 'react';
-import { useTranslation } from "react-i18next";
-import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
   Button,
   IconButton,
   InputAdornment,
   Link,
-  Typography,
-  TextField
+  TextField,
+  Typography
 } from '@mui/material';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useLogin } from 'api/auth';
-import { useNavigate, useLocation } from 'react-router';
 import PageLoader from 'components/PageLoader';
+import { useCallback, useState } from 'react';
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from 'react-router';
 import useToaster from 'usecase/useToaster';
 
 interface LoginForm {
@@ -52,12 +52,15 @@ const Login = () => {
     const { email, password } = val;
     login.mutateAsync({ email, password })
       .then((res) => {
-        console.log(res)
-        if (res.errorMessage) {
+        if (!res) {
+          throw new Error(t('login.error_invalid_credentials'))
+        }
+
+        if (res?.errorMessage) {
           throw new Error(res.errorMessage)
         }
 
-        const roleId = res.data.roleId;
+        const roleId = res?.data.roleId;
         const isEligible = roleId !== 0;
 
         if (!isEligible) {
@@ -86,8 +89,8 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        console.error(error);
-        toaster.open(error.message);
+        console.error(error)
+        toaster.open(error?.message || 'Something went wrong');
       })
   }, [from, login, navigate, signIn, toaster, t]);
 

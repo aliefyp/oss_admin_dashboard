@@ -1,25 +1,26 @@
-import { useCallback, useEffect, useState } from "react";
-import FileSaver from "file-saver";
-import { HiOutlineDownload } from "react-icons/hi";
-import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
-import { useApplicationDetail, useLazyApplicationFiles, useLazyApplicationFileApprove, useLazyApplicationFileReject } from "api/application";
+import { useApplicationDetail, useLazyApplicationFileApprove, useLazyApplicationFileReject, useLazyApplicationFiles } from "api/application";
+import useLazyApplicationApprove from "api/application/useLazyApplicationApprove";
+import useLazyApplicationReject from "api/application/useLazyApplicationReject";
 import { useLazyFiles } from "api/files";
 import PageHeading from "components/PageHeading";
 import PageLoader from "components/PageLoader";
-import Table from "./components/Table";
-import ModalApproveConfirmation from "./components/ModalApproveConfirmation";
-import ModalRejectConfirmation from "./components/ModalRejectConfirmation";
-import ModalImagePreview from "./components/ModalImagePreview";
-import useCitizenIdentityData from "./usecase/useCitizenIdentityData";
-import useLazyApplicationReject from "api/application/useLazyApplicationReject";
-import useLazyApplicationApprove from "api/application/useLazyApplicationApprove";
-import useRequestForOtherData from "./usecase/useRequestForOtherData";
-import useToaster from "usecase/useToaster";
-import ModalSuccess from "./components/ModalSuccess";
+import FileSaver from "file-saver";
+import { useCallback, useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { useTranslation } from "react-i18next";
+import { HiOutlineDownload } from "react-icons/hi";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserData } from "types/auth/user";
+import useRoleGroup from "usecase/useRoleGroup";
+import useToaster from "usecase/useToaster";
+import ModalApproveConfirmation from "./components/ModalApproveConfirmation";
+import ModalImagePreview from "./components/ModalImagePreview";
+import ModalRejectConfirmation from "./components/ModalRejectConfirmation";
+import ModalSuccess from "./components/ModalSuccess";
+import Table from "./components/Table";
+import useCitizenIdentityData from "./usecase/useCitizenIdentityData";
+import useRequestForOtherData from "./usecase/useRequestForOtherData";
 
 const ApplicantDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -27,6 +28,7 @@ const ApplicantDetail: React.FC = () => {
   const navigate = useNavigate();
   const auth = useAuthUser<UserData>();
   const { applicant_id } = useParams();
+  const { isFoGroup, isBoGroup } = useRoleGroup(auth?.roleGroup || '');
 
   const [profilePicture, setProfilePicture] = useState<string | undefined>(undefined);
   const [previewPicture, setPreviewPicture] = useState<string[] | undefined>([]);
@@ -52,13 +54,13 @@ const ApplicantDetail: React.FC = () => {
   const citizenIdentityData = useCitizenIdentityData(data);
   const requestForOtherData = useRequestForOtherData(data);
 
-  const isEligibleToAction = auth.roleGroup === 'frontOffice' || auth.roleGroup === 'backOffice';
+  const isEligibleToAction = isFoGroup || isBoGroup;
 
   const getFileStatus = useCallback((foStatus: string, boStatus: string) => {
-    if (auth.roleGroup === 'frontOffice') return foStatus;
-    if (auth.roleGroup === 'backOffice') return boStatus;
+    if (isFoGroup) return foStatus;
+    if (isBoGroup) return boStatus;
     return 'pending';
-  }, [auth.roleGroup]);
+  }, [isBoGroup, isFoGroup]);
 
   useEffect(() => {
     const st = {}

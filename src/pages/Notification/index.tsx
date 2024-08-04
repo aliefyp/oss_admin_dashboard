@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { UserData } from "types/auth/user";
 import { Response } from "types/me/logs";
+import useRoleGroup from "usecase/useRoleGroup";
 import groupBy from "utils/groupBy";
 
 type LogItem = Response['data'][0] & { formattedDate: string, isRead: boolean };
@@ -30,6 +31,7 @@ const Notification: React.FC = () => {
   const { t } = useTranslation();
   const { data, isFetching, error } = useLogs();
   const logData = data?.data;
+  const { isFoGroup, isBoGroup } = useRoleGroup(auth?.roleGroup || '');
 
   const [readIds, setReadIds] = useState<number[]>([]);
   const storageKey = `readStatus-${auth?.userId}`;
@@ -83,9 +85,6 @@ const Notification: React.FC = () => {
 
   const dates = Object.keys(groupedByDate);
 
-  const isFo = auth?.roleGroup === 'frontOffice';
-  const isBo = auth?.roleGroup === 'backOffice';
-
   const getTemplateByAction = (logItem: LogItem) => {
     const action = logItem.action as ActionType;
 
@@ -97,34 +96,34 @@ const Notification: React.FC = () => {
 
     switch (action) {
       case 'createApplication':
-        if (isFo) return `You have new application ${nameStr} ${serviceStr}`;
+        if (isFoGroup) return `You have new application ${nameStr} ${serviceStr}`;
         else return '';
       case 'approveApplicationFromFrontOffice':
-        if (isFo) return `You have <b>Approved</b> application ${nameStr} ${serviceStr}`;
-        if (isBo) return `You have new application ${nameStr} ${serviceStr}`
+        if (isFoGroup) return `You have <b>Approved</b> application ${nameStr} ${serviceStr}`;
+        if (isBoGroup) return `You have new application ${nameStr} ${serviceStr}`
         else return '';
       case 'rejectApplicationFromFrontOffice':
-        if (isFo) return `You have <b>Rejected</b> application ${nameStr} ${serviceStr}`;
+        if (isFoGroup) return `You have <b>Rejected</b> application ${nameStr} ${serviceStr}`;
         else return '';
       case 'approveApplicationFromBackOffice':
-        if (isFo) return `Application ${nameStr} ${serviceStr} is <b>Completed</b>`;
-        if (isBo) return `You have <b>Approved</b> application ${nameStr} ${serviceStr}`;
+        if (isFoGroup) return `Application ${nameStr} ${serviceStr} is <b>Completed</b>`;
+        if (isBoGroup) return `You have <b>Approved</b> application ${nameStr} ${serviceStr}`;
         else return '';
       case 'rejectApplicationFromBackOffice':
-        if (isFo) return `Application ${nameStr} ${serviceStr} is <b>Rejected</b>`;
-        if (isBo) return `You have <b>Rejected</b> application ${nameStr} ${serviceStr}`;
+        if (isFoGroup) return `Application ${nameStr} ${serviceStr} is <b>Rejected</b>`;
+        if (isBoGroup) return `You have <b>Rejected</b> application ${nameStr} ${serviceStr}`;
         else return '';
       case 'createAppointment':
-        if (isFo) return `You have new <b>Appointment</b> request ${nameStr} ${serviceStr}`;
+        if (isFoGroup) return `You have new <b>Appointment</b> request ${nameStr} ${serviceStr}`;
         else return '';
       case 'rescheduleAppointment':
-        if (isFo) return `You have rescheduled <b>Appointment</b> request ${nameStr} ${serviceStr}`;
+        if (isFoGroup) return `You have rescheduled <b>Appointment</b> request ${nameStr} ${serviceStr}`;
         else return '';
       case 'approveAppointment':
-        if (isFo) return `You have <b>Approved</b> appointment request ${nameStr} ${serviceStr}`;
+        if (isFoGroup) return `You have <b>Approved</b> appointment request ${nameStr} ${serviceStr}`;
         else return '';
       case 'rejectAppointment':
-        if (isFo) return `You have Rejected appointment request ${nameStr} ${serviceStr}`;
+        if (isFoGroup) return `You have Rejected appointment request ${nameStr} ${serviceStr}`;
         else return '';
       default:
         return '';
@@ -176,7 +175,7 @@ const Notification: React.FC = () => {
       {(error && !isFetching) && (
         <EmptyState type="error" title="Error">{error.message}</EmptyState>
       )}
-      {(!logData?.length || (!isFo && !isBo)) && !isFetching && (
+      {(!logData?.length || (!isFoGroup && !isBoGroup)) && !isFetching && (
         <EmptyState type="empty" title="Ooops..">
           No notification found.
         </EmptyState>

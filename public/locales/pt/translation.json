@@ -123,7 +123,9 @@
     "ministry-of-administration-state": "Ministério da Administração do Estado",
     "ministry-of-administration-state-manager": "Gestor Estadual do Ministério da Administração",
     "oss-manager": "Gerente de OSS",
-    "super-admin": "Superadministrador"
+    "super-admin": "Superadministrador",
+    "staff": "Equipe",
+    "manager": "Gerente"
   },
   "role_group": {
     "citizen": "Cidadão",
@@ -158,7 +160,8 @@
     "error_password_required": "Senha requerida",
     "error_password_min": "A senha deve ser pelo menos {{count}} personagens",
     "error_password_invalid": "A senha deve conter pelo menos uma letra maiúscula, uma minúscula e um número",
-    "error_not_eligible": "Você não está qualificado para acessar este sistema"
+    "error_not_eligible": "Você não está qualificado para acessar este sistema",
+    "error_invalid_credentials": "Email ou senha inválidos"
   },
   "forgot_password": {
     "title": "Esqueceu sua senha?",

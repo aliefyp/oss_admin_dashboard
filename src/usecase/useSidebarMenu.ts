@@ -1,11 +1,13 @@
-import { MAIN_MENU, OTHER_MENU } from "constants/sidebar"
-import { useTranslation } from "react-i18next";
+import { MAIN_MENU, OTHER_MENU } from "constants/sidebar";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { useTranslation } from "react-i18next";
 import { UserData } from "types/auth/user";
+import useRoleGroup from "./useRoleGroup";
 
 const useSidebarMenu = () => {
   const { t } = useTranslation();
   const auth = useAuthUser<UserData>();
+  const { isFoGroup, isAdminGroup } = useRoleGroup(auth?.roleGroup || '');
 
   const otherMenu = {
     ...OTHER_MENU,
@@ -21,11 +23,11 @@ const useSidebarMenu = () => {
     title: t(`sidebar.${MAIN_MENU.key}`),
     items: MAIN_MENU.items.filter(item => {
       if (item.key === 'appointment') {
-        return auth?.roleGroup?.toLowerCase() === 'frontoffice'
+        return isFoGroup;
       }
 
       if (item.key === 'management') {
-        return auth?.roleGroup === 'admin'
+        return isAdminGroup;
       }
 
       return true
