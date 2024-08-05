@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
-import { useDebounce } from "use-debounce";
 import { Button, Chip, InputAdornment, TextField, Typography } from "@mui/material";
-import { useServicesType } from "api/service";
 import { useIssuedCards } from "api/issued-cards";
 import { useOptionApplicationDeliveryTime } from "api/options";
-import PageHeading from "components/PageHeading";
+import { useMunicipality } from "api/region";
+import { useServicesType } from "api/service";
 import GroupFilter from "components/GroupFilter";
+import PageHeading from "components/PageHeading";
+import { useEffect, useState } from "react";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { useTranslation } from "react-i18next";
+import { FaSearch } from "react-icons/fa";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { UserData } from "types/auth/user";
+import { useDebounce } from "use-debounce";
 import useGroupFilter from "usecase/useGroupFilter";
 import useLastNYearList from "usecase/useLastNYearList";
 import IssuedCardListTable from "./components/IssuedCardListTable";
-import { useMunicipality } from "api/region";
-import { UserData } from "types/auth/user";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const IssuedCardList: React.FC = () => {
   const location = useLocation();
@@ -126,7 +126,7 @@ const IssuedCardList: React.FC = () => {
               />
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_issued_card_list.total_issued', { count: dataIssuedCards?.metadata?.totalCount }) }} />
             </Typography>

@@ -1,20 +1,20 @@
-import dayjs from "dayjs";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Chip, InputAdornment, TextField, Typography } from "@mui/material";
-import { useDebounce } from "use-debounce";
-import { useTranslation } from "react-i18next";
-import { FaSearch } from "react-icons/fa";
-import { useServices } from "api/service";
 import { useAppointments } from "api/appointment";
 import { useMunicipality } from "api/region";
+import { useServices } from "api/service";
 import GroupFilter from "components/GroupFilter";
 import PageHeading from "components/PageHeading";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { useTranslation } from "react-i18next";
+import { FaSearch } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router-dom";
+import { UserData } from "types/auth/user";
+import { useDebounce } from "use-debounce";
 import useGroupFilter from "usecase/useGroupFilter";
 import AppointmentTable from "./components/AppointmentTable";
 import RangePicker from "./components/RangePicker";
-import { UserData } from "types/auth/user";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const Appointment = () => {
   const { t } = useTranslation();
@@ -136,7 +136,7 @@ const Appointment = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_appointment.total_appointments', { count: dataAppointments?.metadata?.totalCount }) }} />
             </Typography>

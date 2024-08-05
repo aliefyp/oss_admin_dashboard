@@ -1,23 +1,23 @@
 import { Button, Chip, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import dayjs from "dayjs";
-import { useServicesType } from "api/service";
-import { useMunicipality } from "api/region";
-import { useOptionsGenderType } from "api/options";
 import { useDashboard } from "api/dashboard";
-import useLastNYearList from "usecase/useLastNYearList";
-import useGroupFilter from "usecase/useGroupFilter";
-import { UserData } from "types/auth/user";
+import { useOptionsGenderType } from "api/options";
+import { useMunicipality } from "api/region";
+import { useServicesType } from "api/service";
 import GroupFilter from "components/GroupFilter";
 import PageHeading from "components/PageHeading";
-import RegisteredCitizens from "./components/RegisteredCitizens";
-import TypeRegistered from "./components/TypeRegistered";
-import ByGender from "./components/ByGender";
-import ByAge from "./components/ByAge";
-import ServiceDistributed from "./components/ServiceDistributed";
-import { useLocation, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 import { useEffect } from "react";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
+import { UserData } from "types/auth/user";
+import useGroupFilter from "usecase/useGroupFilter";
+import useLastNYearList from "usecase/useLastNYearList";
+import ByAge from "./components/ByAge";
+import ByGender from "./components/ByGender";
+import RegisteredCitizens from "./components/RegisteredCitizens";
+import ServiceDistributed from "./components/ServiceDistributed";
+import TypeRegistered from "./components/TypeRegistered";
 
 const Overview: React.FC = () => {
   const navigate = useNavigate();
@@ -107,7 +107,7 @@ const Overview: React.FC = () => {
             filterOptions={filterOptions}
             handleFilterChange={handleFilterChange}
           />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             {/* <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: total }) }} />
             </Typography> */}
