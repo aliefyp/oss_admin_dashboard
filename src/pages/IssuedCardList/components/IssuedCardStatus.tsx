@@ -15,7 +15,8 @@ interface Props {
   refetch: () => void;
 }
 
-const IssuedCardStatus = ({ applicationId, status, refetch }: Props) => {
+// TOOD: remove hardcoded status
+const IssuedCardStatus = ({ applicationId, status = 'waiting', refetch }: Props) => {
   const { t } = useTranslation();
   const toaster = useToaster();
   const auth = useAuthUser<UserData>()
