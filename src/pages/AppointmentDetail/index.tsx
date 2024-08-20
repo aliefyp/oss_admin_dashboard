@@ -1,18 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
-import { useAppointmentDetail } from "api/appointment";
+import { useAppointmentDetail, useUpdateAppoinmentStatus } from "api/appointment";
 import { useLazyFiles } from "api/files";
 import PageHeading from "components/PageHeading";
 import PageLoader from "components/PageLoader";
+import { APPOINTMENT_STATUS_COLOR } from "constants/appointment";
+import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
+import useToaster from "usecase/useToaster";
 import ModalApproveConfirmation from "./components/ModalApproveConfirmation";
 import ModalRescheduleConfirmation from "./components/ModalRescheduleConfirmation";
 import ModalSuccess from "./components/ModalSuccess";
 import useAppointmentData from "./usecase/useAppointmentData";
-import { useUpdateAppoinmentStatus } from "api/appointment";
-import useToaster from "usecase/useToaster";
-import { APPOINTMENT_STATUS_COLOR } from "constants/appointment";
 
 const AppointmentDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -51,11 +50,11 @@ const AppointmentDetail: React.FC = () => {
     }
   }, [data?.data?.photoFileId, getFiles])
 
-  const handleApproveAppointment = async () => {
+  const handleApproveAppointment = async (notes: string) => {
     try {
       setLoading(true);
       setOpenApproveConfirmation(false);
-      const res = await updateAppointmentStatus({ status: 'confirm' })
+      const res = await updateAppointmentStatus({ status: 'confirm', notes })
       if (!res) throw new Error('Failed to approve appointment');
 
       setSuccessModal({

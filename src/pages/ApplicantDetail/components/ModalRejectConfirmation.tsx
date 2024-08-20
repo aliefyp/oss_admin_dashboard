@@ -1,35 +1,28 @@
-// import { Button, FormControl, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { Button, Modal } from "@mui/material";
+import { Button, Modal, TextField } from "@mui/material";
 import ModalSheet from "components/ModalSheet";
-// import { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-
-// const DUMMY_REASON = [
-//   { id: '1', name: 'Reason 1' },
-//   { id: '2', name: 'Reason 2' },
-//   { id: '3', name: 'Reason 3' },
-//   { id: '4', name: 'Reason 4' },
-// ]
+interface FormType {
+  reason: string;
+}
 
 interface ModalRejectConfirmationProps {
   open: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: (reason: string) => void;
 }
 
 const ModalRejectConfirmation = ({ open, onClose, onConfirm }: ModalRejectConfirmationProps) => {
   const { t } = useTranslation();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormType>({
+    defaultValues: {
+      reason: '',
+    }
+  });
 
-  // const [reasonType, setReasonType] = useState('1');
-  // const [reason, setReason] = useState('');
-
-  // const handleReasonTypeChange = (event: SelectChangeEvent<string>) => {
-  //   setReasonType(event.target.value);
-  // };
-
-  // const handleReasonChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setReason(event.target.value);
-  // };
+  const submitForm = ({ reason }: FormType) => {
+    onConfirm(reason);
+  }
 
   return (
     <Modal
@@ -46,46 +39,27 @@ const ModalRejectConfirmation = ({ open, onClose, onConfirm }: ModalRejectConfir
           width: 600,
         }}
       >
-        {/* <div className="space-y-8 mt-4">
-          <FormControl className="w-full">
-            <InputLabel id="reason">
-              {t('page_applicant_detail.modal_reject.label_reason')}
-            </InputLabel>
-            <Select
-              label={t('page_applicant_detail.modal_reject.label_reason')}
+        <form noValidate onSubmit={handleSubmit(submitForm)}>
+          <div className="flex flex-col gap-4">
+            <TextField
+              label={t('page_appointment_detail.modal_approve.label_reason')}
               variant="standard"
-              labelId="reason"
-              id="inut-reason-type"
-              value={reasonType}
-              placeholder="Select Reason"
-              onChange={e => handleReasonTypeChange(e)}
-            >
-              {DUMMY_REASON.map((svc) => (
-                <MenuItem key={svc.id} value={svc.id}>{svc.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+              fullWidth
+              error={!!errors.reason}
+              helperText={errors.reason?.message}
+              {...register('reason')}
+            />
 
-          <TextField
-            className="w-full"
-            variant="standard"
-            id="input-reason"
-            label={t('page_applicant_detail.modal_reject.label_message')}
-            placeholder={t('page_applicant_detail.modal_reject.placeholder_message')}
-            multiline
-            minRows={2}
-            value={reason}
-            onChange={handleReasonChange}
-          />
-        </div> */}
-        <div className="flex gap-4 justify-center mt-6">
-          <Button variant="outlined" className="w-full" onClick={onClose}>
-            {t('page_applicant_detail.modal_reject.cta_recheck')}
-          </Button>
-          <Button variant="contained" className="w-full" onClick={onConfirm}>
-            {t('page_applicant_detail.modal_reject.cta_reject')}
-          </Button>
-        </div>
+            <div className="flex gap-4 justify-center mt-6">
+              <Button variant="outlined" className="w-full" onClick={onClose}>
+                {t('page_applicant_detail.modal_reject.cta_recheck')}
+              </Button>
+              <Button type="submit" variant="contained" className="w-full">
+                {t('page_applicant_detail.modal_reject.cta_reject')}
+              </Button>
+            </div>
+          </div>
+        </form>
       </ModalSheet>
     </Modal>
   );

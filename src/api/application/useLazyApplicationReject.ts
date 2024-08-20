@@ -4,9 +4,9 @@ import useFetcher from "usecase/useFetcher";
 const useLazyApplicationReject = () => {
   const fetcher = useFetcher();
 
-  const mutate = (applicationId: number) => {
+  const mutate = (applicationId: number, notes: string) => {
     return fetcher('POST', `${EP_APPLICATIONS}/${applicationId}/reject`, {
-      body: JSON.stringify({ notes: '-' })
+      body: JSON.stringify({ notes })
     });
   }
 

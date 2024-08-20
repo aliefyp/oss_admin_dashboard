@@ -1,4 +1,5 @@
 import { Button, Chip, Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 import { useDashboard } from "api/dashboard";
 import { useOptionsGenderType } from "api/options";
 import { useMunicipality } from "api/region";
@@ -6,13 +7,12 @@ import { useServicesType } from "api/service";
 import GroupFilter from "components/GroupFilter";
 import PageHeading from "components/PageHeading";
 import dayjs from "dayjs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserData } from "types/auth/user";
 import useGroupFilter from "usecase/useGroupFilter";
-import useLastNYearList from "usecase/useLastNYearList";
 import ByAge from "./components/ByAge";
 import ByGender from "./components/ByGender";
 import RegisteredCitizens from "./components/RegisteredCitizens";
@@ -28,7 +28,8 @@ const Overview: React.FC = () => {
   const { data: dataGenderType } = useOptionsGenderType();
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
-  const years = useLastNYearList(5);
+
+  const [date, setDate] = useState(dayjs());
 
   const { data: dataDashboard, isFetching } = useDashboard();
 
@@ -53,11 +54,6 @@ const Overview: React.FC = () => {
     itemLabel: t(`gender.${item.toLowerCase()}`),
   })) || [];
 
-  const listYear = years.map((item) => ({
-    itemId: item,
-    itemLabel: item,
-  }));
-
   const {
     filter,
     filterKeys,
@@ -72,7 +68,6 @@ const Overview: React.FC = () => {
       { groupId: 'ServiceTypeId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
       { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.regions?.length },
       { groupId: 'Gender', groupLabel: t('filter_label.gender'), items: listGender },
-      { groupId: 'Year', groupLabel: t('filter_label.year'), items: listYear },
     ],
   });
 
@@ -85,11 +80,15 @@ const Overview: React.FC = () => {
       ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
       ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
       ...(filter.Gender !== '0' ? { Gender: String(filter.Gender) } : {}),
-      ...(filter.Year !== '0' ? { Year: String(filter.Year) } : {}),
+      ...(date ? {
+        Year: String(date.year()),
+        Month: String(date.month() + 1),
+        Day: String(date.date()),
+      } : {}),
     });
 
     navigate(location.pathname + '?' + urlParams.toString(), { replace: true });
-  }, [filter, navigate, location.pathname])
+  }, [filter, navigate, location.pathname, date])
 
   // const total = dataDashboard?.data?.totalApplicationByServiceTypes?.reduce((acc, item) => acc + item.total, 0) || 0;
 
@@ -106,7 +105,22 @@ const Overview: React.FC = () => {
             filter={filter}
             filterOptions={filterOptions}
             handleFilterChange={handleFilterChange}
-          />
+          >
+            <DatePicker
+              value={date}
+              maxDate={dayjs()}
+              onChange={date => setDate(date)}
+              slotProps={{
+                textField: {
+                  variant: "outlined",
+                  size: "small",
+                  id: "input-date",
+                  placeholder: t('page_appointment_detail.modal_reject.placeholder_date')
+                }
+              }}
+            />
+          </GroupFilter>
+
           <div className="flex items-center gap-2 flex-wrap">
             {/* <Typography variant="caption" className="text-gray-600 block">
               <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: total }) }} />

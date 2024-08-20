@@ -1,9 +1,14 @@
 export const APPOINTMENT_STATUS_COLOR = {
   waitingapproval: 'yellow',
   confirm: 'blue',
-  reject: 'orange',
+  reject: 'red',
   completed: 'green',
-  absent: 'red',
+  absent: 'purple',
+}
+
+export const ISSUED_CARD_STATUS_COLOR = {
+  waiting: 'yellow',
+  completed: 'green',
 }
 
 export const REJECTION_REASONS = [

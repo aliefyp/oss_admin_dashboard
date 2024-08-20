@@ -1,15 +1,29 @@
-import { Button, Modal } from "@mui/material";
+import { Button, Modal, TextField } from "@mui/material";
 import ModalSheet from "components/ModalSheet";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+
+interface FormType {
+  reason: string;
+}
 
 interface ModalApproveConfirmationProps {
   open: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: (reason: string) => void;
 }
 
 const ModalApproveConfirmation = ({ open, onClose, onConfirm }: ModalApproveConfirmationProps) => {
   const { t } = useTranslation();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormType>({
+    defaultValues: {
+      reason: '',
+    }
+  });
+
+  const submitForm = ({ reason }: FormType) => {
+    onConfirm(reason);
+  }
 
   return (
     <Modal
@@ -26,14 +40,27 @@ const ModalApproveConfirmation = ({ open, onClose, onConfirm }: ModalApproveConf
           width: 600,
         }}
       >
-        <div className="flex gap-4 justify-center mt-4">
-          <Button variant="outlined" className="w-full" onClick={onClose}>
-            {t('page_appointment_detail.modal_approve.cta_recheck')}
-          </Button>
-          <Button variant="contained" className="w-full" onClick={onConfirm}>
-            {t('page_appointment_detail.modal_approve.cta_approve')}
-          </Button>
-        </div>
+        <form noValidate onSubmit={handleSubmit(submitForm)}>
+          <div className="flex flex-col gap-4">
+            <TextField
+              label={t('page_appointment_detail.modal_approve.label_reason')}
+              variant="standard"
+              fullWidth
+              error={!!errors.reason}
+              helperText={errors.reason?.message}
+              {...register('reason')}
+            />
+
+            <div className="flex gap-4 justify-center mt-4">
+              <Button type="button" variant="outlined" className="w-full" onClick={onClose}>
+                {t('page_appointment_detail.modal_approve.cta_recheck')}
+              </Button>
+              <Button type="submit" variant="contained" className="w-full">
+                {t('page_appointment_detail.modal_approve.cta_approve')}
+              </Button>
+            </div>
+          </div>
+        </form>
       </ModalSheet>
     </Modal>
   );

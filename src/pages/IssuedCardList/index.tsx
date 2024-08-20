@@ -40,7 +40,7 @@ const IssuedCardList: React.FC = () => {
     countryCode: 'TL'
   });
   const { data: dataServicesType } = useServicesType();
-  const { data: dataIssuedCards, isFetching, error } = useIssuedCards(Number(issued_card_id));
+  const { data: dataIssuedCards, isFetching, error, refetch } = useIssuedCards(Number(issued_card_id));
   const pageTitle = dataServicesType?.data?.find((item) => item.code === issued_card_id)?.name;
 
   const listMunicipality = dataMunicipality?.data?.map((item) => ({
@@ -179,6 +179,7 @@ const IssuedCardList: React.FC = () => {
             data={dataIssuedCards}
             loading={isFetching}
             error={error}
+            refetch={refetch}
           />
         </div>
       </div>

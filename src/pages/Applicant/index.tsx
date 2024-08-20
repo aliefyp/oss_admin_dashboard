@@ -1,4 +1,5 @@
 import { Button, Chip, InputAdornment, TextField, Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 import { useApplications } from "api/application";
 import { useOptionsApplicationStatus } from "api/options";
 import { useMunicipality } from "api/region";
@@ -6,6 +7,7 @@ import { useServicesType } from "api/service";
 import GroupFilter from "components/GroupFilter";
 import PageHeading from "components/PageHeading";
 import PageLoader from "components/PageLoader";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useTranslation } from "react-i18next";
@@ -14,7 +16,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { UserData } from "types/auth/user";
 import { useDebounce } from "use-debounce";
 import useGroupFilter from "usecase/useGroupFilter";
-import useLastNYearList from "usecase/useLastNYearList";
 import ApplicantTable from "./components/ApplicantTable";
 import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
 
@@ -22,7 +23,6 @@ const Applicants: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
-  const years = useLastNYearList(5);
   const auth = useAuthUser<UserData>();
 
   const searchParams = new URLSearchParams(location.search);
@@ -43,6 +43,8 @@ const Applicants: React.FC = () => {
     countryCode: 'TL'
   });
 
+  const [date, setDate] = useState(dayjs());
+
   const {
     data: dataApplications,
     isFetching: loadingApplications,
@@ -58,11 +60,6 @@ const Applicants: React.FC = () => {
     itemId: item.id,
     itemLabel: item.name,
   })) || [];
-
-  const listYear = years.map((item) => ({
-    itemId: item,
-    itemLabel: item,
-  }));
 
   const listStatus = dataStatus?.data?.map((item) => ({
     itemId: item,
@@ -82,7 +79,6 @@ const Applicants: React.FC = () => {
     groups: [
       { groupId: 'ServiceTypeId', groupLabel: t('filter_label.service'), items: listService, disabled: !!auth.serviceTypes?.length },
       { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.regions?.length },
-      { groupId: 'Year', groupLabel: t('filter_label.year'), items: listYear },
       { groupId: 'Status', groupLabel: t('filter_label.status'), items: listStatus },
     ],
   });
@@ -107,12 +103,16 @@ const Applicants: React.FC = () => {
       ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
       ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
       ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
-      ...(filter.Year !== '0' ? { Year: String(filter.Year) } : {}),
       ...(filter.Status !== '0' ? { Status: String(filter.Status) } : {}),
+      ...(date ? {
+        Year: String(date.year()),
+        Month: String(date.month() + 1),
+        Day: String(date.date()),
+      } : {})
     });
 
     navigate(location.pathname + '?' + urlParams.toString(), { replace: true });
-  }, [paginationModel, debouncedSearch, filter, navigate, location.pathname])
+  }, [paginationModel, debouncedSearch, filter, navigate, location.pathname, date])
 
   const hasSearch = debouncedSearch.length > 0;
 
@@ -144,7 +144,22 @@ const Applicants: React.FC = () => {
                 filter={filter}
                 filterOptions={filterOptions}
                 handleFilterChange={handleFilterChange}
-              />
+              >
+
+                <DatePicker
+                  value={date}
+                  maxDate={dayjs()}
+                  onChange={date => setDate(date)}
+                  slotProps={{
+                    textField: {
+                      variant: "outlined",
+                      size: "small",
+                      id: "input-date",
+                      placeholder: t('page_appointment_detail.modal_reject.placeholder_date')
+                    }
+                  }}
+                />
+              </GroupFilter>
             </div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">

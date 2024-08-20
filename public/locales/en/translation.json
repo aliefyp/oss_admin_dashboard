@@ -234,7 +234,8 @@
       "row_municipality": "Municipality",
       "row_submission_date": "Submission Date",
       "row_review": "Review",
-      "row_status": "Status"
+      "row_status": "Status",
+      "row_notes": "Notes"
     }
   },
   "page_applicant_detail": {
@@ -320,7 +321,14 @@
       "row_citizens": "Citizens",
       "row_municipality": "Municipality",
       "row_deliver": "Deliver",
-      "row_submission_date": "Submission Date"
+      "row_submission_date": "Submission Date",
+      "row_completion_date": "Completion Date",
+      "row_document_status": "Document Status"
+    },
+    "status": {
+      "waiting": "Waiting for Pickup",
+      "delivery": "Send for Delivery",
+      "pickup": "Received by Owner"
     }
   },
   "page_appointment": {
@@ -337,7 +345,8 @@
       "row_service": "Services",
       "row_office": "Office",
       "row_appointment_date": "Appointment Date",
-      "row_status": "Status"
+      "row_status": "Status",
+      "row_appointment_notes": "Notes"
     },
     "status": {
       "unstarted": "Unstarted",
@@ -375,6 +384,7 @@
     "modal_approve": {
       "title": "Are Your Sure to Approve?",
       "description": "Please check your data before submitting, after this citizen will recieved code booking to visit office",
+      "label_reason": "Reason",
       "cta_approve": "Approve",
       "cta_recheck": "Recheck",
       "success_title": "Appointment Have Approved",

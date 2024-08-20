@@ -69,6 +69,7 @@ const ApplicantTable = ({
         }
       }
     },
+    { field: 'notes', headerName: t('page_applicant.table.row_notes'), flex: 1 },
     {
       field: 'download',
       headerName: '',

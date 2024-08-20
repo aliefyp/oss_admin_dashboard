@@ -4,14 +4,15 @@ import {
   GridColDef,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
-import { Response as IssuedCardResponse } from 'types/issued-card/issued-cards';
 import CustomTablePagination from 'components/CustomTablePagination';
-import { useTranslation } from 'react-i18next';
-import { HiDownload } from 'react-icons/hi';
+import EmptyState from 'components/EmptyState';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import EmptyState from 'components/EmptyState';
+import { useTranslation } from 'react-i18next';
+import { HiDownload } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import { Response as IssuedCardResponse } from 'types/issued-card/issued-cards';
+import IssuedCardStatus from './IssuedCardStatus';
 
 interface PaginationModel {
   page: number;
@@ -21,11 +22,12 @@ interface Props {
   data: IssuedCardResponse;
   loading: boolean;
   error: Error;
+  refetch: () => void;
   paginationModel: PaginationModel;
   setPaginationModel: (paginationModel: PaginationModel) => void;
 }
 
-const IssuedCardListTable = ({ data, loading, error, paginationModel, setPaginationModel }: Props) => {
+const IssuedCardListTable = ({ data, loading, error, refetch, paginationModel, setPaginationModel }: Props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -37,6 +39,17 @@ const IssuedCardListTable = ({ data, loading, error, paginationModel, setPaginat
     { field: 'municipality', headerName: t('page_issued_card_list.table.row_municipality'), flex: 1 },
     { field: 'deliver', headerName: t('page_issued_card_list.table.row_deliver'), flex: 1 },
     { field: 'issued_date', headerName: t('page_issued_card_list.table.row_submission_date'), flex: 1 },
+    { field: 'completion_date', headerName: t('page_issued_card_list.table.row_completion_date'), flex: 1 },
+    {
+      field: 'document_status',
+      headerName: t('page_issued_card_list.table.row_document_status'),
+      flex: 1,
+      minWidth: 180,
+      renderCell: (params: GridValueGetterParams) => {
+        console.log(params.row)
+        return <IssuedCardStatus applicationId={params.row.id} status={params.row.status?.toLowerCase()} refetch={refetch} />
+      },
+    },
     {
       field: 'download',
       headerName: '',
@@ -62,6 +75,10 @@ const IssuedCardListTable = ({ data, loading, error, paginationModel, setPaginat
     municipality: item.state,
     deliver: t(`deliver.${item.deliveryTime}`),
     issued_date: dayjs(item.issuedAt).format('DD-MMM-YYYY HH:mm'),
+    // @ts-ignore
+    completion_date: item.completionDate,
+    // @ts-ignore
+    status: item.status,
   })) || [];
 
   useEffect(() => {

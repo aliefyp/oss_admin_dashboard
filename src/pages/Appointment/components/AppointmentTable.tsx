@@ -1,13 +1,13 @@
+import { IconButton, Tooltip } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import CustomTablePagination from 'components/CustomTablePagination';
 import EmptyState from 'components/EmptyState';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { HiOutlineDocumentSearch } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { Response as AppointmentResponse } from 'types/appointment/appointments';
-import { useEffect, useState } from 'react';
-import { IconButton, Tooltip } from '@mui/material';
-import { HiOutlineDocumentSearch } from 'react-icons/hi';
 import AppointmentStatus from './AppointmentStatus';
 
 interface PaginationModel {
@@ -49,13 +49,12 @@ const AppointmentTable = ({
       field: 'status',
       headerName: t('page_appointment.table.row_status'),
       flex: 1,
+      minWidth: 180,
       renderCell: (params: GridValueGetterParams) => {
-        // const status = params.row.status.toLowerCase();
-        // const color = APPOINTMENT_STATUS_COLOR[status];
-        // return <Chip label={t(`appointment_status.${status}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
         return <AppointmentStatus appointmentId={params.row.id} status={params.row.status.toLowerCase()} refetch={refetch} />
       },
     },
+    { field: 'appointment_notes', headerName: t('page_appointment.table.row_appointment_notes'), flex: 1 },
     {
       field: 'preview',
       headerName: '',

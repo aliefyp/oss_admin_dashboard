@@ -156,11 +156,11 @@ const ApplicantDetail: React.FC = () => {
     }
   }
 
-  const handleApproveApplication = async () => {
+  const handleApproveApplication = async (notes: string) => {
     try {
       setLoading(true);
       setOpenApproveConfirmation(false);
-      const res = await submitApproveApplication(data?.data?.id)
+      const res = await submitApproveApplication(data?.data?.id, notes)
       if (!res) throw new Error('Failed to approve application');
 
 
@@ -178,11 +178,11 @@ const ApplicantDetail: React.FC = () => {
     }
   }
 
-  const handleRejectApplication = async () => {
+  const handleRejectApplication = async (notes: string) => {
     try {
       setLoading(true);
       setOpenRejectConfirmation(false);
-      const res = await submitRejectApplication(data?.data?.id)
+      const res = await submitRejectApplication(data?.data?.id, notes)
       if (!res) throw new Error('Failed to reject application');
 
       setSuccessModal({
