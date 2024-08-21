@@ -320,7 +320,14 @@
       "row_citizens": "Sidadaun",
       "row_municipality": "Munisípiu",
       "row_deliver": "Entrega",
-      "row_submission_date": "Data Submisaun"
+      "row_submission_date": "Data Submisaun",
+      "row_completion_date": "Data Konkluzaun",
+      "row_document_status": "Estadu Dokumentu"
+    },
+    "status": {
+      "waiting": "Hakilar atu Tuku",
+      "delivery": "Subarba atu Entrega",
+      "pickup": "Simu husi Nain"
     }
   },
   "page_appointment": {
@@ -337,7 +344,8 @@
       "row_service": "Servisu Sira",
       "row_office": "Eskritóriu",
       "row_appointment_date": "Data Audiénsia",
-      "row_status": "Estatutu"
+      "row_status": "Estatutu",
+      "row_appointment_notes": "Notasaun"
     },
     "status": {
       "unstarted": "Seidauk hahú",
@@ -375,6 +383,7 @@
     "modal_approve": {
       "title": "Ita Hakarak Duni Atu Aprova?",
       "description": "Favór haree didiak ita-nia dadus molok submete, hafoin ida ne'e sidadaun ne'e sei simu kódigu rezerva hodi bele ba vizita eskritóriu.",
+      "label_reason": "Razaun",
       "cta_approve": "Aprovadu",
       "cta_recheck": "Cek Fila Fali",
       "success_title": "Ajendamentu aprova ona.",

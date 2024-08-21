@@ -28,8 +28,8 @@ const IssuedCardStatus = ({ applicationId, status = 'waiting', refetch }: Props)
   const updateDeliverStatus = useUpdateDeliveryStatus({ applicationId });
 
   const STATUS_OPTIONS = [
-    { key: 'pickup', value: true, label: 'Received by Owner' },
-    { key: 'delivery', value: false, label: 'Send for Delivery' },
+    { key: 'pickup', value: true, label: t('page_issued_card_list.status.pickup') },
+    { key: 'delivery', value: false, label: t('page_issued_card_list.status.delivery') },
   ];
 
   const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {

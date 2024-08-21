@@ -320,7 +320,14 @@
       "row_citizens": "Cidadãos",
       "row_municipality": "Município",
       "row_deliver": "Entregar",
-      "row_submission_date": "Data de submissão"
+      "row_submission_date": "Data de submissão",
+      "row_completion_date": "Data de Conclusão",
+      "row_document_status": "Status do Documento"
+    },
+    "status": {
+      "waiting": "Aguardando Retirada",
+      "delivery": "Enviar para Entrega",
+      "pickup": "Recebido pelo Proprietário"
     }
   },
   "page_appointment": {
@@ -337,7 +344,8 @@
       "row_service": "Serviços",
       "row_office": "Escritório",
       "row_appointment_date": "Data do encontro",
-      "row_status": "Status"
+      "row_status": "Status",
+      "row_appointment_notes": "Notas"
     },
     "status": {
       "unstarted": "Não iniciado",
@@ -375,6 +383,7 @@
     "modal_approve": {
       "title": "Você tem certeza de aprovar?",
       "description": "Por favor, verifique seus dados antes de enviar, após este cidadão receber o código de reserva para visitar o escritório",
+      "label_reason": "Razão",
       "cta_approve": "Aprovar",
       "cta_recheck": "Verifique novamente",
       "success_title": "Nomeação aprovada",
