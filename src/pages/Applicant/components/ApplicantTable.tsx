@@ -142,6 +142,7 @@ const ApplicantTable = ({
     <DataGrid
       loading={loading}
       density="standard"
+      getRowHeight={() => 'auto'}
       rows={rows}
       columns={columns}
       showColumnVerticalBorder={false}
@@ -180,6 +181,7 @@ const ApplicantTable = ({
         },
         [`& .MuiDataGrid-cell`]: {
           padding: '8px',
+          minHeight: '48px',
         },
       }}
     />

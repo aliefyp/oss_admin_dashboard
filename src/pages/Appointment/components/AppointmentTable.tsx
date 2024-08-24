@@ -155,6 +155,7 @@ const AppointmentTable = ({
         },
         [`& .MuiDataGrid-cell`]: {
           padding: '8px',
+          minHeight: '48px',
         },
       }}
     />
