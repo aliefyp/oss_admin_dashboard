@@ -39,7 +39,7 @@ const AppointmentTable = ({
   const [rowCount, setRowCountState] = useState<number>(data?.metadata?.totalCount || 0);
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: t('page_appointment.table.row_id') },
+    { field: 'id', headerName: t('page_appointment.table.row_id'), width: 40 },
     { field: 'citizens', headerName: t('page_appointment.table.row_citizens'), flex: 1 },
     { field: 'user_type', headerName: t('page_appointment.table.row_user_type'), flex: 1 },
     { field: 'services', headerName: t('page_appointment.table.row_service'), flex: 1 },
@@ -109,7 +109,6 @@ const AppointmentTable = ({
     <DataGrid
       loading={loading}
       density="standard"
-      getRowHeight={() => 'auto'}
       rows={rows}
       columns={columns}
       showColumnVerticalBorder={false}
@@ -152,10 +151,6 @@ const AppointmentTable = ({
         },
         '& .MuiDataGrid-row:hover': {
           cursor: 'pointer'
-        },
-        [`& .MuiDataGrid-cell`]: {
-          padding: '8px',
-          minHeight: '48px',
         },
       }}
     />

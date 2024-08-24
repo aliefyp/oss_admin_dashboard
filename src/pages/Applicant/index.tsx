@@ -1,5 +1,4 @@
 import { Button, Chip, InputAdornment, TextField, Typography } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
 import { useApplications } from "api/application";
 import { useOptionsApplicationStatus } from "api/options";
 import { useMunicipality } from "api/region";
@@ -8,6 +7,7 @@ import GroupFilter from "components/GroupFilter";
 import PageHeading from "components/PageHeading";
 import PageLoader from "components/PageLoader";
 import dayjs from "dayjs";
+import RangePicker from "pages/Appointment/components/RangePicker";
 import { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useTranslation } from "react-i18next";
@@ -27,7 +27,10 @@ const Applicants: React.FC = () => {
 
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
+  const defaultStartDate = searchParams.get('ScheduleAtStart') ? dayjs(searchParams.get('ScheduleAtStart')).toDate() : null;
+  const defaultEndDate = searchParams.get('ScheduleAtEnd') ? dayjs(searchParams.get('ScheduleAtEnd')).toDate() : null;
 
+  const [date, setDate] = useState([defaultStartDate, defaultEndDate] as [Date | null, Date | null]);
   const [search, setSearch] = useState<string>(defaultSearch);
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10,
@@ -42,8 +45,6 @@ const Applicants: React.FC = () => {
   const { data: dataMunicipality } = useMunicipality({
     countryCode: 'TL'
   });
-
-  const [date, setDate] = useState(dayjs());
 
   const {
     data: dataApplications,
@@ -94,6 +95,11 @@ const Applicants: React.FC = () => {
   const handleResetClick = () => {
     handleFilterClear();
     setSearch('');
+    setDate([null, null])
+  }
+
+  const handleDateChange = (date: [Date | null, Date | null]) => {
+    setDate(date);
   }
 
   useEffect(() => {
@@ -104,17 +110,15 @@ const Applicants: React.FC = () => {
       ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
       ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
       ...(filter.Status !== '0' ? { Status: String(filter.Status) } : {}),
-      ...(date ? {
-        Year: String(date.year()),
-        Month: String(date.month() + 1),
-        Day: String(date.date()),
-      } : {})
+      ...(date[0] ? { StartDate: dayjs(date[0]).format('YYYY-MM-DD') } : {}),
+      ...(date[1] ? { EndDate: dayjs(date[1]).format('YYYY-MM-DD') } : {}),
     });
 
     navigate(location.pathname + '?' + urlParams.toString(), { replace: true });
   }, [paginationModel, debouncedSearch, filter, navigate, location.pathname, date])
 
   const hasSearch = debouncedSearch.length > 0;
+  const hasDate = date[0] !== null || date[1] !== null;
 
   return (
     <>
@@ -139,27 +143,15 @@ const Applicants: React.FC = () => {
               />
             </div>
             <div className="col-span-8 justify-self-end">
-              <GroupFilter
-                className="justify-end"
-                filter={filter}
-                filterOptions={filterOptions}
-                handleFilterChange={handleFilterChange}
-              >
-
-                <DatePicker
-                  value={date}
-                  maxDate={dayjs()}
-                  onChange={date => setDate(date)}
-                  slotProps={{
-                    textField: {
-                      variant: "outlined",
-                      size: "small",
-                      id: "input-date",
-                      placeholder: t('page_appointment_detail.modal_reject.placeholder_date')
-                    }
-                  }}
+              <div className="flex items-center flex-wrap gap-2 justify-end">
+                <GroupFilter
+                  className="justify-end"
+                  filter={filter}
+                  filterOptions={filterOptions}
+                  handleFilterChange={handleFilterChange}
                 />
-              </GroupFilter>
+                <RangePicker value={date} onChange={handleDateChange} />
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -180,7 +172,7 @@ const Applicants: React.FC = () => {
                 label={region.name}
               />
             ))}
-            {(hasFilter || hasSearch) && (
+            {(hasFilter || hasSearch || hasDate) && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleResetClick}>
                   {t('page_overview.reset_filter')}

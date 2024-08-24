@@ -1,5 +1,4 @@
 import { Button, Chip, Typography } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
 import { useDashboard } from "api/dashboard";
 import { useOptionsGenderType } from "api/options";
 import { useMunicipality } from "api/region";
@@ -7,6 +6,7 @@ import { useServicesType } from "api/service";
 import GroupFilter from "components/GroupFilter";
 import PageHeading from "components/PageHeading";
 import dayjs from "dayjs";
+import RangePicker from "pages/Appointment/components/RangePicker";
 import { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useTranslation } from "react-i18next";
@@ -25,11 +25,15 @@ const Overview: React.FC = () => {
   const { t } = useTranslation();
   const auth = useAuthUser<UserData>();
 
+  const searchParams = new URLSearchParams(location.search);
+  const defaultStartDate = searchParams.get('ScheduleAtStart') ? dayjs(searchParams.get('ScheduleAtStart')).toDate() : null;
+  const defaultEndDate = searchParams.get('ScheduleAtEnd') ? dayjs(searchParams.get('ScheduleAtEnd')).toDate() : null;
+
   const { data: dataGenderType } = useOptionsGenderType();
   const { data: dataServicesType } = useServicesType();
   const { data: dataMunicipality } = useMunicipality({ countryCode: 'TL' });
 
-  const [date, setDate] = useState(dayjs());
+  const [date, setDate] = useState([defaultStartDate, defaultEndDate] as [Date | null, Date | null]);
 
   const { data: dataDashboard, isFetching } = useDashboard();
 
@@ -73,6 +77,11 @@ const Overview: React.FC = () => {
 
   const handleResetClick = () => {
     handleFilterClear();
+    setDate([null, null]);
+  }
+
+  const handleDateChange = (date: [Date | null, Date | null]) => {
+    setDate(date);
   }
 
   useEffect(() => {
@@ -80,17 +89,15 @@ const Overview: React.FC = () => {
       ...(filter.ServiceTypeId !== '0' ? { ServiceTypeId: String(filter.ServiceTypeId) } : {}),
       ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
       ...(filter.Gender !== '0' ? { Gender: String(filter.Gender) } : {}),
-      ...(date ? {
-        Year: String(date.year()),
-        Month: String(date.month() + 1),
-        Day: String(date.date()),
-      } : {}),
+      ...(date[0] ? { StartDate: dayjs(date[0]).format('YYYY-MM-DD') } : {}),
+      ...(date[1] ? { EndDate: dayjs(date[1]).format('YYYY-MM-DD') } : {}),
     });
 
     navigate(location.pathname + '?' + urlParams.toString(), { replace: true });
   }, [filter, navigate, location.pathname, date])
 
   // const total = dataDashboard?.data?.totalApplicationByServiceTypes?.reduce((acc, item) => acc + item.total, 0) || 0;
+  const hasDate = date[0] !== null || date[1] !== null;
 
   return (
     <>
@@ -101,30 +108,17 @@ const Overview: React.FC = () => {
       </PageHeading>
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-12 mb-4 space-y-3">
-          <GroupFilter
-            filter={filter}
-            filterOptions={filterOptions}
-            handleFilterChange={handleFilterChange}
-          >
-            <DatePicker
-              value={date}
-              maxDate={dayjs()}
-              onChange={date => setDate(date)}
-              slotProps={{
-                textField: {
-                  variant: "outlined",
-                  size: "small",
-                  id: "input-date",
-                  placeholder: t('page_appointment_detail.modal_reject.placeholder_date')
-                }
-              }}
+          <div className="flex items-center flex-wrap gap-2">
+            <GroupFilter
+              filter={filter}
+              filterOptions={filterOptions}
+              handleFilterChange={handleFilterChange}
             />
-          </GroupFilter>
+            <RangePicker value={date} onChange={handleDateChange} />
+          </div>
+
 
           <div className="flex items-center gap-2 flex-wrap">
-            {/* <Typography variant="caption" className="text-gray-600 block">
-              <span dangerouslySetInnerHTML={{ __html: t('page_overview.total_registered', { count: total }) }} />
-            </Typography> */}
             {auth.serviceTypes?.map(service => (
               <Chip
                 size="small"
@@ -139,7 +133,7 @@ const Overview: React.FC = () => {
                 label={region.name}
               />
             ))}
-            {hasFilter && (
+            {(hasFilter || hasDate) && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleResetClick}>
                   {t('page_overview.reset_filter')}

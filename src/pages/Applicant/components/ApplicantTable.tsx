@@ -38,7 +38,7 @@ const ApplicantTable = ({
   const [rowCount, setRowCountState] = useState<number>(data?.metadata?.totalCount || 0);
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: t('page_applicant.table.row_id') },
+    { field: 'id', headerName: t('page_applicant.table.row_id'), width: 40 },
     { field: 'citizens', headerName: t('page_applicant.table.row_citizens'), flex: 1 },
     { field: 'services', headerName: t('page_applicant.table.row_service'), flex: 1 },
     { field: 'municipality', headerName: t('page_applicant.table.row_municipality'), flex: 1 },
@@ -142,7 +142,6 @@ const ApplicantTable = ({
     <DataGrid
       loading={loading}
       density="standard"
-      getRowHeight={() => 'auto'}
       rows={rows}
       columns={columns}
       showColumnVerticalBorder={false}
@@ -178,10 +177,6 @@ const ApplicantTable = ({
         },
         [`& .MuiDataGrid-virtualScroller`]: {
           minHeight: '200px',
-        },
-        [`& .MuiDataGrid-cell`]: {
-          padding: '8px',
-          minHeight: '48px',
         },
       }}
     />
