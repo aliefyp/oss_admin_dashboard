@@ -87,7 +87,10 @@
     "waitingapproval": "Hein Aprovasaun",
     "rejected": "Rejeita",
     "completed": "Kompleta",
-    "delivered" : "Entrega"
+    "waitingforpickup": "Hakilar atu Tuku",
+    "delivered" : "Entrega",
+    "sendfordelivery": "Subarba atu Entrega",
+    "receivedbyowner": "Simu husi Nain"
   },
   "approval_status": {
     "approved": "Aprovadu",

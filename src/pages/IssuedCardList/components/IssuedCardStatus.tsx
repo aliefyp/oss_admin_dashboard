@@ -1,7 +1,7 @@
 import { ArrowDropDownOutlined } from "@mui/icons-material";
 import { Button, Chip, CircularProgress, Menu, MenuItem, Typography } from "@mui/material";
 import { useUpdateDeliveryStatus } from "api/issued-cards";
-import { ISSUED_CARD_STATUS_COLOR } from "constants/appointment";
+import { APPLICATION_STATUS_COLOR } from "constants/applications";
 import { useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useTranslation } from "react-i18next";
@@ -15,8 +15,7 @@ interface Props {
   refetch: () => void;
 }
 
-// TOOD: remove hardcoded status
-const IssuedCardStatus = ({ applicationId, status = 'waiting', refetch }: Props) => {
+const IssuedCardStatus = ({ applicationId, status, refetch }: Props) => {
   const { t } = useTranslation();
   const toaster = useToaster();
   const auth = useAuthUser<UserData>()
@@ -28,8 +27,8 @@ const IssuedCardStatus = ({ applicationId, status = 'waiting', refetch }: Props)
   const updateDeliverStatus = useUpdateDeliveryStatus({ applicationId });
 
   const STATUS_OPTIONS = [
-    { key: 'pickup', value: true, label: t('page_issued_card_list.status.pickup') },
-    { key: 'delivery', value: false, label: t('page_issued_card_list.status.delivery') },
+    { key: 'pickup', value: true, label: t('application_status.receivedbyowner') },
+    { key: 'delivery', value: false, label: t('application_status.sendfordelivery') },
   ];
 
   const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -59,13 +58,14 @@ const IssuedCardStatus = ({ applicationId, status = 'waiting', refetch }: Props)
 
   const open = Boolean(anchorEl);
   const id = open ? 'start-popover' : undefined;
-  const color = ISSUED_CARD_STATUS_COLOR[status];
+  const adjustedStatus = status === 'completed' ? 'waitingforpickup' : status;
+  const color = APPLICATION_STATUS_COLOR[adjustedStatus];
 
-  const label = <Chip label={t(`page_issued_card_list.status.${status}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
+  const label = <Chip label={t(`application_status.${adjustedStatus}`)} size="small" className={`!text-${color}-600 !bg-${color}-200 !rounded-md min-w-[120px]`} />
 
   return (
     <div onClick={e => e.stopPropagation()}>
-      {(status === 'waiting' && isBoGroup) ? (
+      {(adjustedStatus === 'waitingforpickup' && isBoGroup) ? (
         <>
           <Button
             component="div"
@@ -88,7 +88,7 @@ const IssuedCardStatus = ({ applicationId, status = 'waiting', refetch }: Props)
           >
             {STATUS_OPTIONS.map((s) => (
               <MenuItem key={s.key} onClick={() => handleDeliverStatus(s.value)}>
-                <Typography variant="body1">{t(`page_issued_card_list.status.${s.key}`)}</Typography>
+                <Typography variant="body1">{s.label}</Typography>
               </MenuItem>
             ))}
           </Menu>

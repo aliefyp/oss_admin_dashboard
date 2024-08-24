@@ -6,11 +6,6 @@ export const APPOINTMENT_STATUS_COLOR = {
   absent: 'purple',
 }
 
-export const ISSUED_CARD_STATUS_COLOR = {
-  waiting: 'yellow',
-  completed: 'green',
-}
-
 export const REJECTION_REASONS = [
   { id: 1, code: 'quota' },
   { id: 2, code: 'availability' },

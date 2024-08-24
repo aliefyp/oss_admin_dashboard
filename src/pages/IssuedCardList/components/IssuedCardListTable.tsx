@@ -34,12 +34,12 @@ const IssuedCardListTable = ({ data, loading, error, refetch, paginationModel, s
   const [rowCount, setRowCountState] = useState<number>(data?.metadata?.totalCount || 0);
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: t('page_issued_card_list.table.row_id'), flex: 1 },
+    { field: 'id', headerName: t('page_issued_card_list.table.row_id'), width: 40 },
     { field: 'citizens', headerName: t('page_issued_card_list.table.row_citizens'), flex: 2 },
     { field: 'municipality', headerName: t('page_issued_card_list.table.row_municipality'), flex: 1 },
     { field: 'deliver', headerName: t('page_issued_card_list.table.row_deliver'), flex: 1 },
-    { field: 'issued_date', headerName: t('page_issued_card_list.table.row_submission_date'), flex: 1 },
-    { field: 'completion_date', headerName: t('page_issued_card_list.table.row_completion_date'), flex: 1 },
+    { field: 'submission_date', headerName: t('page_issued_card_list.table.row_submission_date'), flex: 1 },
+    { field: 'issued_date', headerName: t('page_issued_card_list.table.row_completion_date'), flex: 1 },
     {
       field: 'document_status',
       headerName: t('page_issued_card_list.table.row_document_status'),
@@ -74,10 +74,8 @@ const IssuedCardListTable = ({ data, loading, error, refetch, paginationModel, s
     citizens: item.fullName,
     municipality: item.state,
     deliver: t(`deliver.${item.deliveryTime}`),
-    issued_date: dayjs(item.issuedAt).format('DD-MMM-YYYY HH:mm'),
-    // @ts-ignore
-    completion_date: item.completionDate,
-    // @ts-ignore
+    submission_date: item.submittedAt ? dayjs(item.submittedAt).format('DD-MMM-YYYY HH:mm') : '',
+    issued_date: item.issuedAt ? dayjs(item.issuedAt).format('DD-MMM-YYYY HH:mm') : '',
     status: item.status,
   })) || [];
 

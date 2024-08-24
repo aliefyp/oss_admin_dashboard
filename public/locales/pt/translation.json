@@ -87,7 +87,10 @@
     "waitingapproval": "Esperando aprovação",
     "rejected": "Rejeitado",
     "completed": "Concluído",
-    "delivered": "Entregue"
+    "waitingforpickup": "Aguardando Retirada",
+    "delivered": "Entregue",
+    "sendfordelivery": "Enviar para Entrega",
+    "receivedbyowner": "Recebido pelo Proprietário"
   },
   "approval_status": {
     "approved": "Aprovado",

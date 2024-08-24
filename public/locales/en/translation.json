@@ -87,7 +87,10 @@
     "waitingapproval": "Waiting Approval",
     "rejected": "Rejected",
     "completed": "Completed",
-    "delivered" : "Delivered"
+    "waitingforpickup": "Waiting for Pickup",
+    "delivered" : "Delivered",
+    "sendfordelivery": "Send for Delivery",
+    "receivedbyowner": "Received by Owner"
   },
   "approval_status": {
     "approved": "Approved",

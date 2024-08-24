@@ -14,6 +14,8 @@ export interface Daum {
   state: string
   deliveryTime: string
   issuedAt: string
+  submittedAt: string
+  status: string
 }
 
 export interface Metadata {

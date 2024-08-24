@@ -5,4 +5,7 @@ export const APPLICATION_STATUS_COLOR = {
   rejected: 'red',
   completed: 'gray',
   delivered: 'green',
+  waitingforpickup: 'yellow',
+  sendfordelivery: 'green',
+  receivedbyowner: 'green',
 }
