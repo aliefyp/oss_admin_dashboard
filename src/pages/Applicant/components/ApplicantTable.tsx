@@ -116,6 +116,7 @@ const ApplicantTable = ({
     status: item.status,
     download: '',
     preview: '',
+    notes: item.notes,
   })) || [];
 
   useEffect(() => {
@@ -176,7 +177,10 @@ const ApplicantTable = ({
         },
         [`& .MuiDataGrid-virtualScroller`]: {
           minHeight: '200px',
-        }
+        },
+        [`& .MuiDataGrid-cell`]: {
+          padding: '8px',
+        },
       }}
     />
   );

@@ -16,6 +16,7 @@ export interface Daum {
   submissionAt: string
   reviewStep: string
   status: string
+  notes: string
 }
 
 export interface Metadata {

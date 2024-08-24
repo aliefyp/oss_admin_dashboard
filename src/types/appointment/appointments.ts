@@ -18,6 +18,7 @@ export interface Daum {
   scheduledAt: string
   status: string
   isRegistered: boolean
+  notes: string
 }
 
 export interface Metadata {

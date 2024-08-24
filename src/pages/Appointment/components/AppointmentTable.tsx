@@ -54,7 +54,7 @@ const AppointmentTable = ({
         return <AppointmentStatus appointmentId={params.row.id} status={params.row.status.toLowerCase()} refetch={refetch} />
       },
     },
-    { field: 'appointment_notes', headerName: t('page_appointment.table.row_appointment_notes'), flex: 1 },
+    { field: 'notes', headerName: t('page_appointment.table.row_appointment_notes'), flex: 1 },
     {
       field: 'preview',
       headerName: '',
@@ -83,6 +83,7 @@ const AppointmentTable = ({
     office: item.officeLocation,
     status: item.status,
     preview: '',
+    notes: item.notes,
   })) || [];
 
   useEffect(() => {
@@ -108,6 +109,7 @@ const AppointmentTable = ({
     <DataGrid
       loading={loading}
       density="standard"
+      getRowHeight={() => 'auto'}
       rows={rows}
       columns={columns}
       showColumnVerticalBorder={false}
@@ -150,7 +152,10 @@ const AppointmentTable = ({
         },
         '& .MuiDataGrid-row:hover': {
           cursor: 'pointer'
-        }
+        },
+        [`& .MuiDataGrid-cell`]: {
+          padding: '8px',
+        },
       }}
     />
   );
