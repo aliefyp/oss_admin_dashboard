@@ -6,7 +6,7 @@ import { useLazyFiles } from "api/files";
 import PageHeading from "components/PageHeading";
 import PageLoader from "components/PageLoader";
 import FileSaver from "file-saver";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useTranslation } from "react-i18next";
 import { HiOutlineDownload } from "react-icons/hi";
@@ -53,8 +53,6 @@ const ApplicantDetail: React.FC = () => {
   const { data, isFetching } = useApplicationDetail(Number(applicant_id));
   const citizenIdentityData = useCitizenIdentityData(data);
   const requestForOtherData = useRequestForOtherData(data);
-
-  const isEligibleToAction = isFoGroup || isBoGroup;
 
   const getFileStatus = useCallback((foStatus: string, boStatus: string) => {
     if (isFoGroup) return foStatus;
@@ -222,8 +220,17 @@ const ApplicantDetail: React.FC = () => {
     }
   }, [data?.data?.personalDetail?.photo, profilePicture, getProfilePicture])
 
-  const allowToApprove = Object.values(filesStatus).some(status => status === 'approved');
-  const allowToReject = Object.values(filesStatus).some(status => status === 'rejected');
+  const isEligibleToAction = useMemo(() => {
+    if (!isBoGroup && !isFoGroup) return false;
+
+    if (isBoGroup) return data?.data?.reviewStep === 'back-office' && data?.data?.status === 'waitingApproval';
+    if (isFoGroup) return data?.data?.reviewStep === 'front-office' && data?.data?.status === 'waitingApproval';
+
+    return false;
+  }, [data?.data, isBoGroup, isFoGroup])
+
+  const allowToApprove = Object.values(filesStatus).some(status => status === 'approved') && isEligibleToAction;
+  const allowToReject = Object.values(filesStatus).some(status => status === 'rejected') && isEligibleToAction;
 
   return (
     <>
