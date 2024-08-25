@@ -26,8 +26,8 @@ const Overview: React.FC = () => {
   const auth = useAuthUser<UserData>();
 
   const searchParams = new URLSearchParams(location.search);
-  const defaultStartDate = searchParams.get('ScheduleAtStart') ? dayjs(searchParams.get('ScheduleAtStart')).toDate() : null;
-  const defaultEndDate = searchParams.get('ScheduleAtEnd') ? dayjs(searchParams.get('ScheduleAtEnd')).toDate() : null;
+  const defaultStartDate = searchParams.get('ScheduleAtStart') ? dayjs(searchParams.get('ScheduleAtStart')).toDate() : dayjs().subtract(1, 'week').toDate();
+  const defaultEndDate = searchParams.get('ScheduleAtEnd') ? dayjs(searchParams.get('ScheduleAtEnd')).toDate() : dayjs().toDate();
 
   const { data: dataGenderType } = useOptionsGenderType();
   const { data: dataServicesType } = useServicesType();
