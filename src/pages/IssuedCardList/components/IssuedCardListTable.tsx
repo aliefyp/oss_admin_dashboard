@@ -46,7 +46,6 @@ const IssuedCardListTable = ({ data, loading, error, refetch, paginationModel, s
       flex: 1,
       minWidth: 180,
       renderCell: (params: GridValueGetterParams) => {
-        console.log(params.row)
         return <IssuedCardStatus applicationId={params.row.id} status={params.row.status?.toLowerCase()} refetch={refetch} />
       },
     },

@@ -5,6 +5,8 @@ import { useMunicipality } from "api/region";
 import { useServicesType } from "api/service";
 import GroupFilter from "components/GroupFilter";
 import PageHeading from "components/PageHeading";
+import dayjs from "dayjs";
+import RangePicker from "pages/Appointment/components/RangePicker";
 import { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useTranslation } from "react-i18next";
@@ -13,7 +15,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserData } from "types/auth/user";
 import { useDebounce } from "use-debounce";
 import useGroupFilter from "usecase/useGroupFilter";
-import useLastNYearList from "usecase/useLastNYearList";
 import IssuedCardListTable from "./components/IssuedCardListTable";
 
 const IssuedCardList: React.FC = () => {
@@ -21,11 +22,12 @@ const IssuedCardList: React.FC = () => {
   const { issued_card_id } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const years = useLastNYearList(5);
   const auth = useAuthUser<UserData>();
 
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
+  const defaultStartDate = searchParams.get('StartDate') ? dayjs(searchParams.get('StartDate')).toDate() : null;
+  const defaultEndDate = searchParams.get('EndDate') ? dayjs(searchParams.get('EndDate')).toDate() : null;
 
   const [search, setSearch] = useState<string>(defaultSearch);
   const [paginationModel, setPaginationModel] = useState({
@@ -43,15 +45,12 @@ const IssuedCardList: React.FC = () => {
   const { data: dataIssuedCards, isFetching, error, refetch } = useIssuedCards(Number(issued_card_id));
   const pageTitle = dataServicesType?.data?.find((item) => item.code === issued_card_id)?.name;
 
+  const [date, setDate] = useState([defaultStartDate, defaultEndDate] as [Date | null, Date | null]);
+
   const listMunicipality = dataMunicipality?.data?.map((item) => ({
     itemId: item.id,
     itemLabel: item.name
   })) || [];
-
-  const listYear = years.map((year) => ({
-    itemId: year,
-    itemLabel: year,
-  }));
 
   const listDeliveryTime = dataDeliveryTime?.data?.map((item) => ({
     itemId: item,
@@ -71,13 +70,17 @@ const IssuedCardList: React.FC = () => {
     groups: [
       { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.regions?.length },
       { groupId: 'DeliveryTime', groupLabel: t('filter_label.deliver'), items: listDeliveryTime },
-      { groupId: 'Year', groupLabel: t('filter_label.year'), items: listYear },
     ],
   });
 
   const handleResetClick = () => {
     handleFilterClear();
     setSearch('');
+    setDate([null, null]);
+  }
+
+  const handleDateChange = (date: [Date | null, Date | null]) => {
+    setDate(date);
   }
 
   useEffect(() => {
@@ -87,13 +90,15 @@ const IssuedCardList: React.FC = () => {
       ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
       ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
       ...(filter.DeliveryTime !== '0' ? { DeliveryTime: String(filter.DeliveryTime) } : {}),
-      ...(filter.Year !== '0' ? { Year: String(filter.Year) } : {}),
+      ...(date[0] ? { StartDate: dayjs(date[0]).format('YYYY-MM-DD') } : {}),
+      ...(date[1] ? { EndDate: dayjs(date[1]).format('YYYY-MM-DD') } : {}),
     });
 
     navigate(location.pathname + '?' + urlParams.toString(), { replace: true });
-  }, [paginationModel, debouncedSearch, filter, navigate, location.pathname])
+  }, [paginationModel, debouncedSearch, filter, navigate, location.pathname, date])
 
   const hasSearch = debouncedSearch.length > 0;
+  const hasDate = date[0] !== null || date[1] !== null;
 
   return (
     <>
@@ -118,12 +123,15 @@ const IssuedCardList: React.FC = () => {
               />
             </div>
             <div className="col-span-8 justify-self-end">
-              <GroupFilter
-                className="justify-end"
-                filter={filter}
-                filterOptions={filterOptions}
-                handleFilterChange={handleFilterChange}
-              />
+              <div className="flex items-center flex-wrap gap-2">
+                <GroupFilter
+                  className="justify-end"
+                  filter={filter}
+                  filterOptions={filterOptions}
+                  handleFilterChange={handleFilterChange}
+                />
+                <RangePicker value={date} onChange={handleDateChange} />
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -144,7 +152,7 @@ const IssuedCardList: React.FC = () => {
                 label={region.name}
               />
             ))}
-            {(hasFilter || hasSearch) && (
+            {(hasFilter || hasSearch || hasDate) && (
               <div className="flex items-center gap-2">
                 <Button variant="text" size="small" color="error" onClick={handleResetClick}>
                   {t('page_issued_card_list.reset_filter')}
@@ -168,6 +176,14 @@ const IssuedCardList: React.FC = () => {
                     />
                   )
                 })}
+                {hasDate && (
+                  <Chip
+                    size="small"
+                    variant="outlined"
+                    label="Date"
+                    onDelete={() => setDate([null, null])}
+                  />
+                )}
               </div>
             )}
           </div>

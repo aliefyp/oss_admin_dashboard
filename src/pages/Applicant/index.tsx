@@ -27,8 +27,8 @@ const Applicants: React.FC = () => {
 
   const searchParams = new URLSearchParams(location.search);
   const defaultSearch = searchParams.get('SearchValue') || '';
-  const defaultStartDate = searchParams.get('ScheduleAtStart') ? dayjs(searchParams.get('ScheduleAtStart')).toDate() : null;
-  const defaultEndDate = searchParams.get('ScheduleAtEnd') ? dayjs(searchParams.get('ScheduleAtEnd')).toDate() : null;
+  const defaultStartDate = searchParams.get('StartDate') ? dayjs(searchParams.get('StartDate')).toDate() : null;
+  const defaultEndDate = searchParams.get('EndDate') ? dayjs(searchParams.get('EndDate')).toDate() : null;
 
   const [date, setDate] = useState([defaultStartDate, defaultEndDate] as [Date | null, Date | null]);
   const [search, setSearch] = useState<string>(defaultSearch);
@@ -196,6 +196,14 @@ const Applicants: React.FC = () => {
                     />
                   )
                 })}
+                {hasDate && (
+                  <Chip
+                    size="small"
+                    variant="outlined"
+                    label="Date"
+                    onDelete={() => setDate([null, null])}
+                  />
+                )}
               </div>
             )}
           </div>
