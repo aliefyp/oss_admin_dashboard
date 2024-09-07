@@ -40,11 +40,13 @@ const ModalApproveConfirmation = ({ open, onClose, onConfirm }: ModalApproveConf
           width: 600,
         }}
       >
-        <form noValidate onSubmit={handleSubmit(submitForm)}>
+        <form noValidate onSubmit={handleSubmit(submitForm)} className="mt-4">
           <div className="flex flex-col gap-4">
             <TextField
+              multiline
+              minRows={3}
               label={t('page_appointment_detail.modal_approve.label_reason')}
-              variant="standard"
+              variant="outlined"
               fullWidth
               error={!!errors.reason}
               helperText={errors.reason?.message}

@@ -1,6 +1,6 @@
 import { Button, Chip, InputAdornment, TextField, Typography } from "@mui/material";
 import { useIssuedCards } from "api/issued-cards";
-import { useOptionApplicationDeliveryTime } from "api/options";
+import { useOptionApplicationDeliveryTime, useOptionsApplicationStatus } from "api/options";
 import { useMunicipality } from "api/region";
 import { useServicesType } from "api/service";
 import GroupFilter from "components/GroupFilter";
@@ -42,6 +42,7 @@ const IssuedCardList: React.FC = () => {
     countryCode: 'TL'
   });
   const { data: dataServicesType } = useServicesType();
+  const { data: dataStatus } = useOptionsApplicationStatus();
   const { data: dataIssuedCards, isFetching, error, refetch } = useIssuedCards(Number(issued_card_id));
   const pageTitle = dataServicesType?.data?.find((item) => item.code === issued_card_id)?.name;
 
@@ -57,6 +58,11 @@ const IssuedCardList: React.FC = () => {
     itemLabel: t(`deliver.${item}`),
   })) || [];
 
+  const listStatus = dataStatus?.data?.map((item) => ({
+    itemId: item,
+    itemLabel: t(`application_status.${item.toLowerCase()}`),
+  })) || [];
+
   const {
     filter,
     filterKeys,
@@ -68,6 +74,7 @@ const IssuedCardList: React.FC = () => {
   } = useGroupFilter({
     defaultValue: "0",
     groups: [
+      { groupId: 'Status', groupLabel: t('filter_label.status'), items: listStatus },
       { groupId: 'StateId', groupLabel: t('filter_label.municipality'), items: listMunicipality, disabled: !!auth.regions?.length },
       { groupId: 'DeliveryTime', groupLabel: t('filter_label.deliver'), items: listDeliveryTime },
     ],
@@ -90,6 +97,7 @@ const IssuedCardList: React.FC = () => {
       ...(debouncedSearch ? { SearchValue: debouncedSearch } : {}),
       ...(filter.StateId !== '0' ? { StateId: String(filter.StateId) } : {}),
       ...(filter.DeliveryTime !== '0' ? { DeliveryTime: String(filter.DeliveryTime) } : {}),
+      ...(filter.Status !== '0' ? { Status: String(filter.Status) } : {}),
       ...(date[0] ? { StartDate: dayjs(date[0]).format('YYYY-MM-DD') } : {}),
       ...(date[1] ? { EndDate: dayjs(date[1]).format('YYYY-MM-DD') } : {}),
     });
