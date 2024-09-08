@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HiDownload, HiOutlineDocumentSearch } from 'react-icons/hi';
+import { MdHistory } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { Response as ApplicationResponse } from 'types/application/applications';
 
@@ -21,6 +22,7 @@ interface Props {
   setPaginationModel: (paginationModel: PaginationModel) => void;
   onDownload: (id: number) => void;
   onPreview: (id: number) => void;
+  onLogView: (id: number) => void;
 }
 
 const ApplicantTable = ({
@@ -30,7 +32,8 @@ const ApplicantTable = ({
   paginationModel,
   setPaginationModel,
   onDownload,
-  onPreview
+  onPreview,
+  onLogView
 }: Props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -70,6 +73,23 @@ const ApplicantTable = ({
       }
     },
     { field: 'notes', headerName: t('page_applicant.table.row_notes'), flex: 1 },
+    {
+      field: 'log',
+      headerName: '',
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
+      width: 40,
+      renderCell: (params: GridValueGetterParams) => (
+        <div id="log-button" className='hidden'>
+          <Tooltip title="Detail Status">
+            <IconButton onClick={() => onLogView(params.row.id)}>
+              <MdHistory className='text-sm font-bold' />
+            </IconButton>
+          </Tooltip>
+        </div>
+      ),
+    },
     {
       field: 'download',
       headerName: '',
@@ -114,6 +134,7 @@ const ApplicantTable = ({
     submission_date: dayjs(item.submissionAt).format('DD-MMM-YYYY HH:mm'),
     review: t(`role.${item.reviewStep}`),
     status: item.status,
+    log: '',
     download: '',
     preview: '',
     notes: item.notes,
@@ -169,7 +190,10 @@ const ApplicantTable = ({
         [`& .MuiDataGrid-columnHeaderTitle`]: {
           fontWeight: '700',
         },
-        [`& .MuiDataGrid-row:hover #download-button, & .MuiDataGrid-row:hover #preview-button`]: {
+        [`& .MuiDataGrid-row:hover #download-button,
+          & .MuiDataGrid-row:hover #preview-button,
+          & .MuiDataGrid-row:hover #log-button`
+        ]: {
           display: 'block !important',
         },
         [`& .MuiDataGrid-footerContainer`]: {

@@ -90,7 +90,13 @@
     "waitingforpickup": "Hakilar atu Tuku",
     "delivered" : "Entrega",
     "sendfordelivery": "Subarba atu Entrega",
-    "receivedbyowner": "Simu husi Nain"
+    "receivedbyowner": "Simu husi Nain",
+    "waitingapprovalfromfrontoffice": "Hakilar Aprova husi Front Office",
+    "waitingapprovalfrombackoffice": "Hakilar Aprova husi Back Office",
+    "approvedfromfrontoffice": "Aprova husi Front Office",
+    "approvedfrombackoffice": "Aprova husi Back Office",
+    "rejectedfromfrontoffice": "Rejita husi Front Office",
+    "rejectedfrombackoffice": "Rejita husi Back Office"
   },
   "approval_status": {
     "approved": "Aprovadu",

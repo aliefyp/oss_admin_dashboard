@@ -90,7 +90,13 @@
     "waitingforpickup": "Aguardando Retirada",
     "delivered": "Entregue",
     "sendfordelivery": "Enviar para Entrega",
-    "receivedbyowner": "Recebido pelo Proprietário"
+    "receivedbyowner": "Recebido pelo Proprietário",
+    "waitingapprovalfromfrontoffice": "Aguardando Aprovação do Atendimento ao Cliente",
+    "waitingapprovalfrombackoffice": "Aguardando Aprovação do Back Office",
+    "approvedfromfrontoffice": "Aprovado pelo Atendimento ao Cliente",
+    "approvedfrombackoffice": "Aprovado pelo Back Office",
+    "rejectedfromfrontoffice": "Rejeitado pelo Atendimento ao Cliente",
+    "rejectedfrombackoffice": "Rejeitado pelo Back Office"
   },
   "approval_status": {
     "approved": "Aprovado",

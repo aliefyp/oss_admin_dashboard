@@ -1,4 +1,4 @@
-import { Box, BoxProps, IconButton, Typography } from "@mui/material"
+import { Box, BoxProps, IconButton, Typography } from "@mui/material";
 import { HiX } from "react-icons/hi";
 
 interface ModalSheetProps extends BoxProps {
@@ -27,7 +27,7 @@ const ModalSheet = ({ children, onClose, ...otherProps }: ModalSheetProps) => {
       }}
       {...otherBoxProps}
     >
-      <div className="flex justify-end mb-1">
+      <div className="flex justify-end mb-1 sticky top-0">
         <IconButton onClick={onClose}>
           <HiX className="cursor-pointer" size={20} onClick={onClose} />
         </IconButton>

@@ -17,7 +17,9 @@ import { UserData } from "types/auth/user";
 import { useDebounce } from "use-debounce";
 import useGroupFilter from "usecase/useGroupFilter";
 import ApplicantTable from "./components/ApplicantTable";
+import ModalApplicationLog from "./components/ModalApplicationLog";
 import useApplicationFileDownload from "./usecase/useApplicationFileDownload";
+import useLogViewer from "./usecase/useLogViewer";
 
 const Applicants: React.FC = () => {
   const navigate = useNavigate();
@@ -51,6 +53,13 @@ const Applicants: React.FC = () => {
     isFetching: loadingApplications,
     error: errorApplications,
   } = useApplications();
+
+  const {
+    open: openLogView,
+    data: logData,
+    handleOpen: handleLogViewOpen,
+    handleClose: handleLogViewClose,
+  } = useLogViewer();
 
   const listService = dataServicesType?.data?.map((item) => ({
     itemId: item.code,
@@ -217,9 +226,12 @@ const Applicants: React.FC = () => {
             error={errorApplications}
             onDownload={handleDownload}
             onPreview={handlePreview}
+            onLogView={handleLogViewOpen}
           />
         </div>
       </div>
+
+      <ModalApplicationLog data={logData} open={openLogView} onClose={handleLogViewClose} />
     </>
   );
 }

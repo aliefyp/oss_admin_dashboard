@@ -90,7 +90,13 @@
     "waitingforpickup": "Waiting for Pickup",
     "delivered" : "Delivered",
     "sendfordelivery": "Send for Delivery",
-    "receivedbyowner": "Received by Owner"
+    "receivedbyowner": "Received by Owner",
+    "waitingapprovalfromfrontoffice": "Waiting Approval from Front Office",
+    "waitingapprovalfrombackoffice": "Waiting Approval from Back Office",
+    "approvedfromfrontoffice": "Approved from Front Office",
+    "approvedfrombackoffice": "Approved from Back Office",
+    "rejectedfromfrontoffice": "Rejected from Front Office",
+    "rejectedfrombackoffice": "Rejected from Back Office"
   },
   "approval_status": {
     "approved": "Approved",
@@ -239,6 +245,9 @@
       "row_review": "Review",
       "row_status": "Status",
       "row_notes": "Notes"
+    },
+    "detail_status": {
+      "title": "Detail Status"
     }
   },
   "page_applicant_detail": {
