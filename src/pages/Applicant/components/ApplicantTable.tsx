@@ -67,6 +67,10 @@ const ApplicantTable = ({
             return <Chip label={t(`application_status.completed`)} size="small" className={`!text-gray-600 !bg-gray-200 !rounded-md min-w-[120px]`} />
           case 'delivered':
             return <Chip label={t(`application_status.delivered`)} size="small" className={`!text-green-600 !bg-green-200 !rounded-md min-w-[120px]`} />
+          case 'sendfordelivery':
+            return <Chip label={t(`application_status.sendfordelivery`)} size="small" className={`!text-green-600 !bg-green-200 !rounded-md min-w-[120px]`} />
+          case 'receivedbyowner':
+            return <Chip label={t(`application_status.receivedbyowner`)} size="small" className={`!text-green-600 !bg-green-200 !rounded-md min-w-[120px]`} />
           default:
             return null;
         }
