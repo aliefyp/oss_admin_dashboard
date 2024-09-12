@@ -17,6 +17,8 @@ import { useDebounce } from "use-debounce";
 import useGroupFilter from "usecase/useGroupFilter";
 import IssuedCardListTable from "./components/IssuedCardListTable";
 
+const AVAILABLE_STATUS = ['submitted', 'sendForDelivery', 'receivedByOwner']
+
 const IssuedCardList: React.FC = () => {
   const location = useLocation();
   const { issued_card_id } = useParams();
@@ -58,10 +60,12 @@ const IssuedCardList: React.FC = () => {
     itemLabel: t(`deliver.${item}`),
   })) || [];
 
-  const listStatus = dataStatus?.data?.map((item) => ({
-    itemId: item,
-    itemLabel: t(`application_status.${item.toLowerCase()}`),
-  })) || [];
+  const listStatus = dataStatus?.data
+    ?.filter((item) => AVAILABLE_STATUS.includes(item))
+    ?.map((item) => ({
+      itemId: item,
+      itemLabel: t(`application_status.${item.toLowerCase()}`),
+    })) || [];
 
   const {
     filter,
@@ -131,7 +135,7 @@ const IssuedCardList: React.FC = () => {
               />
             </div>
             <div className="col-span-8 justify-self-end">
-              <div className="flex items-center flex-wrap gap-2">
+              <div className="flex items-center justify-end flex-wrap gap-2">
                 <GroupFilter
                   className="justify-end"
                   filter={filter}
