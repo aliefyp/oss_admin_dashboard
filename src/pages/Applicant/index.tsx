@@ -57,6 +57,7 @@ const Applicants: React.FC = () => {
   const {
     open: openLogView,
     data: logData,
+    loading: loadingLog,
     handleOpen: handleLogViewOpen,
     handleClose: handleLogViewClose,
   } = useLogViewer();
@@ -231,7 +232,12 @@ const Applicants: React.FC = () => {
         </div>
       </div>
 
-      <ModalApplicationLog data={logData} open={openLogView} onClose={handleLogViewClose} />
+      <ModalApplicationLog
+        data={logData}
+        loading={loadingLog}
+        open={openLogView}
+        onClose={handleLogViewClose}
+      />
     </>
   );
 }

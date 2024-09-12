@@ -1,4 +1,4 @@
-import { Modal } from "@mui/material";
+import { CircularProgress, Modal } from "@mui/material";
 import ModalSheet from "components/ModalSheet";
 import Timeline from "components/Timeline";
 import dayjs from "dayjs";
@@ -8,10 +8,11 @@ import { Log } from "../usecase/useLogViewer";
 interface ModalApplicationLogProps {
   open: boolean;
   data: Log[];
+  loading: boolean;
   onClose: () => void;
 }
 
-const ModalApplicationLog = ({ open, data, onClose }: ModalApplicationLogProps) => {
+const ModalApplicationLog = ({ open, loading, data, onClose }: ModalApplicationLogProps) => {
   const { t } = useTranslation();
 
   return (
@@ -31,6 +32,11 @@ const ModalApplicationLog = ({ open, data, onClose }: ModalApplicationLogProps) 
         }}
       >
         <div className="py-4">
+          {loading && (
+            <div className="flex justify-center">
+              <CircularProgress />
+            </div>
+          )}
           <Timeline data={data.map((item, index) => ({
             id: item.id,
             upperContent: dayjs(item.createdAt).format('DD MMMM YYYY HH:mm'),
